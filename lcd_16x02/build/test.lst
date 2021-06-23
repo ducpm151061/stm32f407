@@ -1,0 +1,2310 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"test.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.IIC_24C02_test.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 69696320 		.ascii	"iic 24c02 test\015\000"
+  20      32346330 
+  20      32207465 
+  20      73740D00 
+  21              		.align	2
+  22              	.LC1:
+  23 0010 53544D33 		.ascii	"STM32F407VxT6\357\277\275\357\277\275\320\241\317\265"
+  23      32463430 
+  23      37567854 
+  23      36EFBFBD 
+  23      EFBFBDD0 
+  24 0027 CDB3EFBF 		.ascii	"\315\263\357\277\275\357\277\275\357\277\275\357\277"
+  24      BDEFBFBD 
+  24      EFBFBDEF 
+  24      BF
+  25 0034 BDEFBFBD 		.ascii	"\275\357\277\275\357\277\275\000"
+  25      EFBFBD00 
+  26              		.align	2
+  27              	.LC2:
+  28 003c 49494320 		.ascii	"IIC \357\277\275\357\277\275\357\277\275\324\263\357"
+  28      EFBFBDEF 
+  28      BFBDEFBF 
+  28      BDD4B3EF 
+  29 004c BFBDEFBF 		.ascii	"\277\275\357\277\275\357\277\275\000"
+  29      BDEFBFBD 
+  29      00
+  30 0055 000000   		.align	2
+  31              	.LC3:
+  32 0058 4B45595F 		.ascii	"KEY_UP:Write  KEY0:Read\000"
+  32      55503A57 
+  32      72697465 
+  32      20204B45 
+  32      59303A52 
+  33              		.align	2
+  34              	.LC4:
+  35 0070 32344330 		.ascii	"24C02 Check Failed!\000"
+  35      32204368 
+  35      65636B20 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 2
+
+
+  35      4661696C 
+  35      65642100 
+  36              		.align	2
+  37              	.LC5:
+  38 0084 506C6561 		.ascii	"Please Check!      \000"
+  38      73652043 
+  38      6865636B 
+  38      21202020 
+  38      20202000 
+  39              		.align	2
+  40              	.LC6:
+  41 0098 32344330 		.ascii	"24C02 Ready!\000"
+  41      32205265 
+  41      61647921 
+  41      00
+  42 00a5 000000   		.align	2
+  43              	.LC7:
+  44 00a8 32303230 		.ascii	"2020-06-05\000"
+  44      2D30362D 
+  44      303500
+  45 00b3 00       		.align	2
+  46              	.LC8:
+  47 00b4 68747470 		.ascii	"http://www.lcdwiki.com\000"
+  47      3A2F2F77 
+  47      77772E6C 
+  47      63647769 
+  47      6B692E63 
+  48              		.section	.text.IIC_24C02_test,"ax",%progbits
+  49              		.align	1
+  50              		.global	IIC_24C02_test
+  51              		.arch armv7e-m
+  52              		.syntax unified
+  53              		.thumb
+  54              		.thumb_func
+  55              		.fpu fpv4-sp-d16
+  57              	IIC_24C02_test:
+  58              	.LFB133:
+  59              		.file 1 "Core/Src/test.c"
+   1:Core/Src/test.c **** //////////////////////////////////////////////////////////////////////////////////
+   2:Core/Src/test.c **** //������ֻ��ѧϰʹ�ã�δ���������ɣ���������
+   3:Core/Src/test.c **** //����Ӳ������Ƭ��STM32F407VGT6,STM32F407VxT6��Сϵͳ������
+   4:Core/Src/test.c **** //QDtech-TFTҺ������ for STM32 FSMC
+   5:Core/Src/test.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/test.c **** //��˾��վ:www.qdtft.com
+   7:Core/Src/test.c **** //wiki����������վ��http://www.lcdwiki.com
+   8:Core/Src/test.c **** //��˾�ṩ����֧�֣��κμ������⻶ӭ��ʱ����ѧϰ
+   9:Core/Src/test.c **** //�̻�(����) :+86 0755-21077707
+  10:Core/Src/test.c **** //�ֻ�: (����)18823372746 ������)15989313508
+  11:Core/Src/test.c **** //����:(����/����) sales@qdtft.com  (�ۺ�/��������)serv
+  12:Core/Src/test.c **** //QQ:(��ǰ��ѯ)3002706772 (����֧��)3002778157
+  13:Core/Src/test.c **** //��������QQȺ:778679828
+  14:Core/Src/test.c **** //��������:2020/06/29
+  15:Core/Src/test.c **** //�汾��V1.0
+  16:Core/Src/test.c **** //��Ȩ���У�����ؾ���
+  17:Core/Src/test.c **** //Copyright(C) ������ȫ�����Ӽ������޹�˾ 2018-2028
+  18:Core/Src/test.c **** //All rights reserved
+  19:Core/Src/test.c **** /************************************************************************************
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 3
+
+
+  20:Core/Src/test.c **** //STM32F407VxT6��Сϵͳ������IICʾ��
+  21:Core/Src/test.c **** //     LED0           --->            PA1
+  22:Core/Src/test.c **** //     KEY0           --->            PE4
+  23:Core/Src/test.c **** //     KEY_UP         --->            PA0
+  24:Core/Src/test.c **** //     IIC_SCL        --->            PB8
+  25:Core/Src/test.c **** //     IIC_SDA        --->            PB9
+  26:Core/Src/test.c **** //֧��ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  27:Core/Src/test.c **** //TFT LCD����ֱ�Ӳ���STM32F407VxT6��Сϵͳ������TFTLCD��ۻ��
+  28:Core/Src/test.c **** //STM32����������ָTFTLCD��ۻ��߲��������ڲ����
+  29:Core/Src/test.c **** //=================================��Դ����=======================================//
+  30:Core/Src/test.c **** //     LCDģ��                    STM32��������
+  31:Core/Src/test.c **** //      VDD           --->           DC5V/3.3V          //��Դ
+  32:Core/Src/test.c **** //      GND           --->             GND              //��Դ��
+  33:Core/Src/test.c **** //=============================Һ���������߽���============================
+  34:Core/Src/test.c **** //     LCDģ��                    STM32��������
+  35:Core/Src/test.c **** //      DB0           --->            PD14        -|   
+  36:Core/Src/test.c **** //      DB1           --->            PD15         |  
+  37:Core/Src/test.c **** //      DB2           --->            PD0          | 
+  38:Core/Src/test.c **** //      DB3           --->            PD1          | 
+  39:Core/Src/test.c **** //      DB4           --->            PE7          |
+  40:Core/Src/test.c **** //      DB5           --->            PE8          |
+  41:Core/Src/test.c **** //      DB6           --->            PE9          |
+  42:Core/Src/test.c **** //      DB7           --->            PE10         |===>Һ����16λ���������
+  43:Core/Src/test.c **** //      DB8           --->            PE11         |
+  44:Core/Src/test.c **** //      DB9           --->            PE12         |
+  45:Core/Src/test.c **** //      DB10          --->            PE13         |
+  46:Core/Src/test.c **** //      DB11          --->            PE14         |
+  47:Core/Src/test.c **** //      DB12          --->            PE15         |
+  48:Core/Src/test.c **** //      DB13          --->            PD8          |
+  49:Core/Src/test.c **** //      DB14          --->            PD9          |
+  50:Core/Src/test.c **** //      DB15          --->            PD10        -|
+  51:Core/Src/test.c **** //=============================Һ���������߽���============================
+  52:Core/Src/test.c **** //     LCDģ�� 				            STM32�������� 
+  53:Core/Src/test.c **** //      WR            --->            PD5             //Һ����д���ݿ����ź�
+  54:Core/Src/test.c **** //      RD            --->            PD4             //Һ���������ݿ����
+  55:Core/Src/test.c **** //      RS            --->            PD11            //Һ��������/������
+  56:Core/Src/test.c **** //      RST           --->          ��λ���ţ�Ĭ�ϣ�  //Һ������λ��
+  57:Core/Src/test.c **** //      CS            --->            PD7             //Һ����Ƭѡ�����ź�
+  58:Core/Src/test.c **** //      BL            --->            PB15            //Һ������������ź�
+  59:Core/Src/test.c **** *************************************************************************************/
+  60:Core/Src/test.c **** /* @attention
+  61:Core/Src/test.c ****   *
+  62:Core/Src/test.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  63:Core/Src/test.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  64:Core/Src/test.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  65:Core/Src/test.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  66:Core/Src/test.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  67:Core/Src/test.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  68:Core/Src/test.c **** *************************************************************************************/
+  69:Core/Src/test.c **** #include <stdio.h>
+  70:Core/Src/test.c **** #include <string.h>
+  71:Core/Src/test.c **** #include "lcd.h"
+  72:Core/Src/test.c **** #include "delay.h"
+  73:Core/Src/test.c **** #include "gui.h"
+  74:Core/Src/test.c **** #include "test.h"
+  75:Core/Src/test.c **** #include "led.h"
+  76:Core/Src/test.c **** #include "pic.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 4
+
+
+  77:Core/Src/test.c **** #include "usart.h"
+  78:Core/Src/test.c **** #include "24c02.h"
+  79:Core/Src/test.c **** 
+  80:Core/Src/test.c **** #if 0
+  81:Core/Src/test.c **** //========================variable==========================//
+  82:Core/Src/test.c **** u16 ColorTab[5]={RED,GREEN,BLUE,YELLOW,BRED};//������ɫ����
+  83:Core/Src/test.c **** u16 ColornTab[8]={RED,MAGENTA,GREEN,DARKBLUE,BLUE,BLACK,LIGHTGREEN};
+  84:Core/Src/test.c **** //=====================end of variable======================//
+  85:Core/Src/test.c **** 
+  86:Core/Src/test.c **** /*****************************************************************************
+  87:Core/Src/test.c ****  * @name       :void DrawTestPage(u8 *str)
+  88:Core/Src/test.c ****  * @date       :2018-08-09 
+  89:Core/Src/test.c ****  * @function   :Drawing test interface
+  90:Core/Src/test.c ****  * @parameters :str:the start address of the Chinese and English strings
+  91:Core/Src/test.c ****  * @retvalue   :None
+  92:Core/Src/test.c **** ******************************************************************************/ 
+  93:Core/Src/test.c **** void DrawTestPage(u8 *str)
+  94:Core/Src/test.c **** {
+  95:Core/Src/test.c **** POINT_COLOR=WHITE;
+  96:Core/Src/test.c **** //���ƹ̶���up
+  97:Core/Src/test.c **** LCD_Fill(0,0,lcddev.width,20,BLUE);
+  98:Core/Src/test.c **** Gui_StrCenter(0,2,WHITE,BLUE,str,16,1);//������ʾ
+  99:Core/Src/test.c **** //���ƹ̶���down
+ 100:Core/Src/test.c **** LCD_Fill(0,lcddev.height-20,lcddev.width-1,lcddev.height-1,BLUE);
+ 101:Core/Src/test.c **** Gui_StrCenter(0,lcddev.height-18,WHITE,BLUE,"http://www.lcdwiki.com",16,1);//������ʾ
+ 102:Core/Src/test.c **** //���Ʋ�������
+ 103:Core/Src/test.c **** LCD_Fill(0,21,lcddev.width-1,lcddev.height-21,WHITE);
+ 104:Core/Src/test.c **** }
+ 105:Core/Src/test.c **** 
+ 106:Core/Src/test.c **** /*****************************************************************************
+ 107:Core/Src/test.c ****  * @name       :void main_test(void)
+ 108:Core/Src/test.c ****  * @date       :2018-08-09 
+ 109:Core/Src/test.c ****  * @function   :Drawing the main Interface of the Comprehensive Test Program
+ 110:Core/Src/test.c ****  * @parameters :None
+ 111:Core/Src/test.c ****  * @retvalue   :None
+ 112:Core/Src/test.c **** ******************************************************************************/
+ 113:Core/Src/test.c **** void main_test(void)
+ 114:Core/Src/test.c **** {
+ 115:Core/Src/test.c **** 	DrawTestPage("��Сϵͳ�ۺϲ��Գ���");	
+ 116:Core/Src/test.c **** 	Gui_StrCenter(0,40,RED,BLUE,"STM32F407VxT6��Сϵͳ������",16,1);//������
+ 117:Core/Src/test.c **** 	Gui_StrCenter(0,70,RED,BLUE,"�ۺϲ��Գ���",16,1);//������ʾ	
+ 118:Core/Src/test.c **** 	Gui_StrCenter(0,100,MAGENTA,BLUE,"ILI9341  ILI9486  ILI9488",16,1);//������ʾ
+ 119:Core/Src/test.c **** 	Gui_StrCenter(0,120,MAGENTA,BLUE,"R61509V  ST7793   ST7796S",16,1);//������ʾ
+ 120:Core/Src/test.c **** 	Gui_StrCenter(0,140,MAGENTA,BLUE,"NT35310  NT35510  SSD1963",16,1);//������ʾ
+ 121:Core/Src/test.c **** 	Gui_StrCenter(0,170,BLUE,BLUE,"STM32F407VxT6 2020-06-05",16,1);//������ʾ
+ 122:Core/Src/test.c **** 	delay_ms(1500);		
+ 123:Core/Src/test.c **** 	delay_ms(1500);
+ 124:Core/Src/test.c **** }
+ 125:Core/Src/test.c **** 
+ 126:Core/Src/test.c **** /*****************************************************************************
+ 127:Core/Src/test.c ****  * @name       :void Test_Color(void)
+ 128:Core/Src/test.c ****  * @date       :2018-08-09 
+ 129:Core/Src/test.c ****  * @function   :Color fill test(white,black,red,green,blue)
+ 130:Core/Src/test.c ****  * @parameters :None
+ 131:Core/Src/test.c ****  * @retvalue   :None
+ 132:Core/Src/test.c **** ******************************************************************************/
+ 133:Core/Src/test.c **** void Test_Color(void)
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 5
+
+
+ 134:Core/Src/test.c **** {
+ 135:Core/Src/test.c **** 	//DrawTestPage("����1:��ɫ������");
+ 136:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,WHITE);
+ 137:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"BL Test",16,1);delay_ms(800);
+ 138:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,RED);
+ 139:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"RED ",16,1);delay_ms(800);
+ 140:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,GREEN);
+ 141:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"GREEN ",16,1);delay_ms(800);
+ 142:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,BLUE);
+ 143:Core/Src/test.c **** 	Show_Str(20,30,RED,YELLOW,"BLUE ",16,1);delay_ms(800);
+ 144:Core/Src/test.c **** }
+ 145:Core/Src/test.c **** 
+ 146:Core/Src/test.c **** /*****************************************************************************
+ 147:Core/Src/test.c ****  * @name       :void Test_FillRec(void)
+ 148:Core/Src/test.c ****  * @date       :2018-08-09 
+ 149:Core/Src/test.c ****  * @function   :Rectangular display and fill test
+ 150:Core/Src/test.c **** 								Display red,green,blue,yellow,pink rectangular boxes in turn,
+ 151:Core/Src/test.c **** 								1500 milliseconds later,
+ 152:Core/Src/test.c **** 								Fill the rectangle in red,green,blue,yellow and pink in turn
+ 153:Core/Src/test.c ****  * @parameters :None
+ 154:Core/Src/test.c ****  * @retvalue   :None
+ 155:Core/Src/test.c **** ******************************************************************************/
+ 156:Core/Src/test.c **** void Test_FillRec(void)
+ 157:Core/Src/test.c **** {
+ 158:Core/Src/test.c **** 	u8 i=0;
+ 159:Core/Src/test.c **** 	DrawTestPage("����3:GUI����������");
+ 160:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 161:Core/Src/test.c **** 	{
+ 162:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 163:Core/Src/test.c **** 		LCD_DrawRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)+60,
+ 164:Core/Src/test.c **** 	}
+ 165:Core/Src/test.c **** 	delay_ms(1500);	
+ 166:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 167:Core/Src/test.c **** 	{
+ 168:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 169:Core/Src/test.c **** 		LCD_DrawFillRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)
+ 170:Core/Src/test.c **** 	}
+ 171:Core/Src/test.c **** 	delay_ms(1500);
+ 172:Core/Src/test.c **** }
+ 173:Core/Src/test.c **** 
+ 174:Core/Src/test.c **** /*****************************************************************************
+ 175:Core/Src/test.c ****  * @name       :void Test_Circle(void)
+ 176:Core/Src/test.c ****  * @date       :2018-08-09 
+ 177:Core/Src/test.c ****  * @function   :circular display and fill test
+ 178:Core/Src/test.c **** 								Display red,green,blue,yellow,pink circular boxes in turn,
+ 179:Core/Src/test.c **** 								1500 milliseconds later,
+ 180:Core/Src/test.c **** 								Fill the circular in red,green,blue,yellow and pink in turn
+ 181:Core/Src/test.c ****  * @parameters :None
+ 182:Core/Src/test.c ****  * @retvalue   :None
+ 183:Core/Src/test.c **** ******************************************************************************/
+ 184:Core/Src/test.c **** void Test_Circle(void)
+ 185:Core/Src/test.c **** {
+ 186:Core/Src/test.c **** 	u8 i=0;
+ 187:Core/Src/test.c **** 	DrawTestPage("����4:GUI��Բ������");
+ 188:Core/Src/test.c **** 	for (i=0; i<5; i++)  
+ 189:Core/Src/test.c **** 		gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,0);
+ 190:Core/Src/test.c **** 	delay_ms(1500);	
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 6
+
+
+ 191:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 192:Core/Src/test.c **** 	  	gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,1);
+ 193:Core/Src/test.c **** 	delay_ms(1500);
+ 194:Core/Src/test.c **** }
+ 195:Core/Src/test.c **** 
+ 196:Core/Src/test.c **** /*****************************************************************************
+ 197:Core/Src/test.c ****  * @name       :void English_Font_test(void)
+ 198:Core/Src/test.c ****  * @date       :2018-08-09 
+ 199:Core/Src/test.c ****  * @function   :English display test
+ 200:Core/Src/test.c ****  * @parameters :None
+ 201:Core/Src/test.c ****  * @retvalue   :None
+ 202:Core/Src/test.c **** ******************************************************************************/
+ 203:Core/Src/test.c **** void English_Font_test(void)
+ 204:Core/Src/test.c **** {
+ 205:Core/Src/test.c **** 	DrawTestPage("����6:Ӣ����ʾ����");
+ 206:Core/Src/test.c **** 	Show_Str(10,30,BLUE,YELLOW,"6X12:abcdefghijklmnopqrstuvwxyz0123456789",12,0);
+ 207:Core/Src/test.c **** 	Show_Str(10,45,BLUE,YELLOW,"6X12:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",12,1);
+ 208:Core/Src/test.c **** 	Show_Str(10,60,BLUE,YELLOW,"6X12:~!@#$%^&*()_+{}:<>?/|-+.",12,0);
+ 209:Core/Src/test.c **** 	Show_Str(10,80,BLUE,YELLOW,"8X16:abcdefghijklmnopqrstuvwxyz0123456789",16,0);
+ 210:Core/Src/test.c **** 	Show_Str(10,100,BLUE,YELLOW,"8X16:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",16,1);
+ 211:Core/Src/test.c **** 	Show_Str(10,120,BLUE,YELLOW,"8X16:~!@#$%^&*()_+{}:<>?/|-+.",16,0); 
+ 212:Core/Src/test.c **** 	delay_ms(1200);
+ 213:Core/Src/test.c **** }
+ 214:Core/Src/test.c **** 
+ 215:Core/Src/test.c **** /*****************************************************************************
+ 216:Core/Src/test.c ****  * @name       :void Test_Triangle(void)
+ 217:Core/Src/test.c ****  * @date       :2018-08-09 
+ 218:Core/Src/test.c ****  * @function   :triangle display and fill test
+ 219:Core/Src/test.c **** 								Display red,green,blue,yellow,pink triangle boxes in turn,
+ 220:Core/Src/test.c **** 								1500 milliseconds later,
+ 221:Core/Src/test.c **** 								Fill the triangle in red,green,blue,yellow and pink in turn
+ 222:Core/Src/test.c ****  * @parameters :None
+ 223:Core/Src/test.c ****  * @retvalue   :None
+ 224:Core/Src/test.c **** ******************************************************************************/
+ 225:Core/Src/test.c **** void Test_Triangle(void)
+ 226:Core/Src/test.c **** {
+ 227:Core/Src/test.c **** 	u8 i=0;
+ 228:Core/Src/test.c **** 	DrawTestPage("����5:GUI Triangle������");
+ 229:Core/Src/test.c **** 	for(i=0;i<5;i++)
+ 230:Core/Src/test.c **** 	{
+ 231:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 232:Core/Src/test.c **** 		Draw_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcdde
+ 233:Core/Src/test.c **** 	}
+ 234:Core/Src/test.c **** 	delay_ms(1500);	
+ 235:Core/Src/test.c **** 	for(i=0;i<5;i++)
+ 236:Core/Src/test.c **** 	{
+ 237:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 238:Core/Src/test.c **** 		Fill_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcdde
+ 239:Core/Src/test.c **** 	}
+ 240:Core/Src/test.c **** 	delay_ms(1500);
+ 241:Core/Src/test.c **** }
+ 242:Core/Src/test.c **** 
+ 243:Core/Src/test.c **** /*****************************************************************************
+ 244:Core/Src/test.c ****  * @name       :void Chinese_Font_test(void)
+ 245:Core/Src/test.c ****  * @date       :2018-08-09 
+ 246:Core/Src/test.c ****  * @function   :chinese display test
+ 247:Core/Src/test.c ****  * @parameters :None
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 7
+
+
+ 248:Core/Src/test.c ****  * @retvalue   :None
+ 249:Core/Src/test.c **** ******************************************************************************/
+ 250:Core/Src/test.c **** void Chinese_Font_test(void)
+ 251:Core/Src/test.c **** {	
+ 252:Core/Src/test.c **** 	DrawTestPage("����7:������ʾ����");
+ 253:Core/Src/test.c **** 	Show_Str(10,30,BLUE,YELLOW,"16X16:���ڻ�ӭ��",16,0);
+ 254:Core/Src/test.c **** 	Show_Str(10,50,BLUE,YELLOW,"16X16:Welcome to ����",16,0);
+ 255:Core/Src/test.c **** 	Show_Str(10,70,BLUE,YELLOW,"24X24:���Ĳ���",24,1);
+ 256:Core/Src/test.c **** 	Show_Str(10,100,BLUE,YELLOW,"32X32:�������",32,1);
+ 257:Core/Src/test.c **** 	delay_ms(1200);
+ 258:Core/Src/test.c **** }
+ 259:Core/Src/test.c **** 
+ 260:Core/Src/test.c **** /*****************************************************************************
+ 261:Core/Src/test.c ****  * @name       :void Pic_test(void)
+ 262:Core/Src/test.c ****  * @date       :2018-08-09 
+ 263:Core/Src/test.c ****  * @function   :picture display test
+ 264:Core/Src/test.c ****  * @parameters :None
+ 265:Core/Src/test.c ****  * @retvalue   :None
+ 266:Core/Src/test.c **** ******************************************************************************/
+ 267:Core/Src/test.c **** void Pic_test(void)
+ 268:Core/Src/test.c **** {
+ 269:Core/Src/test.c **** 	DrawTestPage("����8:ͼƬ��ʾ����");
+ 270:Core/Src/test.c **** 	Gui_Drawbmp16(30,30,40,40,gImage_qq);
+ 271:Core/Src/test.c **** 	Show_Str(30+12,75,BLUE,YELLOW,"QQ",16,1);
+ 272:Core/Src/test.c **** 	Gui_Drawbmp16(90,30,40,40,gImage_qq);
+ 273:Core/Src/test.c **** 	Show_Str(90+12,75,BLUE,YELLOW,"QQ",16,1);
+ 274:Core/Src/test.c **** 	Gui_Drawbmp16(150,30,40,40,gImage_qq);
+ 275:Core/Src/test.c **** 	Show_Str(150+12,75,BLUE,YELLOW,"QQ",16,1);
+ 276:Core/Src/test.c **** 	delay_ms(1200);
+ 277:Core/Src/test.c **** }
+ 278:Core/Src/test.c **** 
+ 279:Core/Src/test.c **** /*****************************************************************************
+ 280:Core/Src/test.c ****  * @name       :void Rotate_Test(void)
+ 281:Core/Src/test.c ****  * @date       :2018-08-09 
+ 282:Core/Src/test.c ****  * @function   :rotate test
+ 283:Core/Src/test.c ****  * @parameters :None
+ 284:Core/Src/test.c ****  * @retvalue   :None
+ 285:Core/Src/test.c **** ******************************************************************************/
+ 286:Core/Src/test.c **** void Rotate_Test(void)
+ 287:Core/Src/test.c **** {
+ 288:Core/Src/test.c **** 	u8 i=0;
+ 289:Core/Src/test.c **** 	u8 *Direction[4]={"Rotation:0","Rotation:90","Rotation:180","Rotation:270"};
+ 290:Core/Src/test.c **** 	
+ 291:Core/Src/test.c **** 	for(i=0;i<4;i++)
+ 292:Core/Src/test.c **** 	{
+ 293:Core/Src/test.c **** 		LCD_Clear(WHITE);
+ 294:Core/Src/test.c **** 		LCD_direction(i);
+ 295:Core/Src/test.c **** 		DrawTestPage("����10:��Ļ��ת����");
+ 296:Core/Src/test.c **** 		Show_Str(20,30,BLUE,YELLOW,Direction[i],16,1);
+ 297:Core/Src/test.c **** 		Gui_Drawbmp16(30,50,40,40,gImage_qq);
+ 298:Core/Src/test.c **** 		delay_ms(1000);delay_ms(1000);
+ 299:Core/Src/test.c **** 	}
+ 300:Core/Src/test.c **** 	LCD_direction(USE_HORIZONTAL);
+ 301:Core/Src/test.c **** }
+ 302:Core/Src/test.c **** 
+ 303:Core/Src/test.c **** /*****************************************************************************
+ 304:Core/Src/test.c ****  * @name       :void Test_Read(void)
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 8
+
+
+ 305:Core/Src/test.c ****  * @date       :2018-11-13 
+ 306:Core/Src/test.c ****  * @function   :read test
+ 307:Core/Src/test.c ****  * @parameters :None
+ 308:Core/Src/test.c ****  * @retvalue   :None
+ 309:Core/Src/test.c **** ******************************************************************************/
+ 310:Core/Src/test.c **** void Test_Read(void)
+ 311:Core/Src/test.c **** {
+ 312:Core/Src/test.c **** 	u16 color;
+ 313:Core/Src/test.c **** 	u8 buf[10] = {0},i;
+ 314:Core/Src/test.c **** 	u8 cbuf[35] = {0};
+ 315:Core/Src/test.c **** 	DrawTestPage("����2:��ID����ɫֵ����");
+ 316:Core/Src/test.c **** 	sprintf((char *)buf,"ID:0x%x",lcddev.id);
+ 317:Core/Src/test.c **** 	Show_Str(50,25,BLUE,YELLOW,buf,16,1);
+ 318:Core/Src/test.c **** 	for (i=0; i<7; i++) 
+ 319:Core/Src/test.c **** 	{
+ 320:Core/Src/test.c **** 		POINT_COLOR=ColornTab[i];
+ 321:Core/Src/test.c **** 		LCD_DrawFillRectangle(20-10,55+i*25-10,20+10,55+i*25+10);
+ 322:Core/Src/test.c **** 		color = LCD_ReadPoint(20,55+i*25);
+ 323:Core/Src/test.c **** 		if(POINT_COLOR==color)
+ 324:Core/Src/test.c **** 		{
+ 325:Core/Src/test.c **** 			strcpy((char*)buf, "OK");
+ 326:Core/Src/test.c **** 		}
+ 327:Core/Src/test.c **** 		else
+ 328:Core/Src/test.c **** 		{
+ 329:Core/Src/test.c **** 			strcpy((char*)buf, "ERROR");
+ 330:Core/Src/test.c **** 		}
+ 331:Core/Src/test.c **** 		sprintf((char *)cbuf,"read color:0x%04X  %s",color, buf);
+ 332:Core/Src/test.c **** 		Show_Str(20+20,55+i*25-8,POINT_COLOR,YELLOW,cbuf,16,1);
+ 333:Core/Src/test.c **** 	}
+ 334:Core/Src/test.c **** 	delay_ms(1500);
+ 335:Core/Src/test.c **** }
+ 336:Core/Src/test.c **** 
+ 337:Core/Src/test.c **** /*****************************************************************************
+ 338:Core/Src/test.c ****  * @name       :void POINT_Test(void)
+ 339:Core/Src/test.c ****  * @date       :2018-12-29 
+ 340:Core/Src/test.c ****  * @function   :point test
+ 341:Core/Src/test.c ****  * @parameters :None
+ 342:Core/Src/test.c ****  * @retvalue   :None
+ 343:Core/Src/test.c **** ******************************************************************************/
+ 344:Core/Src/test.c **** void POINT_Test(void)
+ 345:Core/Src/test.c **** {
+ 346:Core/Src/test.c **** 	uint8_t x=lcddev.width/2,y=lcddev.height/2,r=20,t,m,i;
+ 347:Core/Src/test.c **** 
+ 348:Core/Src/test.c **** 	t = 7*r/10;
+ 349:Core/Src/test.c **** 	m =100;	//��ʾ�ٶȺ���ֵ
+ 350:Core/Src/test.c **** 	
+ 351:Core/Src/test.c **** 	DrawTestPage("����12:GUI Loading");
+ 352:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,BLACK);
+ 353:Core/Src/test.c **** 	POINT_COLOR = WHITE;
+ 354:Core/Src/test.c **** 	BACK_COLOR = BLACK;
+ 355:Core/Src/test.c **** 	Show_Str((lcddev.width-96)/2, lcddev.height/2+r+10, POINT_COLOR,BACK_COLOR,"Loading.....",16,1);
+ 356:Core/Src/test.c **** 	for(i=0;i<2;i++)
+ 357:Core/Src/test.c **** 	{
+ 358:Core/Src/test.c **** 		LCD_Draw9Point(x, y-r, WHITE); //����һ����
+ 359:Core/Src/test.c **** 		delay_ms(m);
+ 360:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y-t, WHITE); //���ڶ�����
+ 361:Core/Src/test.c **** 		delay_ms(m);
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 9
+
+
+ 362:Core/Src/test.c **** 		LCD_Draw9Point(x, y-r, BLACK); //ɾ����һ����
+ 363:Core/Src/test.c **** 		delay_ms(m);
+ 364:Core/Src/test.c **** 		LCD_Draw9Point(x+r, y, WHITE); //����������
+ 365:Core/Src/test.c **** 		delay_ms(m);
+ 366:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y-t, BLACK);  //ɾ���ڶ�����
+ 367:Core/Src/test.c **** 		delay_ms(m);
+ 368:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y+t, WHITE);  //�����ĸ���
+ 369:Core/Src/test.c **** 		delay_ms(m);
+ 370:Core/Src/test.c **** 		LCD_Draw9Point(x+r, y, BLACK); //ɾ����������
+ 371:Core/Src/test.c **** 		delay_ms(m);
+ 372:Core/Src/test.c **** 		LCD_Draw9Point(x, y+r, WHITE);  //���������
+ 373:Core/Src/test.c **** 		delay_ms(m);
+ 374:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y+t, BLACK);  //ɾ�����ĸ���
+ 375:Core/Src/test.c **** 		delay_ms(m);
+ 376:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y+t, WHITE);  //����������
+ 377:Core/Src/test.c **** 		delay_ms(m);
+ 378:Core/Src/test.c **** 		LCD_Draw9Point(x, y+r, BLACK);  //ɾ���������
+ 379:Core/Src/test.c **** 		delay_ms(m);
+ 380:Core/Src/test.c **** 		LCD_Draw9Point(x-r, y, WHITE);  //�����߸���
+ 381:Core/Src/test.c **** 		delay_ms(m);
+ 382:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y+t, BLACK);  //ɾ����������
+ 383:Core/Src/test.c **** 		delay_ms(m);
+ 384:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y-t, WHITE);  //���ڰ˸���
+ 385:Core/Src/test.c **** 		delay_ms(m);
+ 386:Core/Src/test.c **** 		LCD_Draw9Point(x-r, y, BLACK);  //ɾ�����߸���
+ 387:Core/Src/test.c **** 		delay_ms(m);
+ 388:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y-t, BLACK);  //ɾ���ڰ˸���
+ 389:Core/Src/test.c **** 		delay_ms(m);
+ 390:Core/Src/test.c **** 	}
+ 391:Core/Src/test.c **** 	delay_ms(1500);
+ 392:Core/Src/test.c **** }
+ 393:Core/Src/test.c **** 
+ 394:Core/Src/test.c **** /*****************************************************************************
+ 395:Core/Src/test.c ****  * @name       :void Combo_Test(void)
+ 396:Core/Src/test.c ****  * @date       :2018-12-29 
+ 397:Core/Src/test.c ****  * @function   :combo test
+ 398:Core/Src/test.c ****  * @parameters :None
+ 399:Core/Src/test.c ****  * @retvalue   :None
+ 400:Core/Src/test.c **** ******************************************************************************/
+ 401:Core/Src/test.c **** void Combo_Test(void)
+ 402:Core/Src/test.c **** {
+ 403:Core/Src/test.c **** 	DrawTestPage("����13:GUI Combo");
+ 404:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
+ 405:Core/Src/test.c **** 	//��һ�����������
+ 406:Core/Src/test.c **** 	Draw_TextBox(50, 50, 200, 73);
+ 407:Core/Src/test.c **** 	//�������б���ť(19*19)����
+ 408:Core/Src/test.c **** 	Draw_Button(179, 52, 198, 71);
+ 409:Core/Src/test.c **** 	Draw_DirectButton(179,52);
+ 410:Core/Src/test.c **** 	delay_ms(500);
+ 411:Core/Src/test.c **** 	delay_ms(500);
+ 412:Core/Src/test.c **** 	delay_ms(500);
+ 413:Core/Src/test.c **** 	SetButton(179, 52, 198, 71);
+ 414:Core/Src/test.c **** 	LCD_Fill(183, 56, 194, 67, LGRAY);
+ 415:Core/Src/test.c ****    	Draw_DirectButton(180,53);
+ 416:Core/Src/test.c **** 	delay_ms(500);
+ 417:Core/Src/test.c **** 	delay_ms(500);
+ 418:Core/Src/test.c **** 	delay_ms(500);
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 10
+
+
+ 419:Core/Src/test.c **** 	EscButton(179, 52, 198, 71);
+ 420:Core/Src/test.c **** 	LCD_Fill(183, 56, 194, 67, LGRAY);
+ 421:Core/Src/test.c **** 	Draw_DirectButton(179,52);
+ 422:Core/Src/test.c **** 	//���������б�
+ 423:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 424:Core/Src/test.c **** 	LCD_DrawRectangle(50, 74, 200, 143);
+ 425:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 142, WHITE);
+ 426:Core/Src/test.c **** 	//д�б��е�����
+ 427:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 97, DARKBLUE); //��һ��Ĭ��Ϊѡ��״̬
+ 428:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 429:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 430:Core/Src/test.c **** 	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+ 431:Core/Src/test.c **** 
+ 432:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 433:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 434:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 435:Core/Src/test.c **** 	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+ 436:Core/Src/test.c **** 	delay_ms(500);
+ 437:Core/Src/test.c **** 	delay_ms(500);
+ 438:Core/Src/test.c **** 	delay_ms(500);
+ 439:Core/Src/test.c **** 	//ѡ�еڶ���
+ 440:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 97, WHITE);	   //��ȡ����һ��
+ 441:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 442:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 443:Core/Src/test.c **** 	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+ 444:Core/Src/test.c **** 
+ 445:Core/Src/test.c **** 	LCD_Fill(51, 98, 199, 120, DARKBLUE);  //ѡ�еڶ���
+ 446:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 447:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 448:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 449:Core/Src/test.c **** 	delay_ms(500);
+ 450:Core/Src/test.c **** 	delay_ms(500);
+ 451:Core/Src/test.c **** 	delay_ms(500);
+ 452:Core/Src/test.c **** 	//ѡ�е�����
+ 453:Core/Src/test.c **** 	LCD_Fill(51, 98, 199, 120, WHITE);//��ȡ��ѡ�еĵڶ���
+ 454:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 455:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 456:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 457:Core/Src/test.c **** 
+ 458:Core/Src/test.c **** 	LCD_Fill(51, 121, 199, 142, DARKBLUE);//ѡ�е�����
+ 459:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 460:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 461:Core/Src/test.c **** 	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+ 462:Core/Src/test.c **** 	delay_ms(500);
+ 463:Core/Src/test.c **** 	delay_ms(500);
+ 464:Core/Src/test.c **** 	delay_ms(500);
+ 465:Core/Src/test.c **** 	delay_ms(500);
+ 466:Core/Src/test.c **** 	//���
+ 467:Core/Src/test.c **** 	LCD_Fill(50, 74, 200, 143, GRAY);
+ 468:Core/Src/test.c **** 	delay_ms(1500);
+ 469:Core/Src/test.c **** }
+ 470:Core/Src/test.c **** 
+ 471:Core/Src/test.c **** /*****************************************************************************
+ 472:Core/Src/test.c ****  * @name       :void ProgresBar_Test(void)
+ 473:Core/Src/test.c ****  * @date       :2018-12-29 
+ 474:Core/Src/test.c ****  * @function   :ProgresBar test
+ 475:Core/Src/test.c ****  * @parameters :None
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 11
+
+
+ 476:Core/Src/test.c ****  * @retvalue   :None
+ 477:Core/Src/test.c **** ******************************************************************************/
+ 478:Core/Src/test.c **** void ProgresBar_Test(void)
+ 479:Core/Src/test.c **** {
+ 480:Core/Src/test.c **** 	uint8_t i,num=1;
+ 481:Core/Src/test.c **** 	u16 x1=20;
+ 482:Core/Src/test.c **** 	u16 y1=30;
+ 483:Core/Src/test.c **** 	u16 x2=150;//130
+ 484:Core/Src/test.c **** 	u16 y2=130;//100
+ 485:Core/Src/test.c **** 			
+ 486:Core/Src/test.c **** 	DrawTestPage("����14:GUI ProgresBar");
+ 487:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 488:Core/Src/test.c **** 	Draw_Button(x1, y1, x2, y2);   // ��ʾ���崰��
+ 489:Core/Src/test.c **** 	LCD_Fill(x1+3, y1+3, x2-3, y2-75, DARKBLUE);	 // ��ʾ������ 
+ 490:Core/Src/test.c **** 	Show_Str(x1+25, y1+5, POINT_COLOR,BACK_COLOR,"ProgresBar",16,1); // ��ť��д��
+ 491:Core/Src/test.c **** 	Draw_Button(x1+5, y1+70, x2-70, y2-5);  // ��ʾ��һ����ť
+ 492:Core/Src/test.c **** 	Draw_Button(x1+70, y1+70, x2-5, y2-5);  // ��ʾ�ڶ�����ť
+ 493:Core/Src/test.c **** 	POINT_COLOR=BLACK;	
+ 494:Core/Src/test.c **** 	BACK_COLOR=LGRAY;
+ 495:Core/Src/test.c **** 	Show_Str(x1+25, y1+74,POINT_COLOR,BACK_COLOR,"OK",16,1);
+ 496:Core/Src/test.c **** 	Show_Str(x1+75, y1+74, POINT_COLOR,BACK_COLOR,"Cancel",16,1);
+ 497:Core/Src/test.c **** 	Show_Str(x1+80, y1+35, POINT_COLOR,BACK_COLOR,"%",16,1);	  
+ 498:Core/Src/test.c **** 	for(i=x1+26;i<x2-5;i++)
+ 499:Core/Src/test.c **** 	{
+ 500:Core/Src/test.c **** 		LCD_Fill(x1+5, y1+53, i, y1+68, RED);
+ 501:Core/Src/test.c **** 		delay_ms(40);
+ 502:Core/Src/test.c **** 		LCD_ShowNum(x1+62, y1+35, num,2,16,0);
+ 503:Core/Src/test.c **** 		num++;
+ 504:Core/Src/test.c **** 	}
+ 505:Core/Src/test.c **** 	LCD_Fill(x1+5, y1+35, x2-5, y1+50, LGRAY);
+ 506:Core/Src/test.c **** 	Show_Str(x1+25, y1+35, BLUE,BACK_COLOR,"Success!!!",16,1);
+ 507:Core/Src/test.c **** 	delay_ms(1500);
+ 508:Core/Src/test.c **** }
+ 509:Core/Src/test.c **** 
+ 510:Core/Src/test.c **** /*****************************************************************************
+ 511:Core/Src/test.c ****  * @name       :void BarReport_Test(void)
+ 512:Core/Src/test.c ****  * @date       :2018-12-29 
+ 513:Core/Src/test.c ****  * @function   :BarReport test
+ 514:Core/Src/test.c ****  * @parameters :None
+ 515:Core/Src/test.c ****  * @retvalue   :None
+ 516:Core/Src/test.c **** ******************************************************************************/
+ 517:Core/Src/test.c **** void BarReport_Test(void)
+ 518:Core/Src/test.c **** {
+ 519:Core/Src/test.c **** 	uint16_t i;	
+ 520:Core/Src/test.c **** 
+ 521:Core/Src/test.c **** 	DrawTestPage("����15:GUI BarReport");
+ 522:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 523:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 524:Core/Src/test.c **** 	//��������
+ 525:Core/Src/test.c **** 	LCD_DrawLine(20, 50, 20, 210);
+ 526:Core/Src/test.c **** 	LCD_DrawLine(10, 60, 20, 50);
+ 527:Core/Src/test.c **** 	LCD_DrawLine(30, 60, 20, 50);
+ 528:Core/Src/test.c **** 	//��������
+ 529:Core/Src/test.c **** 	LCD_DrawLine(20, 210, 220, 210);
+ 530:Core/Src/test.c **** 	LCD_DrawLine(210, 200, 220, 210);
+ 531:Core/Src/test.c **** 	LCD_DrawLine(210, 220, 220, 210);
+ 532:Core/Src/test.c **** 	//������
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 12
+
+
+ 533:Core/Src/test.c **** 	LCD_Fill(35, 80, 55, 209,RED);
+ 534:Core/Src/test.c **** 	LCD_Fill(75, 130, 95, 209,YELLOW);
+ 535:Core/Src/test.c **** 	LCD_Fill(115, 60, 135, 209,BLUE);
+ 536:Core/Src/test.c **** 	LCD_Fill(155, 90, 175, 209,GREEN);
+ 537:Core/Src/test.c **** 	//���ν���
+ 538:Core/Src/test.c **** 	delay_ms(50);
+ 539:Core/Src/test.c **** 	for(i=81;i<209;i++) //��ɫ������
+ 540:Core/Src/test.c **** 	{
+ 541:Core/Src/test.c **** 		LCD_Fill(35, 80, 55, i,WHITE);
+ 542:Core/Src/test.c **** 		delay_ms(10);
+ 543:Core/Src/test.c **** 	}
+ 544:Core/Src/test.c **** 	for(i=208;i>100;i--) //��ɫ������
+ 545:Core/Src/test.c **** 	{
+ 546:Core/Src/test.c **** 		LCD_Fill(35, i, 55, 209,RED);
+ 547:Core/Src/test.c **** 		delay_ms(10);
+ 548:Core/Src/test.c **** 	}
+ 549:Core/Src/test.c **** 	for(i=129;i>80;i--) //��ɫ������
+ 550:Core/Src/test.c **** 	{
+ 551:Core/Src/test.c **** 		LCD_Fill(75, i, 95, 130,YELLOW);
+ 552:Core/Src/test.c **** 		delay_ms(10);
+ 553:Core/Src/test.c **** 	}
+ 554:Core/Src/test.c **** 	for(i=25;i<160;i++) //��ɫ������
+ 555:Core/Src/test.c **** 	{
+ 556:Core/Src/test.c **** 		LCD_Fill(115, 24, 135, i,WHITE);
+ 557:Core/Src/test.c **** 		delay_ms(10);
+ 558:Core/Src/test.c **** 	}		
+ 559:Core/Src/test.c **** 	delay_ms(1500);
+ 560:Core/Src/test.c **** }
+ 561:Core/Src/test.c **** 
+ 562:Core/Src/test.c **** /*****************************************************************************
+ 563:Core/Src/test.c ****  * @name       :void Window_Test(void)
+ 564:Core/Src/test.c ****  * @date       :2018-12-29 
+ 565:Core/Src/test.c ****  * @function   :Window test
+ 566:Core/Src/test.c ****  * @parameters :None
+ 567:Core/Src/test.c ****  * @retvalue   :None
+ 568:Core/Src/test.c **** ******************************************************************************/
+ 569:Core/Src/test.c **** void Window_Test(void)
+ 570:Core/Src/test.c **** {
+ 571:Core/Src/test.c **** 
+ 572:Core/Src/test.c **** 	uint16_t xstart=2,ystart=30,xend=lcddev.width*2/3,yend=lcddev.height-30;
+ 573:Core/Src/test.c **** 	uint8_t i=3;
+ 574:Core/Src/test.c **** 	DrawTestPage("����16:GUI Window");
+ 575:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
+ 576:Core/Src/test.c **** 	do
+ 577:Core/Src/test.c **** 	{
+ 578:Core/Src/test.c **** 		Draw_Window(xstart,ystart,xend,yend,"OK");
+ 579:Core/Src/test.c **** 		delay_ms(500);
+ 580:Core/Src/test.c **** 		delay_ms(500);
+ 581:Core/Src/test.c **** 		xstart+=15;ystart+=15;xend-=30;yend-=30;
+ 582:Core/Src/test.c **** 	}while(--i);
+ 583:Core/Src/test.c **** 	delay_ms(1500);
+ 584:Core/Src/test.c **** }
+ 585:Core/Src/test.c **** 
+ 586:Core/Src/test.c **** /*****************************************************************************
+ 587:Core/Src/test.c ****  * @name       :void Button_Test(void)
+ 588:Core/Src/test.c ****  * @date       :2018-12-29 
+ 589:Core/Src/test.c ****  * @function   :Button test
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 13
+
+
+ 590:Core/Src/test.c ****  * @parameters :None
+ 591:Core/Src/test.c ****  * @retvalue   :None
+ 592:Core/Src/test.c **** ******************************************************************************/
+ 593:Core/Src/test.c **** void Button_Test(void)
+ 594:Core/Src/test.c **** {		  	
+ 595:Core/Src/test.c **** 	DrawTestPage("����17:GUI Button");
+ 596:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 597:Core/Src/test.c **** 	Draw_TextBox(30, 60, 170, 90);	 // ��ʾһ�����������
+ 598:Core/Src/test.c **** 	Draw_Button(180, 60, 235, 90);			 // ��ʾ1����ť
+ 599:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 600:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 601:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 602:Core/Src/test.c **** 
+ 603:Core/Src/test.c **** 	
+ 604:Core/Src/test.c **** 	POINT_COLOR = BLUE;
+ 605:Core/Src/test.c **** 	BACK_COLOR = WHITE;
+ 606:Core/Src/test.c **** 	Show_Str(30,38,POINT_COLOR,BACK_COLOR,"News",16,1);
+ 607:Core/Src/test.c **** 	LCD_DrawLine(30,55,62,55);
+ 608:Core/Src/test.c **** 	Show_Str(118,38,POINT_COLOR,BACK_COLOR,"Pic",16,1);
+ 609:Core/Src/test.c **** 	LCD_DrawLine(118,55,150,55);
+ 610:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 611:Core/Src/test.c **** 	Show_Str(70,38,POINT_COLOR,BACK_COLOR,"Label",16,1);
+ 612:Core/Src/test.c **** 	delay_ms(500);
+ 613:Core/Src/test.c **** 	delay_ms(500);
+ 614:Core/Src/test.c **** 	delay_ms(500);
+ 615:Core/Src/test.c **** 	
+ 616:Core/Src/test.c **** 	LCD_ShowChar(35, 67, POINT_COLOR,BACK_COLOR,'C',16,1);
+ 617:Core/Src/test.c **** 	delay_ms(500);
+ 618:Core/Src/test.c **** 	LCD_ShowChar(43, 67, POINT_COLOR,BACK_COLOR,'o',16,1);
+ 619:Core/Src/test.c **** 	delay_ms(500);
+ 620:Core/Src/test.c **** 	LCD_ShowChar(51, 67, POINT_COLOR,BACK_COLOR,'r',16,1);
+ 621:Core/Src/test.c **** 	delay_ms(500);
+ 622:Core/Src/test.c **** 	LCD_ShowChar(58, 67, POINT_COLOR,BACK_COLOR,'t',16,1);
+ 623:Core/Src/test.c **** 	delay_ms(500);
+ 624:Core/Src/test.c **** 	LCD_ShowChar(66, 67, POINT_COLOR,BACK_COLOR,'e',16,1);
+ 625:Core/Src/test.c **** 	delay_ms(500);
+ 626:Core/Src/test.c **** 	LCD_ShowChar(74, 67, POINT_COLOR,BACK_COLOR,'x',16,1);
+ 627:Core/Src/test.c **** 	delay_ms(500);
+ 628:Core/Src/test.c **** 	LCD_ShowChar(82, 67, POINT_COLOR,BACK_COLOR,'-',16,1);
+ 629:Core/Src/test.c **** 	delay_ms(500);
+ 630:Core/Src/test.c **** 	LCD_ShowChar(88, 67, POINT_COLOR,BACK_COLOR,'M',16,1);
+ 631:Core/Src/test.c **** 	delay_ms(500);
+ 632:Core/Src/test.c **** 
+ 633:Core/Src/test.c **** 
+ 634:Core/Src/test.c **** 	SetButton(180, 60, 235, 90);			 // ���¡���������ť
+ 635:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 636:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 637:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 638:Core/Src/test.c **** 	delay_ms(500);
+ 639:Core/Src/test.c **** 
+ 640:Core/Src/test.c **** 	EscButton(180, 60, 235, 90);			 // �ſ�����������ť
+ 641:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 642:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 643:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 644:Core/Src/test.c **** 	POINT_COLOR = RED;
+ 645:Core/Src/test.c **** 	BACK_COLOR = WHITE;		 
+ 646:Core/Src/test.c **** 	Show_Str(12,100,POINT_COLOR,BACK_COLOR,"The ARM Cortex-M is a group",16,1 );
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 14
+
+
+ 647:Core/Src/test.c **** 	Show_Str(12,120,POINT_COLOR,BACK_COLOR,"of 32-bit RISC ARM processor",16,1 );
+ 648:Core/Src/test.c **** 	Show_Str(12,140,POINT_COLOR,BACK_COLOR,"cores licensed by ARM Holdings.",16,1 );
+ 649:Core/Src/test.c **** 	Show_Str(12,160,POINT_COLOR,BACK_COLOR,"The cores are intended for ",16,1 );
+ 650:Core/Src/test.c **** 	Show_Str(12,180,POINT_COLOR,BACK_COLOR,"microcontroller use,and consist",16,1);
+ 651:Core/Src/test.c **** 	Show_Str(12,200,POINT_COLOR,BACK_COLOR,"of the Cortex-M0/M1/M2/M3/M4.",16,1);
+ 652:Core/Src/test.c **** 	delay_ms(500);
+ 653:Core/Src/test.c **** 	delay_ms(500);
+ 654:Core/Src/test.c **** 	delay_ms(500);
+ 655:Core/Src/test.c **** 	delay_ms(500);
+ 656:Core/Src/test.c **** 	delay_ms(500);
+ 657:Core/Src/test.c **** 	delay_ms(500);
+ 658:Core/Src/test.c **** 	delay_ms(500);
+ 659:Core/Src/test.c **** 	delay_ms(500);
+ 660:Core/Src/test.c **** 	delay_ms(500);
+ 661:Core/Src/test.c **** 	delay_ms(500);
+ 662:Core/Src/test.c **** 	delay_ms(500);
+ 663:Core/Src/test.c **** 	delay_ms(500);
+ 664:Core/Src/test.c **** }
+ 665:Core/Src/test.c **** 
+ 666:Core/Src/test.c **** /*****************************************************************************
+ 667:Core/Src/test.c ****  * @name       :void Test_Dynamic_Num(void)
+ 668:Core/Src/test.c ****  * @date       :2018-11-13 
+ 669:Core/Src/test.c ****  * @function   :Dynamic number test
+ 670:Core/Src/test.c ****  * @parameters :None
+ 671:Core/Src/test.c ****  * @retvalue   :None
+ 672:Core/Src/test.c **** ******************************************************************************/
+ 673:Core/Src/test.c **** void Test_Dynamic_Num(void)
+ 674:Core/Src/test.c **** {
+ 675:Core/Src/test.c **** 		u8 i;
+ 676:Core/Src/test.c **** 	DrawTestPage("����9:��̬������ʾ");
+ 677:Core/Src/test.c **** 	POINT_COLOR=BLUE;
+ 678:Core/Src/test.c **** 	srand(123456);
+ 679:Core/Src/test.c **** 	LCD_ShowString(15,50,16, " HCHO:           ug/m3",1);
+ 680:Core/Src/test.c **** 	LCD_ShowString(15,70,16, "  CO2:           ppm",1);
+ 681:Core/Src/test.c **** 	LCD_ShowString(15,90,16, " TVOC:           ug/m3",1);
+ 682:Core/Src/test.c **** 	LCD_ShowString(15,110,16,"PM2.5:           ug/m3",1);
+ 683:Core/Src/test.c **** 	LCD_ShowString(15,130,16," PM10:           ug/m3",1);
+ 684:Core/Src/test.c **** 	LCD_ShowString(15,150,16,"  TEP:           C",1);
+ 685:Core/Src/test.c **** 	LCD_ShowString(15,170,16,"  HUM:           %",1);
+ 686:Core/Src/test.c **** 	POINT_COLOR=RED;
+ 687:Core/Src/test.c **** 	for(i=0;i<15;i++)
+ 688:Core/Src/test.c **** 	{
+ 689:Core/Src/test.c **** 		LCD_ShowNum(100,50,rand()%10000,5,16,0);
+ 690:Core/Src/test.c **** 		LCD_ShowNum(100,70,rand()%10000,5,16),0;
+ 691:Core/Src/test.c **** 		LCD_ShowNum(100,90,rand()%10000,5,16,0);
+ 692:Core/Src/test.c **** 		LCD_ShowNum(100,110,rand()%10000,5,16,0);
+ 693:Core/Src/test.c **** 		LCD_ShowNum(100,130,rand()%10000,5,16,0);
+ 694:Core/Src/test.c **** 		LCD_ShowNum(100,150,rand()%50,5,16,0);
+ 695:Core/Src/test.c **** 		LCD_ShowNum(100,170,rand()%100,5,16,0);
+ 696:Core/Src/test.c **** 		delay_ms(500);
+ 697:Core/Src/test.c **** 	}
+ 698:Core/Src/test.c **** }
+ 699:Core/Src/test.c **** #endif
+ 700:Core/Src/test.c **** 
+ 701:Core/Src/test.c **** const u8 send_test[] = "STM32F407VxT6 IIC TEST"; //д������
+ 702:Core/Src/test.c **** 
+ 703:Core/Src/test.c **** /*****************************************************************************
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 15
+
+
+ 704:Core/Src/test.c ****  * @name       :void IIC_24C02_test(void)
+ 705:Core/Src/test.c ****  * @date       :2018-08-09 
+ 706:Core/Src/test.c ****  * @function   :show DMA test
+ 707:Core/Src/test.c ****  * @parameters :None
+ 708:Core/Src/test.c ****  * @retvalue   :None
+ 709:Core/Src/test.c **** ******************************************************************************/
+ 710:Core/Src/test.c **** void IIC_24C02_test(void)
+ 711:Core/Src/test.c **** {
+  60              		.loc 1 711 1 view -0
+  61              		.cfi_startproc
+  62              		@ args = 0, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64 0000 70B5     		push	{r4, r5, r6, lr}
+  65              	.LCFI0:
+  66              		.cfi_def_cfa_offset 16
+  67              		.cfi_offset 4, -16
+  68              		.cfi_offset 5, -12
+  69              		.cfi_offset 6, -8
+  70              		.cfi_offset 14, -4
+  71 0002 84B0     		sub	sp, sp, #16
+  72              	.LCFI1:
+  73              		.cfi_def_cfa_offset 32
+ 712:Core/Src/test.c **** 	printf("iic 24c02 test\r\n");
+  74              		.loc 1 712 2 view .LVU1
+  75 0004 3C48     		ldr	r0, .L5
+  76 0006 FFF7FEFF 		bl	puts
+  77              	.LVL0:
+ 713:Core/Src/test.c **** 	Gui_StrCenter(0, 40, RED, BLUE, "STM32F407VxT6��Сϵͳ������", 16, 1); //���
+  78              		.loc 1 713 2 view .LVU2
+  79 000a 0125     		movs	r5, #1
+  80 000c 0295     		str	r5, [sp, #8]
+  81 000e 1024     		movs	r4, #16
+  82 0010 0194     		str	r4, [sp, #4]
+  83 0012 3A4B     		ldr	r3, .L5+4
+  84 0014 0093     		str	r3, [sp]
+  85 0016 1F23     		movs	r3, #31
+  86 0018 4FF47842 		mov	r2, #63488
+  87 001c 2821     		movs	r1, #40
+  88 001e 0020     		movs	r0, #0
+  89 0020 FFF7FEFF 		bl	Gui_StrCenter
+  90              	.LVL1:
+ 714:Core/Src/test.c **** 	Gui_StrCenter(0, 65, RED, BLUE, "IIC ���Գ���", 16, 1);				//������ʾ
+  91              		.loc 1 714 2 view .LVU3
+  92 0024 0295     		str	r5, [sp, #8]
+  93 0026 0194     		str	r4, [sp, #4]
+  94 0028 354B     		ldr	r3, .L5+8
+  95 002a 0093     		str	r3, [sp]
+  96 002c 1F23     		movs	r3, #31
+  97 002e 4FF47842 		mov	r2, #63488
+  98 0032 4121     		movs	r1, #65
+  99 0034 0020     		movs	r0, #0
+ 100 0036 FFF7FEFF 		bl	Gui_StrCenter
+ 101              	.LVL2:
+ 715:Core/Src/test.c **** 	Gui_StrCenter(0, 90, BLUE, BLUE, "KEY_UP:Write  KEY0:Read", 16, 1); //������ʾ
+ 102              		.loc 1 715 2 view .LVU4
+ 103 003a 0295     		str	r5, [sp, #8]
+ 104 003c 0194     		str	r4, [sp, #4]
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 16
+
+
+ 105 003e 314B     		ldr	r3, .L5+12
+ 106 0040 0093     		str	r3, [sp]
+ 107 0042 1F23     		movs	r3, #31
+ 108 0044 1A46     		mov	r2, r3
+ 109 0046 5A21     		movs	r1, #90
+ 110 0048 0020     		movs	r0, #0
+ 111 004a FFF7FEFF 		bl	Gui_StrCenter
+ 112              	.LVL3:
+ 716:Core/Src/test.c **** 	while (AT24C02_Check())
+ 113              		.loc 1 716 2 view .LVU5
+ 114              		.loc 1 716 8 is_stmt 0 view .LVU6
+ 115 004e 29E0     		b	.L2
+ 116              	.L3:
+ 717:Core/Src/test.c **** 	{
+ 718:Core/Src/test.c **** 		Gui_StrCenter(0, 115, RED, WHITE, "24C02 Check Failed!", 16, 0);
+ 117              		.loc 1 718 3 is_stmt 1 view .LVU7
+ 118 0050 0024     		movs	r4, #0
+ 119 0052 0294     		str	r4, [sp, #8]
+ 120 0054 1025     		movs	r5, #16
+ 121 0056 0195     		str	r5, [sp, #4]
+ 122 0058 2B4B     		ldr	r3, .L5+16
+ 123 005a 0093     		str	r3, [sp]
+ 124 005c 4FF6FF73 		movw	r3, #65535
+ 125 0060 4FF47842 		mov	r2, #63488
+ 126 0064 7321     		movs	r1, #115
+ 127 0066 2046     		mov	r0, r4
+ 128 0068 FFF7FEFF 		bl	Gui_StrCenter
+ 129              	.LVL4:
+ 719:Core/Src/test.c **** 		delay_ms(500);
+ 130              		.loc 1 719 3 view .LVU8
+ 131 006c 4FF4FA70 		mov	r0, #500
+ 132 0070 FFF7FEFF 		bl	delay_ms
+ 133              	.LVL5:
+ 720:Core/Src/test.c **** 		Gui_StrCenter(0, 115, RED, WHITE, "Please Check!      ", 16, 0);
+ 134              		.loc 1 720 3 view .LVU9
+ 135 0074 0294     		str	r4, [sp, #8]
+ 136 0076 0195     		str	r5, [sp, #4]
+ 137 0078 244B     		ldr	r3, .L5+20
+ 138 007a 0093     		str	r3, [sp]
+ 139 007c 4FF6FF73 		movw	r3, #65535
+ 140 0080 4FF47842 		mov	r2, #63488
+ 141 0084 7321     		movs	r1, #115
+ 142 0086 2046     		mov	r0, r4
+ 143 0088 FFF7FEFF 		bl	Gui_StrCenter
+ 144              	.LVL6:
+ 721:Core/Src/test.c **** 		delay_ms(500);
+ 145              		.loc 1 721 3 view .LVU10
+ 146 008c 4FF4FA70 		mov	r0, #500
+ 147 0090 FFF7FEFF 		bl	delay_ms
+ 148              	.LVL7:
+ 722:Core/Src/test.c **** 		LED0 = !LED0; //LED0��˸
+ 149              		.loc 1 722 3 view .LVU11
+ 150              		.loc 1 722 11 is_stmt 0 view .LVU12
+ 151 0094 1E4A     		ldr	r2, .L5+24
+ 152 0096 D2F88432 		ldr	r3, [r2, #644]
+ 153              		.loc 1 722 10 view .LVU13
+ 154 009a B3FA83F3 		clz	r3, r3
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 17
+
+
+ 155 009e 5B09     		lsrs	r3, r3, #5
+ 156              		.loc 1 722 8 view .LVU14
+ 157 00a0 C2F88432 		str	r3, [r2, #644]
+ 158              	.L2:
+ 716:Core/Src/test.c **** 	{
+ 159              		.loc 1 716 8 is_stmt 1 view .LVU15
+ 716:Core/Src/test.c **** 	{
+ 160              		.loc 1 716 9 is_stmt 0 view .LVU16
+ 161 00a4 FFF7FEFF 		bl	AT24C02_Check
+ 162              	.LVL8:
+ 716:Core/Src/test.c **** 	{
+ 163              		.loc 1 716 8 view .LVU17
+ 164 00a8 0028     		cmp	r0, #0
+ 165 00aa D1D1     		bne	.L3
+ 723:Core/Src/test.c **** 	}
+ 724:Core/Src/test.c **** 	Gui_StrCenter(0, 115, BLUE, WHITE, "24C02 Ready!", 16, 0);
+ 166              		.loc 1 724 2 is_stmt 1 view .LVU18
+ 167 00ac 0024     		movs	r4, #0
+ 168 00ae 0294     		str	r4, [sp, #8]
+ 169 00b0 1025     		movs	r5, #16
+ 170 00b2 0195     		str	r5, [sp, #4]
+ 171 00b4 174B     		ldr	r3, .L5+28
+ 172 00b6 0093     		str	r3, [sp]
+ 173 00b8 4FF6FF73 		movw	r3, #65535
+ 174 00bc 1F22     		movs	r2, #31
+ 175 00be 7321     		movs	r1, #115
+ 176 00c0 2046     		mov	r0, r4
+ 177 00c2 FFF7FEFF 		bl	Gui_StrCenter
+ 178              	.LVL9:
+ 725:Core/Src/test.c **** 	Gui_StrCenter(0, 185, BLUE, BLUE, "2020-06-05", 16, 1);				 //������ʾ
+ 179              		.loc 1 725 2 view .LVU19
+ 180 00c6 0126     		movs	r6, #1
+ 181 00c8 0296     		str	r6, [sp, #8]
+ 182 00ca 0195     		str	r5, [sp, #4]
+ 183 00cc 124B     		ldr	r3, .L5+32
+ 184 00ce 0093     		str	r3, [sp]
+ 185 00d0 1F23     		movs	r3, #31
+ 186 00d2 1A46     		mov	r2, r3
+ 187 00d4 B921     		movs	r1, #185
+ 188 00d6 2046     		mov	r0, r4
+ 189 00d8 FFF7FEFF 		bl	Gui_StrCenter
+ 190              	.LVL10:
+ 726:Core/Src/test.c **** 	Gui_StrCenter(0, 210, GREEN, BLUE, "http://www.lcdwiki.com", 16, 1); //������ʾ
+ 191              		.loc 1 726 2 view .LVU20
+ 192 00dc 0296     		str	r6, [sp, #8]
+ 193 00de 0195     		str	r5, [sp, #4]
+ 194 00e0 0E4B     		ldr	r3, .L5+36
+ 195 00e2 0093     		str	r3, [sp]
+ 196 00e4 1F23     		movs	r3, #31
+ 197 00e6 4FF4FC62 		mov	r2, #2016
+ 198 00ea D221     		movs	r1, #210
+ 199 00ec 2046     		mov	r0, r4
+ 200 00ee FFF7FEFF 		bl	Gui_StrCenter
+ 201              	.LVL11:
+ 727:Core/Src/test.c **** }
+ 202              		.loc 1 727 1 is_stmt 0 view .LVU21
+ 203 00f2 04B0     		add	sp, sp, #16
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 18
+
+
+ 204              	.LCFI2:
+ 205              		.cfi_def_cfa_offset 16
+ 206              		@ sp needed
+ 207 00f4 70BD     		pop	{r4, r5, r6, pc}
+ 208              	.L6:
+ 209 00f6 00BF     		.align	2
+ 210              	.L5:
+ 211 00f8 00000000 		.word	.LC0
+ 212 00fc 10000000 		.word	.LC1
+ 213 0100 3C000000 		.word	.LC2
+ 214 0104 58000000 		.word	.LC3
+ 215 0108 70000000 		.word	.LC4
+ 216 010c 84000000 		.word	.LC5
+ 217 0110 00004042 		.word	1111490560
+ 218 0114 98000000 		.word	.LC6
+ 219 0118 A8000000 		.word	.LC7
+ 220 011c B4000000 		.word	.LC8
+ 221              		.cfi_endproc
+ 222              	.LFE133:
+ 224              		.section	.rodata.Show_24C02_Write.str1.4,"aMS",%progbits,1
+ 225              		.align	2
+ 226              	.LC9:
+ 227 0000 53746172 		.ascii	"Start Write 24C02....\000"
+ 227      74205772 
+ 227      69746520 
+ 227      32344330 
+ 227      322E2E2E 
+ 228 0016 0000     		.align	2
+ 229              	.LC10:
+ 230 0018 32344330 		.ascii	"24C02 Write Finished!\000"
+ 230      32205772 
+ 230      69746520 
+ 230      46696E69 
+ 230      73686564 
+ 231              		.section	.text.Show_24C02_Write,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	Show_24C02_Write
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 239              	Show_24C02_Write:
+ 240              	.LFB134:
+ 728:Core/Src/test.c **** 
+ 729:Core/Src/test.c **** /*****************************************************************************
+ 730:Core/Src/test.c ****  * @name       :void Show_24C02_Write(void)
+ 731:Core/Src/test.c ****  * @date       :2018-08-09 
+ 732:Core/Src/test.c ****  * @function   :show 24c02 write
+ 733:Core/Src/test.c ****  * @parameters :None
+ 734:Core/Src/test.c ****  * @retvalue   :None
+ 735:Core/Src/test.c **** ******************************************************************************/
+ 736:Core/Src/test.c **** void Show_24C02_Write(void)
+ 737:Core/Src/test.c **** {
+ 241              		.loc 1 737 1 is_stmt 1 view -0
+ 242              		.cfi_startproc
+ 243              		@ args = 0, pretend = 0, frame = 0
+ 244              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 19
+
+
+ 245 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 246              	.LCFI3:
+ 247              		.cfi_def_cfa_offset 20
+ 248              		.cfi_offset 4, -20
+ 249              		.cfi_offset 5, -16
+ 250              		.cfi_offset 6, -12
+ 251              		.cfi_offset 7, -8
+ 252              		.cfi_offset 14, -4
+ 253 0002 85B0     		sub	sp, sp, #20
+ 254              	.LCFI4:
+ 255              		.cfi_def_cfa_offset 40
+ 738:Core/Src/test.c **** 	LCD_Fill(0, 160, lcddev.width - 1, 176, WHITE);
+ 256              		.loc 1 738 2 view .LVU23
+ 257              		.loc 1 738 25 is_stmt 0 view .LVU24
+ 258 0004 184E     		ldr	r6, .L9
+ 259 0006 B288     		ldrh	r2, [r6, #4]
+ 260              		.loc 1 738 2 view .LVU25
+ 261 0008 013A     		subs	r2, r2, #1
+ 262 000a 4FF6FF74 		movw	r4, #65535
+ 263 000e 0094     		str	r4, [sp]
+ 264 0010 B023     		movs	r3, #176
+ 265 0012 92B2     		uxth	r2, r2
+ 266 0014 A021     		movs	r1, #160
+ 267 0016 0020     		movs	r0, #0
+ 268 0018 FFF7FEFF 		bl	LCD_Fill
+ 269              	.LVL12:
+ 739:Core/Src/test.c **** 	Show_Str(lcddev.width / 2 - 84, 140, RED, WHITE, "Start Write 24C02....", 16, 0);
+ 270              		.loc 1 739 2 is_stmt 1 view .LVU26
+ 271              		.loc 1 739 17 is_stmt 0 view .LVU27
+ 272 001c B088     		ldrh	r0, [r6, #4]
+ 273              		.loc 1 739 2 view .LVU28
+ 274 001e 4008     		lsrs	r0, r0, #1
+ 275 0020 5438     		subs	r0, r0, #84
+ 276 0022 0025     		movs	r5, #0
+ 277 0024 0295     		str	r5, [sp, #8]
+ 278 0026 1027     		movs	r7, #16
+ 279 0028 0197     		str	r7, [sp, #4]
+ 280 002a 104B     		ldr	r3, .L9+4
+ 281 002c 0093     		str	r3, [sp]
+ 282 002e 2346     		mov	r3, r4
+ 283 0030 4FF47842 		mov	r2, #63488
+ 284 0034 8C21     		movs	r1, #140
+ 285 0036 80B2     		uxth	r0, r0
+ 286 0038 FFF7FEFF 		bl	Show_Str
+ 287              	.LVL13:
+ 740:Core/Src/test.c **** 	AT24C02_Write(0, (u8 *)send_test, sizeof(send_test));
+ 288              		.loc 1 740 2 is_stmt 1 view .LVU29
+ 289 003c 1722     		movs	r2, #23
+ 290 003e 0C49     		ldr	r1, .L9+8
+ 291 0040 2846     		mov	r0, r5
+ 292 0042 FFF7FEFF 		bl	AT24C02_Write
+ 293              	.LVL14:
+ 741:Core/Src/test.c **** 	Show_Str(lcddev.width / 2 - 84, 140, RED, WHITE, "24C02 Write Finished!", 16, 0); //��ʾ��
+ 294              		.loc 1 741 2 view .LVU30
+ 295              		.loc 1 741 17 is_stmt 0 view .LVU31
+ 296 0046 B088     		ldrh	r0, [r6, #4]
+ 297              		.loc 1 741 2 view .LVU32
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 20
+
+
+ 298 0048 4008     		lsrs	r0, r0, #1
+ 299 004a 5438     		subs	r0, r0, #84
+ 300 004c 0295     		str	r5, [sp, #8]
+ 301 004e 0197     		str	r7, [sp, #4]
+ 302 0050 084B     		ldr	r3, .L9+12
+ 303 0052 0093     		str	r3, [sp]
+ 304 0054 2346     		mov	r3, r4
+ 305 0056 4FF47842 		mov	r2, #63488
+ 306 005a 8C21     		movs	r1, #140
+ 307 005c 80B2     		uxth	r0, r0
+ 308 005e FFF7FEFF 		bl	Show_Str
+ 309              	.LVL15:
+ 742:Core/Src/test.c **** }
+ 310              		.loc 1 742 1 view .LVU33
+ 311 0062 05B0     		add	sp, sp, #20
+ 312              	.LCFI5:
+ 313              		.cfi_def_cfa_offset 20
+ 314              		@ sp needed
+ 315 0064 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 316              	.L10:
+ 317 0066 00BF     		.align	2
+ 318              	.L9:
+ 319 0068 00000000 		.word	lcddev
+ 320 006c 00000000 		.word	.LC9
+ 321 0070 00000000 		.word	.LANCHOR0
+ 322 0074 18000000 		.word	.LC10
+ 323              		.cfi_endproc
+ 324              	.LFE134:
+ 326              		.section	.rodata.Show_24C02_Read.str1.4,"aMS",%progbits,1
+ 327              		.align	2
+ 328              	.LC11:
+ 329 0000 53746172 		.ascii	"Start Read 24C02.... \000"
+ 329      74205265 
+ 329      61642032 
+ 329      34433032 
+ 329      2E2E2E2E 
+ 330 0016 0000     		.align	2
+ 331              	.LC12:
+ 332 0018 54686520 		.ascii	"The Data Readed Is:  \000"
+ 332      44617461 
+ 332      20526561 
+ 332      64656420 
+ 332      49733A20 
+ 333              		.section	.text.Show_24C02_Read,"ax",%progbits
+ 334              		.align	1
+ 335              		.global	Show_24C02_Read
+ 336              		.syntax unified
+ 337              		.thumb
+ 338              		.thumb_func
+ 339              		.fpu fpv4-sp-d16
+ 341              	Show_24C02_Read:
+ 342              	.LFB135:
+ 743:Core/Src/test.c **** 
+ 744:Core/Src/test.c **** /*****************************************************************************
+ 745:Core/Src/test.c ****  * @name       :void Show_24C02_Read(void)
+ 746:Core/Src/test.c ****  * @date       :2018-08-09 
+ 747:Core/Src/test.c ****  * @function   :show 24c02 read
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 21
+
+
+ 748:Core/Src/test.c ****  * @parameters :None
+ 749:Core/Src/test.c ****  * @retvalue   :None
+ 750:Core/Src/test.c **** ******************************************************************************/
+ 751:Core/Src/test.c **** void Show_24C02_Read(void)
+ 752:Core/Src/test.c **** {
+ 343              		.loc 1 752 1 is_stmt 1 view -0
+ 344              		.cfi_startproc
+ 345              		@ args = 0, pretend = 0, frame = 24
+ 346              		@ frame_needed = 0, uses_anonymous_args = 0
+ 347 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 348              	.LCFI6:
+ 349              		.cfi_def_cfa_offset 20
+ 350              		.cfi_offset 4, -20
+ 351              		.cfi_offset 5, -16
+ 352              		.cfi_offset 6, -12
+ 353              		.cfi_offset 7, -8
+ 354              		.cfi_offset 14, -4
+ 355 0002 8BB0     		sub	sp, sp, #44
+ 356              	.LCFI7:
+ 357              		.cfi_def_cfa_offset 64
+ 753:Core/Src/test.c **** 	u8 rece_buf[sizeof(send_test)];
+ 358              		.loc 1 753 2 view .LVU35
+ 754:Core/Src/test.c **** 	Show_Str(lcddev.width / 2 - 84, 140, RED, WHITE, "Start Read 24C02.... ", 16, 0);
+ 359              		.loc 1 754 2 view .LVU36
+ 360              		.loc 1 754 17 is_stmt 0 view .LVU37
+ 361 0004 1B4F     		ldr	r7, .L13
+ 362 0006 B888     		ldrh	r0, [r7, #4]
+ 363              		.loc 1 754 2 view .LVU38
+ 364 0008 4008     		lsrs	r0, r0, #1
+ 365 000a 5438     		subs	r0, r0, #84
+ 366 000c 0024     		movs	r4, #0
+ 367 000e 0294     		str	r4, [sp, #8]
+ 368 0010 1025     		movs	r5, #16
+ 369 0012 0195     		str	r5, [sp, #4]
+ 370 0014 184B     		ldr	r3, .L13+4
+ 371 0016 0093     		str	r3, [sp]
+ 372 0018 4FF6FF73 		movw	r3, #65535
+ 373 001c 4FF47842 		mov	r2, #63488
+ 374 0020 8C21     		movs	r1, #140
+ 375 0022 80B2     		uxth	r0, r0
+ 376 0024 FFF7FEFF 		bl	Show_Str
+ 377              	.LVL16:
+ 755:Core/Src/test.c **** 	AT24C02_Read(0, rece_buf, sizeof(send_test));
+ 378              		.loc 1 755 2 is_stmt 1 view .LVU39
+ 379 0028 0DEB0506 		add	r6, sp, r5
+ 380 002c 1722     		movs	r2, #23
+ 381 002e 3146     		mov	r1, r6
+ 382 0030 2046     		mov	r0, r4
+ 383 0032 FFF7FEFF 		bl	AT24C02_Read
+ 384              	.LVL17:
+ 756:Core/Src/test.c **** 	Show_Str(lcddev.width / 2 - 84, 140, RED, WHITE, "The Data Readed Is:  ", 16, 0);
+ 385              		.loc 1 756 2 view .LVU40
+ 386              		.loc 1 756 17 is_stmt 0 view .LVU41
+ 387 0036 B888     		ldrh	r0, [r7, #4]
+ 388              		.loc 1 756 2 view .LVU42
+ 389 0038 4008     		lsrs	r0, r0, #1
+ 390 003a 5438     		subs	r0, r0, #84
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 22
+
+
+ 391 003c 0294     		str	r4, [sp, #8]
+ 392 003e 0195     		str	r5, [sp, #4]
+ 393 0040 0E4B     		ldr	r3, .L13+8
+ 394 0042 0093     		str	r3, [sp]
+ 395 0044 4FF6FF73 		movw	r3, #65535
+ 396 0048 4FF47842 		mov	r2, #63488
+ 397 004c 8C21     		movs	r1, #140
+ 398 004e 80B2     		uxth	r0, r0
+ 399 0050 FFF7FEFF 		bl	Show_Str
+ 400              	.LVL18:
+ 757:Core/Src/test.c **** 	Show_Str(lcddev.width / 2 - 84, 160, BLUE, WHITE, rece_buf, 16, 0); //��ʾ�������
+ 401              		.loc 1 757 2 is_stmt 1 view .LVU43
+ 402              		.loc 1 757 17 is_stmt 0 view .LVU44
+ 403 0054 B888     		ldrh	r0, [r7, #4]
+ 404              		.loc 1 757 2 view .LVU45
+ 405 0056 4008     		lsrs	r0, r0, #1
+ 406 0058 5438     		subs	r0, r0, #84
+ 407 005a 0294     		str	r4, [sp, #8]
+ 408 005c 0195     		str	r5, [sp, #4]
+ 409 005e 0096     		str	r6, [sp]
+ 410 0060 4FF6FF73 		movw	r3, #65535
+ 411 0064 1F22     		movs	r2, #31
+ 412 0066 A021     		movs	r1, #160
+ 413 0068 80B2     		uxth	r0, r0
+ 414 006a FFF7FEFF 		bl	Show_Str
+ 415              	.LVL19:
+ 758:Core/Src/test.c **** }
+ 416              		.loc 1 758 1 view .LVU46
+ 417 006e 0BB0     		add	sp, sp, #44
+ 418              	.LCFI8:
+ 419              		.cfi_def_cfa_offset 20
+ 420              		@ sp needed
+ 421 0070 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 422              	.L14:
+ 423 0072 00BF     		.align	2
+ 424              	.L13:
+ 425 0074 00000000 		.word	lcddev
+ 426 0078 00000000 		.word	.LC11
+ 427 007c 18000000 		.word	.LC12
+ 428              		.cfi_endproc
+ 429              	.LFE135:
+ 431              		.global	send_test
+ 432              		.global	gImage_qq
+ 433              		.section	.rodata.gImage_qq,"a"
+ 434              		.align	2
+ 437              	gImage_qq:
+ 438 0000 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 438      FFFFFFFF 
+ 438      FFFFFFFF 
+ 438      FF
+ 439 000d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 439      FFFFFFFF 
+ 439      FFFFFFFF 
+ 439      FF
+ 440 001a FFFFFFFF 		.ascii	"\377\377\377\377\276\367\377\377\336\3778\306\222\214"
+ 440      BEF7FFFF 
+ 440      DEFF38C6 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 23
+
+
+ 440      928C
+ 441 0028 8E6B6E6B 		.ascii	"\216knk\020|\226\255<\347\377\377\377\377\377\377\377"
+ 441      107C96AD 
+ 441      3CE7FFFF 
+ 441      FFFFFFFF 
+ 441      FF
+ 442 0039 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 442      FFFFFFFF 
+ 442      FFFFFFFF 
+ 442      FF
+ 443 0046 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 443      FFFFFFFF 
+ 443      FFFFFFFF 
+ 443      FF
+ 444 0053 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 444      FFFFFFFF 
+ 444      FFFFFFFF 
+ 444      FF
+ 445 0060 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 445      FFFFFFFF 
+ 445      FFFFFFFF 
+ 445      FF
+ 446 006d FF5DEF15 		.ascii	"\377]\357\025\235OclB\0122\210)F\031%\031E!\3501\216"
+ 446      9D4F636C 
+ 446      420A3288 
+ 446      29461925 
+ 446      194521E8 
+ 447 0083 6B38C6FF 		.ascii	"k8\306\377\377\377\377\377\377\377\377\377\377\377\377"
+ 447      FFFFFFFF 
+ 447      FFFFFFFF 
+ 447      FFFFFF
+ 448 0092 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 448      FFFFFFFF 
+ 448      FFFFFFFF 
+ 448      FF
+ 449 009f FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 449      FFFFFFFF 
+ 449      FFFFFFFF 
+ 449      FF
+ 450 00ac FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 450      FFFFFFFF 
+ 450      FFFFFFFF 
+ 450      FF
+ 451 00b9 FFFFFF36 		.ascii	"\377\377\3776\245\020S\020KQS\017Kl:\3511g!%\031\344"
+ 451      A5105310 
+ 451      4B51530F 
+ 451      4B6C3AE9 
+ 451      31672125 
+ 452 00cf 10A30862 		.ascii	"\020\243\010b\000\203\010\313R\232\326\377\377\377\377"
+ 452      008308CB 
+ 452      529AD6FF 
+ 452      FFFFFF
+ 453 00de FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 453      FFFFFFFF 
+ 453      FFFFFFFF 
+ 453      FF
+ 454 00eb FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 24
+
+
+ 454      FFFFFFFF 
+ 454      FFFFFFFF 
+ 454      FF
+ 455 00f8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 455      FFFFFFFF 
+ 455      FFFFFFFF 
+ 455      FF
+ 456 0105 FFFFFF3C 		.ascii	"\377\377\377<\347pc\263c\270|\365c\021CM2\352)\210!"
+ 456      E77063B3 
+ 456      63B87CF5 
+ 456      6311434D 
+ 456      32EA2988 
+ 457 011a 26190519 		.ascii	"&\031\005\031\005\031\004\021\004\021\344\020\203\000"
+ 457      05190411 
+ 457      0411E410 
+ 457      8300
+ 458 0128 A308728C 		.ascii	"\243\010r\214\377\377\377\377\377\377\377\377\377\377"
+ 458      FFFFFFFF 
+ 458      FFFFFFFF 
+ 458      FFFF
+ 459 0136 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 459      FFFFFFFF 
+ 459      FFFFFFFF 
+ 459      FF
+ 460 0143 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 460      FFFFFFFF 
+ 460      FFFFFFFF 
+ 460      FF
+ 461 0150 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\333\336K:\360B5lTK\2612.*\353"
+ 461      FFFFDBDE 
+ 461      4B3AF042 
+ 461      356C544B 
+ 461      B1322E2A 
+ 462 0165 21A92167 		.ascii	"!\251!g\031\005\031\004\021\004\021\004\021\004\021"
+ 462      19051904 
+ 462      11041104 
+ 462      110411
+ 463 0174 04110519 		.ascii	"\004\021\005\031\344\020B\000\257s\377\377\377\377\377"
+ 463      E4104200 
+ 463      AF73FFFF 
+ 463      FFFFFF
+ 464 0183 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 464      FFFFFFFF 
+ 464      FFFFFFFF 
+ 464      FF
+ 465 0190 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 465      FFFFFFFF 
+ 465      FFFFFFFF 
+ 465      FF
+ 466 019d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377]\357\0112L2\020K\2172O"
+ 466      FFFFFF5D 
+ 466      EF09324C 
+ 466      32104B8F 
+ 466      324F
+ 467 01af 2A2E2ACC 		.ascii	"*.*\314\031\211\031\211!G\031\005\031\004\021\004\021"
+ 467      19891989 
+ 467      21471905 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 25
+
+
+ 467      19041104 
+ 467      11
+ 468 01c0 C410C410 		.ascii	"\304\020\304\020\004\021\004\021\004\021\344\020B\000"
+ 468      04110411 
+ 468      0411E410 
+ 468      4200
+ 469 01ce 3184FFFF 		.ascii	"1\204\377\377\377\377\377\377\377\377\377\377\377\377"
+ 469      FFFFFFFF 
+ 469      FFFFFFFF 
+ 469      FFFF
+ 470 01dc FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 470      FFFFFFFF 
+ 470      FFFFFFFF 
+ 470      FF
+ 471 01e9 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\354RG\031"
+ 471      FFFFFFFF 
+ 471      FFFFFFEC 
+ 471      524719
+ 472 01f8 4C320B2A 		.ascii	"L2\013*\354!\354!\014\"\221[\356J\006\021&\031\004\031"
+ 472      EC21EC21 
+ 472      0C22915B 
+ 472      EE4A0611 
+ 472      26190419 
+ 473 020c E410E410 		.ascii	"\344\020\344\020\247)f!\243\010\005\031\004\021\004"
+ 473      A7296621 
+ 473      A3080519 
+ 473      041104
+ 474 021b 11E41082 		.ascii	"\021\344\020\202\000\367\275\377\377\377\377\377\377"
+ 474      00F7BDFF 
+ 474      FFFFFFFF 
+ 474      FF
+ 475 0228 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 475      FFFFFFFF 
+ 475      FFFFFFFF 
+ 475      FF
+ 476 0235 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 476      FFFFFFFF 
+ 476      FFFFFFFF 
+ 476      FF
+ 477 0242 35A58308 		.ascii	"5\245\203\010\210!\210!\211!\252!\212!kBq\214\377\377"
+ 477      88218821 
+ 477      8921AA21 
+ 477      8A216B42 
+ 477      718CFFFF 
+ 478 0256 728C8308 		.ascii	"r\214\203\010\004\021\304\010)B\373\336]\357\354Z\203"
+ 478      0411C408 
+ 478      2942FBDE 
+ 478      5DEFEC5A 
+ 478      83
+ 479 0267 08041104 		.ascii	"\010\004\021\004\021\004\021\203\010\3501\337\377\377"
+ 479      11041183 
+ 479      08E831DF 
+ 479      FFFF
+ 480 0275 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 480      FFFFFFFF 
+ 480      FFFFFFFF 
+ 480      FF
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 26
+
+
+ 481 0282 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 481      FFFFFFFF 
+ 481      FFFFFFFF 
+ 481      FF
+ 482 028f FFBEF7C7 		.ascii	"\377\276\367\3071\304\020%\031&\031G\031G\031\250)\212"
+ 482      31C41025 
+ 482      19261947 
+ 482      194719A8 
+ 482      298A
+ 483 02a1 52284A55 		.ascii	"R(JU\255\377\377\3501\243\010\005\031MkMk\377\377}\357"
+ 483      ADFFFFE8 
+ 483      31A30805 
+ 483      194D6B4D 
+ 483      6BFFFF7D 
+ 484 02b6 4521C410 		.ascii	"E!\304\020\004\021\004\021\004\021b\000v\255\377\377"
+ 484      04110411 
+ 484      04116200 
+ 484      76ADFFFF 
+ 485 02c6 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 485      FFFFFFFF 
+ 485      FFFFFFFF 
+ 485      FF
+ 486 02d3 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 486      FFFFFFFF 
+ 486      FFFFFFFF 
+ 486      FF
+ 487 02e0 96B56200 		.ascii	"\226\265b\000\004\021\004\031\005\021\005\031\304\010"
+ 487      04110419 
+ 487      05110519 
+ 487      C408
+ 488 02ee 8B4AB6B5 		.ascii	"\213J\266\265]\357\367\275\377\377\216kb\000)B\252Z"
+ 488      5DEFF7BD 
+ 488      FFFF8E6B 
+ 488      62002942 
+ 488      AA5A
+ 489 0300 0842FFFF 		.ascii	"\010B\377\377\377\377\314R\203\010\004\021\004\021\004"
+ 489      FFFFCC52 
+ 489      83080411 
+ 489      041104
+ 490 030f 11A308AD 		.ascii	"\021\243\010\255R\377\377\377\377\377\377\377\377\377"
+ 490      52FFFFFF 
+ 490      FFFFFFFF 
+ 490      FFFF
+ 491 031d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\034\347\377\377"
+ 491      FFFFFFFF 
+ 491      FF1CE7FF 
+ 491      FF
+ 492 032a FFFFFFFF 		.ascii	"\377\377\377\377\377\377Ncb\000\004\021\004\021\004"
+ 492      FFFF4E63 
+ 492      62000411 
+ 492      041104
+ 493 0339 11E41062 		.ascii	"\021\344\020b\000\216c\377\377\377\377\377\377\377\377"
+ 493      008E63FF 
+ 493      FFFFFFFF 
+ 493      FFFFFF
+ 494 0348 CF730100 		.ascii	"\317s\001\000\363\234,c\226\265\377\377\377\377-[\203"
+ 494      F39C2C63 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 27
+
+
+ 494      96B5FFFF 
+ 494      FFFF2D5B 
+ 494      83
+ 495 0359 00041104 		.ascii	"\000\004\021\004\021\004\021\344\020g!=\357\377\377"
+ 495      110411E4 
+ 495      1067213D 
+ 495      EFFFFF
+ 496 0368 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\370\275\267\265\236"
+ 496      FFFFFFFF 
+ 496      F8BDB7B5 
+ 496      9E
+ 497 0375 EFCB52B3 		.ascii	"\357\313R\263\224\377\377\377\377\337\377\3501\243\010"
+ 497      94FFFFFF 
+ 497      FFDFFFE8 
+ 497      31A308
+ 498 0384 04110411 		.ascii	"\004\021\004\021\004\021\004\021\243\010IB\377\367\377"
+ 498      04110411 
+ 498      A3084942 
+ 498      FFF7FF
+ 499 0393 F7FFFFFF 		.ascii	"\367\377\377\377\377jJ\001\000r\204\377\377\377\377"
+ 499      FF6A4A01 
+ 499      007284FF 
+ 499      FFFFFF
+ 500 03a2 FFF7DFEF 		.ascii	"\377\367\337\357\011:\243\010\004\021\004\021\004\021"
+ 500      093AA308 
+ 500      04110411 
+ 500      0411
+ 501 03b0 04110511 		.ascii	"\004\021\005\021\030\276\377\377\377\377\377\377\377"
+ 501      18BEFFFF 
+ 501      FFFFFFFF 
+ 501      FF
+ 502 03bd FFFFFFF0 		.ascii	"\377\377\377\360{b\000\3501\3071A\0005\245\377\377]"
+ 502      7B6200E8 
+ 502      31C73141 
+ 502      0035A5FF 
+ 502      FF5D
+ 503 03cf EF4621C4 		.ascii	"\357F!\304\020\004\021\004\021\004\021\004\021\344\020"
+ 503      10041104 
+ 503      11041104 
+ 503      11E410
+ 504 03de A308769D 		.ascii	"\243\010v\235\377\367\377\377\267\255\243\010\243\010"
+ 504      FFF7FFFF 
+ 504      B7ADA308 
+ 504      A308
+ 505 03ec C7319EE7 		.ascii	"\3071\236\347\377\367\377\367v\245\243\010\344\020\004"
+ 505      FFF7FFF7 
+ 505      76A5A308 
+ 505      E41004
+ 506 03fb 11041104 		.ascii	"\021\004\021\004\021\005\021\005\0215\245\377\377\377"
+ 506      11051105 
+ 506      1135A5FF 
+ 506      FFFF
+ 507 0409 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\333\336\247)\203\000\304"
+ 507      FFFFFFDB 
+ 507      DEA72983 
+ 507      00C4
+ 508 0417 10C410C4 		.ascii	"\020\304\020\304\020\034\347\236\357\005\021\344\020"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 28
+
+
+ 508      101CE79E 
+ 508      EF0511E4 
+ 508      10
+ 509 0424 04110411 		.ascii	"\004\021\004\021\004\021\004\021\004\031\304\010\345"
+ 509      04110411 
+ 509      0419C408 
+ 509      E5
+ 510 0431 10D16BD1 		.ascii	"\020\321k\321k\305\010d\000\245\010C\000+2w\235\263"
+ 510      6BC50864 
+ 510      00A50843 
+ 510      002B3277 
+ 510      9DB3
+ 511 0443 842519C4 		.ascii	"\204%\031\304\020\004\021\004\021\004\021\004\021%\031"
+ 511      10041104 
+ 511      11041104 
+ 511      112519
+ 512 0452 2609359D 		.ascii	"&\0115\235\377\377\377\377\377\377\377\377\377\377\377"
+ 512      FFFFFFFF 
+ 512      FFFFFFFF 
+ 512      FFFFFF
+ 513 0461 FFAF7362 		.ascii	"\377\257sb\000\004\031\005\031\202\000\015[\216\233"
+ 513      00041905 
+ 513      1982000D 
+ 513      5B8E9B
+ 514 0470 62100511 		.ascii	"b\020\005\021\004\021\004\021\004\031\344\020\205\000"
+ 514      04110411 
+ 514      0419E410 
+ 514      8500
+ 515 047e 0511C439 		.ascii	"\005\021\3049\201Z@{\"\234C\254\003\244\203\233\202"
+ 515      815A407B 
+ 515      229C43AC 
+ 515      03A4839B 
+ 515      82
+ 516 048f 728249C2 		.ascii	"r\202I\302\030\244\000\305\000\344\020\004\031\004\021"
+ 516      18A400C5 
+ 516      00E41004 
+ 516      190411
+ 517 049e 05194719 		.ascii	"\005\031G\031g\021\354Z\276\377\377\377\377\377\377"
+ 517      6711EC5A 
+ 517      BEFFFFFF 
+ 517      FFFFFF
+ 518 04ad FFFFFFDF 		.ascii	"\377\377\377\337\377\333\336\304\020\344\020\004\021"
+ 518      FFDBDEC4 
+ 518      10E41004 
+ 518      11
+ 519 04ba 0511A418 		.ascii	"\005\021\244\030\001\300\203\210\344\000\005\031\004"
+ 519      01C08388 
+ 519      E4000519 
+ 519      04
+ 520 04c7 19C50844 		.ascii	"\031\305\010D!C\203#\325B\376\344\376'\377\007\377\244"
+ 520      21438323 
+ 520      D542FEE4 
+ 520      FE27FF07 
+ 520      FFA4
+ 521 04d9 FE64FE03 		.ascii	"\376d\376\003\376\243\375\342\374B\354\203\263$b\345"
+ 521      FEA3FDE2 
+ 521      FC42EC83 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 29
+
+
+ 521      B32462E5 
+ 522 04e9 10C40804 		.ascii	"\020\304\010\004\031&\031\250\031\207!\000\220\323\274"
+ 522      192619A8 
+ 522      19872100 
+ 522      90D3BC
+ 523 04f8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\337\377\377\377\020"
+ 523      FFFFFFFF 
+ 523      DFFFFFFF 
+ 523      10
+ 524 0505 7C420005 		.ascii	"|B\000\005\031\005\021\203(\001\320D\370\243H\344\000"
+ 524      19051183 
+ 524      2801D044 
+ 524      F8A348E4 
+ 524      00
+ 525 0516 C508445A 		.ascii	"\305\010DZ\002\355\342\375\002\376f\376t\377\270\377"
+ 525      02EDE2FD 
+ 525      02FE66FE 
+ 525      74FFB8FF 
+ 526 0526 73FFE7F6 		.ascii	"s\377\347\366\246\366E\366\244\365\303\374b\374\302"
+ 526      A6F645F6 
+ 526      A4F5C3FC 
+ 526      62FCC2
+ 527 0535 FCC2FCE3 		.ascii	"\374\302\374\343\313\304I\006\021\210\031\207\001\244"
+ 527      CBC44906 
+ 527      11881987 
+ 527      01A4
+ 528 0543 9001F8EC 		.ascii	"\220\001\370\354\232\377\377\377\377\377\377\377\377"
+ 528      9AFFFFFF 
+ 528      FFFFFFFF 
+ 528      FF
+ 529 0550 FFFFFFFF 		.ascii	"\377\377\377\377\276\367\3501\203\000\005\011\202@\001"
+ 529      BEF7E831 
+ 529      83000509 
+ 529      824001
+ 530 055f C023F885 		.ascii	"\300#\370\205\360\243H\244\000DZ\002\375#\314\302\334"
+ 530      F0A348A4 
+ 530      00445A02 
+ 530      FD23CCC2 
+ 530      DC
+ 531 0570 04FE28FE 		.ascii	"\004\376(\376H\366F\366$\366\344\365d\375\343\374b\374"
+ 531      48F646F6 
+ 531      24F6E4F5 
+ 531      64FDE3FC 
+ 531      62FC
+ 532 0582 C2FC02E4 		.ascii	"\302\374\002\344\002\334\342\374\244zH\001g\001\304"
+ 532      02DCE2FC 
+ 532      A47A4801 
+ 532      6701C4
+ 533 0591 7824F802 		.ascii	"x$\370\002\370\204\260}\347\377\377\377\377\377\377"
+ 533      F884B07D 
+ 533      E7FFFFFF 
+ 533      FFFFFF
+ 534 05a0 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\333\336%\031\243\000\3048\002"
+ 534      FFFFDBDE 
+ 534      2519A300 
+ 534      C43802
+ 535 05af E022D844 		.ascii	"\340\"\330D\370\246\370\244xc\000C!\203r\2039\202\233"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 30
+
+
+ 535      F8A6F8A4 
+ 535      78630043 
+ 535      21837283 
+ 535      39829B
+ 536 05c2 21F561FD 		.ascii	"!\365a\375\"\375\342\374\242\374B\374B\374B\374\"\253"
+ 536      22FDE2FC 
+ 536      A2FC42FC 
+ 536      42FC42FC 
+ 536      22AB
+ 537 05d4 8341C392 		.ascii	"\203A\303\222\004R&\001%\031\244\230D\370#\370\002\370"
+ 537      04522601 
+ 537      2519A498 
+ 537      44F823F8 
+ 537      02F8
+ 538 05e6 A4D09EEF 		.ascii	"\244\320\236\357\377\377\377\377\377\377\377\377\377"
+ 538      FFFFFFFF 
+ 538      FFFFFFFF 
+ 538      FF
+ 539 05f3 FFFFFFFF 		.ascii	"\377\377\377\377\377\232\326\207)\245\000C\270\"\370"
+ 539      FF9AD687 
+ 539      29A50043 
+ 539      B822F8
+ 540 0602 23E065F8 		.ascii	"#\340e\370\350\370\007\311\203HB\000\243\000\204\000"
+ 540      E8F807C9 
+ 540      83484200 
+ 540      A3008400 
+ 541 0612 6329A27A 		.ascii	"c)\242zb\263\242\313b\323\002\273\202\212\2039\244\000"
+ 541      62B3A2CB 
+ 541      62D302BB 
+ 541      828A8339 
+ 541      A400
+ 542 0624 E500E500 		.ascii	"\345\000\345\000\345\010\304`d\330D\370$\370#\370\002"
+ 542      E508C460 
+ 542      64D844F8 
+ 542      24F823F8 
+ 542      02
+ 543 0635 F88388DB 		.ascii	"\370\203\210\333\306\377\377\377\377\377\377\377\377"
+ 543      C6FFFFFF 
+ 543      FFFFFFFF 
+ 543      FF
+ 544 0642 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377=\347P[\0101#\350C\370"
+ 544      FFFFFFFF 
+ 544      3DE7505B 
+ 544      083123E8 
+ 544      43F8
+ 545 0654 44F065F8 		.ascii	"D\360e\370\011\371\253\371\211\321\006\211\243HB\030"
+ 545      09F9ABF9 
+ 545      89D10689 
+ 545      A3484218 
+ 546 0664 02004200 		.ascii	"\002\000B\000a\000\202\000b\000b\000\203\000\243 \304"
+ 546      61008200 
+ 546      62006200 
+ 546      8300A320 
+ 546      C4
+ 547 0675 50A58885 		.ascii	"P\245\210\205\330e\370D\370D\370#\370#\370\003\320\202"
+ 547      D865F844 
+ 547      F844F823 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 31
+
+
+ 547      F823F803 
+ 547      D082
+ 548 0687 10C7295D 		.ascii	"\020\307)]\357\377\377\377\377\377\377\377\377\377\377"
+ 548      EFFFFFFF 
+ 548      FFFFFFFF 
+ 548      FFFFFF
+ 549 0696 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377l2\2458\002\330#\370"
+ 549      FFFFFFFF 
+ 549      6C32A538 
+ 549      02D823F8 
+ 550 06a6 65F866F8 		.ascii	"e\370f\370\247\370J\371\014\372M\372L\352\013\322\251"
+ 550      A7F84AF9 
+ 550      0CFA4DFA 
+ 550      4CEA0BD2 
+ 550      A9
+ 551 06b7 B968B147 		.ascii	"\271h\261G\251'\261\007\271\007\321\347\350\307\370"
+ 551      A927B107 
+ 551      B907D1E7 
+ 551      E8C7F8
+ 552 06c6 A7F865F8 		.ascii	"\247\370e\370e\370D\370#\370\003\370\002\320\243(\005"
+ 552      65F844F8 
+ 552      23F803F8 
+ 552      02D0A328 
+ 552      05
+ 553 06d7 09C408EC 		.ascii	"\011\304\010\354Z\377\377\377\377\377\377\377\377\377"
+ 553      5AFFFFFF 
+ 553      FFFFFFFF 
+ 553      FFFF
+ 554 06e5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\373\336\005\031\304\000"
+ 554      FFFFFFFB 
+ 554      DE0519C4 
+ 554      00
+ 555 06f2 A741E6C0 		.ascii	"\247A\346\300\003\370\206\370\247\370\207\370\206\370"
+ 555      03F886F8 
+ 555      A7F887F8 
+ 555      86F8
+ 556 0700 C7F829F9 		.ascii	"\307\370)\371\212\371\253\371\253\371\213\371j\371)"
+ 556      8AF9ABF9 
+ 556      ABF98BF9 
+ 556      6AF929
+ 557 070f F908F9C7 		.ascii	"\371\010\371\307\370\246\370\206\370e\370d\370#\370"
+ 557      F8A6F886 
+ 557      F865F864 
+ 557      F823F8
+ 558 071e 02F006B1 		.ascii	"\002\360\006\261%)\344\000\344\020%\031%\031\024\235"
+ 558      2529E400 
+ 558      E4102519 
+ 558      2519149D 
+ 559 072e FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 559      FFFFFFFF 
+ 559      FFFFFFFF 
+ 559      FF
+ 560 073b FF96AD62 		.ascii	"\377\226\255b\000\202\0105\225\272\316\213\242D\320"
+ 560      00820835 
+ 560      95BACE8B 
+ 560      A244D0
+ 561 074a 25F887F8 		.ascii	"%\370\207\370\247\370\307\370\247\370\207\370\206\370"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 32
+
+
+ 561      A7F8C7F8 
+ 561      A7F887F8 
+ 561      86F8
+ 562 0758 86F886F8 		.ascii	"\206\370\206\370\207\370\247\370\247\370\246\370\205"
+ 562      87F8A7F8 
+ 562      A7F8A6F8 
+ 562      85
+ 563 0765 F865F864 		.ascii	"\370e\370d\370$\360d\270\015\223\273\266\317c\203\010"
+ 563      F824F064 
+ 563      B80D93BB 
+ 563      B6CF6383 
+ 563      08
+ 564 0776 0411E410 		.ascii	"\004\021\344\020f!I:]\357\377\377\377\377\377\377\377"
+ 564      6621493A 
+ 564      5DEFFFFF 
+ 564      FFFFFFFF 
+ 564      FF
+ 565 0787 FFFFFFFF 		.ascii	"\377\377\377\377\377\323\224B\000\344\020\273\316\377"
+ 565      FFD39442 
+ 565      00E410BB 
+ 565      CEFF
+ 566 0795 FFBEE776 		.ascii	"\377\276\347v\265\314\252\007\301E\340E\370F\370f\370"
+ 566      B5CCAA07 
+ 566      C145E045 
+ 566      F846F866 
+ 566      F8
+ 567 07a6 86F886F8 		.ascii	"\206\370\206\370\206\370\206\370e\370E\370e\370e\350"
+ 567      86F886F8 
+ 567      65F845F8 
+ 567      65F865E8 
+ 568 07b6 44D043A8 		.ascii	"D\320C\250\001\210\202\220<\327\377\357U\225\203\010"
+ 568      01888290 
+ 568      3CD7FFEF 
+ 568      55958308 
+ 569 07c6 04110411 		.ascii	"\004\021\004\021\005\031F\031\263\224"
+ 569      05194619 
+ 569      B394
+ 570 07d0 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\263"
+ 570      FFFFFFFF 
+ 570      FFFFFFFF 
+ 570      B3
+ 571 07dd 94410086 		.ascii	"\224A\000\206!]\337\377\377\377\377\377\377\337\347"
+ 571      215DDFFF 
+ 571      FFFFFFFF 
+ 571      FFDFE7
+ 572 07ec 7AC6D3B4 		.ascii	"z\306\323\264N\263*\302h\321\346\340\246\350\245\350"
+ 572      4EB32AC2 
+ 572      68D1E6E0 
+ 572      A6E8A5E8 
+ 573 07fc A5E8E6D8 		.ascii	"\245\350\346\330\210\311\006\251\"\250\002\250\000\240"
+ 573      88C906A9 
+ 573      22A802A8 
+ 573      00A0
+ 574 080a 00C800D8 		.ascii	"\000\310\000\330\367\345\377\347\370\255\304\020\344"
+ 574      F7E5FFE7 
+ 574      F8ADC410 
+ 574      E4
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 33
+
+
+ 575 0817 100411E4 		.ascii	"\020\004\021\344\020\005\021\213J\377\377\377\377\377"
+ 575      1005118B 
+ 575      4AFFFFFF 
+ 575      FFFF
+ 576 0825 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377U\245A\000\247)]\337\377"
+ 576      FFFFFF55 
+ 576      A54100A7 
+ 576      295DDFFF 
+ 577 0835 F7FFFFFF 		.ascii	"\367\377\377\377\377\377\377\377\377\377\377\377\357"
+ 577      FFFFFFFF 
+ 577      FFFFFFFF 
+ 577      EF
+ 578 0842 7DDFDBCE 		.ascii	"}\337\333\316Y\316\370\315\327\315\367\305y\316\373"
+ 578      59CEF8CD 
+ 578      D7CDF7C5 
+ 578      79CEFB
+ 579 0851 BEABA203 		.ascii	"\276\253\242\003\360E\370B\320C\350\000\360r\324\377"
+ 579      F045F842 
+ 579      D043E800 
+ 579      F072D4FF 
+ 580 0861 DF39AEE4 		.ascii	"\3379\256\344\020\344\020\004\021\344\020\005\021\207"
+ 580      10E41004 
+ 580      11E41005 
+ 580      1187
+ 581 086f 29FFFFFF 		.ascii	")\377\377\377\377\377\377\377\377\377\377\377\377Y\316"
+ 581      FFFFFFFF 
+ 581      FFFFFFFF 
+ 581      FF59CE
+ 582 087e 83084621 		.ascii	"\203\010F!\034\327\377\367\377\377\377\377\377\377\377"
+ 582      1CD7FFF7 
+ 582      FFFFFFFF 
+ 582      FFFFFF
+ 583 088d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 583      FFFFFFFF 
+ 583      FFFFFFFF 
+ 583      FF
+ 584 089a FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\357\213\272\004\370E\370"
+ 584      FFFFFFEF 
+ 584      8BBA04F8 
+ 584      45F8
+ 585 08a8 62E044F0 		.ascii	"b\340D\360\000\370\216\333\377\337\370\245\304\020\344"
+ 585      00F88EDB 
+ 585      FFDFF8A5 
+ 585      C410E4
+ 586 08b7 10E41004 		.ascii	"\020\344\020\004\021\344\020%\031\377\377\377\377\377"
+ 586      11E41025 
+ 586      19FFFFFF 
+ 586      FFFF
+ 587 08c5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\276\367\207)\203\0109\266"
+ 587      FFFFFFBE 
+ 587      F7872983 
+ 587      0839B6
+ 588 08d4 FFF7DFF7 		.ascii	"\377\367\337\367\377\377\377\377\377\377\377\377\377"
+ 588      FFFFFFFF 
+ 588      FFFFFFFF 
+ 588      FF
+ 589 08e1 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 34
+
+
+ 589      FFFFFFFF 
+ 589      FFFFFFFF 
+ 589      FF
+ 590 08ee FFFFBEE7 		.ascii	"\377\377\276\347J\272\003\370E\370d\370D\370\000\370"
+ 590      4ABA03F8 
+ 590      45F864F8 
+ 590      44F800F8 
+ 591 08fe 6EE3FFD7 		.ascii	"n\343\377\327\364\214\203\010\004\021\344\020\344\020"
+ 591      F48C8308 
+ 591      0411E410 
+ 591      E410
+ 592 090c E4100519 		.ascii	"\344\020\005\031\377\377\377\377\377\377\377\377\377"
+ 592      FFFFFFFF 
+ 592      FFFFFFFF 
+ 592      FF
+ 593 0919 FFFFFFFF 		.ascii	"\377\377\377\377\377\357s\000\000r\204\377\357\276\357"
+ 593      FFEF7300 
+ 593      007284FF 
+ 593      EFBEEF
+ 594 0928 DFFFFFFF 		.ascii	"\337\377\377\377\377\377\377\377\377\377\377\377\377"
+ 594      FFFFFFFF 
+ 594      FFFFFFFF 
+ 594      FF
+ 595 0935 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\337\347"
+ 595      FFFFFFFF 
+ 595      FFFFFFDF 
+ 595      E7
+ 596 0942 8BBA03F8 		.ascii	"\213\272\003\370E\370E\370#\370\000\370\323\324\377"
+ 596      45F845F8 
+ 596      23F800F8 
+ 596      D3D4FF
+ 597 0951 D74E5B21 		.ascii	"\327N[!\000):U\245\203\010\304\020%\031\377\377\377"
+ 597      00293A55 
+ 597      A58308C4 
+ 597      102519FF 
+ 597      FFFF
+ 598 0963 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\373\336"
+ 598      FFFFFFFF 
+ 598      FFFFFFFB 
+ 598      DE
+ 599 0970 A308E831 		.ascii	"\243\010\3501\236\337\236\347\277\357\377\377\377\377"
+ 599      9EDF9EE7 
+ 599      BFEFFFFF 
+ 599      FFFF
+ 600 097e FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 600      FFFFFFFF 
+ 600      FFFFFFFF 
+ 600      FF
+ 601 098b FFFFFFFF 		.ascii	"\377\377\377\377\377\377\367Q\274\002\340\003\370\003"
+ 601      FFFFF751 
+ 601      BC02E003 
+ 601      F803
+ 602 0999 F043E0EC 		.ascii	"\360C\340\354\302~\317\374\276F!!\000\323\224\377\377"
+ 602      C27ECFFC 
+ 602      BE462121 
+ 602      00D394FF 
+ 602      FF
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 35
+
+
+ 603 09aa 51840000 		.ascii	"Q\204\000\000\207)\377\377\377\377\377\377\377\377\377"
+ 603      8729FFFF 
+ 603      FFFFFFFF 
+ 603      FFFFFF
+ 604 09b9 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377Q\204\000\000\364\214\377"
+ 604      FFFFFF51 
+ 604      840000F4 
+ 604      8CFF
+ 605 09c7 EF9EE7BF 		.ascii	"\357\236\347\277\357\337\377\377\377\377\377\377\377"
+ 605      EFDFFFFF 
+ 605      FFFFFFFF 
+ 605      FF
+ 606 09d4 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 606      FFFFFFFF 
+ 606      FFFFFFFF 
+ 606      FF
+ 607 09e1 FF3DDF55 		.ascii	"\377=\337U\275R\274r\274\267\265]\307\377\337\360k\000"
+ 607      BD52BC72 
+ 607      BCB7B55D 
+ 607      C7FFDFF0 
+ 607      6B00
+ 608 09f3 00093ABF 		.ascii	"\000\011:\277\367\377\377\377\377\024\235U\245\377\377"
+ 608      F7FFFFFF 
+ 608      FF149D55 
+ 608      A5FFFF
+ 609 0a02 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 609      FFFFFFFF 
+ 609      FFFFFFFF 
+ 609      FF
+ 610 0a0f FFFFFFAC 		.ascii	"\377\377\377\254J\244\010\273\276\337\347~\347\276\357"
+ 610      4AA408BB 
+ 610      BEDFE77E 
+ 610      E7BEEF
+ 611 0a1e DFF7DFFF 		.ascii	"\337\367\337\377\377\377\377\377\377\377\377\377\377"
+ 611      FFFFFFFF 
+ 611      FFFFFFFF 
+ 611      FF
+ 612 0a2b FFFFFFFF 		.ascii	"\377\377\377\377\377\337\377\337\367\377\357\337\337"
+ 612      FFDFFFDF 
+ 612      F7FFEFDF 
+ 612      DF
+ 613 0a38 BFD79ED7 		.ascii	"\277\327\236\327\337\337\330\245\203\010&\021\333\326"
+ 613      DFDFD8A5 
+ 613      83082611 
+ 613      DBD6
+ 614 0a46 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 614      FFFFFFFF 
+ 614      FFFFFFFF 
+ 614      FF
+ 615 0a53 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 615      FFFFFFFF 
+ 615      FFFFFFFF 
+ 615      FF
+ 616 0a60 79EE8BDC 		.ascii	"y\356\213\334!1\251!=\317\277\337~\337\236\347\276\357"
+ 616      2131A921 
+ 616      3DCFBFDF 
+ 616      7EDF9EE7 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 36
+
+
+ 616      BEEF
+ 617 0a72 BFEFDFF7 		.ascii	"\277\357\337\367\337\367\337\367\337\367\337\367\277"
+ 617      DFF7DFF7 
+ 617      DFF7DFF7 
+ 617      BF
+ 618 0a7f EFBEEF9E 		.ascii	"\357\276\357\236\347~\337^\327^\327\337\337\232\266"
+ 618      E77EDF5E 
+ 618      D75ED7DF 
+ 618      DF9AB6
+ 619 0a8e 26194208 		.ascii	"&\031B\010\355\243\277\377\377\377\377\377\377\377\377"
+ 619      EDA3BFFF 
+ 619      FFFFFFFF 
+ 619      FFFFFF
+ 620 0a9d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 620      FFFFFFFF 
+ 620      FFFFFFFF 
+ 620      FF
+ 621 0aaa FFFFFFFF 		.ascii	"\377\377\377\377t\335\300\333\000\376B\356\002B\211"
+ 621      74DDC0DB 
+ 621      00FE42EE 
+ 621      024289
+ 622 0ab9 217BB6DF 		.ascii	"!{\266\337\337~\327~\337~\337\236\347\236\347\236\347"
+ 622      DF7ED77E 
+ 622      DF7EDF9E 
+ 622      E79EE79E 
+ 622      E7
+ 623 0aca 9EE79EE7 		.ascii	"\236\347\236\347~\337~\337]\327]\327\236\337\377\347"
+ 623      7EDF7EDF 
+ 623      5DD75DD7 
+ 623      9EDFFFE7 
+ 624 0ada F8A50711 		.ascii	"\370\245\007\021\343\030\002\305`\375\346\323\333\356"
+ 624      E31802C5 
+ 624      60FDE6D3 
+ 624      DBEE
+ 625 0ae8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 625      FFFFFFFF 
+ 625      FFFFFFFF 
+ 625      FF
+ 626 0af5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\236\367\204\272\301\374"
+ 626      FFFFFF9E 
+ 626      F784BAC1 
+ 626      FC
+ 627 0b02 42FE82FE 		.ascii	"B\376\202\376\242\376\201\203E!tt^\307\337\337~\327"
+ 627      A2FE8183 
+ 627      45217474 
+ 627      5EC7DFDF 
+ 627      7ED7
+ 628 0b14 5ED75DD7 		.ascii	"^\327]\327^\327^\327]\327]\327^\327\236\337\377\347"
+ 628      5ED75ED7 
+ 628      5DD75DD7 
+ 628      5ED79EDF 
+ 628      FFE7
+ 629 0b26 3DC7F163 		.ascii	"=\307\361c\204\010BR&\346)\377\206\376\340\363j\303"
+ 629      84084252 
+ 629      26E629FF 
+ 629      86FEE0F3 
+ 629      6AC3
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 37
+
+
+ 630 0b38 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 630      FFFFFFFF 
+ 630      FFFFFFFF 
+ 630      FF
+ 631 0b45 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\030\336\301\322\242\375"
+ 631      FFFFFF18 
+ 631      DEC1D2A2 
+ 631      FD
+ 632 0b52 22FE42FE 		.ascii	"\"\376B\376B\376b\376\342\324AjIBSt;\246>\307\277\327"
+ 632      42FE62FE 
+ 632      E2D4416A 
+ 632      49425374 
+ 632      3BA63EC7 
+ 633 0b68 BFD7BFD7 		.ascii	"\277\327\277\327\277\337\277\327>\307\032\246\362c\247"
+ 633      BFDFBFD7 
+ 633      3EC71AA6 
+ 633      F263A7
+ 634 0b77 29824122 		.ascii	")\202A\"\264b\376\203\376\252\376\017\377g\375c\272"
+ 634      B462FE83 
+ 634      FEAAFE0F 
+ 634      FF67FD63 
+ 634      BA
+ 635 0b88 3CEFFFFF 		.ascii	"<\357\377\377\377\377\377\377\377\377\377\377\377\377"
+ 635      FFFFFFFF 
+ 635      FFFFFFFF 
+ 635      FFFF
+ 636 0b96 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\232\346\200\322!\375\302\375"
+ 636      FFFF9AE6 
+ 636      80D221FD 
+ 636      C2FD
+ 637 0ba4 E2F5C2F5 		.ascii	"\342\365\302\365\202\365\202\375b\375a\334!\233\204"
+ 637      82F582FD 
+ 637      62FD61DC 
+ 637      219B84
+ 638 0bb3 6AE96A2C 		.ascii	"j\351j,c\257c\021tnc,c\211Z\004R\201z\302\313\342\374"
+ 638      63AF6311 
+ 638      746E632C 
+ 638      63895A04 
+ 638      52817AC2 
+ 639 0bca 62FD82FD 		.ascii	"b\375\202\375\302\375\302\375\344\375$\375b\312\034"
+ 639      C2FDC2FD 
+ 639      E4FD24FD 
+ 639      62CA1C
+ 640 0bd9 E7FFFFFF 		.ascii	"\347\377\377\377\377\377\377\377\377\377\377\377\377"
+ 640      FFFFFFFF 
+ 640      FFFFFFFF 
+ 640      FF
+ 641 0be6 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\261\314\201\322\300"
+ 641      FFFFFFFF 
+ 641      B1CC81D2 
+ 641      C0
+ 642 0bf3 F3C1FC02 		.ascii	"\363\301\374\002\375\002\375\342\374\302\374\302\374"
+ 642      FD02FDE2 
+ 642      FCC2FCC2 
+ 642      FC
+ 643 0c00 81FC80FB 		.ascii	"\201\374\200\373\300\311\244\2015\255Y\316q\234!\201"
+ 643      C0C9A481 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 38
+
+
+ 643      35AD59CE 
+ 643      719C2181 
+ 644 0c10 00DAA1FB 		.ascii	"\000\332\241\373\202\374\242\374\202\374\242\374\002"
+ 644      82FCA2FC 
+ 644      82FCA2FC 
+ 644      02
+ 645 0c1d FD22FDE2 		.ascii	"\375\"\375\342\374\000\374`\332\220\314\377\377\377"
+ 645      FC00FC60 
+ 645      DA90CCFF 
+ 645      FFFF
+ 646 0c2b FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 646      FFFFFFFF 
+ 646      FFFFFFFF 
+ 646      FF
+ 647 0c38 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377Y\336\015\304\006\313"
+ 647      FFFFFFFF 
+ 647      59DE0DC4 
+ 647      06CB
+ 648 0c46 E4D203DB 		.ascii	"\344\322\003\333\003\333\343\332\303\322\244\302\011"
+ 648      03DBE3DA 
+ 648      C3D2A4C2 
+ 648      09
+ 649 0c53 B3D2BC9E 		.ascii	"\263\322\274\236\367\377\377\377\377\377\377\373\346"
+ 649      F7FFFFFF 
+ 649      FFFFFFFB 
+ 649      E6
+ 650 0c60 0EB4A6BA 		.ascii	"\016\264\246\272\203\322\343\342\002\353\"\353\"\343"
+ 650      83D2E3E2 
+ 650      02EB22EB 
+ 650      22E3
+ 651 0c6e 03DBE4D2 		.ascii	"\003\333\344\322j\303\266\325\377\377\377\377\377\377"
+ 651      6AC3B6D5 
+ 651      FFFFFFFF 
+ 651      FFFF
+ 652 0c7c FFFFFFFF 		.ascii	"\377\377\377\377"
+ 653              		.section	.rodata.send_test,"a"
+ 654              		.align	2
+ 655              		.set	.LANCHOR0,. + 0
+ 658              	send_test:
+ 659 0000 53544D33 		.ascii	"STM32F407VxT6 IIC TEST\000"
+ 659      32463430 
+ 659      37567854 
+ 659      36204949 
+ 659      43205445 
+ 660              		.text
+ 661              	.Letext0:
+ 662              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 663              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 664              		.file 4 "Core/Inc/stm32f4xx.h"
+ 665              		.file 5 "Core/Inc/lcd.h"
+ 666              		.file 6 "Core/Inc/pic.h"
+ 667              		.file 7 "Core/Inc/gui.h"
+ 668              		.file 8 "Core/Inc/24c02.h"
+ 669              		.file 9 "Core/Inc/delay.h"
+ 670              		.file 10 "<built-in>"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s 			page 39
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 test.c
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:18     .rodata.IIC_24C02_test.str1.4:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:49     .text.IIC_24C02_test:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:57     .text.IIC_24C02_test:00000000 IIC_24C02_test
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:211    .text.IIC_24C02_test:000000f8 $d
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:225    .rodata.Show_24C02_Write.str1.4:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:232    .text.Show_24C02_Write:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:239    .text.Show_24C02_Write:00000000 Show_24C02_Write
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:319    .text.Show_24C02_Write:00000068 $d
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:327    .rodata.Show_24C02_Read.str1.4:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:334    .text.Show_24C02_Read:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:341    .text.Show_24C02_Read:00000000 Show_24C02_Read
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:425    .text.Show_24C02_Read:00000074 $d
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:658    .rodata.send_test:00000000 send_test
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:437    .rodata.gImage_qq:00000000 gImage_qq
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:434    .rodata.gImage_qq:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccpjfdwE.s:654    .rodata.send_test:00000000 $d
+
+UNDEFINED SYMBOLS
+puts
+Gui_StrCenter
+delay_ms
+AT24C02_Check
+LCD_Fill
+Show_Str
+AT24C02_Write
+lcddev
+AT24C02_Read

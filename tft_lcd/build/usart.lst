@@ -1,0 +1,677 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"usart.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text._sys_exit,"ax",%progbits
+  18              		.align	1
+  19              		.global	_sys_exit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	_sys_exit:
+  27              	.LVL0:
+  28              	.LFB133:
+  29              		.file 1 "Core/Src/usart.c"
+   1:Core/Src/usart.c **** //////////////////////////////////////////////////////////////////////////////////
+   2:Core/Src/usart.c **** //������ֻ��ѧϰʹ�ã�δ���������ɣ���������
+   3:Core/Src/usart.c **** //����Ӳ������Ƭ��STM32F407VGT6,STM32F407VxT6��Сϵͳ������
+   4:Core/Src/usart.c **** //QDtech-TFTҺ������ for STM32 FSMC
+   5:Core/Src/usart.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/usart.c **** //��˾��վ:www.qdtft.com
+   7:Core/Src/usart.c **** //wiki����������վ��http://www.lcdwiki.com
+   8:Core/Src/usart.c **** //��˾�ṩ����֧�֣��κμ������⻶ӭ��ʱ����ѧϰ
+   9:Core/Src/usart.c **** //�̻�(����) :+86 0755-21077707
+  10:Core/Src/usart.c **** //�ֻ�: (����)18823372746 ������)15989313508
+  11:Core/Src/usart.c **** //����:(����/����) sales@qdtft.com  (�ۺ�/��������)serv
+  12:Core/Src/usart.c **** //QQ:(��ǰ��ѯ)3002706772 (����֧��)3002778157
+  13:Core/Src/usart.c **** //��������QQȺ:778679828
+  14:Core/Src/usart.c **** //��������:2020/06/29
+  15:Core/Src/usart.c **** //�汾��V1.0
+  16:Core/Src/usart.c **** //��Ȩ���У�����ؾ���
+  17:Core/Src/usart.c **** //Copyright(C) ������ȫ�����Ӽ������޹�˾ 2018-2028
+  18:Core/Src/usart.c **** //All rights reserved
+  19:Core/Src/usart.c **** /************************************************************************************
+  20:Core/Src/usart.c **** //STM32F407VxT6��Сϵͳ������TFT LCDʾ��
+  21:Core/Src/usart.c **** //֧��ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  22:Core/Src/usart.c **** //TFT LCD����ֱ�Ӳ���STM32F407VxT6��Сϵͳ������TFTLCD��ۻ��
+  23:Core/Src/usart.c **** //STM32����������ָTFTLCD��ۻ��߲��������ڲ����
+  24:Core/Src/usart.c **** //=================================��Դ����=======================================//
+  25:Core/Src/usart.c **** //     LCDģ��                    STM32��������
+  26:Core/Src/usart.c **** //      VDD           --->           DC5V/3.3V          //��Դ
+  27:Core/Src/usart.c **** //      GND           --->             GND              //��Դ��
+  28:Core/Src/usart.c **** //=============================Һ���������߽���============================
+  29:Core/Src/usart.c **** //     LCDģ��                    STM32��������
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 2
+
+
+  30:Core/Src/usart.c **** //      DB0           --->            PD14        -|   
+  31:Core/Src/usart.c **** //      DB1           --->            PD15         |  
+  32:Core/Src/usart.c **** //      DB2           --->            PD0          | 
+  33:Core/Src/usart.c **** //      DB3           --->            PD1          | 
+  34:Core/Src/usart.c **** //      DB4           --->            PE7          |
+  35:Core/Src/usart.c **** //      DB5           --->            PE8          |
+  36:Core/Src/usart.c **** //      DB6           --->            PE9          |
+  37:Core/Src/usart.c **** //      DB7           --->            PE10         |===>Һ����16λ���������
+  38:Core/Src/usart.c **** //      DB8           --->            PE11         |
+  39:Core/Src/usart.c **** //      DB9           --->            PE12         |
+  40:Core/Src/usart.c **** //      DB10          --->            PE13         |
+  41:Core/Src/usart.c **** //      DB11          --->            PE14         |
+  42:Core/Src/usart.c **** //      DB12          --->            PE15         |
+  43:Core/Src/usart.c **** //      DB13          --->            PD8          |
+  44:Core/Src/usart.c **** //      DB14          --->            PD9          |
+  45:Core/Src/usart.c **** //      DB15          --->            PD10        -|
+  46:Core/Src/usart.c **** //=============================Һ���������߽���============================
+  47:Core/Src/usart.c **** //     LCDģ�� 				            STM32�������� 
+  48:Core/Src/usart.c **** //      WR            --->            PD5             //Һ����д���ݿ����ź�
+  49:Core/Src/usart.c **** //      RD            --->            PD4             //Һ���������ݿ����
+  50:Core/Src/usart.c **** //      RS            --->            PD11            //Һ��������/������
+  51:Core/Src/usart.c **** //      RST           --->          ��λ���ţ�Ĭ�ϣ�  //Һ������λ��
+  52:Core/Src/usart.c **** //      CS            --->            PD7             //Һ����Ƭѡ�����ź�
+  53:Core/Src/usart.c **** //      BL            --->            PB15            //Һ������������ź�
+  54:Core/Src/usart.c **** *************************************************************************************/
+  55:Core/Src/usart.c **** /* @attention
+  56:Core/Src/usart.c ****   *
+  57:Core/Src/usart.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  58:Core/Src/usart.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  59:Core/Src/usart.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  60:Core/Src/usart.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  61:Core/Src/usart.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  62:Core/Src/usart.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  63:Core/Src/usart.c **** *************************************************************************************/
+  64:Core/Src/usart.c **** #include "sys.h"
+  65:Core/Src/usart.c **** #include "usart.h"
+  66:Core/Src/usart.c **** 
+  67:Core/Src/usart.c **** //////////////////////////////////////////////////////////////////
+  68:Core/Src/usart.c **** //�������´���,֧��printf�����������,������
+  69:Core/Src/usart.c **** #if !USE_MICROLIB
+  70:Core/Src/usart.c **** #pragma import(__use_no_semihosting) //����__use_no_semihosting���ţ�ȷ��û��
+  71:Core/Src/usart.c **** //��׼����Ҫ��֧�ֺ���
+  72:Core/Src/usart.c **** struct __FILE
+  73:Core/Src/usart.c **** {
+  74:Core/Src/usart.c **** 	int handle;
+  75:Core/Src/usart.c **** };
+  76:Core/Src/usart.c **** 
+  77:Core/Src/usart.c **** FILE __stdout;
+  78:Core/Src/usart.c **** //����_sys_exit()�Ա���ʹ�ð�����ģʽ
+  79:Core/Src/usart.c **** void _sys_exit(int x)
+  80:Core/Src/usart.c **** {
+  30              		.loc 1 80 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  81:Core/Src/usart.c **** 	x = x;
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 3
+
+
+  35              		.loc 1 81 2 view .LVU1
+  82:Core/Src/usart.c **** }
+  36              		.loc 1 82 1 is_stmt 0 view .LVU2
+  37 0000 7047     		bx	lr
+  38              		.cfi_endproc
+  39              	.LFE133:
+  41              		.section	.text.fputc,"ax",%progbits
+  42              		.align	1
+  43              		.global	fputc
+  44              		.syntax unified
+  45              		.thumb
+  46              		.thumb_func
+  47              		.fpu fpv4-sp-d16
+  49              	fputc:
+  50              	.LVL1:
+  51              	.LFB134:
+  83:Core/Src/usart.c **** 
+  84:Core/Src/usart.c **** #endif
+  85:Core/Src/usart.c **** 
+  86:Core/Src/usart.c **** //�ض���fputc����
+  87:Core/Src/usart.c **** int fputc(int ch, FILE *f)
+  88:Core/Src/usart.c **** {
+  52              		.loc 1 88 1 is_stmt 1 view -0
+  53              		.cfi_startproc
+  54              		@ args = 0, pretend = 0, frame = 0
+  55              		@ frame_needed = 0, uses_anonymous_args = 0
+  56              		.loc 1 88 1 is_stmt 0 view .LVU4
+  57 0000 10B5     		push	{r4, lr}
+  58              	.LCFI0:
+  59              		.cfi_def_cfa_offset 8
+  60              		.cfi_offset 4, -8
+  61              		.cfi_offset 14, -4
+  62 0002 0446     		mov	r4, r0
+  89:Core/Src/usart.c **** 	// while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
+  90:Core/Src/usart.c **** 	// 	; //ѭ������,ֱ���������
+  91:Core/Src/usart.c **** 	USART_SendData(USART1, (u8)ch);
+  63              		.loc 1 91 2 is_stmt 1 view .LVU5
+  64 0004 C1B2     		uxtb	r1, r0
+  65              	.LVL2:
+  66              		.loc 1 91 2 is_stmt 0 view .LVU6
+  67 0006 0248     		ldr	r0, .L4
+  68              	.LVL3:
+  69              		.loc 1 91 2 view .LVU7
+  70 0008 FFF7FEFF 		bl	USART_SendData
+  71              	.LVL4:
+  92:Core/Src/usart.c **** 	return ch;
+  72              		.loc 1 92 2 is_stmt 1 view .LVU8
+  93:Core/Src/usart.c **** }
+  73              		.loc 1 93 1 is_stmt 0 view .LVU9
+  74 000c 2046     		mov	r0, r4
+  75 000e 10BD     		pop	{r4, pc}
+  76              	.LVL5:
+  77              	.L5:
+  78              		.loc 1 93 1 view .LVU10
+  79              		.align	2
+  80              	.L4:
+  81 0010 00100140 		.word	1073811456
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 4
+
+
+  82              		.cfi_endproc
+  83              	.LFE134:
+  85              		.section	.text.USART1_Init,"ax",%progbits
+  86              		.align	1
+  87              		.global	USART1_Init
+  88              		.syntax unified
+  89              		.thumb
+  90              		.thumb_func
+  91              		.fpu fpv4-sp-d16
+  93              	USART1_Init:
+  94              	.LVL6:
+  95              	.LFB135:
+  94:Core/Src/usart.c **** 
+  95:Core/Src/usart.c **** u8 USART_RX_BUF[USART_REC_LEN]; //���ջ���,���USART_REC_LEN���ֽ�.
+  96:Core/Src/usart.c **** 
+  97:Core/Src/usart.c **** //����״̬
+  98:Core/Src/usart.c **** //bit15��	������ɱ�־
+  99:Core/Src/usart.c **** //bit14��	���յ�0x0d
+ 100:Core/Src/usart.c **** //bit13~0��	���յ�����Ч�ֽ���Ŀ
+ 101:Core/Src/usart.c **** u16 USART_RX_STA = 0; //����״̬���
+ 102:Core/Src/usart.c **** 
+ 103:Core/Src/usart.c **** /*****************************************************************************
+ 104:Core/Src/usart.c ****  * @name       :void USART1_Init(u32 bound)
+ 105:Core/Src/usart.c ****  * @date       :2020-05-08 
+ 106:Core/Src/usart.c ****  * @function   :Initialize USART1
+ 107:Core/Src/usart.c ****  * @parameters :bound:baudrate
+ 108:Core/Src/usart.c ****  * @retvalue   :None
+ 109:Core/Src/usart.c **** ******************************************************************************/
+ 110:Core/Src/usart.c **** void USART1_Init(u32 bound)
+ 111:Core/Src/usart.c **** {
+  96              		.loc 1 111 1 is_stmt 1 view -0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 32
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		.loc 1 111 1 is_stmt 0 view .LVU12
+ 101 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 102              	.LCFI1:
+ 103              		.cfi_def_cfa_offset 20
+ 104              		.cfi_offset 4, -20
+ 105              		.cfi_offset 5, -16
+ 106              		.cfi_offset 6, -12
+ 107              		.cfi_offset 7, -8
+ 108              		.cfi_offset 14, -4
+ 109 0002 89B0     		sub	sp, sp, #36
+ 110              	.LCFI2:
+ 111              		.cfi_def_cfa_offset 56
+ 112 0004 0646     		mov	r6, r0
+ 112:Core/Src/usart.c **** 	//GPIO�˿�����
+ 113:Core/Src/usart.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+ 113              		.loc 1 113 2 is_stmt 1 view .LVU13
+ 114:Core/Src/usart.c **** 	USART_InitTypeDef USART_InitStructure;
+ 114              		.loc 1 114 2 view .LVU14
+ 115:Core/Src/usart.c **** 	NVIC_InitTypeDef NVIC_InitStructure;
+ 115              		.loc 1 115 2 view .LVU15
+ 116:Core/Src/usart.c **** 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);  //ʹ��GPIOAʱ��
+ 116              		.loc 1 116 2 view .LVU16
+ 117 0006 0121     		movs	r1, #1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 5
+
+
+ 118 0008 0846     		mov	r0, r1
+ 119              	.LVL7:
+ 120              		.loc 1 116 2 is_stmt 0 view .LVU17
+ 121 000a FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+ 122              	.LVL8:
+ 117:Core/Src/usart.c **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE); //ʹ��USART1ʱ��
+ 123              		.loc 1 117 2 is_stmt 1 view .LVU18
+ 124 000e 0121     		movs	r1, #1
+ 125 0010 1020     		movs	r0, #16
+ 126 0012 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 127              	.LVL9:
+ 118:Core/Src/usart.c **** 
+ 119:Core/Src/usart.c **** 	//����1��Ӧ���Ÿ���ӳ��
+ 120:Core/Src/usart.c **** 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);  //GPIOA9����ΪUSART1
+ 128              		.loc 1 120 2 view .LVU19
+ 129 0016 274F     		ldr	r7, .L8
+ 130 0018 0722     		movs	r2, #7
+ 131 001a 0921     		movs	r1, #9
+ 132 001c 3846     		mov	r0, r7
+ 133 001e FFF7FEFF 		bl	GPIO_PinAFConfig
+ 134              	.LVL10:
+ 121:Core/Src/usart.c **** 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1); //GPIOA10����ΪUSART1
+ 135              		.loc 1 121 2 view .LVU20
+ 136 0022 0722     		movs	r2, #7
+ 137 0024 0A21     		movs	r1, #10
+ 138 0026 3846     		mov	r0, r7
+ 139 0028 FFF7FEFF 		bl	GPIO_PinAFConfig
+ 140              	.LVL11:
+ 122:Core/Src/usart.c **** 
+ 123:Core/Src/usart.c **** 	//USART1�˿�����
+ 124:Core/Src/usart.c **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10; //GPIOA9��GPIOA10
+ 141              		.loc 1 124 2 view .LVU21
+ 142              		.loc 1 124 30 is_stmt 0 view .LVU22
+ 143 002c 4FF4C063 		mov	r3, #1536
+ 144 0030 0693     		str	r3, [sp, #24]
+ 125:Core/Src/usart.c **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;			//���ù���
+ 145              		.loc 1 125 2 is_stmt 1 view .LVU23
+ 146              		.loc 1 125 31 is_stmt 0 view .LVU24
+ 147 0032 0223     		movs	r3, #2
+ 148 0034 8DF81C30 		strb	r3, [sp, #28]
+ 126:Core/Src/usart.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		//�ٶ�50MHz
+ 149              		.loc 1 126 2 is_stmt 1 view .LVU25
+ 150              		.loc 1 126 32 is_stmt 0 view .LVU26
+ 151 0038 8DF81D30 		strb	r3, [sp, #29]
+ 127:Core/Src/usart.c **** 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;			//���츴�����
+ 152              		.loc 1 127 2 is_stmt 1 view .LVU27
+ 153              		.loc 1 127 32 is_stmt 0 view .LVU28
+ 154 003c 0024     		movs	r4, #0
+ 155 003e 8DF81E40 		strb	r4, [sp, #30]
+ 128:Core/Src/usart.c **** 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;			//����
+ 156              		.loc 1 128 2 is_stmt 1 view .LVU29
+ 157              		.loc 1 128 31 is_stmt 0 view .LVU30
+ 158 0042 0125     		movs	r5, #1
+ 159 0044 8DF81F50 		strb	r5, [sp, #31]
+ 129:Core/Src/usart.c **** 	GPIO_Init(GPIOA, &GPIO_InitStructure);					//��ʼ��PA9��PA10
+ 160              		.loc 1 129 2 is_stmt 1 view .LVU31
+ 161 0048 06A9     		add	r1, sp, #24
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 6
+
+
+ 162 004a 3846     		mov	r0, r7
+ 163 004c FFF7FEFF 		bl	GPIO_Init
+ 164              	.LVL12:
+ 130:Core/Src/usart.c **** 
+ 131:Core/Src/usart.c **** 	//USART1 ��ʼ������
+ 132:Core/Src/usart.c **** 	USART_InitStructure.USART_BaudRate = bound;										//����������
+ 165              		.loc 1 132 2 view .LVU32
+ 166              		.loc 1 132 37 is_stmt 0 view .LVU33
+ 167 0050 0296     		str	r6, [sp, #8]
+ 133:Core/Src/usart.c **** 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;						//�ֳ�Ϊ8λ���ݸ�ʽ
+ 168              		.loc 1 133 2 is_stmt 1 view .LVU34
+ 169              		.loc 1 133 39 is_stmt 0 view .LVU35
+ 170 0052 ADF80C40 		strh	r4, [sp, #12]	@ movhi
+ 134:Core/Src/usart.c **** 	USART_InitStructure.USART_StopBits = USART_StopBits_1;							//һ��ֹͣλ
+ 171              		.loc 1 134 2 is_stmt 1 view .LVU36
+ 172              		.loc 1 134 37 is_stmt 0 view .LVU37
+ 173 0056 ADF80E40 		strh	r4, [sp, #14]	@ movhi
+ 135:Core/Src/usart.c **** 	USART_InitStructure.USART_Parity = USART_Parity_No;								//����żУ��λ
+ 174              		.loc 1 135 2 is_stmt 1 view .LVU38
+ 175              		.loc 1 135 35 is_stmt 0 view .LVU39
+ 176 005a ADF81040 		strh	r4, [sp, #16]	@ movhi
+ 136:Core/Src/usart.c **** 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //��Ӳ���
+ 177              		.loc 1 136 2 is_stmt 1 view .LVU40
+ 178              		.loc 1 136 48 is_stmt 0 view .LVU41
+ 179 005e ADF81440 		strh	r4, [sp, #20]	@ movhi
+ 137:Core/Src/usart.c **** 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;					//�շ�ģʽ
+ 180              		.loc 1 137 2 is_stmt 1 view .LVU42
+ 181              		.loc 1 137 33 is_stmt 0 view .LVU43
+ 182 0062 0C23     		movs	r3, #12
+ 183 0064 ADF81230 		strh	r3, [sp, #18]	@ movhi
+ 138:Core/Src/usart.c **** 	USART_Init(USART1, &USART_InitStructure);										//��ʼ������1
+ 184              		.loc 1 138 2 is_stmt 1 view .LVU44
+ 185 0068 04F18044 		add	r4, r4, #1073741824
+ 186 006c 04F58834 		add	r4, r4, #69632
+ 187 0070 02A9     		add	r1, sp, #8
+ 188 0072 2046     		mov	r0, r4
+ 189 0074 FFF7FEFF 		bl	USART_Init
+ 190              	.LVL13:
+ 139:Core/Src/usart.c **** 
+ 140:Core/Src/usart.c **** 	USART_Cmd(USART1, ENABLE);					   //ʹ�ܴ���1
+ 191              		.loc 1 140 2 view .LVU45
+ 192 0078 2946     		mov	r1, r5
+ 193 007a 2046     		mov	r0, r4
+ 194 007c FFF7FEFF 		bl	USART_Cmd
+ 195              	.LVL14:
+ 141:Core/Src/usart.c **** 	USART_ClearFlag(USART1, USART_FLAG_TC);		   //�����־λ
+ 196              		.loc 1 141 2 view .LVU46
+ 197 0080 4021     		movs	r1, #64
+ 198 0082 2046     		mov	r0, r4
+ 199 0084 FFF7FEFF 		bl	USART_ClearFlag
+ 200              	.LVL15:
+ 142:Core/Src/usart.c **** 	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE); //��������ж�
+ 201              		.loc 1 142 2 view .LVU47
+ 202 0088 2A46     		mov	r2, r5
+ 203 008a 40F22551 		movw	r1, #1317
+ 204 008e 2046     		mov	r0, r4
+ 205 0090 FFF7FEFF 		bl	USART_ITConfig
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 7
+
+
+ 206              	.LVL16:
+ 143:Core/Src/usart.c **** 
+ 144:Core/Src/usart.c **** 	//Usart1 NVIC ����
+ 145:Core/Src/usart.c **** 	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;		  //����1�ж�ͨ��
+ 207              		.loc 1 145 2 view .LVU48
+ 208              		.loc 1 145 37 is_stmt 0 view .LVU49
+ 209 0094 2523     		movs	r3, #37
+ 210 0096 8DF80430 		strb	r3, [sp, #4]
+ 146:Core/Src/usart.c **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3; //��ռ���ȼ�3
+ 211              		.loc 1 146 2 is_stmt 1 view .LVU50
+ 212              		.loc 1 146 55 is_stmt 0 view .LVU51
+ 213 009a 0323     		movs	r3, #3
+ 214 009c 8DF80530 		strb	r3, [sp, #5]
+ 147:Core/Src/usart.c **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		  //�����ȼ�3
+ 215              		.loc 1 147 2 is_stmt 1 view .LVU52
+ 216              		.loc 1 147 48 is_stmt 0 view .LVU53
+ 217 00a0 8DF80630 		strb	r3, [sp, #6]
+ 148:Core/Src/usart.c **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			  //IRQͨ��ʹ��
+ 218              		.loc 1 148 2 is_stmt 1 view .LVU54
+ 219              		.loc 1 148 40 is_stmt 0 view .LVU55
+ 220 00a4 8DF80750 		strb	r5, [sp, #7]
+ 149:Core/Src/usart.c **** 	NVIC_Init(&NVIC_InitStructure);							  //����ָ���Ĳ�����ʼ��VIC�Ĵ
+ 221              		.loc 1 149 2 is_stmt 1 view .LVU56
+ 222 00a8 01A8     		add	r0, sp, #4
+ 223 00aa FFF7FEFF 		bl	NVIC_Init
+ 224              	.LVL17:
+ 150:Core/Src/usart.c **** }
+ 225              		.loc 1 150 1 is_stmt 0 view .LVU57
+ 226 00ae 09B0     		add	sp, sp, #36
+ 227              	.LCFI3:
+ 228              		.cfi_def_cfa_offset 20
+ 229              		@ sp needed
+ 230 00b0 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 231              	.LVL18:
+ 232              	.L9:
+ 233              		.loc 1 150 1 view .LVU58
+ 234 00b2 00BF     		.align	2
+ 235              	.L8:
+ 236 00b4 00000240 		.word	1073872896
+ 237              		.cfi_endproc
+ 238              	.LFE135:
+ 240              		.section	.text.USART1_IRQHandler,"ax",%progbits
+ 241              		.align	1
+ 242              		.global	USART1_IRQHandler
+ 243              		.syntax unified
+ 244              		.thumb
+ 245              		.thumb_func
+ 246              		.fpu fpv4-sp-d16
+ 248              	USART1_IRQHandler:
+ 249              	.LFB136:
+ 151:Core/Src/usart.c **** 
+ 152:Core/Src/usart.c **** /*****************************************************************************
+ 153:Core/Src/usart.c ****  * @name       :void USART1_Init(u32 bound)
+ 154:Core/Src/usart.c ****  * @date       :2020-05-08 
+ 155:Core/Src/usart.c ****  * @function   :USART1 interrupt service program
+ 156:Core/Src/usart.c ****  * @parameters :None
+ 157:Core/Src/usart.c ****  * @retvalue   :None
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 8
+
+
+ 158:Core/Src/usart.c **** ******************************************************************************/
+ 159:Core/Src/usart.c **** void USART1_IRQHandler(void)
+ 160:Core/Src/usart.c **** {
+ 250              		.loc 1 160 1 is_stmt 1 view -0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 0
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254 0000 08B5     		push	{r3, lr}
+ 255              	.LCFI4:
+ 256              		.cfi_def_cfa_offset 8
+ 257              		.cfi_offset 3, -8
+ 258              		.cfi_offset 14, -4
+ 161:Core/Src/usart.c **** 	u8 Res;
+ 259              		.loc 1 161 2 view .LVU60
+ 162:Core/Src/usart.c **** 	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) //�����ж�(���յ���
+ 260              		.loc 1 162 2 view .LVU61
+ 261              		.loc 1 162 6 is_stmt 0 view .LVU62
+ 262 0002 40F22551 		movw	r1, #1317
+ 263 0006 1A48     		ldr	r0, .L18
+ 264 0008 FFF7FEFF 		bl	USART_GetITStatus
+ 265              	.LVL19:
+ 266              		.loc 1 162 5 view .LVU63
+ 267 000c 00B9     		cbnz	r0, .L16
+ 268              	.L10:
+ 163:Core/Src/usart.c **** 	{
+ 164:Core/Src/usart.c **** 		Res = USART_ReceiveData(USART1);  //��ȡ���յ�������
+ 165:Core/Src/usart.c **** 		if ((USART_RX_STA & 0x8000) == 0) //����δ���
+ 166:Core/Src/usart.c **** 		{
+ 167:Core/Src/usart.c **** 			if (USART_RX_STA & 0x4000) //���յ���0x0d
+ 168:Core/Src/usart.c **** 			{
+ 169:Core/Src/usart.c **** 				if (Res != 0x0a)
+ 170:Core/Src/usart.c **** 				{
+ 171:Core/Src/usart.c **** 					USART_RX_STA = 0; //���մ���,���¿�ʼ
+ 172:Core/Src/usart.c **** 				}
+ 173:Core/Src/usart.c **** 				else
+ 174:Core/Src/usart.c **** 				{
+ 175:Core/Src/usart.c **** 					USART_RX_STA |= 0x8000; //���������
+ 176:Core/Src/usart.c **** 				}
+ 177:Core/Src/usart.c **** 			}
+ 178:Core/Src/usart.c **** 			else //��û�յ�0X0D
+ 179:Core/Src/usart.c **** 			{
+ 180:Core/Src/usart.c **** 				if (Res == 0x0d)
+ 181:Core/Src/usart.c **** 				{
+ 182:Core/Src/usart.c **** 					USART_RX_STA |= 0x4000;
+ 183:Core/Src/usart.c **** 				}
+ 184:Core/Src/usart.c **** 				else
+ 185:Core/Src/usart.c **** 				{
+ 186:Core/Src/usart.c **** 					USART_RX_BUF[USART_RX_STA & 0X3FFF] = Res;
+ 187:Core/Src/usart.c **** 					USART_RX_STA++;
+ 188:Core/Src/usart.c **** 					if (USART_RX_STA > (USART_REC_LEN - 1))
+ 189:Core/Src/usart.c **** 					{
+ 190:Core/Src/usart.c **** 						USART_RX_STA = 0; //�������ݴ���,���¿�ʼ����
+ 191:Core/Src/usart.c **** 					}
+ 192:Core/Src/usart.c **** 				}
+ 193:Core/Src/usart.c **** 			}
+ 194:Core/Src/usart.c **** 		}
+ 195:Core/Src/usart.c **** 	}
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 9
+
+
+ 196:Core/Src/usart.c **** }
+ 269              		.loc 1 196 1 view .LVU64
+ 270 000e 08BD     		pop	{r3, pc}
+ 271              	.L16:
+ 164:Core/Src/usart.c **** 		if ((USART_RX_STA & 0x8000) == 0) //����δ���
+ 272              		.loc 1 164 3 is_stmt 1 view .LVU65
+ 164:Core/Src/usart.c **** 		if ((USART_RX_STA & 0x8000) == 0) //����δ���
+ 273              		.loc 1 164 9 is_stmt 0 view .LVU66
+ 274 0010 1748     		ldr	r0, .L18
+ 275 0012 FFF7FEFF 		bl	USART_ReceiveData
+ 276              	.LVL20:
+ 164:Core/Src/usart.c **** 		if ((USART_RX_STA & 0x8000) == 0) //����δ���
+ 277              		.loc 1 164 7 view .LVU67
+ 278 0016 C0B2     		uxtb	r0, r0
+ 279              	.LVL21:
+ 165:Core/Src/usart.c **** 		{
+ 280              		.loc 1 165 3 is_stmt 1 view .LVU68
+ 165:Core/Src/usart.c **** 		{
+ 281              		.loc 1 165 31 is_stmt 0 view .LVU69
+ 282 0018 164A     		ldr	r2, .L18+4
+ 283 001a 1388     		ldrh	r3, [r2]
+ 284 001c B2F90020 		ldrsh	r2, [r2]
+ 165:Core/Src/usart.c **** 		{
+ 285              		.loc 1 165 6 view .LVU70
+ 286 0020 002A     		cmp	r2, #0
+ 287 0022 F4DB     		blt	.L10
+ 167:Core/Src/usart.c **** 			{
+ 288              		.loc 1 167 4 is_stmt 1 view .LVU71
+ 167:Core/Src/usart.c **** 			{
+ 289              		.loc 1 167 7 is_stmt 0 view .LVU72
+ 290 0024 13F4804F 		tst	r3, #16384
+ 291 0028 0CD0     		beq	.L12
+ 169:Core/Src/usart.c **** 				{
+ 292              		.loc 1 169 5 is_stmt 1 view .LVU73
+ 169:Core/Src/usart.c **** 				{
+ 293              		.loc 1 169 8 is_stmt 0 view .LVU74
+ 294 002a 0A28     		cmp	r0, #10
+ 295 002c 03D0     		beq	.L13
+ 171:Core/Src/usart.c **** 				}
+ 296              		.loc 1 171 6 is_stmt 1 view .LVU75
+ 171:Core/Src/usart.c **** 				}
+ 297              		.loc 1 171 19 is_stmt 0 view .LVU76
+ 298 002e 114B     		ldr	r3, .L18+4
+ 299 0030 0022     		movs	r2, #0
+ 300 0032 1A80     		strh	r2, [r3]	@ movhi
+ 301 0034 EBE7     		b	.L10
+ 302              	.L13:
+ 175:Core/Src/usart.c **** 				}
+ 303              		.loc 1 175 6 is_stmt 1 view .LVU77
+ 175:Core/Src/usart.c **** 				}
+ 304              		.loc 1 175 19 is_stmt 0 view .LVU78
+ 305 0036 6FEA4343 		mvn	r3, r3, lsl #17
+ 306 003a 6FEA5343 		mvn	r3, r3, lsr #17
+ 307 003e 0D4A     		ldr	r2, .L18+4
+ 308 0040 1380     		strh	r3, [r2]	@ movhi
+ 309 0042 E4E7     		b	.L10
+ 310              	.L12:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 10
+
+
+ 180:Core/Src/usart.c **** 				{
+ 311              		.loc 1 180 5 is_stmt 1 view .LVU79
+ 180:Core/Src/usart.c **** 				{
+ 312              		.loc 1 180 8 is_stmt 0 view .LVU80
+ 313 0044 0D28     		cmp	r0, #13
+ 314 0046 0DD0     		beq	.L17
+ 186:Core/Src/usart.c **** 					USART_RX_STA++;
+ 315              		.loc 1 186 6 is_stmt 1 view .LVU81
+ 186:Core/Src/usart.c **** 					USART_RX_STA++;
+ 316              		.loc 1 186 32 is_stmt 0 view .LVU82
+ 317 0048 C3F30D02 		ubfx	r2, r3, #0, #14
+ 186:Core/Src/usart.c **** 					USART_RX_STA++;
+ 318              		.loc 1 186 42 view .LVU83
+ 319 004c 0A49     		ldr	r1, .L18+8
+ 320 004e 8854     		strb	r0, [r1, r2]
+ 187:Core/Src/usart.c **** 					if (USART_RX_STA > (USART_REC_LEN - 1))
+ 321              		.loc 1 187 6 is_stmt 1 view .LVU84
+ 187:Core/Src/usart.c **** 					if (USART_RX_STA > (USART_REC_LEN - 1))
+ 322              		.loc 1 187 18 is_stmt 0 view .LVU85
+ 323 0050 0133     		adds	r3, r3, #1
+ 324 0052 9BB2     		uxth	r3, r3
+ 325 0054 074A     		ldr	r2, .L18+4
+ 326 0056 1380     		strh	r3, [r2]	@ movhi
+ 188:Core/Src/usart.c **** 					{
+ 327              		.loc 1 188 6 is_stmt 1 view .LVU86
+ 188:Core/Src/usart.c **** 					{
+ 328              		.loc 1 188 9 is_stmt 0 view .LVU87
+ 329 0058 FF2B     		cmp	r3, #255
+ 330 005a D8D9     		bls	.L10
+ 190:Core/Src/usart.c **** 					}
+ 331              		.loc 1 190 7 is_stmt 1 view .LVU88
+ 190:Core/Src/usart.c **** 					}
+ 332              		.loc 1 190 20 is_stmt 0 view .LVU89
+ 333 005c 1346     		mov	r3, r2
+ 334 005e 0022     		movs	r2, #0
+ 335 0060 1A80     		strh	r2, [r3]	@ movhi
+ 336              		.loc 1 196 1 view .LVU90
+ 337 0062 D4E7     		b	.L10
+ 338              	.L17:
+ 182:Core/Src/usart.c **** 				}
+ 339              		.loc 1 182 6 is_stmt 1 view .LVU91
+ 182:Core/Src/usart.c **** 				}
+ 340              		.loc 1 182 19 is_stmt 0 view .LVU92
+ 341 0064 43F48043 		orr	r3, r3, #16384
+ 342 0068 024A     		ldr	r2, .L18+4
+ 343 006a 1380     		strh	r3, [r2]	@ movhi
+ 344 006c CFE7     		b	.L10
+ 345              	.L19:
+ 346 006e 00BF     		.align	2
+ 347              	.L18:
+ 348 0070 00100140 		.word	1073811456
+ 349 0074 00000000 		.word	.LANCHOR0
+ 350 0078 00000000 		.word	.LANCHOR1
+ 351              		.cfi_endproc
+ 352              	.LFE136:
+ 354              		.global	USART_RX_STA
+ 355              		.global	USART_RX_BUF
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 11
+
+
+ 356              		.global	__stdout
+ 357              		.section	.bss.USART_RX_BUF,"aw",%nobits
+ 358              		.align	2
+ 359              		.set	.LANCHOR1,. + 0
+ 362              	USART_RX_BUF:
+ 363 0000 00000000 		.space	256
+ 363      00000000 
+ 363      00000000 
+ 363      00000000 
+ 363      00000000 
+ 364              		.section	.bss.USART_RX_STA,"aw",%nobits
+ 365              		.align	1
+ 366              		.set	.LANCHOR0,. + 0
+ 369              	USART_RX_STA:
+ 370 0000 0000     		.space	2
+ 371              		.section	.bss.__stdout,"aw",%nobits
+ 372              		.align	2
+ 375              	__stdout:
+ 376 0000 00000000 		.space	104
+ 376      00000000 
+ 376      00000000 
+ 376      00000000 
+ 376      00000000 
+ 377              		.text
+ 378              	.Letext0:
+ 379              		.file 2 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 380              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 381              		.file 4 "Core/Inc/stm32f4xx.h"
+ 382              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_gpio.h"
+ 383              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_usart.h"
+ 384              		.file 7 "Drivers/STM32F4xx_FWLIB/inc/misc.h"
+ 385              		.file 8 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\lib\\gcc\\arm-none-eabi\\10.2.
+ 386              		.file 9 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 387              		.file 10 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\
+ 388              		.file 11 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\
+ 389              		.file 12 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\stdio
+ 390              		.file 13 "Core/Inc/usart.h"
+ 391              		.file 14 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 usart.c
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:18     .text._sys_exit:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:26     .text._sys_exit:00000000 _sys_exit
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:42     .text.fputc:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:49     .text.fputc:00000000 fputc
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:81     .text.fputc:00000010 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:86     .text.USART1_Init:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:93     .text.USART1_Init:00000000 USART1_Init
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:236    .text.USART1_Init:000000b4 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:241    .text.USART1_IRQHandler:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:248    .text.USART1_IRQHandler:00000000 USART1_IRQHandler
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:348    .text.USART1_IRQHandler:00000070 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:369    .bss.USART_RX_STA:00000000 USART_RX_STA
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:362    .bss.USART_RX_BUF:00000000 USART_RX_BUF
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:375    .bss.__stdout:00000000 __stdout
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:358    .bss.USART_RX_BUF:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:365    .bss.USART_RX_STA:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccu4VLJe.s:372    .bss.__stdout:00000000 $d
+
+UNDEFINED SYMBOLS
+USART_SendData
+RCC_AHB1PeriphClockCmd
+RCC_APB2PeriphClockCmd
+GPIO_PinAFConfig
+GPIO_Init
+USART_Init
+USART_Cmd
+USART_ClearFlag
+USART_ITConfig
+NVIC_Init
+USART_GetITStatus
+USART_ReceiveData

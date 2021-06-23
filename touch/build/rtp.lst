@@ -1,0 +1,4017 @@
+ARM GAS  /tmp/ccm8ljg6.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"rtp.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.RTP_Write_Byte,"ax",%progbits
+  18              		.align	1
+  19              		.global	RTP_Write_Byte
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	RTP_Write_Byte:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Core/Src/rtp.c"
+   1:Core/Src/rtp.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/rtp.c **** //±æ≥Ã–Ú÷ªπ©—ßœ∞ π”√£¨Œ¥æ≠◊˜’ﬂ–Ìø…£¨≤ªµ√”√”⁄∆‰À¸…Ã“µ”√Õæ
+   3:Core/Src/rtp.c **** //≤‚ ‘”≤º˛£∫µ•∆¨ª˙STM32F407VGT6,STM32F407VxT6◊Ó–°œµÕ≥ø™∑¢∞Â,÷˜∆µ168MHZ£¨æß’Ò8MHZ
+   4:Core/Src/rtp.c **** //QDtech-TFT“∫æß«˝∂Ø for STM32 FSMC
+   5:Core/Src/rtp.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/rtp.c **** //π´ÀæÕ¯’æ:www.qdtft.com
+   7:Core/Src/rtp.c **** //wikiºº ı◊ ¡œÕ¯’æ£∫http://www.lcdwiki.com
+   8:Core/Src/rtp.c **** //Œ“ÀæÃ·π©ºº ı÷ß≥÷£¨»Œ∫Œºº ıŒ Ã‚ª∂”≠ÀÊ ±Ωª¡˜—ßœ∞
+   9:Core/Src/rtp.c **** //πÃª∞(¥´’Ê) :+86 0755-21077707 
+  10:Core/Src/rtp.c **** // ÷ª˙: (œ˙ €)18823372746 £®ºº ı)15989313508
+  11:Core/Src/rtp.c **** //” œ‰:(œ˙ €/∂©µ•) sales@qdtft.com  ( €∫Û/ºº ı∑˛ŒÒ)service@qdtft.com
+  12:Core/Src/rtp.c **** //QQ:( €«∞◊…—Ø)3002706772 (ºº ı÷ß≥÷)3002778157
+  13:Core/Src/rtp.c **** //ºº ıΩª¡˜QQ»∫:778679828
+  14:Core/Src/rtp.c **** //¥¥Ω®»’∆⁄:2020/06/29
+  15:Core/Src/rtp.c **** //∞Ê±æ£∫V1.0
+  16:Core/Src/rtp.c **** //∞Ê»®À˘”–£¨µ¡∞Ê±ÿæø°£
+  17:Core/Src/rtp.c **** //Copyright(C) …Ó€⁄ –»´∂ØµÁ◊”ºº ı”–œﬁπ´Àæ 2018-2028
+  18:Core/Src/rtp.c **** //All rights reserved
+  19:Core/Src/rtp.c **** /************************************************************************************
+  20:Core/Src/rtp.c **** //STM32F407VxT6◊Ó–°œµÕ≥ø™∑¢∞Â¥•√˛∆¡ æ¿˝
+  21:Core/Src/rtp.c **** //     LED0                 --->            PA1
+  22:Core/Src/rtp.c **** //     KEY0                 --->            PE4
+  23:Core/Src/rtp.c **** //     24C02_IIC_SCL        --->            PB8
+  24:Core/Src/rtp.c **** //     24C02_IIC_SDA        --->            PB9
+  25:Core/Src/rtp.c **** //÷ß≥÷ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  26:Core/Src/rtp.c **** //TFT LCDø…“‘÷±Ω”≤Â»ÎSTM32F407VxT6◊Ó–°œµÕ≥ø™∑¢∞ÂTFTLCD≤Â≤€ªÚ’ﬂÕ®π˝≈≈œﬂΩ”»ÎTFTLCD≤Â◊˘
+  27:Core/Src/rtp.c **** //STM32¡¨Ω”“˝Ω≈ «÷∏TFTLCD≤Â≤€ªÚ’ﬂ≤Â◊˘“˝Ω≈ƒ⁄≤ø¡¨Ω”µƒSTM32“˝Ω≈
+  28:Core/Src/rtp.c **** //=================================µÁ‘¥Ω”œﬂ=======================================//
+  29:Core/Src/rtp.c **** //     LCDƒ£øÈ                    STM32¡¨Ω”“˝Ω≈
+ARM GAS  /tmp/ccm8ljg6.s 			page 2
+
+
+  30:Core/Src/rtp.c **** //      VDD           --->           DC5V/3.3V          //µÁ‘¥
+  31:Core/Src/rtp.c **** //      GND           --->             GND              //µÁ‘¥µÿ
+  32:Core/Src/rtp.c **** //=============================“∫æß∆¡ ˝æ›œﬂΩ”œﬂ===================================//
+  33:Core/Src/rtp.c **** //     LCDƒ£øÈ                    STM32¡¨Ω”“˝Ω≈
+  34:Core/Src/rtp.c **** //      DB0           --->            PD14        -|   
+  35:Core/Src/rtp.c **** //      DB1           --->            PD15         |  
+  36:Core/Src/rtp.c **** //      DB2           --->            PD0          | 
+  37:Core/Src/rtp.c **** //      DB3           --->            PD1          | 
+  38:Core/Src/rtp.c **** //      DB4           --->            PE7          |
+  39:Core/Src/rtp.c **** //      DB5           --->            PE8          |
+  40:Core/Src/rtp.c **** //      DB6           --->            PE9          |
+  41:Core/Src/rtp.c **** //      DB7           --->            PE10         |===>“∫æß∆¡16Œª≤¢ø⁄ ˝æ›–≈∫≈
+  42:Core/Src/rtp.c **** //      DB8           --->            PE11         |
+  43:Core/Src/rtp.c **** //      DB9           --->            PE12         |
+  44:Core/Src/rtp.c **** //      DB10          --->            PE13         |
+  45:Core/Src/rtp.c **** //      DB11          --->            PE14         |
+  46:Core/Src/rtp.c **** //      DB12          --->            PE15         |
+  47:Core/Src/rtp.c **** //      DB13          --->            PD8          |
+  48:Core/Src/rtp.c **** //      DB14          --->            PD9          |
+  49:Core/Src/rtp.c **** //      DB15          --->            PD10        -|
+  50:Core/Src/rtp.c **** //=============================“∫æß∆¡øÿ÷∆œﬂΩ”œﬂ===================================//
+  51:Core/Src/rtp.c **** //     LCDƒ£øÈ 				            STM32¡¨Ω”“˝Ω≈ 
+  52:Core/Src/rtp.c **** //      WR            --->            PD5             //“∫æß∆¡–¥ ˝æ›øÿ÷∆–≈∫≈
+  53:Core/Src/rtp.c **** //      RD            --->            PD4             //“∫æß∆¡∂¡ ˝æ›øÿ÷∆–≈∫≈
+  54:Core/Src/rtp.c **** //      RS            --->            PD11            //“∫æß∆¡ ˝æ›/√¸¡Óøÿ÷∆–≈∫≈
+  55:Core/Src/rtp.c **** //      RST           --->          ∏¥Œª“˝Ω≈£®ƒ¨»œ£©  //“∫æß∆¡∏¥Œªøÿ÷∆–≈∫≈£®“≤ø…—°‘ÒPD13£©
+  56:Core/Src/rtp.c **** //      CS            --->            PD7             //“∫æß∆¡∆¨—°øÿ÷∆–≈∫≈
+  57:Core/Src/rtp.c **** //      BL            --->            PB15            //“∫æß∆¡±≥π‚øÿ÷∆–≈∫≈
+  58:Core/Src/rtp.c **** //===============================¥•√˛∆¡¥•Ω”œﬂ=====================================//
+  59:Core/Src/rtp.c **** //	   LCDƒ£øÈ                    STM32¡¨Ω”“˝Ω≈ 
+  60:Core/Src/rtp.c **** //      PEN           --->            PB1             //µÁ»›ªÚµÁ◊Ë¥•√˛∆¡¥•√˛÷–∂œ–≈∫≈
+  61:Core/Src/rtp.c **** //      MI            --->            PB2             //µÁ◊Ë¥•√˛∆¡SPI◊‹œﬂ∂¡–≈∫≈
+  62:Core/Src/rtp.c **** //      MO            --->            PC4             //µÁ◊Ë¥•√˛∆¡SPI◊‹œﬂ–¥–≈∫≈ªÚµÁ»›¥•√˛∆¡IIC◊‹œﬂ 
+  63:Core/Src/rtp.c **** //      TCS           --->            PC13            //µÁ◊Ë¥•√˛∆¡∆¨—°øÿ÷∆–≈∫≈ªÚµÁ»›¥•√˛∆¡∏¥Œª–≈∫≈
+  64:Core/Src/rtp.c **** //      TCK           --->            PB0             //µÁ◊Ë¥•√˛∆¡SPI◊‹œﬂªÚµÁ»›¥•√˛∆¡IIC◊‹œﬂ ±÷”–≈∫
+  65:Core/Src/rtp.c **** *************************************************************************************/	
+  66:Core/Src/rtp.c ****  /* @attention
+  67:Core/Src/rtp.c ****   *
+  68:Core/Src/rtp.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  69:Core/Src/rtp.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  70:Core/Src/rtp.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  71:Core/Src/rtp.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  72:Core/Src/rtp.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  73:Core/Src/rtp.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  74:Core/Src/rtp.c **** *************************************************************************************/		
+  75:Core/Src/rtp.c **** #include "touch.h" 
+  76:Core/Src/rtp.c **** #include "lcd.h"
+  77:Core/Src/rtp.c **** #include "delay.h"
+  78:Core/Src/rtp.c **** #include "stdlib.h"
+  79:Core/Src/rtp.c **** #include "math.h"
+  80:Core/Src/rtp.c **** #include "24c02.h"
+  81:Core/Src/rtp.c **** #include "gui.h"	
+  82:Core/Src/rtp.c **** #include "rtp.h"
+  83:Core/Src/rtp.c **** #include "exti.h"
+  84:Core/Src/rtp.c **** 
+  85:Core/Src/rtp.c **** extern u8 touch_flag;
+  86:Core/Src/rtp.c **** 
+ARM GAS  /tmp/ccm8ljg6.s 			page 3
+
+
+  87:Core/Src/rtp.c **** //µÁ◊Ë¥•√˛∆¡∂¡»°x,y◊¯±Íµƒ√¸¡Ó
+  88:Core/Src/rtp.c **** u8 CMD_RDX=0XD0;
+  89:Core/Src/rtp.c **** u8 CMD_RDY=0X90;
+  90:Core/Src/rtp.c **** 
+  91:Core/Src/rtp.c **** /*****************************************************************************
+  92:Core/Src/rtp.c ****  * @name       :void RTP_Write_Byte(u8 num)  
+  93:Core/Src/rtp.c ****  * @date       :2018-08-09 
+  94:Core/Src/rtp.c ****  * @function   :Write a byte data to the touch screen IC with SPI bus
+  95:Core/Src/rtp.c ****  * @parameters :num:Data to be written
+  96:Core/Src/rtp.c ****  * @retvalue   :None
+  97:Core/Src/rtp.c **** ******************************************************************************/  	 			    					   
+  98:Core/Src/rtp.c **** void RTP_Write_Byte(u8 num)    
+  99:Core/Src/rtp.c **** {  
+  30              		.loc 1 99 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 99 1 is_stmt 0 view .LVU1
+  35 0000 70B5     		push	{r4, r5, r6, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 4, -16
+  39              		.cfi_offset 5, -12
+  40              		.cfi_offset 6, -8
+  41              		.cfi_offset 14, -4
+  42 0002 0446     		mov	r4, r0
+ 100:Core/Src/rtp.c **** 	u8 count=0;   
+  43              		.loc 1 100 2 is_stmt 1 view .LVU2
+  44              	.LVL1:
+ 101:Core/Src/rtp.c **** 	for(count=0;count<8;count++)  
+  45              		.loc 1 101 2 view .LVU3
+  46              		.loc 1 101 11 is_stmt 0 view .LVU4
+  47 0004 0025     		movs	r5, #0
+  48              		.loc 1 101 2 view .LVU5
+  49 0006 0EE0     		b	.L2
+  50              	.LVL2:
+  51              	.L8:
+ 102:Core/Src/rtp.c **** 	{ 	  
+ 103:Core/Src/rtp.c **** 		if(num&0x80)TDIN=1;  
+  52              		.loc 1 103 15 is_stmt 1 discriminator 1 view .LVU6
+  53              		.loc 1 103 19 is_stmt 0 discriminator 1 view .LVU7
+  54 0008 0C4B     		ldr	r3, .L9
+  55 000a 0122     		movs	r2, #1
+  56 000c 1A60     		str	r2, [r3]
+  57              	.L4:
+ 104:Core/Src/rtp.c **** 		else TDIN=0;   
+ 105:Core/Src/rtp.c **** 		num<<=1;    
+  58              		.loc 1 105 3 is_stmt 1 discriminator 2 view .LVU8
+  59              		.loc 1 105 6 is_stmt 0 discriminator 2 view .LVU9
+  60 000e 6400     		lsls	r4, r4, #1
+  61              	.LVL3:
+  62              		.loc 1 105 6 discriminator 2 view .LVU10
+  63 0010 E4B2     		uxtb	r4, r4
+  64              	.LVL4:
+ 106:Core/Src/rtp.c **** 		TCLK=0; 
+  65              		.loc 1 106 3 is_stmt 1 discriminator 2 view .LVU11
+  66              		.loc 1 106 7 is_stmt 0 discriminator 2 view .LVU12
+ARM GAS  /tmp/ccm8ljg6.s 			page 4
+
+
+  67 0012 0B4E     		ldr	r6, .L9+4
+  68 0014 0023     		movs	r3, #0
+  69 0016 3360     		str	r3, [r6]
+ 107:Core/Src/rtp.c **** 		delay_us(1);		
+  70              		.loc 1 107 3 is_stmt 1 discriminator 2 view .LVU13
+  71 0018 0120     		movs	r0, #1
+  72 001a FFF7FEFF 		bl	delay_us
+  73              	.LVL5:
+ 108:Core/Src/rtp.c **** 		TCLK=1;		//…œ…˝—ÿ”––ß	        
+  74              		.loc 1 108 3 discriminator 2 view .LVU14
+  75              		.loc 1 108 7 is_stmt 0 discriminator 2 view .LVU15
+  76 001e 0123     		movs	r3, #1
+  77 0020 3360     		str	r3, [r6]
+ 101:Core/Src/rtp.c **** 	{ 	  
+  78              		.loc 1 101 22 is_stmt 1 discriminator 2 view .LVU16
+ 101:Core/Src/rtp.c **** 	{ 	  
+  79              		.loc 1 101 27 is_stmt 0 discriminator 2 view .LVU17
+  80 0022 1D44     		add	r5, r5, r3
+  81              	.LVL6:
+ 101:Core/Src/rtp.c **** 	{ 	  
+  82              		.loc 1 101 27 discriminator 2 view .LVU18
+  83 0024 EDB2     		uxtb	r5, r5
+  84              	.LVL7:
+  85              	.L2:
+ 101:Core/Src/rtp.c **** 	{ 	  
+  86              		.loc 1 101 14 is_stmt 1 discriminator 1 view .LVU19
+ 101:Core/Src/rtp.c **** 	{ 	  
+  87              		.loc 1 101 2 is_stmt 0 discriminator 1 view .LVU20
+  88 0026 072D     		cmp	r5, #7
+  89 0028 06D8     		bhi	.L7
+ 103:Core/Src/rtp.c **** 		else TDIN=0;   
+  90              		.loc 1 103 3 is_stmt 1 view .LVU21
+ 103:Core/Src/rtp.c **** 		else TDIN=0;   
+  91              		.loc 1 103 5 is_stmt 0 view .LVU22
+  92 002a 14F0800F 		tst	r4, #128
+  93 002e EBD1     		bne	.L8
+ 104:Core/Src/rtp.c **** 		num<<=1;    
+  94              		.loc 1 104 8 is_stmt 1 view .LVU23
+ 104:Core/Src/rtp.c **** 		num<<=1;    
+  95              		.loc 1 104 12 is_stmt 0 view .LVU24
+  96 0030 024B     		ldr	r3, .L9
+  97 0032 0022     		movs	r2, #0
+  98 0034 1A60     		str	r2, [r3]
+  99 0036 EAE7     		b	.L4
+ 100              	.L7:
+ 109:Core/Src/rtp.c **** 	}		 			    
+ 110:Core/Src/rtp.c **** }
+ 101              		.loc 1 110 1 view .LVU25
+ 102 0038 70BD     		pop	{r4, r5, r6, pc}
+ 103              	.LVL8:
+ 104              	.L10:
+ 105              		.loc 1 110 1 view .LVU26
+ 106 003a 00BF     		.align	2
+ 107              	.L9:
+ 108 003c 90024142 		.word	1111556752
+ 109 0040 80824042 		.word	1111523968
+ 110              		.cfi_endproc
+ARM GAS  /tmp/ccm8ljg6.s 			page 5
+
+
+ 111              	.LFE130:
+ 113              		.section	.text.RTP_Read_AD,"ax",%progbits
+ 114              		.align	1
+ 115              		.global	RTP_Read_AD
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.fpu fpv4-sp-d16
+ 121              	RTP_Read_AD:
+ 122              	.LVL9:
+ 123              	.LFB131:
+ 111:Core/Src/rtp.c **** 
+ 112:Core/Src/rtp.c **** /*****************************************************************************
+ 113:Core/Src/rtp.c ****  * @name       :u16 RTP_Read_AD(u8 CMD)	  
+ 114:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 115:Core/Src/rtp.c ****  * @function   :Reading adc values from touch screen IC with SPI bus
+ 116:Core/Src/rtp.c ****  * @parameters :CMD:Read command,0xD0 for x,0x90 for y
+ 117:Core/Src/rtp.c ****  * @retvalue   :Read data
+ 118:Core/Src/rtp.c **** ******************************************************************************/    
+ 119:Core/Src/rtp.c **** u16 RTP_Read_AD(u8 CMD)	  
+ 120:Core/Src/rtp.c **** { 	 
+ 124              		.loc 1 120 1 is_stmt 1 view -0
+ 125              		.cfi_startproc
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 128              		.loc 1 120 1 is_stmt 0 view .LVU28
+ 129 0000 70B5     		push	{r4, r5, r6, lr}
+ 130              	.LCFI1:
+ 131              		.cfi_def_cfa_offset 16
+ 132              		.cfi_offset 4, -16
+ 133              		.cfi_offset 5, -12
+ 134              		.cfi_offset 6, -8
+ 135              		.cfi_offset 14, -4
+ 121:Core/Src/rtp.c **** 	u8 count=0; 	  
+ 136              		.loc 1 121 2 is_stmt 1 view .LVU29
+ 137              	.LVL10:
+ 122:Core/Src/rtp.c **** 	u16 Num=0; 
+ 138              		.loc 1 122 2 view .LVU30
+ 123:Core/Src/rtp.c **** 	TCLK=0;		//œ»¿≠µÕ ±÷” 	 
+ 139              		.loc 1 123 2 view .LVU31
+ 140              		.loc 1 123 6 is_stmt 0 view .LVU32
+ 141 0002 184C     		ldr	r4, .L17
+ 142 0004 0026     		movs	r6, #0
+ 143 0006 2660     		str	r6, [r4]
+ 124:Core/Src/rtp.c **** 	TDIN=0; 	//¿≠µÕ ˝æ›œﬂ
+ 144              		.loc 1 124 2 is_stmt 1 view .LVU33
+ 145              		.loc 1 124 6 is_stmt 0 view .LVU34
+ 146 0008 174B     		ldr	r3, .L17+4
+ 147 000a 1E60     		str	r6, [r3]
+ 125:Core/Src/rtp.c **** 	TCS=0; 		//—°÷–¥•√˛∆¡IC
+ 148              		.loc 1 125 2 is_stmt 1 view .LVU35
+ 149              		.loc 1 125 5 is_stmt 0 view .LVU36
+ 150 000c 2433     		adds	r3, r3, #36
+ 151 000e 1E60     		str	r6, [r3]
+ 126:Core/Src/rtp.c **** 	RTP_Write_Byte(CMD);//∑¢ÀÕ√¸¡Ó◊÷
+ 152              		.loc 1 126 2 is_stmt 1 view .LVU37
+ 153 0010 FFF7FEFF 		bl	RTP_Write_Byte
+ARM GAS  /tmp/ccm8ljg6.s 			page 6
+
+
+ 154              	.LVL11:
+ 127:Core/Src/rtp.c **** 	delay_us(6);//ADS7846µƒ◊™ªª ±º‰◊Ó≥§Œ™6us
+ 155              		.loc 1 127 2 view .LVU38
+ 156 0014 0620     		movs	r0, #6
+ 157 0016 FFF7FEFF 		bl	delay_us
+ 158              	.LVL12:
+ 128:Core/Src/rtp.c **** 	TCLK=0; 	     	    
+ 159              		.loc 1 128 2 view .LVU39
+ 160              		.loc 1 128 6 is_stmt 0 view .LVU40
+ 161 001a 2660     		str	r6, [r4]
+ 129:Core/Src/rtp.c **** 	delay_us(1);    	   
+ 162              		.loc 1 129 2 is_stmt 1 view .LVU41
+ 163 001c 0120     		movs	r0, #1
+ 164 001e FFF7FEFF 		bl	delay_us
+ 165              	.LVL13:
+ 130:Core/Src/rtp.c **** 	TCLK=1;		//∏¯1∏ˆ ±÷”£¨«Â≥˝BUSY
+ 166              		.loc 1 130 2 view .LVU42
+ 167              		.loc 1 130 6 is_stmt 0 view .LVU43
+ 168 0022 0120     		movs	r0, #1
+ 169 0024 2060     		str	r0, [r4]
+ 131:Core/Src/rtp.c **** 	delay_us(1); 	
+ 170              		.loc 1 131 2 is_stmt 1 view .LVU44
+ 171 0026 FFF7FEFF 		bl	delay_us
+ 172              	.LVL14:
+ 132:Core/Src/rtp.c **** 	TCLK=0; 	     	    
+ 173              		.loc 1 132 2 view .LVU45
+ 174              		.loc 1 132 6 is_stmt 0 view .LVU46
+ 175 002a 2660     		str	r6, [r4]
+ 133:Core/Src/rtp.c **** 	for(count=0;count<16;count++)//∂¡≥ˆ16Œª ˝æ›,÷ª”–∏ﬂ12Œª”––ß 
+ 176              		.loc 1 133 2 is_stmt 1 view .LVU47
+ 122:Core/Src/rtp.c **** 	TCLK=0;		//œ»¿≠µÕ ±÷” 	 
+ 177              		.loc 1 122 6 is_stmt 0 view .LVU48
+ 178 002c 3446     		mov	r4, r6
+ 179              		.loc 1 133 2 view .LVU49
+ 180 002e 01E0     		b	.L12
+ 181              	.LVL15:
+ 182              	.L13:
+ 183              		.loc 1 133 23 is_stmt 1 discriminator 2 view .LVU50
+ 184              		.loc 1 133 28 is_stmt 0 discriminator 2 view .LVU51
+ 185 0030 731C     		adds	r3, r6, #1
+ 186 0032 DEB2     		uxtb	r6, r3
+ 187              	.LVL16:
+ 188              	.L12:
+ 189              		.loc 1 133 14 is_stmt 1 discriminator 1 view .LVU52
+ 190              		.loc 1 133 2 is_stmt 0 discriminator 1 view .LVU53
+ 191 0034 0F2E     		cmp	r6, #15
+ 192 0036 10D8     		bhi	.L16
+ 134:Core/Src/rtp.c **** 	{ 				  
+ 135:Core/Src/rtp.c **** 		Num<<=1; 	 
+ 193              		.loc 1 135 3 is_stmt 1 view .LVU54
+ 194              		.loc 1 135 6 is_stmt 0 view .LVU55
+ 195 0038 6400     		lsls	r4, r4, #1
+ 196              	.LVL17:
+ 197              		.loc 1 135 6 view .LVU56
+ 198 003a A4B2     		uxth	r4, r4
+ 199              	.LVL18:
+ 136:Core/Src/rtp.c **** 		TCLK=0;	//œ¬Ωµ—ÿ”––ß 
+ARM GAS  /tmp/ccm8ljg6.s 			page 7
+
+
+ 200              		.loc 1 136 3 is_stmt 1 view .LVU57
+ 201              		.loc 1 136 7 is_stmt 0 view .LVU58
+ 202 003c 094D     		ldr	r5, .L17
+ 203 003e 0023     		movs	r3, #0
+ 204 0040 2B60     		str	r3, [r5]
+ 137:Core/Src/rtp.c **** 		delay_us(1);
+ 205              		.loc 1 137 3 is_stmt 1 view .LVU59
+ 206 0042 0120     		movs	r0, #1
+ 207 0044 FFF7FEFF 		bl	delay_us
+ 208              	.LVL19:
+ 138:Core/Src/rtp.c **** 		TCLK=1;
+ 209              		.loc 1 138 3 view .LVU60
+ 210              		.loc 1 138 7 is_stmt 0 view .LVU61
+ 211 0048 0123     		movs	r3, #1
+ 212 004a 2B60     		str	r3, [r5]
+ 139:Core/Src/rtp.c **** 		if(DOUT)Num++; 		 
+ 213              		.loc 1 139 3 is_stmt 1 view .LVU62
+ 214              		.loc 1 139 6 is_stmt 0 view .LVU63
+ 215 004c 074B     		ldr	r3, .L17+8
+ 216 004e 1B68     		ldr	r3, [r3]
+ 217              		.loc 1 139 5 view .LVU64
+ 218 0050 002B     		cmp	r3, #0
+ 219 0052 EDD0     		beq	.L13
+ 220              		.loc 1 139 11 is_stmt 1 discriminator 1 view .LVU65
+ 221              		.loc 1 139 14 is_stmt 0 discriminator 1 view .LVU66
+ 222 0054 0134     		adds	r4, r4, #1
+ 223              	.LVL20:
+ 224              		.loc 1 139 14 discriminator 1 view .LVU67
+ 225 0056 A4B2     		uxth	r4, r4
+ 226              	.LVL21:
+ 227              		.loc 1 139 14 discriminator 1 view .LVU68
+ 228 0058 EAE7     		b	.L13
+ 229              	.L16:
+ 140:Core/Src/rtp.c **** 	}  	
+ 141:Core/Src/rtp.c **** 	Num>>=4;   	//÷ª”–∏ﬂ12Œª”––ß.
+ 230              		.loc 1 141 2 is_stmt 1 view .LVU69
+ 231              	.LVL22:
+ 142:Core/Src/rtp.c **** 	TCS=1;		// Õ∑≈∆¨—°	 
+ 232              		.loc 1 142 2 view .LVU70
+ 233              		.loc 1 142 5 is_stmt 0 view .LVU71
+ 234 005a 054B     		ldr	r3, .L17+12
+ 235 005c 0122     		movs	r2, #1
+ 236 005e 1A60     		str	r2, [r3]
+ 143:Core/Src/rtp.c **** 	return(Num);  
+ 237              		.loc 1 143 2 is_stmt 1 view .LVU72
+ 144:Core/Src/rtp.c **** }
+ 238              		.loc 1 144 1 is_stmt 0 view .LVU73
+ 239 0060 2009     		lsrs	r0, r4, #4
+ 240 0062 70BD     		pop	{r4, r5, r6, pc}
+ 241              	.LVL23:
+ 242              	.L18:
+ 243              		.loc 1 144 1 view .LVU74
+ 244              		.align	2
+ 245              	.L17:
+ 246 0064 80824042 		.word	1111523968
+ 247 0068 90024142 		.word	1111556752
+ 248 006c 08824042 		.word	1111523848
+ARM GAS  /tmp/ccm8ljg6.s 			page 8
+
+
+ 249 0070 B4024142 		.word	1111556788
+ 250              		.cfi_endproc
+ 251              	.LFE131:
+ 253              		.section	.text.RTP_Read_XOY,"ax",%progbits
+ 254              		.align	1
+ 255              		.global	RTP_Read_XOY
+ 256              		.syntax unified
+ 257              		.thumb
+ 258              		.thumb_func
+ 259              		.fpu fpv4-sp-d16
+ 261              	RTP_Read_XOY:
+ 262              	.LVL24:
+ 263              	.LFB132:
+ 145:Core/Src/rtp.c **** 
+ 146:Core/Src/rtp.c **** #define READ_TIMES 5 	//∂¡»°¥Œ ˝
+ 147:Core/Src/rtp.c **** #define LOST_VAL 1	  	//∂™∆˙÷µ
+ 148:Core/Src/rtp.c **** /*****************************************************************************
+ 149:Core/Src/rtp.c ****  * @name       :u16 RTP_Read_XOY(u8 xy)
+ 150:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 151:Core/Src/rtp.c ****  * @function   :Read the touch screen coordinates (x or y),
+ 152:Core/Src/rtp.c **** 								Read the READ_TIMES secondary data in succession 
+ 153:Core/Src/rtp.c **** 								and sort the data in ascending order,
+ 154:Core/Src/rtp.c **** 								Then remove the lowest and highest number of LOST_VAL 
+ 155:Core/Src/rtp.c **** 								and take the average
+ 156:Core/Src/rtp.c ****  * @parameters :xy:Read command(CMD_RDX/CMD_RDY)
+ 157:Core/Src/rtp.c ****  * @retvalue   :Read data
+ 158:Core/Src/rtp.c **** ******************************************************************************/  
+ 159:Core/Src/rtp.c **** u16 RTP_Read_XOY(u8 xy)
+ 160:Core/Src/rtp.c **** {
+ 264              		.loc 1 160 1 is_stmt 1 view -0
+ 265              		.cfi_startproc
+ 266              		@ args = 0, pretend = 0, frame = 16
+ 267              		@ frame_needed = 0, uses_anonymous_args = 0
+ 268              		.loc 1 160 1 is_stmt 0 view .LVU76
+ 269 0000 30B5     		push	{r4, r5, lr}
+ 270              	.LCFI2:
+ 271              		.cfi_def_cfa_offset 12
+ 272              		.cfi_offset 4, -12
+ 273              		.cfi_offset 5, -8
+ 274              		.cfi_offset 14, -4
+ 275 0002 85B0     		sub	sp, sp, #20
+ 276              	.LCFI3:
+ 277              		.cfi_def_cfa_offset 32
+ 278 0004 0546     		mov	r5, r0
+ 161:Core/Src/rtp.c **** 	u16 i, j;
+ 279              		.loc 1 161 2 is_stmt 1 view .LVU77
+ 162:Core/Src/rtp.c **** 	u16 buf[READ_TIMES];
+ 280              		.loc 1 162 2 view .LVU78
+ 163:Core/Src/rtp.c **** 	u16 sum=0;
+ 281              		.loc 1 163 2 view .LVU79
+ 282              	.LVL25:
+ 164:Core/Src/rtp.c **** 	u16 temp;
+ 283              		.loc 1 164 2 view .LVU80
+ 165:Core/Src/rtp.c **** 	for(i=0;i<READ_TIMES;i++)buf[i]=RTP_Read_AD(xy);		 		    
+ 284              		.loc 1 165 2 view .LVU81
+ 285              		.loc 1 165 7 is_stmt 0 view .LVU82
+ 286 0006 0024     		movs	r4, #0
+ARM GAS  /tmp/ccm8ljg6.s 			page 9
+
+
+ 287              	.LVL26:
+ 288              	.L20:
+ 289              		.loc 1 165 10 is_stmt 1 discriminator 1 view .LVU83
+ 290              		.loc 1 165 2 is_stmt 0 discriminator 1 view .LVU84
+ 291 0008 042C     		cmp	r4, #4
+ 292 000a 0AD8     		bhi	.L30
+ 293              		.loc 1 165 27 is_stmt 1 discriminator 3 view .LVU85
+ 294              		.loc 1 165 34 is_stmt 0 discriminator 3 view .LVU86
+ 295 000c 2846     		mov	r0, r5
+ 296 000e FFF7FEFF 		bl	RTP_Read_AD
+ 297              	.LVL27:
+ 298              		.loc 1 165 33 discriminator 3 view .LVU87
+ 299 0012 04AB     		add	r3, sp, #16
+ 300 0014 03EB4403 		add	r3, r3, r4, lsl #1
+ 301 0018 23F80C0C 		strh	r0, [r3, #-12]	@ movhi
+ 302              		.loc 1 165 23 is_stmt 1 discriminator 3 view .LVU88
+ 303              		.loc 1 165 24 is_stmt 0 discriminator 3 view .LVU89
+ 304 001c 0134     		adds	r4, r4, #1
+ 305              	.LVL28:
+ 306              		.loc 1 165 24 discriminator 3 view .LVU90
+ 307 001e A4B2     		uxth	r4, r4
+ 308              	.LVL29:
+ 309              		.loc 1 165 24 discriminator 3 view .LVU91
+ 310 0020 F2E7     		b	.L20
+ 311              	.L30:
+ 166:Core/Src/rtp.c **** 	for(i=0;i<READ_TIMES-1; i++)//≈≈–Ú
+ 312              		.loc 1 166 7 view .LVU92
+ 313 0022 0020     		movs	r0, #0
+ 314 0024 1BE0     		b	.L22
+ 315              	.LVL30:
+ 316              	.L24:
+ 167:Core/Src/rtp.c **** 	{
+ 168:Core/Src/rtp.c **** 		for(j=i+1;j<READ_TIMES;j++)
+ 317              		.loc 1 168 26 is_stmt 1 discriminator 2 view .LVU93
+ 318              		.loc 1 168 27 is_stmt 0 discriminator 2 view .LVU94
+ 319 0026 0133     		adds	r3, r3, #1
+ 320              	.LVL31:
+ 321              		.loc 1 168 27 discriminator 2 view .LVU95
+ 322 0028 9BB2     		uxth	r3, r3
+ 323              	.LVL32:
+ 324              	.L23:
+ 325              		.loc 1 168 13 is_stmt 1 discriminator 1 view .LVU96
+ 326              		.loc 1 168 3 is_stmt 0 discriminator 1 view .LVU97
+ 327 002a 042B     		cmp	r3, #4
+ 328 002c 16D8     		bhi	.L31
+ 169:Core/Src/rtp.c **** 		{
+ 170:Core/Src/rtp.c **** 			if(buf[i]>buf[j])//…˝–Ú≈≈¡–
+ 329              		.loc 1 170 4 is_stmt 1 view .LVU98
+ 330              		.loc 1 170 10 is_stmt 0 view .LVU99
+ 331 002e 04AA     		add	r2, sp, #16
+ 332 0030 02EB4002 		add	r2, r2, r0, lsl #1
+ 333 0034 32F80C2C 		ldrh	r2, [r2, #-12]
+ 334              		.loc 1 170 17 view .LVU100
+ 335 0038 04A9     		add	r1, sp, #16
+ 336 003a 01EB4301 		add	r1, r1, r3, lsl #1
+ 337 003e 31F80C1C 		ldrh	r1, [r1, #-12]
+ 338              		.loc 1 170 6 view .LVU101
+ARM GAS  /tmp/ccm8ljg6.s 			page 10
+
+
+ 339 0042 8A42     		cmp	r2, r1
+ 340 0044 EFD9     		bls	.L24
+ 171:Core/Src/rtp.c **** 			{
+ 172:Core/Src/rtp.c **** 				temp=buf[i];
+ 341              		.loc 1 172 5 is_stmt 1 view .LVU102
+ 342              	.LVL33:
+ 173:Core/Src/rtp.c **** 				buf[i]=buf[j];
+ 343              		.loc 1 173 5 view .LVU103
+ 344              		.loc 1 173 11 is_stmt 0 view .LVU104
+ 345 0046 04AD     		add	r5, sp, #16
+ 346 0048 05EB4005 		add	r5, r5, r0, lsl #1
+ 347 004c 25F80C1C 		strh	r1, [r5, #-12]	@ movhi
+ 174:Core/Src/rtp.c **** 				buf[j]=temp;
+ 348              		.loc 1 174 5 is_stmt 1 view .LVU105
+ 349              		.loc 1 174 11 is_stmt 0 view .LVU106
+ 350 0050 04A9     		add	r1, sp, #16
+ 351 0052 01EB4301 		add	r1, r1, r3, lsl #1
+ 352 0056 21F80C2C 		strh	r2, [r1, #-12]	@ movhi
+ 353 005a E4E7     		b	.L24
+ 354              	.LVL34:
+ 355              	.L31:
+ 166:Core/Src/rtp.c **** 	{
+ 356              		.loc 1 166 27 view .LVU107
+ 357 005c 2046     		mov	r0, r4
+ 358              	.LVL35:
+ 359              	.L22:
+ 166:Core/Src/rtp.c **** 	{
+ 360              		.loc 1 166 10 is_stmt 1 discriminator 1 view .LVU108
+ 166:Core/Src/rtp.c **** 	{
+ 361              		.loc 1 166 2 is_stmt 0 discriminator 1 view .LVU109
+ 362 005e 0328     		cmp	r0, #3
+ 363 0060 03D8     		bhi	.L32
+ 168:Core/Src/rtp.c **** 		{
+ 364              		.loc 1 168 3 is_stmt 1 view .LVU110
+ 168:Core/Src/rtp.c **** 		{
+ 365              		.loc 1 168 8 is_stmt 0 view .LVU111
+ 366 0062 441C     		adds	r4, r0, #1
+ 367 0064 A4B2     		uxth	r4, r4
+ 368              	.LVL36:
+ 168:Core/Src/rtp.c **** 		{
+ 369              		.loc 1 168 8 view .LVU112
+ 370 0066 2346     		mov	r3, r4
+ 168:Core/Src/rtp.c **** 		{
+ 371              		.loc 1 168 3 view .LVU113
+ 372 0068 DFE7     		b	.L23
+ 373              	.LVL37:
+ 374              	.L32:
+ 175:Core/Src/rtp.c **** 			}
+ 176:Core/Src/rtp.c **** 		}
+ 177:Core/Src/rtp.c **** 	}	  
+ 178:Core/Src/rtp.c **** 	sum=0;
+ 375              		.loc 1 178 5 view .LVU114
+ 376 006a 0020     		movs	r0, #0
+ 377              	.LVL38:
+ 179:Core/Src/rtp.c **** 	for(i=LOST_VAL;i<READ_TIMES-LOST_VAL;i++)sum+=buf[i];
+ 378              		.loc 1 179 7 view .LVU115
+ 379 006c 0123     		movs	r3, #1
+ARM GAS  /tmp/ccm8ljg6.s 			page 11
+
+
+ 380 006e 08E0     		b	.L27
+ 381              	.LVL39:
+ 382              	.L28:
+ 383              		.loc 1 179 43 is_stmt 1 discriminator 3 view .LVU116
+ 384              		.loc 1 179 51 is_stmt 0 discriminator 3 view .LVU117
+ 385 0070 04AA     		add	r2, sp, #16
+ 386 0072 02EB4302 		add	r2, r2, r3, lsl #1
+ 387 0076 32F80C2C 		ldrh	r2, [r2, #-12]
+ 388              		.loc 1 179 46 discriminator 3 view .LVU118
+ 389 007a 1044     		add	r0, r0, r2
+ 390              	.LVL40:
+ 391              		.loc 1 179 46 discriminator 3 view .LVU119
+ 392 007c 80B2     		uxth	r0, r0
+ 393              	.LVL41:
+ 394              		.loc 1 179 39 is_stmt 1 discriminator 3 view .LVU120
+ 395              		.loc 1 179 40 is_stmt 0 discriminator 3 view .LVU121
+ 396 007e 0133     		adds	r3, r3, #1
+ 397              	.LVL42:
+ 398              		.loc 1 179 40 discriminator 3 view .LVU122
+ 399 0080 9BB2     		uxth	r3, r3
+ 400              	.LVL43:
+ 401              	.L27:
+ 402              		.loc 1 179 17 is_stmt 1 discriminator 1 view .LVU123
+ 403              		.loc 1 179 2 is_stmt 0 discriminator 1 view .LVU124
+ 404 0082 032B     		cmp	r3, #3
+ 405 0084 F4D9     		bls	.L28
+ 180:Core/Src/rtp.c **** 	temp=sum/(READ_TIMES-2*LOST_VAL);
+ 406              		.loc 1 180 2 is_stmt 1 view .LVU125
+ 407              		.loc 1 180 6 is_stmt 0 view .LVU126
+ 408 0086 034B     		ldr	r3, .L33
+ 409              	.LVL44:
+ 410              		.loc 1 180 6 view .LVU127
+ 411 0088 A3FB0030 		umull	r3, r0, r3, r0
+ 412              	.LVL45:
+ 181:Core/Src/rtp.c **** 	return temp;   
+ 413              		.loc 1 181 2 is_stmt 1 view .LVU128
+ 182:Core/Src/rtp.c **** } 
+ 414              		.loc 1 182 1 is_stmt 0 view .LVU129
+ 415 008c C0F34F00 		ubfx	r0, r0, #1, #16
+ 416              	.LVL46:
+ 417              		.loc 1 182 1 view .LVU130
+ 418 0090 05B0     		add	sp, sp, #20
+ 419              	.LCFI4:
+ 420              		.cfi_def_cfa_offset 12
+ 421              		@ sp needed
+ 422 0092 30BD     		pop	{r4, r5, pc}
+ 423              	.L34:
+ 424              		.align	2
+ 425              	.L33:
+ 426 0094 ABAAAAAA 		.word	-1431655765
+ 427              		.cfi_endproc
+ 428              	.LFE132:
+ 430              		.section	.text.RTP_Read_XY,"ax",%progbits
+ 431              		.align	1
+ 432              		.global	RTP_Read_XY
+ 433              		.syntax unified
+ 434              		.thumb
+ARM GAS  /tmp/ccm8ljg6.s 			page 12
+
+
+ 435              		.thumb_func
+ 436              		.fpu fpv4-sp-d16
+ 438              	RTP_Read_XY:
+ 439              	.LVL47:
+ 440              	.LFB133:
+ 183:Core/Src/rtp.c **** 
+ 184:Core/Src/rtp.c **** /*****************************************************************************
+ 185:Core/Src/rtp.c ****  * @name       :u8 RTP_Read_XY(u16 *x,u16 *y)
+ 186:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 187:Core/Src/rtp.c ****  * @function   :Read touch screen x and y coordinates,
+ 188:Core/Src/rtp.c **** 								The minimum value can not be less than 100
+ 189:Core/Src/rtp.c ****  * @parameters :x:Read x coordinate of the touch screen
+ 190:Core/Src/rtp.c **** 								y:Read y coordinate of the touch screen
+ 191:Core/Src/rtp.c ****  * @retvalue   :0-fail,1-success
+ 192:Core/Src/rtp.c **** ******************************************************************************/ 
+ 193:Core/Src/rtp.c **** u8 RTP_Read_XY(u16 *x,u16 *y)
+ 194:Core/Src/rtp.c **** {
+ 441              		.loc 1 194 1 is_stmt 1 view -0
+ 442              		.cfi_startproc
+ 443              		@ args = 0, pretend = 0, frame = 0
+ 444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 445              		.loc 1 194 1 is_stmt 0 view .LVU132
+ 446 0000 70B5     		push	{r4, r5, r6, lr}
+ 447              	.LCFI5:
+ 448              		.cfi_def_cfa_offset 16
+ 449              		.cfi_offset 4, -16
+ 450              		.cfi_offset 5, -12
+ 451              		.cfi_offset 6, -8
+ 452              		.cfi_offset 14, -4
+ 453 0002 0546     		mov	r5, r0
+ 454 0004 0C46     		mov	r4, r1
+ 195:Core/Src/rtp.c **** 	u16 xtemp,ytemp;			 	 		  
+ 455              		.loc 1 195 2 is_stmt 1 view .LVU133
+ 196:Core/Src/rtp.c **** 	xtemp=RTP_Read_XOY(CMD_RDX);
+ 456              		.loc 1 196 2 view .LVU134
+ 457              		.loc 1 196 8 is_stmt 0 view .LVU135
+ 458 0006 064B     		ldr	r3, .L37
+ 459 0008 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 460              	.LVL48:
+ 461              		.loc 1 196 8 view .LVU136
+ 462 000a FFF7FEFF 		bl	RTP_Read_XOY
+ 463              	.LVL49:
+ 464              		.loc 1 196 8 view .LVU137
+ 465 000e 0646     		mov	r6, r0
+ 466              	.LVL50:
+ 197:Core/Src/rtp.c **** 	ytemp=RTP_Read_XOY(CMD_RDY);	  												   
+ 467              		.loc 1 197 2 is_stmt 1 view .LVU138
+ 468              		.loc 1 197 8 is_stmt 0 view .LVU139
+ 469 0010 044B     		ldr	r3, .L37+4
+ 470 0012 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 471 0014 FFF7FEFF 		bl	RTP_Read_XOY
+ 472              	.LVL51:
+ 198:Core/Src/rtp.c **** 	//if(xtemp<100||ytemp<100)return 0;//∂¡ ˝ ß∞‹
+ 199:Core/Src/rtp.c **** 	*x=xtemp;
+ 473              		.loc 1 199 2 is_stmt 1 view .LVU140
+ 474              		.loc 1 199 4 is_stmt 0 view .LVU141
+ 475 0018 2E80     		strh	r6, [r5]	@ movhi
+ARM GAS  /tmp/ccm8ljg6.s 			page 13
+
+
+ 200:Core/Src/rtp.c **** 	*y=ytemp;
+ 476              		.loc 1 200 2 is_stmt 1 view .LVU142
+ 477              		.loc 1 200 4 is_stmt 0 view .LVU143
+ 478 001a 2080     		strh	r0, [r4]	@ movhi
+ 201:Core/Src/rtp.c **** 	return 1;//∂¡ ˝≥…π¶
+ 479              		.loc 1 201 2 is_stmt 1 view .LVU144
+ 202:Core/Src/rtp.c **** }
+ 480              		.loc 1 202 1 is_stmt 0 view .LVU145
+ 481 001c 0120     		movs	r0, #1
+ 482              	.LVL52:
+ 483              		.loc 1 202 1 view .LVU146
+ 484 001e 70BD     		pop	{r4, r5, r6, pc}
+ 485              	.LVL53:
+ 486              	.L38:
+ 487              		.loc 1 202 1 view .LVU147
+ 488              		.align	2
+ 489              	.L37:
+ 490 0020 00000000 		.word	.LANCHOR0
+ 491 0024 00000000 		.word	.LANCHOR1
+ 492              		.cfi_endproc
+ 493              	.LFE133:
+ 495              		.section	.text.RTP_Read_XY2,"ax",%progbits
+ 496              		.align	1
+ 497              		.global	RTP_Read_XY2
+ 498              		.syntax unified
+ 499              		.thumb
+ 500              		.thumb_func
+ 501              		.fpu fpv4-sp-d16
+ 503              	RTP_Read_XY2:
+ 504              	.LVL54:
+ 505              	.LFB134:
+ 203:Core/Src/rtp.c **** 
+ 204:Core/Src/rtp.c **** #define ERR_RANGE 50 //ŒÛ≤Ó∑∂Œß 
+ 205:Core/Src/rtp.c **** /*****************************************************************************
+ 206:Core/Src/rtp.c ****  * @name       :u8 TP_Read_XY2(u16 *x,u16 *y) 
+ 207:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 208:Core/Src/rtp.c ****  * @function   :Read the touch screen coordinates twice in a row, 
+ 209:Core/Src/rtp.c **** 								and the deviation of these two times can not exceed ERR_RANGE, 
+ 210:Core/Src/rtp.c **** 								satisfy the condition, then think the reading is correct, 
+ 211:Core/Src/rtp.c **** 								otherwise the reading is wrong.
+ 212:Core/Src/rtp.c **** 								This function can greatly improve the accuracy.
+ 213:Core/Src/rtp.c ****  * @parameters :x:Read x coordinate of the touch screen
+ 214:Core/Src/rtp.c **** 								y:Read y coordinate of the touch screen
+ 215:Core/Src/rtp.c ****  * @retvalue   :0-fail,1-success
+ 216:Core/Src/rtp.c **** ******************************************************************************/ 
+ 217:Core/Src/rtp.c **** u8 RTP_Read_XY2(u16 *x,u16 *y) 
+ 218:Core/Src/rtp.c **** {
+ 506              		.loc 1 218 1 is_stmt 1 view -0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 8
+ 509              		@ frame_needed = 0, uses_anonymous_args = 0
+ 510              		.loc 1 218 1 is_stmt 0 view .LVU149
+ 511 0000 70B5     		push	{r4, r5, r6, lr}
+ 512              	.LCFI6:
+ 513              		.cfi_def_cfa_offset 16
+ 514              		.cfi_offset 4, -16
+ 515              		.cfi_offset 5, -12
+ARM GAS  /tmp/ccm8ljg6.s 			page 14
+
+
+ 516              		.cfi_offset 6, -8
+ 517              		.cfi_offset 14, -4
+ 518 0002 82B0     		sub	sp, sp, #8
+ 519              	.LCFI7:
+ 520              		.cfi_def_cfa_offset 24
+ 521 0004 0546     		mov	r5, r0
+ 522 0006 0C46     		mov	r4, r1
+ 219:Core/Src/rtp.c **** 	u16 x1,y1;
+ 523              		.loc 1 219 2 is_stmt 1 view .LVU150
+ 220:Core/Src/rtp.c ****  	u16 x2,y2;
+ 524              		.loc 1 220 3 view .LVU151
+ 221:Core/Src/rtp.c ****  	u8 flag;    
+ 525              		.loc 1 221 3 view .LVU152
+ 222:Core/Src/rtp.c ****   flag=RTP_Read_XY(&x1,&y1);   
+ 526              		.loc 1 222 3 view .LVU153
+ 527              		.loc 1 222 8 is_stmt 0 view .LVU154
+ 528 0008 01A9     		add	r1, sp, #4
+ 529              	.LVL55:
+ 530              		.loc 1 222 8 view .LVU155
+ 531 000a 0DF10600 		add	r0, sp, #6
+ 532              	.LVL56:
+ 533              		.loc 1 222 8 view .LVU156
+ 534 000e FFF7FEFF 		bl	RTP_Read_XY
+ 535              	.LVL57:
+ 223:Core/Src/rtp.c ****   if(flag==0)return(0);
+ 536              		.loc 1 223 3 is_stmt 1 view .LVU157
+ 537              		.loc 1 223 5 is_stmt 0 view .LVU158
+ 538 0012 08B9     		cbnz	r0, .L50
+ 539              	.L40:
+ 224:Core/Src/rtp.c ****   flag=RTP_Read_XY(&x2,&y2);	   
+ 225:Core/Src/rtp.c ****   if(flag==0)return(0);   
+ 226:Core/Src/rtp.c ****   if(((x2<=x1&&x1<x2+ERR_RANGE)||(x1<=x2&&x2<x1+ERR_RANGE))//«∞∫Û¡Ω¥Œ≤…—˘‘⁄+-50ƒ⁄
+ 227:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 228:Core/Src/rtp.c ****   {
+ 229:Core/Src/rtp.c ****       *x=(x1+x2)/2;
+ 230:Core/Src/rtp.c ****       *y=(y1+y2)/2;
+ 231:Core/Src/rtp.c ****       return 1;
+ 232:Core/Src/rtp.c ****   }else return 0;	  
+ 233:Core/Src/rtp.c **** } 
+ 540              		.loc 1 233 1 view .LVU159
+ 541 0014 02B0     		add	sp, sp, #8
+ 542              	.LCFI8:
+ 543              		.cfi_remember_state
+ 544              		.cfi_def_cfa_offset 16
+ 545              		@ sp needed
+ 546 0016 70BD     		pop	{r4, r5, r6, pc}
+ 547              	.LVL58:
+ 548              	.L50:
+ 549              	.LCFI9:
+ 550              		.cfi_restore_state
+ 224:Core/Src/rtp.c ****   flag=RTP_Read_XY(&x2,&y2);	   
+ 551              		.loc 1 224 3 is_stmt 1 view .LVU160
+ 224:Core/Src/rtp.c ****   flag=RTP_Read_XY(&x2,&y2);	   
+ 552              		.loc 1 224 8 is_stmt 0 view .LVU161
+ 553 0018 6946     		mov	r1, sp
+ 554 001a 0DF10200 		add	r0, sp, #2
+ 555 001e FFF7FEFF 		bl	RTP_Read_XY
+ARM GAS  /tmp/ccm8ljg6.s 			page 15
+
+
+ 556              	.LVL59:
+ 225:Core/Src/rtp.c ****   if(((x2<=x1&&x1<x2+ERR_RANGE)||(x1<=x2&&x2<x1+ERR_RANGE))//«∞∫Û¡Ω¥Œ≤…—˘‘⁄+-50ƒ⁄
+ 557              		.loc 1 225 3 is_stmt 1 view .LVU162
+ 225:Core/Src/rtp.c ****   if(((x2<=x1&&x1<x2+ERR_RANGE)||(x1<=x2&&x2<x1+ERR_RANGE))//«∞∫Û¡Ω¥Œ≤…—˘‘⁄+-50ƒ⁄
+ 558              		.loc 1 225 5 is_stmt 0 view .LVU163
+ 559 0022 0028     		cmp	r0, #0
+ 560 0024 F6D0     		beq	.L40
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 561              		.loc 1 226 3 is_stmt 1 view .LVU164
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 562              		.loc 1 226 10 is_stmt 0 view .LVU165
+ 563 0026 BDF80230 		ldrh	r3, [sp, #2]
+ 564 002a BDF80620 		ldrh	r2, [sp, #6]
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 565              		.loc 1 226 5 view .LVU166
+ 566 002e 9342     		cmp	r3, r2
+ 567 0030 03D8     		bhi	.L41
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 568              		.loc 1 226 18 discriminator 1 view .LVU167
+ 569 0032 03F13101 		add	r1, r3, #49
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 570              		.loc 1 226 14 discriminator 1 view .LVU168
+ 571 0036 9142     		cmp	r1, r2
+ 572 0038 05DA     		bge	.L42
+ 573              	.L41:
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 574              		.loc 1 226 32 discriminator 3 view .LVU169
+ 575 003a 9342     		cmp	r3, r2
+ 576 003c 1ED3     		bcc	.L45
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 577              		.loc 1 226 45 discriminator 4 view .LVU170
+ 578 003e 02F13101 		add	r1, r2, #49
+ 226:Core/Src/rtp.c ****   &&((y2<=y1&&y1<y2+ERR_RANGE)||(y1<=y2&&y2<y1+ERR_RANGE)))
+ 579              		.loc 1 226 41 discriminator 4 view .LVU171
+ 580 0042 9942     		cmp	r1, r3
+ 581 0044 1CDB     		blt	.L46
+ 582              	.L42:
+ 227:Core/Src/rtp.c ****   {
+ 583              		.loc 1 227 9 view .LVU172
+ 584 0046 BDF80000 		ldrh	r0, [sp]
+ 585              	.LVL60:
+ 227:Core/Src/rtp.c ****   {
+ 586              		.loc 1 227 9 view .LVU173
+ 587 004a BDF80410 		ldrh	r1, [sp, #4]
+ 227:Core/Src/rtp.c ****   {
+ 588              		.loc 1 227 3 view .LVU174
+ 589 004e 8842     		cmp	r0, r1
+ 590 0050 03D8     		bhi	.L43
+ 227:Core/Src/rtp.c ****   {
+ 591              		.loc 1 227 17 discriminator 1 view .LVU175
+ 592 0052 00F13106 		add	r6, r0, #49
+ 227:Core/Src/rtp.c ****   {
+ 593              		.loc 1 227 13 discriminator 1 view .LVU176
+ 594 0056 8E42     		cmp	r6, r1
+ 595 0058 04DA     		bge	.L44
+ 596              	.L43:
+ 227:Core/Src/rtp.c ****   {
+ARM GAS  /tmp/ccm8ljg6.s 			page 16
+
+
+ 597              		.loc 1 227 31 discriminator 3 view .LVU177
+ 598 005a 8842     		cmp	r0, r1
+ 599 005c 12D3     		bcc	.L47
+ 227:Core/Src/rtp.c ****   {
+ 600              		.loc 1 227 44 discriminator 4 view .LVU178
+ 601 005e 3131     		adds	r1, r1, #49
+ 227:Core/Src/rtp.c ****   {
+ 602              		.loc 1 227 40 discriminator 4 view .LVU179
+ 603 0060 8142     		cmp	r1, r0
+ 604 0062 11DB     		blt	.L48
+ 605              	.L44:
+ 229:Core/Src/rtp.c ****       *y=(y1+y2)/2;
+ 606              		.loc 1 229 7 is_stmt 1 view .LVU180
+ 229:Core/Src/rtp.c ****       *y=(y1+y2)/2;
+ 607              		.loc 1 229 17 is_stmt 0 view .LVU181
+ 608 0064 1344     		add	r3, r3, r2
+ 609 0066 5B10     		asrs	r3, r3, #1
+ 229:Core/Src/rtp.c ****       *y=(y1+y2)/2;
+ 610              		.loc 1 229 9 view .LVU182
+ 611 0068 2B80     		strh	r3, [r5]	@ movhi
+ 230:Core/Src/rtp.c ****       return 1;
+ 612              		.loc 1 230 7 is_stmt 1 view .LVU183
+ 230:Core/Src/rtp.c ****       return 1;
+ 613              		.loc 1 230 13 is_stmt 0 view .LVU184
+ 614 006a BDF80430 		ldrh	r3, [sp, #4]
+ 615 006e BDF80020 		ldrh	r2, [sp]
+ 230:Core/Src/rtp.c ****       return 1;
+ 616              		.loc 1 230 17 view .LVU185
+ 617 0072 1344     		add	r3, r3, r2
+ 618 0074 5B10     		asrs	r3, r3, #1
+ 230:Core/Src/rtp.c ****       return 1;
+ 619              		.loc 1 230 9 view .LVU186
+ 620 0076 2380     		strh	r3, [r4]	@ movhi
+ 231:Core/Src/rtp.c ****   }else return 0;	  
+ 621              		.loc 1 231 7 is_stmt 1 view .LVU187
+ 231:Core/Src/rtp.c ****   }else return 0;	  
+ 622              		.loc 1 231 14 is_stmt 0 view .LVU188
+ 623 0078 0120     		movs	r0, #1
+ 624 007a CBE7     		b	.L40
+ 625              	.LVL61:
+ 626              	.L45:
+ 232:Core/Src/rtp.c **** } 
+ 627              		.loc 1 232 16 view .LVU189
+ 628 007c 0020     		movs	r0, #0
+ 629              	.LVL62:
+ 232:Core/Src/rtp.c **** } 
+ 630              		.loc 1 232 16 view .LVU190
+ 631 007e C9E7     		b	.L40
+ 632              	.LVL63:
+ 633              	.L46:
+ 232:Core/Src/rtp.c **** } 
+ 634              		.loc 1 232 16 view .LVU191
+ 635 0080 0020     		movs	r0, #0
+ 636              	.LVL64:
+ 232:Core/Src/rtp.c **** } 
+ 637              		.loc 1 232 16 view .LVU192
+ 638 0082 C7E7     		b	.L40
+ARM GAS  /tmp/ccm8ljg6.s 			page 17
+
+
+ 639              	.L47:
+ 640 0084 0020     		movs	r0, #0
+ 641 0086 C5E7     		b	.L40
+ 642              	.L48:
+ 643 0088 0020     		movs	r0, #0
+ 644 008a C3E7     		b	.L40
+ 645              		.cfi_endproc
+ 646              	.LFE134:
+ 648              		.section	.text.RTP_Drow_Touch_Point,"ax",%progbits
+ 649              		.align	1
+ 650              		.global	RTP_Drow_Touch_Point
+ 651              		.syntax unified
+ 652              		.thumb
+ 653              		.thumb_func
+ 654              		.fpu fpv4-sp-d16
+ 656              	RTP_Drow_Touch_Point:
+ 657              	.LVL65:
+ 658              	.LFB135:
+ 234:Core/Src/rtp.c **** 
+ 235:Core/Src/rtp.c **** /*****************************************************************************
+ 236:Core/Src/rtp.c ****  * @name       :void TP_Drow_Touch_Point(u16 x,u16 y,u16 color)
+ 237:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 238:Core/Src/rtp.c ****  * @function   :Draw a touch point,Used to calibrate							
+ 239:Core/Src/rtp.c ****  * @parameters :x:Read x coordinate of the touch screen
+ 240:Core/Src/rtp.c **** 								y:Read y coordinate of the touch screen
+ 241:Core/Src/rtp.c **** 								color:the color value of the touch point
+ 242:Core/Src/rtp.c ****  * @retvalue   :None
+ 243:Core/Src/rtp.c **** ******************************************************************************/  
+ 244:Core/Src/rtp.c **** void RTP_Drow_Touch_Point(u16 x,u16 y,u16 color)
+ 245:Core/Src/rtp.c **** {
+ 659              		.loc 1 245 1 is_stmt 1 view -0
+ 660              		.cfi_startproc
+ 661              		@ args = 0, pretend = 0, frame = 0
+ 662              		@ frame_needed = 0, uses_anonymous_args = 0
+ 663              		.loc 1 245 1 is_stmt 0 view .LVU194
+ 664 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 665              	.LCFI10:
+ 666              		.cfi_def_cfa_offset 28
+ 667              		.cfi_offset 4, -28
+ 668              		.cfi_offset 5, -24
+ 669              		.cfi_offset 6, -20
+ 670              		.cfi_offset 7, -16
+ 671              		.cfi_offset 8, -12
+ 672              		.cfi_offset 9, -8
+ 673              		.cfi_offset 14, -4
+ 674 0004 83B0     		sub	sp, sp, #12
+ 675              	.LCFI11:
+ 676              		.cfi_def_cfa_offset 40
+ 677 0006 0446     		mov	r4, r0
+ 678 0008 0D46     		mov	r5, r1
+ 246:Core/Src/rtp.c **** 	POINT_COLOR=color;
+ 679              		.loc 1 246 2 is_stmt 1 view .LVU195
+ 680              		.loc 1 246 13 is_stmt 0 view .LVU196
+ 681 000a DFF87890 		ldr	r9, .L53
+ 682 000e A9F80020 		strh	r2, [r9]	@ movhi
+ 247:Core/Src/rtp.c **** 	LCD_DrawLine(x-12,y,x+13,y);//∫·œﬂ
+ 683              		.loc 1 247 2 is_stmt 1 view .LVU197
+ARM GAS  /tmp/ccm8ljg6.s 			page 18
+
+
+ 684 0012 00F10D02 		add	r2, r0, #13
+ 685              	.LVL66:
+ 686              		.loc 1 247 2 is_stmt 0 view .LVU198
+ 687 0016 0C38     		subs	r0, r0, #12
+ 688              	.LVL67:
+ 689              		.loc 1 247 2 view .LVU199
+ 690 0018 0B46     		mov	r3, r1
+ 691 001a 92B2     		uxth	r2, r2
+ 692 001c 80B2     		uxth	r0, r0
+ 693 001e FFF7FEFF 		bl	LCD_DrawLine
+ 694              	.LVL68:
+ 248:Core/Src/rtp.c **** 	LCD_DrawLine(x,y-12,x,y+13);// ˙œﬂ
+ 695              		.loc 1 248 2 is_stmt 1 view .LVU200
+ 696 0022 05F10D03 		add	r3, r5, #13
+ 697 0026 A5F10C01 		sub	r1, r5, #12
+ 698 002a 9BB2     		uxth	r3, r3
+ 699 002c 2246     		mov	r2, r4
+ 700 002e 89B2     		uxth	r1, r1
+ 701 0030 2046     		mov	r0, r4
+ 702 0032 FFF7FEFF 		bl	LCD_DrawLine
+ 703              	.LVL69:
+ 249:Core/Src/rtp.c **** 	LCD_DrawPoint(x+1,y+1);
+ 704              		.loc 1 249 2 view .LVU201
+ 705 0036 04F10108 		add	r8, r4, #1
+ 706 003a 1FFA88F8 		uxth	r8, r8
+ 707 003e 6F1C     		adds	r7, r5, #1
+ 708 0040 BFB2     		uxth	r7, r7
+ 709 0042 3946     		mov	r1, r7
+ 710 0044 4046     		mov	r0, r8
+ 711 0046 FFF7FEFF 		bl	LCD_DrawPoint
+ 712              	.LVL70:
+ 250:Core/Src/rtp.c **** 	LCD_DrawPoint(x-1,y+1);
+ 713              		.loc 1 250 2 view .LVU202
+ 714 004a 661E     		subs	r6, r4, #1
+ 715 004c B6B2     		uxth	r6, r6
+ 716 004e 3946     		mov	r1, r7
+ 717 0050 3046     		mov	r0, r6
+ 718 0052 FFF7FEFF 		bl	LCD_DrawPoint
+ 719              	.LVL71:
+ 251:Core/Src/rtp.c **** 	LCD_DrawPoint(x+1,y-1);
+ 720              		.loc 1 251 2 view .LVU203
+ 721 0056 6F1E     		subs	r7, r5, #1
+ 722 0058 BFB2     		uxth	r7, r7
+ 723 005a 3946     		mov	r1, r7
+ 724 005c 4046     		mov	r0, r8
+ 725 005e FFF7FEFF 		bl	LCD_DrawPoint
+ 726              	.LVL72:
+ 252:Core/Src/rtp.c **** 	LCD_DrawPoint(x-1,y-1);
+ 727              		.loc 1 252 2 view .LVU204
+ 728 0062 3946     		mov	r1, r7
+ 729 0064 3046     		mov	r0, r6
+ 730 0066 FFF7FEFF 		bl	LCD_DrawPoint
+ 731              	.LVL73:
+ 253:Core/Src/rtp.c **** 	gui_circle(x,y,POINT_COLOR,6,0);//ª≠÷––ƒ»¶
+ 732              		.loc 1 253 2 view .LVU205
+ 733 006a 0023     		movs	r3, #0
+ 734 006c 0093     		str	r3, [sp]
+ARM GAS  /tmp/ccm8ljg6.s 			page 19
+
+
+ 735 006e 0623     		movs	r3, #6
+ 736 0070 B9F80020 		ldrh	r2, [r9]
+ 737 0074 2946     		mov	r1, r5
+ 738 0076 2046     		mov	r0, r4
+ 739 0078 FFF7FEFF 		bl	gui_circle
+ 740              	.LVL74:
+ 254:Core/Src/rtp.c **** }	
+ 741              		.loc 1 254 1 is_stmt 0 view .LVU206
+ 742 007c 03B0     		add	sp, sp, #12
+ 743              	.LCFI12:
+ 744              		.cfi_def_cfa_offset 28
+ 745              		@ sp needed
+ 746 007e BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 747              	.L54:
+ 748 0082 00BF     		.align	2
+ 749              	.L53:
+ 750 0084 00000000 		.word	POINT_COLOR
+ 751              		.cfi_endproc
+ 752              	.LFE135:
+ 754              		.section	.text.RTP_Draw_Big_Point,"ax",%progbits
+ 755              		.align	1
+ 756              		.global	RTP_Draw_Big_Point
+ 757              		.syntax unified
+ 758              		.thumb
+ 759              		.thumb_func
+ 760              		.fpu fpv4-sp-d16
+ 762              	RTP_Draw_Big_Point:
+ 763              	.LVL75:
+ 764              	.LFB136:
+ 255:Core/Src/rtp.c **** 
+ 256:Core/Src/rtp.c **** /*****************************************************************************
+ 257:Core/Src/rtp.c ****  * @name       :void TP_Draw_Big_Point(u16 x,u16 y,u16 color)
+ 258:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 259:Core/Src/rtp.c ****  * @function   :Draw a big point(2*2)					
+ 260:Core/Src/rtp.c ****  * @parameters :x:Read x coordinate of the point
+ 261:Core/Src/rtp.c **** 								y:Read y coordinate of the point
+ 262:Core/Src/rtp.c **** 								color:the color value of the point
+ 263:Core/Src/rtp.c ****  * @retvalue   :None
+ 264:Core/Src/rtp.c **** ******************************************************************************/   
+ 265:Core/Src/rtp.c **** void RTP_Draw_Big_Point(u16 x,u16 y,u16 color)
+ 266:Core/Src/rtp.c **** {	    
+ 765              		.loc 1 266 1 is_stmt 1 view -0
+ 766              		.cfi_startproc
+ 767              		@ args = 0, pretend = 0, frame = 0
+ 768              		@ frame_needed = 0, uses_anonymous_args = 0
+ 769              		.loc 1 266 1 is_stmt 0 view .LVU208
+ 770 0000 70B5     		push	{r4, r5, r6, lr}
+ 771              	.LCFI13:
+ 772              		.cfi_def_cfa_offset 16
+ 773              		.cfi_offset 4, -16
+ 774              		.cfi_offset 5, -12
+ 775              		.cfi_offset 6, -8
+ 776              		.cfi_offset 14, -4
+ 777 0002 0646     		mov	r6, r0
+ 778 0004 0C46     		mov	r4, r1
+ 267:Core/Src/rtp.c **** 	POINT_COLOR=color;
+ 779              		.loc 1 267 2 is_stmt 1 view .LVU209
+ARM GAS  /tmp/ccm8ljg6.s 			page 20
+
+
+ 780              		.loc 1 267 13 is_stmt 0 view .LVU210
+ 781 0006 0A4B     		ldr	r3, .L57
+ 782 0008 1A80     		strh	r2, [r3]	@ movhi
+ 268:Core/Src/rtp.c **** 	LCD_DrawPoint(x,y);//÷––ƒµ„ 
+ 783              		.loc 1 268 2 is_stmt 1 view .LVU211
+ 784 000a FFF7FEFF 		bl	LCD_DrawPoint
+ 785              	.LVL76:
+ 269:Core/Src/rtp.c **** 	LCD_DrawPoint(x+1,y);
+ 786              		.loc 1 269 2 view .LVU212
+ 787 000e 751C     		adds	r5, r6, #1
+ 788 0010 ADB2     		uxth	r5, r5
+ 789 0012 2146     		mov	r1, r4
+ 790 0014 2846     		mov	r0, r5
+ 791 0016 FFF7FEFF 		bl	LCD_DrawPoint
+ 792              	.LVL77:
+ 270:Core/Src/rtp.c **** 	LCD_DrawPoint(x,y+1);
+ 793              		.loc 1 270 2 view .LVU213
+ 794 001a 0134     		adds	r4, r4, #1
+ 795 001c A4B2     		uxth	r4, r4
+ 796 001e 2146     		mov	r1, r4
+ 797 0020 3046     		mov	r0, r6
+ 798 0022 FFF7FEFF 		bl	LCD_DrawPoint
+ 799              	.LVL78:
+ 271:Core/Src/rtp.c **** 	LCD_DrawPoint(x+1,y+1);	 	  	
+ 800              		.loc 1 271 2 view .LVU214
+ 801 0026 2146     		mov	r1, r4
+ 802 0028 2846     		mov	r0, r5
+ 803 002a FFF7FEFF 		bl	LCD_DrawPoint
+ 804              	.LVL79:
+ 272:Core/Src/rtp.c **** }	
+ 805              		.loc 1 272 1 is_stmt 0 view .LVU215
+ 806 002e 70BD     		pop	{r4, r5, r6, pc}
+ 807              	.L58:
+ 808              		.align	2
+ 809              	.L57:
+ 810 0030 00000000 		.word	POINT_COLOR
+ 811              		.cfi_endproc
+ 812              	.LFE136:
+ 814              		.section	.text.RTP_Scan,"ax",%progbits
+ 815              		.align	1
+ 816              		.global	RTP_Scan
+ 817              		.syntax unified
+ 818              		.thumb
+ 819              		.thumb_func
+ 820              		.fpu fpv4-sp-d16
+ 822              	RTP_Scan:
+ 823              	.LVL80:
+ 824              	.LFB137:
+ 273:Core/Src/rtp.c **** 
+ 274:Core/Src/rtp.c **** /*****************************************************************************
+ 275:Core/Src/rtp.c ****  * @name       :u8 TP_Scan(u8 tp)
+ 276:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 277:Core/Src/rtp.c ****  * @function   :Scanning touch event				
+ 278:Core/Src/rtp.c ****  * @parameters :tp:0-screen coordinate 
+ 279:Core/Src/rtp.c **** 									 1-Physical coordinates(For special occasions such as calibration)
+ 280:Core/Src/rtp.c ****  * @retvalue   :Current touch screen status,
+ 281:Core/Src/rtp.c **** 								0-no touch
+ARM GAS  /tmp/ccm8ljg6.s 			page 21
+
+
+ 282:Core/Src/rtp.c **** 								1-touch
+ 283:Core/Src/rtp.c **** ******************************************************************************/  					  
+ 284:Core/Src/rtp.c **** u8 RTP_Scan(u8 tp)
+ 285:Core/Src/rtp.c **** {	
+ 825              		.loc 1 285 1 is_stmt 1 view -0
+ 826              		.cfi_startproc
+ 827              		@ args = 0, pretend = 0, frame = 0
+ 828              		@ frame_needed = 0, uses_anonymous_args = 0
+ 829              		.loc 1 285 1 is_stmt 0 view .LVU217
+ 830 0000 08B5     		push	{r3, lr}
+ 831              	.LCFI14:
+ 832              		.cfi_def_cfa_offset 8
+ 833              		.cfi_offset 3, -8
+ 834              		.cfi_offset 14, -4
+ 286:Core/Src/rtp.c **** #if SCAN_TYPE
+ 287:Core/Src/rtp.c **** 	u8 irq=1;
+ 288:Core/Src/rtp.c **** 	if(touch_flag)
+ 289:Core/Src/rtp.c **** 	{
+ 290:Core/Src/rtp.c **** 		irq=GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1);
+ 291:Core/Src/rtp.c **** 	}
+ 292:Core/Src/rtp.c **** 	if(!irq)
+ 293:Core/Src/rtp.c **** #else		   
+ 294:Core/Src/rtp.c **** 	if(PEN==0)//”–∞¥º¸∞¥œ¬
+ 835              		.loc 1 294 2 is_stmt 1 view .LVU218
+ 836              		.loc 1 294 5 is_stmt 0 view .LVU219
+ 837 0002 324B     		ldr	r3, .L67
+ 838 0004 1B68     		ldr	r3, [r3]
+ 839              		.loc 1 294 4 view .LVU220
+ 840 0006 002B     		cmp	r3, #0
+ 841 0008 4BD1     		bne	.L60
+ 295:Core/Src/rtp.c **** #endif
+ 296:Core/Src/rtp.c **** 	{
+ 297:Core/Src/rtp.c **** 		if(tp)RTP_Read_XY2(&tp_dev.x[0],&tp_dev.y[0]);//∂¡»°ŒÔ¿Ì◊¯±Í
+ 842              		.loc 1 297 3 is_stmt 1 view .LVU221
+ 843              		.loc 1 297 5 is_stmt 0 view .LVU222
+ 844 000a A8B1     		cbz	r0, .L61
+ 845              		.loc 1 297 9 is_stmt 1 discriminator 1 view .LVU223
+ 846 000c 3049     		ldr	r1, .L67+4
+ 847 000e A1F10A00 		sub	r0, r1, #10
+ 848              	.LVL81:
+ 849              		.loc 1 297 9 is_stmt 0 discriminator 1 view .LVU224
+ 850 0012 FFF7FEFF 		bl	RTP_Read_XY2
+ 851              	.LVL82:
+ 852              	.L62:
+ 298:Core/Src/rtp.c **** 		else if(RTP_Read_XY2(&tp_dev.x[0],&tp_dev.y[0]))//∂¡»°∆¡ƒª◊¯±Í
+ 299:Core/Src/rtp.c **** 		{
+ 300:Core/Src/rtp.c **** 	 		tp_dev.x[0]=tp_dev.xfac*tp_dev.x[0]+tp_dev.xoff;//Ω´Ω·π˚◊™ªªŒ™∆¡ƒª◊¯±Í
+ 301:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 302:Core/Src/rtp.c **** 	 	} 
+ 303:Core/Src/rtp.c **** 		if((tp_dev.sta&TP_PRES_DOWN)==0)//÷Æ«∞√ª”–±ª∞¥œ¬
+ 853              		.loc 1 303 3 is_stmt 1 view .LVU225
+ 854              		.loc 1 303 31 is_stmt 0 view .LVU226
+ 855 0016 2F4B     		ldr	r3, .L67+8
+ 856 0018 93F91830 		ldrsb	r3, [r3, #24]
+ 857              		.loc 1 303 5 view .LVU227
+ 858 001c 002B     		cmp	r3, #0
+ 859 001e 06DB     		blt	.L63
+ARM GAS  /tmp/ccm8ljg6.s 			page 22
+
+
+ 304:Core/Src/rtp.c **** 		{		 
+ 305:Core/Src/rtp.c **** 			tp_dev.sta=TP_PRES_DOWN|TP_CATH_PRES;//∞¥º¸∞¥œ¬  
+ 860              		.loc 1 305 4 is_stmt 1 view .LVU228
+ 861              		.loc 1 305 14 is_stmt 0 view .LVU229
+ 862 0020 2C4B     		ldr	r3, .L67+8
+ 863 0022 C022     		movs	r2, #192
+ 864 0024 1A76     		strb	r2, [r3, #24]
+ 306:Core/Src/rtp.c **** 			tp_dev.x[4]=tp_dev.x[0];//º«¬ºµ⁄“ª¥Œ∞¥œ¬ ±µƒ◊¯±Í
+ 865              		.loc 1 306 4 is_stmt 1 view .LVU230
+ 866              		.loc 1 306 24 is_stmt 0 view .LVU231
+ 867 0026 9A88     		ldrh	r2, [r3, #4]
+ 868              		.loc 1 306 15 view .LVU232
+ 869 0028 9A81     		strh	r2, [r3, #12]	@ movhi
+ 307:Core/Src/rtp.c **** 			tp_dev.y[4]=tp_dev.y[0];  	   			 
+ 870              		.loc 1 307 4 is_stmt 1 view .LVU233
+ 871              		.loc 1 307 24 is_stmt 0 view .LVU234
+ 872 002a DA89     		ldrh	r2, [r3, #14]
+ 873              		.loc 1 307 15 view .LVU235
+ 874 002c DA82     		strh	r2, [r3, #22]	@ movhi
+ 875              	.L63:
+ 308:Core/Src/rtp.c **** 		}			   
+ 309:Core/Src/rtp.c **** 	}else
+ 310:Core/Src/rtp.c **** 	{
+ 311:Core/Src/rtp.c **** 	#if SCAN_TYPE
+ 312:Core/Src/rtp.c **** 		touch_flag=0;
+ 313:Core/Src/rtp.c **** 	#endif
+ 314:Core/Src/rtp.c **** 		if(tp_dev.sta&TP_PRES_DOWN)//÷Æ«∞ «±ª∞¥œ¬µƒ
+ 315:Core/Src/rtp.c **** 		{
+ 316:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<7);//±Íº«∞¥º¸À…ø™	
+ 317:Core/Src/rtp.c **** 		}else//÷Æ«∞æÕ√ª”–±ª∞¥œ¬
+ 318:Core/Src/rtp.c **** 		{
+ 319:Core/Src/rtp.c **** 			tp_dev.x[4]=0;
+ 320:Core/Src/rtp.c **** 			tp_dev.y[4]=0;
+ 321:Core/Src/rtp.c **** 			tp_dev.x[0]=0xffff;
+ 322:Core/Src/rtp.c **** 			tp_dev.y[0]=0xffff;
+ 323:Core/Src/rtp.c **** 		}	    
+ 324:Core/Src/rtp.c **** 	}
+ 325:Core/Src/rtp.c **** 	return tp_dev.sta&TP_PRES_DOWN;//∑µªÿµ±«∞µƒ¥•∆¡◊¥Ã¨
+ 876              		.loc 1 325 2 is_stmt 1 view .LVU236
+ 877              		.loc 1 325 15 is_stmt 0 view .LVU237
+ 878 002e 294B     		ldr	r3, .L67+8
+ 879 0030 187E     		ldrb	r0, [r3, #24]	@ zero_extendqisi2
+ 326:Core/Src/rtp.c **** }
+ 880              		.loc 1 326 1 view .LVU238
+ 881 0032 00F08000 		and	r0, r0, #128
+ 882 0036 08BD     		pop	{r3, pc}
+ 883              	.LVL83:
+ 884              	.L61:
+ 298:Core/Src/rtp.c **** 		{
+ 885              		.loc 1 298 8 is_stmt 1 view .LVU239
+ 298:Core/Src/rtp.c **** 		{
+ 886              		.loc 1 298 11 is_stmt 0 view .LVU240
+ 887 0038 2549     		ldr	r1, .L67+4
+ 888 003a A1F10A00 		sub	r0, r1, #10
+ 889              	.LVL84:
+ 298:Core/Src/rtp.c **** 		{
+ 890              		.loc 1 298 11 view .LVU241
+ARM GAS  /tmp/ccm8ljg6.s 			page 23
+
+
+ 891 003e FFF7FEFF 		bl	RTP_Read_XY2
+ 892              	.LVL85:
+ 298:Core/Src/rtp.c **** 		{
+ 893              		.loc 1 298 10 view .LVU242
+ 894 0042 0028     		cmp	r0, #0
+ 895 0044 E7D0     		beq	.L62
+ 300:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 896              		.loc 1 300 5 is_stmt 1 view .LVU243
+ 300:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 897              		.loc 1 300 23 is_stmt 0 view .LVU244
+ 898 0046 234B     		ldr	r3, .L67+8
+ 899 0048 93ED077A 		vldr.32	s14, [r3, #28]
+ 300:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 900              		.loc 1 300 37 view .LVU245
+ 901 004c 9A88     		ldrh	r2, [r3, #4]
+ 902 004e 07EE902A 		vmov	s15, r2	@ int
+ 300:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 903              		.loc 1 300 28 view .LVU246
+ 904 0052 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 905 0056 27EE877A 		vmul.f32	s14, s15, s14
+ 300:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 906              		.loc 1 300 47 view .LVU247
+ 907 005a B3F92420 		ldrsh	r2, [r3, #36]
+ 908 005e 07EE902A 		vmov	s15, r2	@ int
+ 300:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 909              		.loc 1 300 40 view .LVU248
+ 910 0062 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 911 0066 77EE877A 		vadd.f32	s15, s15, s14
+ 300:Core/Src/rtp.c **** 			tp_dev.y[0]=tp_dev.yfac*tp_dev.y[0]+tp_dev.yoff;  
+ 912              		.loc 1 300 16 view .LVU249
+ 913 006a FCEEE77A 		vcvt.u32.f32	s15, s15
+ 914 006e 17EE902A 		vmov	r2, s15	@ int
+ 915 0072 9A80     		strh	r2, [r3, #4]	@ movhi
+ 301:Core/Src/rtp.c **** 	 	} 
+ 916              		.loc 1 301 4 is_stmt 1 view .LVU250
+ 301:Core/Src/rtp.c **** 	 	} 
+ 917              		.loc 1 301 22 is_stmt 0 view .LVU251
+ 918 0074 93ED087A 		vldr.32	s14, [r3, #32]
+ 301:Core/Src/rtp.c **** 	 	} 
+ 919              		.loc 1 301 36 view .LVU252
+ 920 0078 DA89     		ldrh	r2, [r3, #14]
+ 921 007a 07EE902A 		vmov	s15, r2	@ int
+ 301:Core/Src/rtp.c **** 	 	} 
+ 922              		.loc 1 301 27 view .LVU253
+ 923 007e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 924 0082 27EE877A 		vmul.f32	s14, s15, s14
+ 301:Core/Src/rtp.c **** 	 	} 
+ 925              		.loc 1 301 46 view .LVU254
+ 926 0086 B3F92620 		ldrsh	r2, [r3, #38]
+ 927 008a 07EE902A 		vmov	s15, r2	@ int
+ 301:Core/Src/rtp.c **** 	 	} 
+ 928              		.loc 1 301 39 view .LVU255
+ 929 008e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 930 0092 77EE877A 		vadd.f32	s15, s15, s14
+ 301:Core/Src/rtp.c **** 	 	} 
+ 931              		.loc 1 301 15 view .LVU256
+ 932 0096 FCEEE77A 		vcvt.u32.f32	s15, s15
+ARM GAS  /tmp/ccm8ljg6.s 			page 24
+
+
+ 933 009a 17EE902A 		vmov	r2, s15	@ int
+ 934 009e DA81     		strh	r2, [r3, #14]	@ movhi
+ 935 00a0 B9E7     		b	.L62
+ 936              	.LVL86:
+ 937              	.L60:
+ 314:Core/Src/rtp.c **** 		{
+ 938              		.loc 1 314 3 is_stmt 1 view .LVU257
+ 314:Core/Src/rtp.c **** 		{
+ 939              		.loc 1 314 12 is_stmt 0 view .LVU258
+ 940 00a2 0C4B     		ldr	r3, .L67+8
+ 941 00a4 1A7E     		ldrb	r2, [r3, #24]	@ zero_extendqisi2
+ 314:Core/Src/rtp.c **** 		{
+ 942              		.loc 1 314 6 view .LVU259
+ 943 00a6 93F91830 		ldrsb	r3, [r3, #24]
+ 314:Core/Src/rtp.c **** 		{
+ 944              		.loc 1 314 5 view .LVU260
+ 945 00aa 002B     		cmp	r3, #0
+ 946 00ac 08DB     		blt	.L66
+ 319:Core/Src/rtp.c **** 			tp_dev.y[4]=0;
+ 947              		.loc 1 319 4 is_stmt 1 view .LVU261
+ 319:Core/Src/rtp.c **** 			tp_dev.y[4]=0;
+ 948              		.loc 1 319 15 is_stmt 0 view .LVU262
+ 949 00ae 094B     		ldr	r3, .L67+8
+ 950 00b0 0022     		movs	r2, #0
+ 951 00b2 9A81     		strh	r2, [r3, #12]	@ movhi
+ 320:Core/Src/rtp.c **** 			tp_dev.x[0]=0xffff;
+ 952              		.loc 1 320 4 is_stmt 1 view .LVU263
+ 320:Core/Src/rtp.c **** 			tp_dev.x[0]=0xffff;
+ 953              		.loc 1 320 15 is_stmt 0 view .LVU264
+ 954 00b4 DA82     		strh	r2, [r3, #22]	@ movhi
+ 321:Core/Src/rtp.c **** 			tp_dev.y[0]=0xffff;
+ 955              		.loc 1 321 4 is_stmt 1 view .LVU265
+ 321:Core/Src/rtp.c **** 			tp_dev.y[0]=0xffff;
+ 956              		.loc 1 321 15 is_stmt 0 view .LVU266
+ 957 00b6 4FF6FF72 		movw	r2, #65535
+ 958 00ba 9A80     		strh	r2, [r3, #4]	@ movhi
+ 322:Core/Src/rtp.c **** 		}	    
+ 959              		.loc 1 322 4 is_stmt 1 view .LVU267
+ 322:Core/Src/rtp.c **** 		}	    
+ 960              		.loc 1 322 15 is_stmt 0 view .LVU268
+ 961 00bc DA81     		strh	r2, [r3, #14]	@ movhi
+ 962 00be B6E7     		b	.L63
+ 963              	.L66:
+ 316:Core/Src/rtp.c **** 		}else//÷Æ«∞æÕ√ª”–±ª∞¥œ¬
+ 964              		.loc 1 316 4 is_stmt 1 view .LVU269
+ 316:Core/Src/rtp.c **** 		}else//÷Æ«∞æÕ√ª”–±ª∞¥œ¬
+ 965              		.loc 1 316 14 is_stmt 0 view .LVU270
+ 966 00c0 02F07F02 		and	r2, r2, #127
+ 967 00c4 034B     		ldr	r3, .L67+8
+ 968 00c6 1A76     		strb	r2, [r3, #24]
+ 969 00c8 B1E7     		b	.L63
+ 970              	.L68:
+ 971 00ca 00BF     		.align	2
+ 972              	.L67:
+ 973 00cc 04824042 		.word	1111523844
+ 974 00d0 0E000000 		.word	tp_dev+14
+ 975 00d4 00000000 		.word	tp_dev
+ARM GAS  /tmp/ccm8ljg6.s 			page 25
+
+
+ 976              		.cfi_endproc
+ 977              	.LFE137:
+ 979              		.section	.text.RTP_Save_Adjdata,"ax",%progbits
+ 980              		.align	1
+ 981              		.global	RTP_Save_Adjdata
+ 982              		.syntax unified
+ 983              		.thumb
+ 984              		.thumb_func
+ 985              		.fpu fpv4-sp-d16
+ 987              	RTP_Save_Adjdata:
+ 988              	.LFB138:
+ 327:Core/Src/rtp.c **** 	  
+ 328:Core/Src/rtp.c **** //////////////////////////////////////////////////////////////////////////	 
+ 329:Core/Src/rtp.c **** //±£¥Ê‘⁄EEPROM¿Ô√Êµƒµÿ÷∑«¯º‰ª˘÷∑,’º”√13∏ˆ◊÷Ω⁄(RANGE:SAVE_ADDR_BASE~SAVE_ADDR_BASE+12)
+ 330:Core/Src/rtp.c **** #define SAVE_ADDR_BASE 40
+ 331:Core/Src/rtp.c **** /*****************************************************************************
+ 332:Core/Src/rtp.c ****  * @name       :void TP_Save_Adjdata(void)
+ 333:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 334:Core/Src/rtp.c ****  * @function   :Save calibration parameters		
+ 335:Core/Src/rtp.c ****  * @parameters :None
+ 336:Core/Src/rtp.c ****  * @retvalue   :None
+ 337:Core/Src/rtp.c **** ******************************************************************************/ 										    
+ 338:Core/Src/rtp.c **** void RTP_Save_Adjdata(void)
+ 339:Core/Src/rtp.c **** {
+ 989              		.loc 1 339 1 is_stmt 1 view -0
+ 990              		.cfi_startproc
+ 991              		@ args = 0, pretend = 0, frame = 0
+ 992              		@ frame_needed = 0, uses_anonymous_args = 0
+ 993 0000 10B5     		push	{r4, lr}
+ 994              	.LCFI15:
+ 995              		.cfi_def_cfa_offset 8
+ 996              		.cfi_offset 4, -8
+ 997              		.cfi_offset 14, -4
+ 998 0002 2DED028B 		vpush.64	{d8}
+ 999              	.LCFI16:
+ 1000              		.cfi_def_cfa_offset 16
+ 1001              		.cfi_offset 80, -16
+ 1002              		.cfi_offset 81, -12
+ 340:Core/Src/rtp.c **** 	s32 temp;			 
+ 1003              		.loc 1 340 2 view .LVU272
+ 341:Core/Src/rtp.c **** 	//±£¥Ê–£’˝Ω·π˚!		   							  
+ 342:Core/Src/rtp.c **** 	temp=tp_dev.xfac*100000000;//±£¥Êx–£’˝“ÚÀÿ      
+ 1004              		.loc 1 342 2 view .LVU273
+ 1005              		.loc 1 342 13 is_stmt 0 view .LVU274
+ 1006 0006 194C     		ldr	r4, .L71
+ 1007 0008 D4ED077A 		vldr.32	s15, [r4, #28]
+ 1008              		.loc 1 342 18 view .LVU275
+ 1009 000c 9FED188A 		vldr.32	s16, .L71+4
+ 1010 0010 67EE887A 		vmul.f32	s15, s15, s16
+ 1011              	.LVL87:
+ 343:Core/Src/rtp.c ****     AT24C02_WriteLenByte(SAVE_ADDR_BASE,temp,4);   
+ 1012              		.loc 1 343 5 is_stmt 1 view .LVU276
+ 1013 0014 0422     		movs	r2, #4
+ 1014 0016 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 1015              	.LVL88:
+ 1016              		.loc 1 343 5 is_stmt 0 view .LVU277
+ 1017 001a 17EE901A 		vmov	r1, s15	@ int
+ARM GAS  /tmp/ccm8ljg6.s 			page 26
+
+
+ 1018 001e 2820     		movs	r0, #40
+ 1019 0020 FFF7FEFF 		bl	AT24C02_WriteLenByte
+ 1020              	.LVL89:
+ 344:Core/Src/rtp.c **** 	temp=tp_dev.yfac*100000000;//±£¥Êy–£’˝“ÚÀÿ    
+ 1021              		.loc 1 344 2 is_stmt 1 view .LVU278
+ 1022              		.loc 1 344 13 is_stmt 0 view .LVU279
+ 1023 0024 D4ED087A 		vldr.32	s15, [r4, #32]
+ 1024              		.loc 1 344 18 view .LVU280
+ 1025 0028 67EE887A 		vmul.f32	s15, s15, s16
+ 1026              	.LVL90:
+ 345:Core/Src/rtp.c ****     AT24C02_WriteLenByte(SAVE_ADDR_BASE+4,temp,4);
+ 1027              		.loc 1 345 5 is_stmt 1 view .LVU281
+ 1028 002c 0422     		movs	r2, #4
+ 1029 002e FDEEE77A 		vcvt.s32.f32	s15, s15
+ 1030              	.LVL91:
+ 1031              		.loc 1 345 5 is_stmt 0 view .LVU282
+ 1032 0032 17EE901A 		vmov	r1, s15	@ int
+ 1033 0036 2C20     		movs	r0, #44
+ 1034 0038 FFF7FEFF 		bl	AT24C02_WriteLenByte
+ 1035              	.LVL92:
+ 346:Core/Src/rtp.c **** 	//±£¥Êx∆´“∆¡ø
+ 347:Core/Src/rtp.c ****     AT24C02_WriteLenByte(SAVE_ADDR_BASE+8,tp_dev.xoff,2);		    
+ 1036              		.loc 1 347 5 is_stmt 1 view .LVU283
+ 1037 003c 0222     		movs	r2, #2
+ 1038 003e B4F92410 		ldrsh	r1, [r4, #36]
+ 1039 0042 3020     		movs	r0, #48
+ 1040 0044 FFF7FEFF 		bl	AT24C02_WriteLenByte
+ 1041              	.LVL93:
+ 348:Core/Src/rtp.c **** 	//±£¥Êy∆´“∆¡ø
+ 349:Core/Src/rtp.c **** 	AT24C02_WriteLenByte(SAVE_ADDR_BASE+10,tp_dev.yoff,2);	
+ 1042              		.loc 1 349 2 view .LVU284
+ 1043 0048 0222     		movs	r2, #2
+ 1044 004a B4F92610 		ldrsh	r1, [r4, #38]
+ 1045 004e 3220     		movs	r0, #50
+ 1046 0050 FFF7FEFF 		bl	AT24C02_WriteLenByte
+ 1047              	.LVL94:
+ 350:Core/Src/rtp.c **** 	//±£¥Ê¥•∆¡¿‡–Õ
+ 351:Core/Src/rtp.c **** 	AT24C02_WriteOneByte(SAVE_ADDR_BASE+12,tp_dev.touchtype);	
+ 1048              		.loc 1 351 2 view .LVU285
+ 1049 0054 94F82810 		ldrb	r1, [r4, #40]	@ zero_extendqisi2
+ 1050 0058 3420     		movs	r0, #52
+ 1051 005a FFF7FEFF 		bl	AT24C02_WriteOneByte
+ 1052              	.LVL95:
+ 352:Core/Src/rtp.c **** 	temp=0X0A;//±Íº«–£◊ºπ˝¡À
+ 1053              		.loc 1 352 2 view .LVU286
+ 353:Core/Src/rtp.c **** 	AT24C02_WriteOneByte(SAVE_ADDR_BASE+13,temp); 
+ 1054              		.loc 1 353 2 view .LVU287
+ 1055 005e 0A21     		movs	r1, #10
+ 1056 0060 3520     		movs	r0, #53
+ 1057 0062 FFF7FEFF 		bl	AT24C02_WriteOneByte
+ 1058              	.LVL96:
+ 354:Core/Src/rtp.c **** }
+ 1059              		.loc 1 354 1 is_stmt 0 view .LVU288
+ 1060 0066 BDEC028B 		vldm	sp!, {d8}
+ 1061              	.LCFI17:
+ 1062              		.cfi_restore 80
+ 1063              		.cfi_restore 81
+ARM GAS  /tmp/ccm8ljg6.s 			page 27
+
+
+ 1064              		.cfi_def_cfa_offset 8
+ 1065 006a 10BD     		pop	{r4, pc}
+ 1066              	.L72:
+ 1067              		.align	2
+ 1068              	.L71:
+ 1069 006c 00000000 		.word	tp_dev
+ 1070 0070 20BCBE4C 		.word	1287568416
+ 1071              		.cfi_endproc
+ 1072              	.LFE138:
+ 1074              		.section	.text.RTP_Get_Adjdata,"ax",%progbits
+ 1075              		.align	1
+ 1076              		.global	RTP_Get_Adjdata
+ 1077              		.syntax unified
+ 1078              		.thumb
+ 1079              		.thumb_func
+ 1080              		.fpu fpv4-sp-d16
+ 1082              	RTP_Get_Adjdata:
+ 1083              	.LFB139:
+ 355:Core/Src/rtp.c **** 
+ 356:Core/Src/rtp.c **** /*****************************************************************************
+ 357:Core/Src/rtp.c ****  * @name       :u8 TP_Get_Adjdata(void)
+ 358:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 359:Core/Src/rtp.c ****  * @function   :Gets the calibration values stored in the EEPROM		
+ 360:Core/Src/rtp.c ****  * @parameters :None
+ 361:Core/Src/rtp.c ****  * @retvalue   :1-get the calibration values successfully
+ 362:Core/Src/rtp.c **** 								0-get the calibration values unsuccessfully and Need to recalibrate
+ 363:Core/Src/rtp.c **** ******************************************************************************/ 	
+ 364:Core/Src/rtp.c **** u8 RTP_Get_Adjdata(void)
+ 365:Core/Src/rtp.c **** {					  
+ 1084              		.loc 1 365 1 is_stmt 1 view -0
+ 1085              		.cfi_startproc
+ 1086              		@ args = 0, pretend = 0, frame = 0
+ 1087              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1088 0000 10B5     		push	{r4, lr}
+ 1089              	.LCFI18:
+ 1090              		.cfi_def_cfa_offset 8
+ 1091              		.cfi_offset 4, -8
+ 1092              		.cfi_offset 14, -4
+ 1093 0002 2DED028B 		vpush.64	{d8}
+ 1094              	.LCFI19:
+ 1095              		.cfi_def_cfa_offset 16
+ 1096              		.cfi_offset 80, -16
+ 1097              		.cfi_offset 81, -12
+ 366:Core/Src/rtp.c **** 	s32 tempfac;
+ 1098              		.loc 1 366 2 view .LVU290
+ 367:Core/Src/rtp.c **** 	tempfac=AT24C02_ReadOneByte(SAVE_ADDR_BASE+13);//∂¡»°±Íº«◊÷,ø¥ «∑Ò–£◊ºπ˝£° 		 
+ 1099              		.loc 1 367 2 view .LVU291
+ 1100              		.loc 1 367 10 is_stmt 0 view .LVU292
+ 1101 0006 3520     		movs	r0, #53
+ 1102 0008 FFF7FEFF 		bl	AT24C02_ReadOneByte
+ 1103              	.LVL97:
+ 368:Core/Src/rtp.c **** 	if(tempfac==0X0A)//¥•√˛∆¡“—æ≠–£◊ºπ˝¡À			   
+ 1104              		.loc 1 368 2 is_stmt 1 view .LVU293
+ 1105              		.loc 1 368 4 is_stmt 0 view .LVU294
+ 1106 000c 0A28     		cmp	r0, #10
+ 1107 000e 03D0     		beq	.L79
+ 369:Core/Src/rtp.c **** 	{    												 
+ARM GAS  /tmp/ccm8ljg6.s 			page 28
+
+
+ 370:Core/Src/rtp.c **** 		tempfac=AT24C02_ReadLenByte(SAVE_ADDR_BASE,4);		   
+ 371:Core/Src/rtp.c **** 		tp_dev.xfac=(float)tempfac/100000000;//µ√µΩx–£◊º≤Œ ˝
+ 372:Core/Src/rtp.c **** 		tempfac=AT24C02_ReadLenByte(SAVE_ADDR_BASE+4,4);			          
+ 373:Core/Src/rtp.c **** 		tp_dev.yfac=(float)tempfac/100000000;//µ√µΩy–£◊º≤Œ ˝
+ 374:Core/Src/rtp.c **** 	    //µ√µΩx∆´“∆¡ø
+ 375:Core/Src/rtp.c **** 		tp_dev.xoff=AT24C02_ReadLenByte(SAVE_ADDR_BASE+8,2);			   	  
+ 376:Core/Src/rtp.c ****  	    //µ√µΩy∆´“∆¡ø
+ 377:Core/Src/rtp.c **** 		tp_dev.yoff=AT24C02_ReadLenByte(SAVE_ADDR_BASE+10,2);				 	  
+ 378:Core/Src/rtp.c ****  		tp_dev.touchtype=AT24C02_ReadOneByte(SAVE_ADDR_BASE+12);//∂¡»°¥•∆¡¿‡–Õ±Íº«
+ 379:Core/Src/rtp.c **** 		if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 380:Core/Src/rtp.c **** 		{
+ 381:Core/Src/rtp.c **** 			CMD_RDX=0X90;
+ 382:Core/Src/rtp.c **** 			CMD_RDY=0XD0;	 
+ 383:Core/Src/rtp.c **** 		}else				   //X,Y∑ΩœÚ”Î∆¡ƒªœ‡Õ¨
+ 384:Core/Src/rtp.c **** 		{
+ 385:Core/Src/rtp.c **** 			CMD_RDX=0XD0;
+ 386:Core/Src/rtp.c **** 			CMD_RDY=0X90;	 
+ 387:Core/Src/rtp.c **** 		}		 
+ 388:Core/Src/rtp.c **** 		return 1;	 
+ 389:Core/Src/rtp.c **** 	}
+ 390:Core/Src/rtp.c **** 	return 0;
+ 1108              		.loc 1 390 9 view .LVU295
+ 1109 0010 0020     		movs	r0, #0
+ 1110              	.LVL98:
+ 1111              	.L74:
+ 391:Core/Src/rtp.c **** }	
+ 1112              		.loc 1 391 1 view .LVU296
+ 1113 0012 BDEC028B 		vldm	sp!, {d8}
+ 1114              	.LCFI20:
+ 1115              		.cfi_remember_state
+ 1116              		.cfi_restore 80
+ 1117              		.cfi_restore 81
+ 1118              		.cfi_def_cfa_offset 8
+ 1119 0016 10BD     		pop	{r4, pc}
+ 1120              	.LVL99:
+ 1121              	.L79:
+ 1122              	.LCFI21:
+ 1123              		.cfi_restore_state
+ 370:Core/Src/rtp.c **** 		tp_dev.xfac=(float)tempfac/100000000;//µ√µΩx–£◊º≤Œ ˝
+ 1124              		.loc 1 370 3 is_stmt 1 view .LVU297
+ 370:Core/Src/rtp.c **** 		tp_dev.xfac=(float)tempfac/100000000;//µ√µΩx–£◊º≤Œ ˝
+ 1125              		.loc 1 370 11 is_stmt 0 view .LVU298
+ 1126 0018 0421     		movs	r1, #4
+ 1127 001a 2820     		movs	r0, #40
+ 1128              	.LVL100:
+ 370:Core/Src/rtp.c **** 		tp_dev.xfac=(float)tempfac/100000000;//µ√µΩx–£◊º≤Œ ˝
+ 1129              		.loc 1 370 11 view .LVU299
+ 1130 001c FFF7FEFF 		bl	AT24C02_ReadLenByte
+ 1131              	.LVL101:
+ 1132 0020 07EE900A 		vmov	s15, r0	@ int
+ 1133              	.LVL102:
+ 371:Core/Src/rtp.c **** 		tempfac=AT24C02_ReadLenByte(SAVE_ADDR_BASE+4,4);			          
+ 1134              		.loc 1 371 3 is_stmt 1 view .LVU300
+ 371:Core/Src/rtp.c **** 		tempfac=AT24C02_ReadLenByte(SAVE_ADDR_BASE+4,4);			          
+ 1135              		.loc 1 371 15 is_stmt 0 view .LVU301
+ 1136 0024 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 371:Core/Src/rtp.c **** 		tempfac=AT24C02_ReadLenByte(SAVE_ADDR_BASE+4,4);			          
+ARM GAS  /tmp/ccm8ljg6.s 			page 29
+
+
+ 1137              		.loc 1 371 29 view .LVU302
+ 1138 0028 9FED188A 		vldr.32	s16, .L80
+ 1139 002c 87EE887A 		vdiv.f32	s14, s15, s16
+ 371:Core/Src/rtp.c **** 		tempfac=AT24C02_ReadLenByte(SAVE_ADDR_BASE+4,4);			          
+ 1140              		.loc 1 371 14 view .LVU303
+ 1141 0030 174C     		ldr	r4, .L80+4
+ 1142 0032 84ED077A 		vstr.32	s14, [r4, #28]
+ 372:Core/Src/rtp.c **** 		tp_dev.yfac=(float)tempfac/100000000;//µ√µΩy–£◊º≤Œ ˝
+ 1143              		.loc 1 372 3 is_stmt 1 view .LVU304
+ 372:Core/Src/rtp.c **** 		tp_dev.yfac=(float)tempfac/100000000;//µ√µΩy–£◊º≤Œ ˝
+ 1144              		.loc 1 372 11 is_stmt 0 view .LVU305
+ 1145 0036 0421     		movs	r1, #4
+ 1146 0038 2C20     		movs	r0, #44
+ 1147              	.LVL103:
+ 372:Core/Src/rtp.c **** 		tp_dev.yfac=(float)tempfac/100000000;//µ√µΩy–£◊º≤Œ ˝
+ 1148              		.loc 1 372 11 view .LVU306
+ 1149 003a FFF7FEFF 		bl	AT24C02_ReadLenByte
+ 1150              	.LVL104:
+ 1151 003e 07EE900A 		vmov	s15, r0	@ int
+ 1152              	.LVL105:
+ 373:Core/Src/rtp.c **** 	    //µ√µΩx∆´“∆¡ø
+ 1153              		.loc 1 373 3 is_stmt 1 view .LVU307
+ 373:Core/Src/rtp.c **** 	    //µ√µΩx∆´“∆¡ø
+ 1154              		.loc 1 373 15 is_stmt 0 view .LVU308
+ 1155 0042 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 373:Core/Src/rtp.c **** 	    //µ√µΩx∆´“∆¡ø
+ 1156              		.loc 1 373 29 view .LVU309
+ 1157 0046 87EE887A 		vdiv.f32	s14, s15, s16
+ 373:Core/Src/rtp.c **** 	    //µ√µΩx∆´“∆¡ø
+ 1158              		.loc 1 373 14 view .LVU310
+ 1159 004a 84ED087A 		vstr.32	s14, [r4, #32]
+ 375:Core/Src/rtp.c ****  	    //µ√µΩy∆´“∆¡ø
+ 1160              		.loc 1 375 3 is_stmt 1 view .LVU311
+ 375:Core/Src/rtp.c ****  	    //µ√µΩy∆´“∆¡ø
+ 1161              		.loc 1 375 15 is_stmt 0 view .LVU312
+ 1162 004e 0221     		movs	r1, #2
+ 1163 0050 3020     		movs	r0, #48
+ 1164              	.LVL106:
+ 375:Core/Src/rtp.c ****  	    //µ√µΩy∆´“∆¡ø
+ 1165              		.loc 1 375 15 view .LVU313
+ 1166 0052 FFF7FEFF 		bl	AT24C02_ReadLenByte
+ 1167              	.LVL107:
+ 375:Core/Src/rtp.c ****  	    //µ√µΩy∆´“∆¡ø
+ 1168              		.loc 1 375 14 view .LVU314
+ 1169 0056 A084     		strh	r0, [r4, #36]	@ movhi
+ 377:Core/Src/rtp.c ****  		tp_dev.touchtype=AT24C02_ReadOneByte(SAVE_ADDR_BASE+12);//∂¡»°¥•∆¡¿‡–Õ±Íº«
+ 1170              		.loc 1 377 3 is_stmt 1 view .LVU315
+ 377:Core/Src/rtp.c ****  		tp_dev.touchtype=AT24C02_ReadOneByte(SAVE_ADDR_BASE+12);//∂¡»°¥•∆¡¿‡–Õ±Íº«
+ 1171              		.loc 1 377 15 is_stmt 0 view .LVU316
+ 1172 0058 0221     		movs	r1, #2
+ 1173 005a 3220     		movs	r0, #50
+ 1174 005c FFF7FEFF 		bl	AT24C02_ReadLenByte
+ 1175              	.LVL108:
+ 377:Core/Src/rtp.c ****  		tp_dev.touchtype=AT24C02_ReadOneByte(SAVE_ADDR_BASE+12);//∂¡»°¥•∆¡¿‡–Õ±Íº«
+ 1176              		.loc 1 377 14 view .LVU317
+ 1177 0060 E084     		strh	r0, [r4, #38]	@ movhi
+ 378:Core/Src/rtp.c **** 		if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ARM GAS  /tmp/ccm8ljg6.s 			page 30
+
+
+ 1178              		.loc 1 378 4 is_stmt 1 view .LVU318
+ 378:Core/Src/rtp.c **** 		if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 1179              		.loc 1 378 21 is_stmt 0 view .LVU319
+ 1180 0062 3420     		movs	r0, #52
+ 1181 0064 FFF7FEFF 		bl	AT24C02_ReadOneByte
+ 1182              	.LVL109:
+ 378:Core/Src/rtp.c **** 		if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 1183              		.loc 1 378 20 view .LVU320
+ 1184 0068 84F82800 		strb	r0, [r4, #40]
+ 379:Core/Src/rtp.c **** 		{
+ 1185              		.loc 1 379 3 is_stmt 1 view .LVU321
+ 379:Core/Src/rtp.c **** 		{
+ 1186              		.loc 1 379 5 is_stmt 0 view .LVU322
+ 1187 006c 38B1     		cbz	r0, .L75
+ 381:Core/Src/rtp.c **** 			CMD_RDY=0XD0;	 
+ 1188              		.loc 1 381 4 is_stmt 1 view .LVU323
+ 381:Core/Src/rtp.c **** 			CMD_RDY=0XD0;	 
+ 1189              		.loc 1 381 11 is_stmt 0 view .LVU324
+ 1190 006e 094B     		ldr	r3, .L80+8
+ 1191 0070 9022     		movs	r2, #144
+ 1192 0072 1A70     		strb	r2, [r3]
+ 382:Core/Src/rtp.c **** 		}else				   //X,Y∑ΩœÚ”Î∆¡ƒªœ‡Õ¨
+ 1193              		.loc 1 382 4 is_stmt 1 view .LVU325
+ 382:Core/Src/rtp.c **** 		}else				   //X,Y∑ΩœÚ”Î∆¡ƒªœ‡Õ¨
+ 1194              		.loc 1 382 11 is_stmt 0 view .LVU326
+ 1195 0074 084B     		ldr	r3, .L80+12
+ 1196 0076 D022     		movs	r2, #208
+ 1197 0078 1A70     		strb	r2, [r3]
+ 1198              	.L76:
+ 388:Core/Src/rtp.c **** 	}
+ 1199              		.loc 1 388 3 is_stmt 1 view .LVU327
+ 388:Core/Src/rtp.c **** 	}
+ 1200              		.loc 1 388 10 is_stmt 0 view .LVU328
+ 1201 007a 0120     		movs	r0, #1
+ 1202 007c C9E7     		b	.L74
+ 1203              	.L75:
+ 385:Core/Src/rtp.c **** 			CMD_RDY=0X90;	 
+ 1204              		.loc 1 385 4 is_stmt 1 view .LVU329
+ 385:Core/Src/rtp.c **** 			CMD_RDY=0X90;	 
+ 1205              		.loc 1 385 11 is_stmt 0 view .LVU330
+ 1206 007e 054B     		ldr	r3, .L80+8
+ 1207 0080 D022     		movs	r2, #208
+ 1208 0082 1A70     		strb	r2, [r3]
+ 386:Core/Src/rtp.c **** 		}		 
+ 1209              		.loc 1 386 4 is_stmt 1 view .LVU331
+ 386:Core/Src/rtp.c **** 		}		 
+ 1210              		.loc 1 386 11 is_stmt 0 view .LVU332
+ 1211 0084 044B     		ldr	r3, .L80+12
+ 1212 0086 9022     		movs	r2, #144
+ 1213 0088 1A70     		strb	r2, [r3]
+ 1214 008a F6E7     		b	.L76
+ 1215              	.L81:
+ 1216              		.align	2
+ 1217              	.L80:
+ 1218 008c 20BCBE4C 		.word	1287568416
+ 1219 0090 00000000 		.word	tp_dev
+ 1220 0094 00000000 		.word	.LANCHOR0
+ARM GAS  /tmp/ccm8ljg6.s 			page 31
+
+
+ 1221 0098 00000000 		.word	.LANCHOR1
+ 1222              		.cfi_endproc
+ 1223              	.LFE139:
+ 1225              		.section	.rodata.RTP_Adj_Info_Show.str1.4,"aMS",%progbits,1
+ 1226              		.align	2
+ 1227              	.LC0:
+ 1228 0000 78313A00 		.ascii	"x1:\000"
+ 1229              		.align	2
+ 1230              	.LC1:
+ 1231 0004 79313A00 		.ascii	"y1:\000"
+ 1232              		.align	2
+ 1233              	.LC2:
+ 1234 0008 78323A00 		.ascii	"x2:\000"
+ 1235              		.align	2
+ 1236              	.LC3:
+ 1237 000c 79323A00 		.ascii	"y2:\000"
+ 1238              		.align	2
+ 1239              	.LC4:
+ 1240 0010 78333A00 		.ascii	"x3:\000"
+ 1241              		.align	2
+ 1242              	.LC5:
+ 1243 0014 79333A00 		.ascii	"y3:\000"
+ 1244              		.align	2
+ 1245              	.LC6:
+ 1246 0018 78343A00 		.ascii	"x4:\000"
+ 1247              		.align	2
+ 1248              	.LC7:
+ 1249 001c 79343A00 		.ascii	"y4:\000"
+ 1250              		.align	2
+ 1251              	.LC8:
+ 1252 0020 66616320 		.ascii	"fac is:\000"
+ 1252      69733A00 
+ 1253              		.section	.text.RTP_Adj_Info_Show,"ax",%progbits
+ 1254              		.align	1
+ 1255              		.global	RTP_Adj_Info_Show
+ 1256              		.syntax unified
+ 1257              		.thumb
+ 1258              		.thumb_func
+ 1259              		.fpu fpv4-sp-d16
+ 1261              	RTP_Adj_Info_Show:
+ 1262              	.LVL110:
+ 1263              	.LFB140:
+ 392:Core/Src/rtp.c ****  
+ 393:Core/Src/rtp.c **** /*****************************************************************************
+ 394:Core/Src/rtp.c ****  * @name       :void TP_Adj_Info_Show(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2,u16 x3,u16 y3,u16 f
+ 395:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 396:Core/Src/rtp.c ****  * @function   :Display calibration results	
+ 397:Core/Src/rtp.c ****  * @parameters :x0:the x coordinates of first calibration point
+ 398:Core/Src/rtp.c **** 								y0:the y coordinates of first calibration point
+ 399:Core/Src/rtp.c **** 								x1:the x coordinates of second calibration point
+ 400:Core/Src/rtp.c **** 								y1:the y coordinates of second calibration point
+ 401:Core/Src/rtp.c **** 								x2:the x coordinates of third calibration point
+ 402:Core/Src/rtp.c **** 								y2:the y coordinates of third calibration point
+ 403:Core/Src/rtp.c **** 								x3:the x coordinates of fourth calibration point
+ 404:Core/Src/rtp.c **** 								y3:the y coordinates of fourth calibration point
+ 405:Core/Src/rtp.c **** 								fac:calibration factor 
+ 406:Core/Src/rtp.c ****  * @retvalue   :None
+ARM GAS  /tmp/ccm8ljg6.s 			page 32
+
+
+ 407:Core/Src/rtp.c **** ******************************************************************************/ 	 					  
+ 408:Core/Src/rtp.c **** void RTP_Adj_Info_Show(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2,u16 x3,u16 y3,u16 fac)
+ 409:Core/Src/rtp.c **** {	  
+ 1264              		.loc 1 409 1 is_stmt 1 view -0
+ 1265              		.cfi_startproc
+ 1266              		@ args = 20, pretend = 0, frame = 0
+ 1267              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1268              		.loc 1 409 1 is_stmt 0 view .LVU334
+ 1269 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 1270              	.LCFI22:
+ 1271              		.cfi_def_cfa_offset 28
+ 1272              		.cfi_offset 4, -28
+ 1273              		.cfi_offset 5, -24
+ 1274              		.cfi_offset 6, -20
+ 1275              		.cfi_offset 7, -16
+ 1276              		.cfi_offset 8, -12
+ 1277              		.cfi_offset 9, -8
+ 1278              		.cfi_offset 14, -4
+ 1279 0004 83B0     		sub	sp, sp, #12
+ 1280              	.LCFI23:
+ 1281              		.cfi_def_cfa_offset 40
+ 1282 0006 8146     		mov	r9, r0
+ 1283 0008 8846     		mov	r8, r1
+ 1284 000a 1746     		mov	r7, r2
+ 1285 000c 1E46     		mov	r6, r3
+ 410:Core/Src/rtp.c **** 	POINT_COLOR=RED;
+ 1286              		.loc 1 410 2 is_stmt 1 view .LVU335
+ 1287              		.loc 1 410 13 is_stmt 0 view .LVU336
+ 1288 000e 4B4B     		ldr	r3, .L84
+ 1289              	.LVL111:
+ 1290              		.loc 1 410 13 view .LVU337
+ 1291 0010 4FF47842 		mov	r2, #63488
+ 1292              	.LVL112:
+ 1293              		.loc 1 410 13 view .LVU338
+ 1294 0014 1A80     		strh	r2, [r3]	@ movhi
+ 411:Core/Src/rtp.c **** 	LCD_ShowString(40,140,16,"x1:",1);
+ 1295              		.loc 1 411 2 is_stmt 1 view .LVU339
+ 1296 0016 0124     		movs	r4, #1
+ 1297 0018 0094     		str	r4, [sp]
+ 1298 001a 494B     		ldr	r3, .L84+4
+ 1299 001c 1022     		movs	r2, #16
+ 1300 001e 8C21     		movs	r1, #140
+ 1301              	.LVL113:
+ 1302              		.loc 1 411 2 is_stmt 0 view .LVU340
+ 1303 0020 2820     		movs	r0, #40
+ 1304              	.LVL114:
+ 1305              		.loc 1 411 2 view .LVU341
+ 1306 0022 FFF7FEFF 		bl	LCD_ShowString
+ 1307              	.LVL115:
+ 412:Core/Src/rtp.c ****  	LCD_ShowString(40+80,140,16,"y1:",1);
+ 1308              		.loc 1 412 3 is_stmt 1 view .LVU342
+ 1309 0026 0094     		str	r4, [sp]
+ 1310 0028 464B     		ldr	r3, .L84+8
+ 1311 002a 1022     		movs	r2, #16
+ 1312 002c 8C21     		movs	r1, #140
+ 1313 002e 7820     		movs	r0, #120
+ 1314 0030 FFF7FEFF 		bl	LCD_ShowString
+ARM GAS  /tmp/ccm8ljg6.s 			page 33
+
+
+ 1315              	.LVL116:
+ 413:Core/Src/rtp.c ****  	LCD_ShowString(40,160,16,"x2:",1);
+ 1316              		.loc 1 413 3 view .LVU343
+ 1317 0034 0094     		str	r4, [sp]
+ 1318 0036 444B     		ldr	r3, .L84+12
+ 1319 0038 1022     		movs	r2, #16
+ 1320 003a A021     		movs	r1, #160
+ 1321 003c 2820     		movs	r0, #40
+ 1322 003e FFF7FEFF 		bl	LCD_ShowString
+ 1323              	.LVL117:
+ 414:Core/Src/rtp.c ****  	LCD_ShowString(40+80,160, 16,"y2:",1);
+ 1324              		.loc 1 414 3 view .LVU344
+ 1325 0042 0094     		str	r4, [sp]
+ 1326 0044 414B     		ldr	r3, .L84+16
+ 1327 0046 1022     		movs	r2, #16
+ 1328 0048 A021     		movs	r1, #160
+ 1329 004a 7820     		movs	r0, #120
+ 1330 004c FFF7FEFF 		bl	LCD_ShowString
+ 1331              	.LVL118:
+ 415:Core/Src/rtp.c **** 	LCD_ShowString(40,180, 16,"x3:",1);
+ 1332              		.loc 1 415 2 view .LVU345
+ 1333 0050 0094     		str	r4, [sp]
+ 1334 0052 3F4B     		ldr	r3, .L84+20
+ 1335 0054 1022     		movs	r2, #16
+ 1336 0056 B421     		movs	r1, #180
+ 1337 0058 2820     		movs	r0, #40
+ 1338 005a FFF7FEFF 		bl	LCD_ShowString
+ 1339              	.LVL119:
+ 416:Core/Src/rtp.c ****  	LCD_ShowString(40+80,180, 16,"y3:",1);
+ 1340              		.loc 1 416 3 view .LVU346
+ 1341 005e 0094     		str	r4, [sp]
+ 1342 0060 3C4B     		ldr	r3, .L84+24
+ 1343 0062 1022     		movs	r2, #16
+ 1344 0064 B421     		movs	r1, #180
+ 1345 0066 7820     		movs	r0, #120
+ 1346 0068 FFF7FEFF 		bl	LCD_ShowString
+ 1347              	.LVL120:
+ 417:Core/Src/rtp.c **** 	LCD_ShowString(40,200, 16,"x4:",1);
+ 1348              		.loc 1 417 2 view .LVU347
+ 1349 006c 0094     		str	r4, [sp]
+ 1350 006e 3A4B     		ldr	r3, .L84+28
+ 1351 0070 1022     		movs	r2, #16
+ 1352 0072 C821     		movs	r1, #200
+ 1353 0074 2820     		movs	r0, #40
+ 1354 0076 FFF7FEFF 		bl	LCD_ShowString
+ 1355              	.LVL121:
+ 418:Core/Src/rtp.c ****  	LCD_ShowString(40+80,200, 16,"y4:",1);  
+ 1356              		.loc 1 418 3 view .LVU348
+ 1357 007a 0094     		str	r4, [sp]
+ 1358 007c 374B     		ldr	r3, .L84+32
+ 1359 007e 1022     		movs	r2, #16
+ 1360 0080 C821     		movs	r1, #200
+ 1361 0082 7820     		movs	r0, #120
+ 1362 0084 FFF7FEFF 		bl	LCD_ShowString
+ 1363              	.LVL122:
+ 419:Core/Src/rtp.c ****  	LCD_ShowString(40,220, 16,"fac is:",1);     
+ 1364              		.loc 1 419 3 view .LVU349
+ARM GAS  /tmp/ccm8ljg6.s 			page 34
+
+
+ 1365 0088 0094     		str	r4, [sp]
+ 1366 008a 354B     		ldr	r3, .L84+36
+ 1367 008c 1022     		movs	r2, #16
+ 1368 008e DC21     		movs	r1, #220
+ 1369 0090 2820     		movs	r0, #40
+ 1370 0092 FFF7FEFF 		bl	LCD_ShowString
+ 1371              	.LVL123:
+ 420:Core/Src/rtp.c **** 	LCD_ShowNum(40+24,140,x0,4,16,0);		//œ‘ æ ˝÷µ
+ 1372              		.loc 1 420 2 view .LVU350
+ 1373 0096 0025     		movs	r5, #0
+ 1374 0098 0195     		str	r5, [sp, #4]
+ 1375 009a 1024     		movs	r4, #16
+ 1376 009c 0094     		str	r4, [sp]
+ 1377 009e 0423     		movs	r3, #4
+ 1378 00a0 4A46     		mov	r2, r9
+ 1379 00a2 8C21     		movs	r1, #140
+ 1380 00a4 4020     		movs	r0, #64
+ 1381 00a6 FFF7FEFF 		bl	LCD_ShowNum
+ 1382              	.LVL124:
+ 421:Core/Src/rtp.c **** 	LCD_ShowNum(40+24+80,140,y0,4,16,0);	//œ‘ æ ˝÷µ
+ 1383              		.loc 1 421 2 view .LVU351
+ 1384 00aa 0195     		str	r5, [sp, #4]
+ 1385 00ac 0094     		str	r4, [sp]
+ 1386 00ae 0423     		movs	r3, #4
+ 1387 00b0 4246     		mov	r2, r8
+ 1388 00b2 8C21     		movs	r1, #140
+ 1389 00b4 9020     		movs	r0, #144
+ 1390 00b6 FFF7FEFF 		bl	LCD_ShowNum
+ 1391              	.LVL125:
+ 422:Core/Src/rtp.c **** 	LCD_ShowNum(40+24,160,x1,4,16,0);		//œ‘ æ ˝÷µ
+ 1392              		.loc 1 422 2 view .LVU352
+ 1393 00ba 0195     		str	r5, [sp, #4]
+ 1394 00bc 0094     		str	r4, [sp]
+ 1395 00be 0423     		movs	r3, #4
+ 1396 00c0 3A46     		mov	r2, r7
+ 1397 00c2 A021     		movs	r1, #160
+ 1398 00c4 4020     		movs	r0, #64
+ 1399 00c6 FFF7FEFF 		bl	LCD_ShowNum
+ 1400              	.LVL126:
+ 423:Core/Src/rtp.c **** 	LCD_ShowNum(40+24+80,160,y1,4,16,0);	//œ‘ æ ˝÷µ
+ 1401              		.loc 1 423 2 view .LVU353
+ 1402 00ca 0195     		str	r5, [sp, #4]
+ 1403 00cc 0094     		str	r4, [sp]
+ 1404 00ce 0423     		movs	r3, #4
+ 1405 00d0 3246     		mov	r2, r6
+ 1406 00d2 A021     		movs	r1, #160
+ 1407 00d4 9020     		movs	r0, #144
+ 1408 00d6 FFF7FEFF 		bl	LCD_ShowNum
+ 1409              	.LVL127:
+ 424:Core/Src/rtp.c **** 	LCD_ShowNum(40+24,180,x2,4,16,0);		//œ‘ æ ˝÷µ
+ 1410              		.loc 1 424 2 view .LVU354
+ 1411 00da 0195     		str	r5, [sp, #4]
+ 1412 00dc 0094     		str	r4, [sp]
+ 1413 00de 0423     		movs	r3, #4
+ 1414 00e0 BDF82820 		ldrh	r2, [sp, #40]
+ 1415 00e4 B421     		movs	r1, #180
+ 1416 00e6 4020     		movs	r0, #64
+ARM GAS  /tmp/ccm8ljg6.s 			page 35
+
+
+ 1417 00e8 FFF7FEFF 		bl	LCD_ShowNum
+ 1418              	.LVL128:
+ 425:Core/Src/rtp.c **** 	LCD_ShowNum(40+24+80,180,y2,4,16,0);	//œ‘ æ ˝÷µ
+ 1419              		.loc 1 425 2 view .LVU355
+ 1420 00ec 0195     		str	r5, [sp, #4]
+ 1421 00ee 0094     		str	r4, [sp]
+ 1422 00f0 0423     		movs	r3, #4
+ 1423 00f2 BDF82C20 		ldrh	r2, [sp, #44]
+ 1424 00f6 B421     		movs	r1, #180
+ 1425 00f8 9020     		movs	r0, #144
+ 1426 00fa FFF7FEFF 		bl	LCD_ShowNum
+ 1427              	.LVL129:
+ 426:Core/Src/rtp.c **** 	LCD_ShowNum(40+24,200,x3,4,16,0);		//œ‘ æ ˝÷µ
+ 1428              		.loc 1 426 2 view .LVU356
+ 1429 00fe 0195     		str	r5, [sp, #4]
+ 1430 0100 0094     		str	r4, [sp]
+ 1431 0102 0423     		movs	r3, #4
+ 1432 0104 BDF83020 		ldrh	r2, [sp, #48]
+ 1433 0108 C821     		movs	r1, #200
+ 1434 010a 4020     		movs	r0, #64
+ 1435 010c FFF7FEFF 		bl	LCD_ShowNum
+ 1436              	.LVL130:
+ 427:Core/Src/rtp.c **** 	LCD_ShowNum(40+24+80,200,y3,4,16,0);	//œ‘ æ ˝÷µ
+ 1437              		.loc 1 427 2 view .LVU357
+ 1438 0110 0195     		str	r5, [sp, #4]
+ 1439 0112 0094     		str	r4, [sp]
+ 1440 0114 0423     		movs	r3, #4
+ 1441 0116 BDF83420 		ldrh	r2, [sp, #52]
+ 1442 011a C821     		movs	r1, #200
+ 1443 011c 9020     		movs	r0, #144
+ 1444 011e FFF7FEFF 		bl	LCD_ShowNum
+ 1445              	.LVL131:
+ 428:Core/Src/rtp.c ****  	LCD_ShowNum(40+56,220,fac,3,16,0); 	//œ‘ æ ˝÷µ,∏√ ˝÷µ±ÿ–Î‘⁄95~105∑∂Œß÷Æƒ⁄.
+ 1446              		.loc 1 428 3 view .LVU358
+ 1447 0122 0195     		str	r5, [sp, #4]
+ 1448 0124 0094     		str	r4, [sp]
+ 1449 0126 0323     		movs	r3, #3
+ 1450 0128 BDF83820 		ldrh	r2, [sp, #56]
+ 1451 012c DC21     		movs	r1, #220
+ 1452 012e 6020     		movs	r0, #96
+ 1453 0130 FFF7FEFF 		bl	LCD_ShowNum
+ 1454              	.LVL132:
+ 429:Core/Src/rtp.c **** }
+ 1455              		.loc 1 429 1 is_stmt 0 view .LVU359
+ 1456 0134 03B0     		add	sp, sp, #12
+ 1457              	.LCFI24:
+ 1458              		.cfi_def_cfa_offset 28
+ 1459              		@ sp needed
+ 1460 0136 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1461              	.LVL133:
+ 1462              	.L85:
+ 1463              		.loc 1 429 1 view .LVU360
+ 1464 013a 00BF     		.align	2
+ 1465              	.L84:
+ 1466 013c 00000000 		.word	POINT_COLOR
+ 1467 0140 00000000 		.word	.LC0
+ 1468 0144 04000000 		.word	.LC1
+ARM GAS  /tmp/ccm8ljg6.s 			page 36
+
+
+ 1469 0148 08000000 		.word	.LC2
+ 1470 014c 0C000000 		.word	.LC3
+ 1471 0150 10000000 		.word	.LC4
+ 1472 0154 14000000 		.word	.LC5
+ 1473 0158 18000000 		.word	.LC6
+ 1474 015c 1C000000 		.word	.LC7
+ 1475 0160 20000000 		.word	.LC8
+ 1476              		.cfi_endproc
+ 1477              	.LFE140:
+ 1479              		.section	.rodata.RTP_Adjust.str1.4,"aMS",%progbits,1
+ 1480              		.align	2
+ 1481              	.LC9:
+ 1482 0000 506C6561 		.ascii	"Please use the stylus click\000"
+ 1482      73652075 
+ 1482      73652074 
+ 1482      68652073 
+ 1482      74796C75 
+ 1483              		.align	2
+ 1484              	.LC10:
+ 1485 001c 74686520 		.ascii	"the cross on the screen.\000"
+ 1485      63726F73 
+ 1485      73206F6E 
+ 1485      20746865 
+ 1485      20736372 
+ 1486 0035 000000   		.align	2
+ 1487              	.LC11:
+ 1488 0038 54686520 		.ascii	"The cross will always move\000"
+ 1488      63726F73 
+ 1488      73207769 
+ 1488      6C6C2061 
+ 1488      6C776179 
+ 1489 0053 00       		.align	2
+ 1490              	.LC12:
+ 1491 0054 756E7469 		.ascii	"until the screen adjustment\000"
+ 1491      6C207468 
+ 1491      65207363 
+ 1491      7265656E 
+ 1491      2061646A 
+ 1492              		.align	2
+ 1493              	.LC13:
+ 1494 0070 69732063 		.ascii	"is completed.\000"
+ 1494      6F6D706C 
+ 1494      65746564 
+ 1494      2E00
+ 1495              		.global	__aeabi_ui2d
+ 1496              		.global	__aeabi_d2uiz
+ 1497              		.global	__aeabi_f2d
+ 1498              		.global	__aeabi_dcmplt
+ 1499              		.global	__aeabi_dcmpgt
+ 1500              		.global	__aeabi_dmul
+ 1501 007e 0000     		.align	2
+ 1502              	.LC14:
+ 1503 0080 5450204E 		.ascii	"TP Need readjust!\000"
+ 1503      65656420 
+ 1503      72656164 
+ 1503      6A757374 
+ 1503      2100
+ARM GAS  /tmp/ccm8ljg6.s 			page 37
+
+
+ 1504 0092 0000     		.align	2
+ 1505              	.LC15:
+ 1506 0094 546F7563 		.ascii	"Touch Screen Adjust OK!\000"
+ 1506      68205363 
+ 1506      7265656E 
+ 1506      2041646A 
+ 1506      75737420 
+ 1507              		.section	.text.RTP_Adjust,"ax",%progbits
+ 1508              		.align	1
+ 1509              		.global	RTP_Adjust
+ 1510              		.syntax unified
+ 1511              		.thumb
+ 1512              		.thumb_func
+ 1513              		.fpu fpv4-sp-d16
+ 1515              	RTP_Adjust:
+ 1516              	.LFB141:
+ 430:Core/Src/rtp.c **** 
+ 431:Core/Src/rtp.c **** /*****************************************************************************
+ 432:Core/Src/rtp.c ****  * @name       :u8 TP_Get_Adjdata(void)
+ 433:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 434:Core/Src/rtp.c ****  * @function   :Calibration touch screen and Get 4 calibration parameters
+ 435:Core/Src/rtp.c ****  * @parameters :None
+ 436:Core/Src/rtp.c ****  * @retvalue   :None
+ 437:Core/Src/rtp.c **** ******************************************************************************/ 		 
+ 438:Core/Src/rtp.c **** void RTP_Adjust(void)
+ 439:Core/Src/rtp.c **** {								 
+ 1517              		.loc 1 439 1 is_stmt 1 view -0
+ 1518              		.cfi_startproc
+ 1519              		@ args = 0, pretend = 0, frame = 24
+ 1520              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1521 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1522              	.LCFI25:
+ 1523              		.cfi_def_cfa_offset 36
+ 1524              		.cfi_offset 4, -36
+ 1525              		.cfi_offset 5, -32
+ 1526              		.cfi_offset 6, -28
+ 1527              		.cfi_offset 7, -24
+ 1528              		.cfi_offset 8, -20
+ 1529              		.cfi_offset 9, -16
+ 1530              		.cfi_offset 10, -12
+ 1531              		.cfi_offset 11, -8
+ 1532              		.cfi_offset 14, -4
+ 1533 0004 2DED028B 		vpush.64	{d8}
+ 1534              	.LCFI26:
+ 1535              		.cfi_def_cfa_offset 44
+ 1536              		.cfi_offset 80, -44
+ 1537              		.cfi_offset 81, -40
+ 1538 0008 8DB0     		sub	sp, sp, #52
+ 1539              	.LCFI27:
+ 1540              		.cfi_def_cfa_offset 96
+ 440:Core/Src/rtp.c **** 	u16 pos_temp[4][2];//◊¯±Íª∫¥Ê÷µ
+ 1541              		.loc 1 440 2 view .LVU362
+ 441:Core/Src/rtp.c **** 	u8  cnt=0;	
+ 1542              		.loc 1 441 2 view .LVU363
+ 1543              	.LVL134:
+ 442:Core/Src/rtp.c **** 	u16 d1,d2;
+ 1544              		.loc 1 442 2 view .LVU364
+ARM GAS  /tmp/ccm8ljg6.s 			page 38
+
+
+ 443:Core/Src/rtp.c **** 	u32 tem1,tem2;
+ 1545              		.loc 1 443 2 view .LVU365
+ 444:Core/Src/rtp.c **** 	double fac; 	
+ 1546              		.loc 1 444 2 view .LVU366
+ 445:Core/Src/rtp.c **** 	u16 outtime=0;
+ 1547              		.loc 1 445 2 view .LVU367
+ 446:Core/Src/rtp.c ****  	cnt=0;				
+ 1548              		.loc 1 446 3 view .LVU368
+ 447:Core/Src/rtp.c **** 	POINT_COLOR=BLUE;
+ 1549              		.loc 1 447 2 view .LVU369
+ 1550              		.loc 1 447 13 is_stmt 0 view .LVU370
+ 1551 000a A34C     		ldr	r4, .L113+16
+ 1552 000c 1F23     		movs	r3, #31
+ 1553 000e 2380     		strh	r3, [r4]	@ movhi
+ 448:Core/Src/rtp.c **** 	BACK_COLOR =WHITE;
+ 1554              		.loc 1 448 2 is_stmt 1 view .LVU371
+ 1555              		.loc 1 448 13 is_stmt 0 view .LVU372
+ 1556 0010 4FF6FF75 		movw	r5, #65535
+ 1557 0014 A14B     		ldr	r3, .L113+20
+ 1558 0016 1D80     		strh	r5, [r3]	@ movhi
+ 449:Core/Src/rtp.c **** 	LCD_Clear(WHITE);//«Â∆¡   
+ 1559              		.loc 1 449 2 is_stmt 1 view .LVU373
+ 1560 0018 2846     		mov	r0, r5
+ 1561 001a FFF7FEFF 		bl	LCD_Clear
+ 1562              	.LVL135:
+ 450:Core/Src/rtp.c **** 	POINT_COLOR=RED;//∫Ï…´ 
+ 1563              		.loc 1 450 2 view .LVU374
+ 1564              		.loc 1 450 13 is_stmt 0 view .LVU375
+ 1565 001e 4FF47846 		mov	r6, #63488
+ 1566 0022 2680     		strh	r6, [r4]	@ movhi
+ 451:Core/Src/rtp.c **** 	LCD_Clear(WHITE);//«Â∆¡ 	   
+ 1567              		.loc 1 451 2 is_stmt 1 view .LVU376
+ 1568 0024 2846     		mov	r0, r5
+ 1569 0026 FFF7FEFF 		bl	LCD_Clear
+ 1570              	.LVL136:
+ 452:Core/Src/rtp.c **** 	POINT_COLOR=BLACK;
+ 1571              		.loc 1 452 2 view .LVU377
+ 1572              		.loc 1 452 13 is_stmt 0 view .LVU378
+ 1573 002a 0025     		movs	r5, #0
+ 1574 002c 2580     		strh	r5, [r4]	@ movhi
+ 453:Core/Src/rtp.c **** 	LCD_ShowString(10,40,16,"Please use the stylus click",1);//œ‘ æÃ· æ–≈œ¢
+ 1575              		.loc 1 453 2 is_stmt 1 view .LVU379
+ 1576 002e 0124     		movs	r4, #1
+ 1577 0030 0094     		str	r4, [sp]
+ 1578 0032 9B4B     		ldr	r3, .L113+24
+ 1579 0034 1022     		movs	r2, #16
+ 1580 0036 2821     		movs	r1, #40
+ 1581 0038 0A20     		movs	r0, #10
+ 1582 003a FFF7FEFF 		bl	LCD_ShowString
+ 1583              	.LVL137:
+ 454:Core/Src/rtp.c **** 	LCD_ShowString(10,56,16,"the cross on the screen.",1);//œ‘ æÃ· æ–≈œ¢
+ 1584              		.loc 1 454 2 view .LVU380
+ 1585 003e 0094     		str	r4, [sp]
+ 1586 0040 984B     		ldr	r3, .L113+28
+ 1587 0042 1022     		movs	r2, #16
+ 1588 0044 3821     		movs	r1, #56
+ 1589 0046 0A20     		movs	r0, #10
+ARM GAS  /tmp/ccm8ljg6.s 			page 39
+
+
+ 1590 0048 FFF7FEFF 		bl	LCD_ShowString
+ 1591              	.LVL138:
+ 455:Core/Src/rtp.c **** 	LCD_ShowString(10,72,16,"The cross will always move",1);//œ‘ æÃ· æ–≈œ¢
+ 1592              		.loc 1 455 2 view .LVU381
+ 1593 004c 0094     		str	r4, [sp]
+ 1594 004e 964B     		ldr	r3, .L113+32
+ 1595 0050 1022     		movs	r2, #16
+ 1596 0052 4821     		movs	r1, #72
+ 1597 0054 0A20     		movs	r0, #10
+ 1598 0056 FFF7FEFF 		bl	LCD_ShowString
+ 1599              	.LVL139:
+ 456:Core/Src/rtp.c **** 	LCD_ShowString(10,88,16,"until the screen adjustment",1);//œ‘ æÃ· æ–≈œ¢
+ 1600              		.loc 1 456 2 view .LVU382
+ 1601 005a 0094     		str	r4, [sp]
+ 1602 005c 934B     		ldr	r3, .L113+36
+ 1603 005e 1022     		movs	r2, #16
+ 1604 0060 5821     		movs	r1, #88
+ 1605 0062 0A20     		movs	r0, #10
+ 1606 0064 FFF7FEFF 		bl	LCD_ShowString
+ 1607              	.LVL140:
+ 457:Core/Src/rtp.c ****   LCD_ShowString(10,104,16,"is completed.",1);//œ‘ æÃ· æ–≈œ¢
+ 1608              		.loc 1 457 3 view .LVU383
+ 1609 0068 0094     		str	r4, [sp]
+ 1610 006a 914B     		ldr	r3, .L113+40
+ 1611 006c 1022     		movs	r2, #16
+ 1612 006e 6821     		movs	r1, #104
+ 1613 0070 0A20     		movs	r0, #10
+ 1614 0072 FFF7FEFF 		bl	LCD_ShowString
+ 1615              	.LVL141:
+ 458:Core/Src/rtp.c **** 	 
+ 459:Core/Src/rtp.c **** 	RTP_Drow_Touch_Point(20,20,RED);//ª≠µ„1 
+ 1616              		.loc 1 459 2 view .LVU384
+ 1617 0076 3246     		mov	r2, r6
+ 1618 0078 1421     		movs	r1, #20
+ 1619 007a 0846     		mov	r0, r1
+ 1620 007c FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1621              	.LVL142:
+ 460:Core/Src/rtp.c **** 	tp_dev.sta=0;//œ˚≥˝¥•∑¢–≈∫≈ 
+ 1622              		.loc 1 460 2 view .LVU385
+ 1623              		.loc 1 460 12 is_stmt 0 view .LVU386
+ 1624 0080 8C4B     		ldr	r3, .L113+44
+ 1625 0082 1D76     		strb	r5, [r3, #24]
+ 461:Core/Src/rtp.c **** 	tp_dev.xfac=0;//xfac”√¿¥±Íº« «∑Ò–£◊ºπ˝,À˘“‘–£◊º÷Æ«∞±ÿ–Î«ÂµÙ!“‘√‚¥ÌŒÛ	 
+ 1626              		.loc 1 461 2 is_stmt 1 view .LVU387
+ 1627              		.loc 1 461 13 is_stmt 0 view .LVU388
+ 1628 0084 0022     		movs	r2, #0
+ 1629 0086 DA61     		str	r2, [r3, #28]	@ float
+ 445:Core/Src/rtp.c ****  	cnt=0;				
+ 1630              		.loc 1 445 6 view .LVU389
+ 1631 0088 2C46     		mov	r4, r5
+ 1632 008a 18E0     		b	.L87
+ 1633              	.LVL143:
+ 1634              	.L93:
+ 462:Core/Src/rtp.c **** 	while(1)//»Áπ˚¡¨–¯10√Î÷”√ª”–∞¥œ¬,‘Ú◊‘∂ØÕÀ≥ˆ
+ 463:Core/Src/rtp.c **** 	{
+ 464:Core/Src/rtp.c **** 		RTP_Scan(1);//…®√ËŒÔ¿Ì◊¯±Í
+ 465:Core/Src/rtp.c **** 		if((tp_dev.sta&0xc0)==TP_CATH_PRES)//∞¥º¸∞¥œ¬¡À“ª¥Œ(¥À ±∞¥º¸À…ø™¡À.)
+ARM GAS  /tmp/ccm8ljg6.s 			page 40
+
+
+ 466:Core/Src/rtp.c **** 		{	
+ 467:Core/Src/rtp.c **** 			outtime=0;		
+ 468:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 469:Core/Src/rtp.c **** 						   			   
+ 470:Core/Src/rtp.c **** 			pos_temp[cnt][0]=tp_dev.x[0];
+ 471:Core/Src/rtp.c **** 			pos_temp[cnt][1]=tp_dev.y[0];
+ 472:Core/Src/rtp.c **** 			cnt++;	  
+ 473:Core/Src/rtp.c **** 			switch(cnt)
+ 474:Core/Src/rtp.c **** 			{			   
+ 475:Core/Src/rtp.c **** 				case 1:						 
+ 476:Core/Src/rtp.c **** 					RTP_Drow_Touch_Point(20,20,WHITE);				//«Â≥˝µ„1 
+ 1635              		.loc 1 476 6 is_stmt 1 view .LVU390
+ 1636 008c 4FF6FF72 		movw	r2, #65535
+ 1637 0090 1421     		movs	r1, #20
+ 1638 0092 0846     		mov	r0, r1
+ 1639 0094 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1640              	.LVL144:
+ 477:Core/Src/rtp.c **** 					RTP_Drow_Touch_Point(lcddev.width-20,20,RED);	//ª≠µ„2
+ 1641              		.loc 1 477 6 view .LVU391
+ 1642              		.loc 1 477 33 is_stmt 0 view .LVU392
+ 1643 0098 874B     		ldr	r3, .L113+48
+ 1644 009a 9888     		ldrh	r0, [r3, #4]
+ 1645              		.loc 1 477 6 view .LVU393
+ 1646 009c 1438     		subs	r0, r0, #20
+ 1647 009e 4FF47842 		mov	r2, #63488
+ 1648 00a2 1421     		movs	r1, #20
+ 1649 00a4 80B2     		uxth	r0, r0
+ 1650 00a6 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1651              	.LVL145:
+ 478:Core/Src/rtp.c **** 					break;
+ 1652              		.loc 1 478 6 is_stmt 1 view .LVU394
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 1653              		.loc 1 467 11 is_stmt 0 view .LVU395
+ 1654 00aa 0024     		movs	r4, #0
+ 1655              	.LVL146:
+ 1656              	.L88:
+ 479:Core/Src/rtp.c **** 				case 2:
+ 480:Core/Src/rtp.c ****  					RTP_Drow_Touch_Point(lcddev.width-20,20,WHITE);	//«Â≥˝µ„2
+ 481:Core/Src/rtp.c **** 					RTP_Drow_Touch_Point(20,lcddev.height-20,RED);	//ª≠µ„3
+ 482:Core/Src/rtp.c **** 					break;
+ 483:Core/Src/rtp.c **** 				case 3:
+ 484:Core/Src/rtp.c ****  					RTP_Drow_Touch_Point(20,lcddev.height-20,WHITE);			//«Â≥˝µ„3
+ 485:Core/Src/rtp.c ****  					RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,RED);	//ª≠µ„4
+ 486:Core/Src/rtp.c **** 					break;
+ 487:Core/Src/rtp.c **** 				case 4:	 //»´≤øÀƒ∏ˆµ„“—æ≠µ√µΩ
+ 488:Core/Src/rtp.c **** 	    		    //∂‘±ﬂœ‡µ»
+ 489:Core/Src/rtp.c **** 					tem1=abs(pos_temp[0][0]-pos_temp[1][0]);//x1-x2
+ 490:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[1][1]);//y1-y2
+ 491:Core/Src/rtp.c **** 					tem1*=tem1;
+ 492:Core/Src/rtp.c **** 					tem2*=tem2;
+ 493:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,2µƒæ‡¿Î
+ 494:Core/Src/rtp.c **** 					
+ 495:Core/Src/rtp.c **** 					tem1=abs(pos_temp[2][0]-pos_temp[3][0]);//x3-x4
+ 496:Core/Src/rtp.c **** 					tem2=abs(pos_temp[2][1]-pos_temp[3][1]);//y3-y4
+ 497:Core/Src/rtp.c **** 					tem1*=tem1;
+ 498:Core/Src/rtp.c **** 					tem2*=tem2;
+ 499:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ3,4µƒæ‡¿Î
+ARM GAS  /tmp/ccm8ljg6.s 			page 41
+
+
+ 500:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 501:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05||d1==0||d2==0)//≤ª∫œ∏Ò
+ 502:Core/Src/rtp.c **** 					{
+ 503:Core/Src/rtp.c **** 						cnt=0;
+ 504:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 505:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 506:Core/Src/rtp.c ****  						RTP_Adj_Info_Show(pos_temp[0][0],pos_temp[0][1],pos_temp[1][0],pos_temp[1][1],pos_temp[2][0]
+ 507:Core/Src/rtp.c ****  						continue;
+ 508:Core/Src/rtp.c **** 					}
+ 509:Core/Src/rtp.c **** 					tem1=abs(pos_temp[0][0]-pos_temp[2][0]);//x1-x3
+ 510:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[2][1]);//y1-y3
+ 511:Core/Src/rtp.c **** 					tem1*=tem1;
+ 512:Core/Src/rtp.c **** 					tem2*=tem2;
+ 513:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,3µƒæ‡¿Î
+ 514:Core/Src/rtp.c **** 					
+ 515:Core/Src/rtp.c **** 					tem1=abs(pos_temp[1][0]-pos_temp[3][0]);//x2-x4
+ 516:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[3][1]);//y2-y4
+ 517:Core/Src/rtp.c **** 					tem1*=tem1;
+ 518:Core/Src/rtp.c **** 					tem2*=tem2;
+ 519:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ2,4µƒæ‡¿Î
+ 520:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 521:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 522:Core/Src/rtp.c **** 					{
+ 523:Core/Src/rtp.c **** 						cnt=0;
+ 524:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 525:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 526:Core/Src/rtp.c ****  						RTP_Adj_Info_Show(pos_temp[0][0],pos_temp[0][1],pos_temp[1][0],pos_temp[1][1],pos_temp[2][0]
+ 527:Core/Src/rtp.c **** 						continue;
+ 528:Core/Src/rtp.c **** 					}//’˝»∑¡À
+ 529:Core/Src/rtp.c **** 								   
+ 530:Core/Src/rtp.c **** 					//∂‘Ω«œﬂœ‡µ»
+ 531:Core/Src/rtp.c **** 					tem1=abs(pos_temp[1][0]-pos_temp[2][0]);//x1-x3
+ 532:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[2][1]);//y1-y3
+ 533:Core/Src/rtp.c **** 					tem1*=tem1;
+ 534:Core/Src/rtp.c **** 					tem2*=tem2;
+ 535:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,4µƒæ‡¿Î
+ 536:Core/Src/rtp.c **** 	
+ 537:Core/Src/rtp.c **** 					tem1=abs(pos_temp[0][0]-pos_temp[3][0]);//x2-x4
+ 538:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[3][1]);//y2-y4
+ 539:Core/Src/rtp.c **** 					tem1*=tem1;
+ 540:Core/Src/rtp.c **** 					tem2*=tem2;
+ 541:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ2,3µƒæ‡¿Î
+ 542:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 543:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 544:Core/Src/rtp.c **** 					{
+ 545:Core/Src/rtp.c **** 						cnt=0;
+ 546:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 547:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 548:Core/Src/rtp.c ****  						RTP_Adj_Info_Show(pos_temp[0][0],pos_temp[0][1],pos_temp[1][0],pos_temp[1][1],pos_temp[2][0]
+ 549:Core/Src/rtp.c **** 						continue;
+ 550:Core/Src/rtp.c **** 					}//’˝»∑¡À
+ 551:Core/Src/rtp.c **** 					//º∆À„Ω·π˚
+ 552:Core/Src/rtp.c **** 					tp_dev.xfac=(float)(lcddev.width-40)/(pos_temp[1][0]-pos_temp[0][0]);//µ√µΩxfac		 
+ 553:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 554:Core/Src/rtp.c **** 						  
+ 555:Core/Src/rtp.c **** 					tp_dev.yfac=(float)(lcddev.height-40)/(pos_temp[2][1]-pos_temp[0][1]);//µ√µΩyfac
+ 556:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ARM GAS  /tmp/ccm8ljg6.s 			page 42
+
+
+ 557:Core/Src/rtp.c **** 					if(abs(tp_dev.xfac)>2||abs(tp_dev.yfac)>2)//¥•∆¡∫Õ‘§…Ëµƒœ‡∑¥¡À.
+ 558:Core/Src/rtp.c **** 					{
+ 559:Core/Src/rtp.c **** 						cnt=0;
+ 560:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 561:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 562:Core/Src/rtp.c **** 						LCD_ShowString(40,26, 16,"TP Need readjust!",1);
+ 563:Core/Src/rtp.c **** 						tp_dev.touchtype=!tp_dev.touchtype;//–ﬁ∏ƒ¥•∆¡¿‡–Õ.
+ 564:Core/Src/rtp.c **** 						if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 565:Core/Src/rtp.c **** 						{
+ 566:Core/Src/rtp.c **** 							CMD_RDX=0X90;
+ 567:Core/Src/rtp.c **** 							CMD_RDY=0XD0;	 
+ 568:Core/Src/rtp.c **** 						}else				   //X,Y∑ΩœÚ”Î∆¡ƒªœ‡Õ¨
+ 569:Core/Src/rtp.c **** 						{
+ 570:Core/Src/rtp.c **** 							CMD_RDX=0XD0;
+ 571:Core/Src/rtp.c **** 							CMD_RDY=0X90;	 
+ 572:Core/Src/rtp.c **** 						}			    
+ 573:Core/Src/rtp.c **** 						continue;
+ 574:Core/Src/rtp.c **** 					}		
+ 575:Core/Src/rtp.c **** 					POINT_COLOR=BLUE;
+ 576:Core/Src/rtp.c **** 					LCD_Clear(WHITE);//«Â∆¡
+ 577:Core/Src/rtp.c **** 					LCD_ShowString(35,110, 16,"Touch Screen Adjust OK!",1);//–£’˝ÕÍ≥…
+ 578:Core/Src/rtp.c **** 					delay_ms(1000);
+ 579:Core/Src/rtp.c **** 					RTP_Save_Adjdata();  
+ 580:Core/Src/rtp.c ****  					LCD_Clear(WHITE);//«Â∆¡   
+ 581:Core/Src/rtp.c **** 					return;//–£’˝ÕÍ≥…				 
+ 582:Core/Src/rtp.c **** 			}
+ 583:Core/Src/rtp.c **** 		}
+ 584:Core/Src/rtp.c **** 		delay_ms(10);
+ 1657              		.loc 1 584 3 is_stmt 1 view .LVU396
+ 1658 00ac 0A20     		movs	r0, #10
+ 1659 00ae FFF7FEFF 		bl	delay_ms
+ 1660              	.LVL147:
+ 585:Core/Src/rtp.c **** 		outtime++;
+ 1661              		.loc 1 585 3 view .LVU397
+ 1662              		.loc 1 585 10 is_stmt 0 view .LVU398
+ 1663 00b2 0134     		adds	r4, r4, #1
+ 1664              	.LVL148:
+ 1665              		.loc 1 585 10 view .LVU399
+ 1666 00b4 A4B2     		uxth	r4, r4
+ 1667              	.LVL149:
+ 586:Core/Src/rtp.c **** 		if(outtime>1000)
+ 1668              		.loc 1 586 3 is_stmt 1 view .LVU400
+ 1669              		.loc 1 586 5 is_stmt 0 view .LVU401
+ 1670 00b6 B4F57A7F 		cmp	r4, #1000
+ 1671 00ba 00F2A982 		bhi	.L112
+ 1672              	.LVL150:
+ 1673              	.L87:
+ 462:Core/Src/rtp.c **** 	{
+ 1674              		.loc 1 462 2 is_stmt 1 view .LVU402
+ 464:Core/Src/rtp.c **** 		if((tp_dev.sta&0xc0)==TP_CATH_PRES)//∞¥º¸∞¥œ¬¡À“ª¥Œ(¥À ±∞¥º¸À…ø™¡À.)
+ 1675              		.loc 1 464 3 view .LVU403
+ 1676 00be 0120     		movs	r0, #1
+ 1677 00c0 FFF7FEFF 		bl	RTP_Scan
+ 1678              	.LVL151:
+ 465:Core/Src/rtp.c **** 		{	
+ 1679              		.loc 1 465 3 view .LVU404
+ 465:Core/Src/rtp.c **** 		{	
+ARM GAS  /tmp/ccm8ljg6.s 			page 43
+
+
+ 1680              		.loc 1 465 13 is_stmt 0 view .LVU405
+ 1681 00c4 7B4B     		ldr	r3, .L113+44
+ 1682 00c6 1B7E     		ldrb	r3, [r3, #24]	@ zero_extendqisi2
+ 465:Core/Src/rtp.c **** 		{	
+ 1683              		.loc 1 465 5 view .LVU406
+ 1684 00c8 03F0C002 		and	r2, r3, #192
+ 1685 00cc 402A     		cmp	r2, #64
+ 1686 00ce EDD1     		bne	.L88
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 1687              		.loc 1 467 4 is_stmt 1 view .LVU407
+ 1688              	.LVL152:
+ 468:Core/Src/rtp.c **** 						   			   
+ 1689              		.loc 1 468 4 view .LVU408
+ 468:Core/Src/rtp.c **** 						   			   
+ 1690              		.loc 1 468 14 is_stmt 0 view .LVU409
+ 1691 00d0 784A     		ldr	r2, .L113+44
+ 1692 00d2 23F04003 		bic	r3, r3, #64
+ 1693 00d6 1376     		strb	r3, [r2, #24]
+ 470:Core/Src/rtp.c **** 			pos_temp[cnt][1]=tp_dev.y[0];
+ 1694              		.loc 1 470 4 is_stmt 1 view .LVU410
+ 470:Core/Src/rtp.c **** 			pos_temp[cnt][1]=tp_dev.y[0];
+ 1695              		.loc 1 470 29 is_stmt 0 view .LVU411
+ 1696 00d8 9188     		ldrh	r1, [r2, #4]
+ 470:Core/Src/rtp.c **** 			pos_temp[cnt][1]=tp_dev.y[0];
+ 1697              		.loc 1 470 20 view .LVU412
+ 1698 00da 0CAB     		add	r3, sp, #48
+ 1699 00dc 03EB8503 		add	r3, r3, r5, lsl #2
+ 1700 00e0 23F8101C 		strh	r1, [r3, #-16]	@ movhi
+ 471:Core/Src/rtp.c **** 			cnt++;	  
+ 1701              		.loc 1 471 4 is_stmt 1 view .LVU413
+ 471:Core/Src/rtp.c **** 			cnt++;	  
+ 1702              		.loc 1 471 29 is_stmt 0 view .LVU414
+ 1703 00e4 D289     		ldrh	r2, [r2, #14]
+ 471:Core/Src/rtp.c **** 			cnt++;	  
+ 1704              		.loc 1 471 20 view .LVU415
+ 1705 00e6 23F80E2C 		strh	r2, [r3, #-14]	@ movhi
+ 472:Core/Src/rtp.c **** 			switch(cnt)
+ 1706              		.loc 1 472 4 is_stmt 1 view .LVU416
+ 472:Core/Src/rtp.c **** 			switch(cnt)
+ 1707              		.loc 1 472 7 is_stmt 0 view .LVU417
+ 1708 00ea 0135     		adds	r5, r5, #1
+ 1709              	.LVL153:
+ 472:Core/Src/rtp.c **** 			switch(cnt)
+ 1710              		.loc 1 472 7 view .LVU418
+ 1711 00ec EDB2     		uxtb	r5, r5
+ 1712              	.LVL154:
+ 473:Core/Src/rtp.c **** 			{			   
+ 1713              		.loc 1 473 4 is_stmt 1 view .LVU419
+ 1714 00ee 6B1E     		subs	r3, r5, #1
+ 1715 00f0 032B     		cmp	r3, #3
+ 1716 00f2 00F28B82 		bhi	.L108
+ 1717 00f6 01A2     		adr	r2, .L90
+ 1718 00f8 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 1719              		.p2align 2
+ 1720              	.L90:
+ 1721 00fc 8D000000 		.word	.L93+1
+ 1722 0100 0D010000 		.word	.L92+1
+ARM GAS  /tmp/ccm8ljg6.s 			page 44
+
+
+ 1723 0104 33010000 		.word	.L91+1
+ 1724 0108 5D010000 		.word	.L89+1
+ 1725              		.p2align 1
+ 1726              	.L92:
+ 480:Core/Src/rtp.c **** 					RTP_Drow_Touch_Point(20,lcddev.height-20,RED);	//ª≠µ„3
+ 1727              		.loc 1 480 7 view .LVU420
+ 480:Core/Src/rtp.c **** 					RTP_Drow_Touch_Point(20,lcddev.height-20,RED);	//ª≠µ„3
+ 1728              		.loc 1 480 34 is_stmt 0 view .LVU421
+ 1729 010c 6A4C     		ldr	r4, .L113+48
+ 1730 010e A088     		ldrh	r0, [r4, #4]
+ 480:Core/Src/rtp.c **** 					RTP_Drow_Touch_Point(20,lcddev.height-20,RED);	//ª≠µ„3
+ 1731              		.loc 1 480 7 view .LVU422
+ 1732 0110 1438     		subs	r0, r0, #20
+ 1733 0112 4FF6FF72 		movw	r2, #65535
+ 1734 0116 1421     		movs	r1, #20
+ 1735 0118 80B2     		uxth	r0, r0
+ 1736 011a FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1737              	.LVL155:
+ 481:Core/Src/rtp.c **** 					break;
+ 1738              		.loc 1 481 6 is_stmt 1 view .LVU423
+ 481:Core/Src/rtp.c **** 					break;
+ 1739              		.loc 1 481 36 is_stmt 0 view .LVU424
+ 1740 011e E188     		ldrh	r1, [r4, #6]
+ 481:Core/Src/rtp.c **** 					break;
+ 1741              		.loc 1 481 6 view .LVU425
+ 1742 0120 1439     		subs	r1, r1, #20
+ 1743 0122 4FF47842 		mov	r2, #63488
+ 1744 0126 89B2     		uxth	r1, r1
+ 1745 0128 1420     		movs	r0, #20
+ 1746 012a FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1747              	.LVL156:
+ 482:Core/Src/rtp.c **** 				case 3:
+ 1748              		.loc 1 482 6 is_stmt 1 view .LVU426
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 1749              		.loc 1 467 11 is_stmt 0 view .LVU427
+ 1750 012e 0024     		movs	r4, #0
+ 482:Core/Src/rtp.c **** 				case 3:
+ 1751              		.loc 1 482 6 view .LVU428
+ 1752 0130 BCE7     		b	.L88
+ 1753              	.L91:
+ 484:Core/Src/rtp.c ****  					RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,RED);	//ª≠µ„4
+ 1754              		.loc 1 484 7 is_stmt 1 view .LVU429
+ 484:Core/Src/rtp.c ****  					RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,RED);	//ª≠µ„4
+ 1755              		.loc 1 484 37 is_stmt 0 view .LVU430
+ 1756 0132 614C     		ldr	r4, .L113+48
+ 1757 0134 E188     		ldrh	r1, [r4, #6]
+ 484:Core/Src/rtp.c ****  					RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,RED);	//ª≠µ„4
+ 1758              		.loc 1 484 7 view .LVU431
+ 1759 0136 1439     		subs	r1, r1, #20
+ 1760 0138 4FF6FF72 		movw	r2, #65535
+ 1761 013c 89B2     		uxth	r1, r1
+ 1762 013e 1420     		movs	r0, #20
+ 1763 0140 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1764              	.LVL157:
+ 485:Core/Src/rtp.c **** 					break;
+ 1765              		.loc 1 485 7 is_stmt 1 view .LVU432
+ 485:Core/Src/rtp.c **** 					break;
+ARM GAS  /tmp/ccm8ljg6.s 			page 45
+
+
+ 1766              		.loc 1 485 34 is_stmt 0 view .LVU433
+ 1767 0144 A088     		ldrh	r0, [r4, #4]
+ 485:Core/Src/rtp.c **** 					break;
+ 1768              		.loc 1 485 50 view .LVU434
+ 1769 0146 E188     		ldrh	r1, [r4, #6]
+ 485:Core/Src/rtp.c **** 					break;
+ 1770              		.loc 1 485 7 view .LVU435
+ 1771 0148 1439     		subs	r1, r1, #20
+ 1772 014a 1438     		subs	r0, r0, #20
+ 1773 014c 4FF47842 		mov	r2, #63488
+ 1774 0150 89B2     		uxth	r1, r1
+ 1775 0152 80B2     		uxth	r0, r0
+ 1776 0154 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1777              	.LVL158:
+ 486:Core/Src/rtp.c **** 				case 4:	 //»´≤øÀƒ∏ˆµ„“—æ≠µ√µΩ
+ 1778              		.loc 1 486 6 is_stmt 1 view .LVU436
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 1779              		.loc 1 467 11 is_stmt 0 view .LVU437
+ 1780 0158 0024     		movs	r4, #0
+ 486:Core/Src/rtp.c **** 				case 4:	 //»´≤øÀƒ∏ˆµ„“—æ≠µ√µΩ
+ 1781              		.loc 1 486 6 view .LVU438
+ 1782 015a A7E7     		b	.L88
+ 1783              	.L89:
+ 489:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[1][1]);//y1-y2
+ 1784              		.loc 1 489 6 is_stmt 1 view .LVU439
+ 489:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[1][1]);//y1-y2
+ 1785              		.loc 1 489 26 is_stmt 0 view .LVU440
+ 1786 015c BDF82050 		ldrh	r5, [sp, #32]
+ 1787              	.LVL159:
+ 489:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[1][1]);//y1-y2
+ 1788              		.loc 1 489 41 view .LVU441
+ 1789 0160 BDF82470 		ldrh	r7, [sp, #36]
+ 489:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[1][1]);//y1-y2
+ 1790              		.loc 1 489 29 view .LVU442
+ 1791 0164 E81B     		subs	r0, r5, r7
+ 489:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[1][1]);//y1-y2
+ 1792              		.loc 1 489 11 view .LVU443
+ 1793 0166 0028     		cmp	r0, #0
+ 1794 0168 B8BF     		it	lt
+ 1795 016a 4042     		rsblt	r0, r0, #0
+ 1796              	.LVL160:
+ 490:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1797              		.loc 1 490 6 is_stmt 1 view .LVU444
+ 490:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1798              		.loc 1 490 26 is_stmt 0 view .LVU445
+ 1799 016c BDF82240 		ldrh	r4, [sp, #34]
+ 490:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1800              		.loc 1 490 41 view .LVU446
+ 1801 0170 BDF82680 		ldrh	r8, [sp, #38]
+ 490:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1802              		.loc 1 490 29 view .LVU447
+ 1803 0174 A4EB0803 		sub	r3, r4, r8
+ 1804              	.LVL161:
+ 490:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1805              		.loc 1 490 11 view .LVU448
+ 1806 0178 002B     		cmp	r3, #0
+ 1807 017a B8BF     		it	lt
+ARM GAS  /tmp/ccm8ljg6.s 			page 46
+
+
+ 1808 017c 5B42     		rsblt	r3, r3, #0
+ 1809              	.LVL162:
+ 491:Core/Src/rtp.c **** 					tem2*=tem2;
+ 1810              		.loc 1 491 6 is_stmt 1 view .LVU449
+ 492:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,2µƒæ‡¿Î
+ 1811              		.loc 1 492 6 view .LVU450
+ 492:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,2µƒæ‡¿Î
+ 1812              		.loc 1 492 10 is_stmt 0 view .LVU451
+ 1813 017e 03FB03F3 		mul	r3, r3, r3
+ 1814              	.LVL163:
+ 493:Core/Src/rtp.c **** 					
+ 1815              		.loc 1 493 6 is_stmt 1 view .LVU452
+ 493:Core/Src/rtp.c **** 					
+ 1816              		.loc 1 493 9 is_stmt 0 view .LVU453
+ 1817 0182 00FB0030 		mla	r0, r0, r0, r3
+ 1818              	.LVL164:
+ 493:Core/Src/rtp.c **** 					
+ 1819              		.loc 1 493 9 view .LVU454
+ 1820 0186 FFF7FEFF 		bl	__aeabi_ui2d
+ 1821              	.LVL165:
+ 493:Core/Src/rtp.c **** 					
+ 1822              		.loc 1 493 9 view .LVU455
+ 1823 018a 41EC100B 		vmov	d0, r0, r1
+ 1824 018e FFF7FEFF 		bl	sqrt
+ 1825              	.LVL166:
+ 1826 0192 51EC100B 		vmov	r0, r1, d0
+ 493:Core/Src/rtp.c **** 					
+ 1827              		.loc 1 493 8 view .LVU456
+ 1828 0196 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1829              	.LVL167:
+ 1830 019a 83B2     		uxth	r3, r0
+ 1831 019c 08EE103A 		vmov	s16, r3	@ int
+ 1832              	.LVL168:
+ 495:Core/Src/rtp.c **** 					tem2=abs(pos_temp[2][1]-pos_temp[3][1]);//y3-y4
+ 1833              		.loc 1 495 6 is_stmt 1 view .LVU457
+ 495:Core/Src/rtp.c **** 					tem2=abs(pos_temp[2][1]-pos_temp[3][1]);//y3-y4
+ 1834              		.loc 1 495 26 is_stmt 0 view .LVU458
+ 1835 01a0 BDF82890 		ldrh	r9, [sp, #40]
+ 495:Core/Src/rtp.c **** 					tem2=abs(pos_temp[2][1]-pos_temp[3][1]);//y3-y4
+ 1836              		.loc 1 495 41 view .LVU459
+ 1837 01a4 BDF82CA0 		ldrh	r10, [sp, #44]
+ 495:Core/Src/rtp.c **** 					tem2=abs(pos_temp[2][1]-pos_temp[3][1]);//y3-y4
+ 1838              		.loc 1 495 29 view .LVU460
+ 1839 01a8 A9EB0A00 		sub	r0, r9, r10
+ 495:Core/Src/rtp.c **** 					tem2=abs(pos_temp[2][1]-pos_temp[3][1]);//y3-y4
+ 1840              		.loc 1 495 11 view .LVU461
+ 1841 01ac 0028     		cmp	r0, #0
+ 1842 01ae B8BF     		it	lt
+ 1843 01b0 4042     		rsblt	r0, r0, #0
+ 1844              	.LVL169:
+ 496:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1845              		.loc 1 496 6 is_stmt 1 view .LVU462
+ 496:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1846              		.loc 1 496 26 is_stmt 0 view .LVU463
+ 1847 01b2 BDF82A60 		ldrh	r6, [sp, #42]
+ 496:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1848              		.loc 1 496 41 view .LVU464
+ARM GAS  /tmp/ccm8ljg6.s 			page 47
+
+
+ 1849 01b6 BDF82EB0 		ldrh	fp, [sp, #46]
+ 496:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1850              		.loc 1 496 29 view .LVU465
+ 1851 01ba A6EB0B03 		sub	r3, r6, fp
+ 496:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1852              		.loc 1 496 11 view .LVU466
+ 1853 01be 002B     		cmp	r3, #0
+ 1854 01c0 B8BF     		it	lt
+ 1855 01c2 5B42     		rsblt	r3, r3, #0
+ 1856              	.LVL170:
+ 497:Core/Src/rtp.c **** 					tem2*=tem2;
+ 1857              		.loc 1 497 6 is_stmt 1 view .LVU467
+ 498:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ3,4µƒæ‡¿Î
+ 1858              		.loc 1 498 6 view .LVU468
+ 498:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ3,4µƒæ‡¿Î
+ 1859              		.loc 1 498 10 is_stmt 0 view .LVU469
+ 1860 01c4 03FB03F3 		mul	r3, r3, r3
+ 1861              	.LVL171:
+ 499:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 1862              		.loc 1 499 6 is_stmt 1 view .LVU470
+ 499:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 1863              		.loc 1 499 9 is_stmt 0 view .LVU471
+ 1864 01c8 00FB0030 		mla	r0, r0, r0, r3
+ 1865              	.LVL172:
+ 499:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 1866              		.loc 1 499 9 view .LVU472
+ 1867 01cc FFF7FEFF 		bl	__aeabi_ui2d
+ 1868              	.LVL173:
+ 499:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 1869              		.loc 1 499 9 view .LVU473
+ 1870 01d0 41EC100B 		vmov	d0, r0, r1
+ 1871 01d4 FFF7FEFF 		bl	sqrt
+ 1872              	.LVL174:
+ 1873 01d8 51EC100B 		vmov	r0, r1, d0
+ 499:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 1874              		.loc 1 499 8 view .LVU474
+ 1875 01dc FFF7FEFF 		bl	__aeabi_d2uiz
+ 1876              	.LVL175:
+ 1877 01e0 83B2     		uxth	r3, r0
+ 1878 01e2 08EE903A 		vmov	s17, r3	@ int
+ 1879              	.LVL176:
+ 500:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05||d1==0||d2==0)//≤ª∫œ∏Ò
+ 1880              		.loc 1 500 6 is_stmt 1 view .LVU475
+ 500:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05||d1==0||d2==0)//≤ª∫œ∏Ò
+ 1881              		.loc 1 500 10 is_stmt 0 view .LVU476
+ 1882 01e6 B8EE487A 		vcvt.f32.u32	s14, s16
+ 500:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05||d1==0||d2==0)//≤ª∫œ∏Ò
+ 1883              		.loc 1 500 19 view .LVU477
+ 1884 01ea F8EEE87A 		vcvt.f32.s32	s15, s17
+ 500:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05||d1==0||d2==0)//≤ª∫œ∏Ò
+ 1885              		.loc 1 500 9 view .LVU478
+ 1886 01ee C7EE277A 		vdiv.f32	s15, s14, s15
+ 1887 01f2 17EE900A 		vmov	r0, s15
+ 1888 01f6 FFF7FEFF 		bl	__aeabi_f2d
+ 1889              	.LVL177:
+ 1890 01fa 0246     		mov	r2, r0
+ 1891 01fc 0B46     		mov	r3, r1
+ARM GAS  /tmp/ccm8ljg6.s 			page 48
+
+
+ 1892 01fe CDE90623 		strd	r2, [sp, #24]
+ 1893              	.LVL178:
+ 501:Core/Src/rtp.c **** 					{
+ 1894              		.loc 1 501 6 is_stmt 1 view .LVU479
+ 501:Core/Src/rtp.c **** 					{
+ 1895              		.loc 1 501 8 is_stmt 0 view .LVU480
+ 1896 0202 21A3     		adr	r3, .L113
+ 1897 0204 D3E90023 		ldrd	r2, [r3]
+ 1898              	.LVL179:
+ 501:Core/Src/rtp.c **** 					{
+ 1899              		.loc 1 501 8 view .LVU481
+ 1900 0208 FFF7FEFF 		bl	__aeabi_dcmplt
+ 1901              	.LVL180:
+ 1902 020c 70B9     		cbnz	r0, .L94
+ 501:Core/Src/rtp.c **** 					{
+ 1903              		.loc 1 501 17 discriminator 1 view .LVU482
+ 1904 020e 20A3     		adr	r3, .L113+8
+ 1905 0210 D3E90023 		ldrd	r2, [r3]
+ 1906 0214 DDE90601 		ldrd	r0, [sp, #24]
+ 1907 0218 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 1908              	.LVL181:
+ 1909 021c 30B9     		cbnz	r0, .L94
+ 501:Core/Src/rtp.c **** 					{
+ 1910              		.loc 1 501 27 discriminator 2 view .LVU483
+ 1911 021e 18EE103A 		vmov	r3, s16	@ int
+ 1912 0222 1BB1     		cbz	r3, .L94
+ 501:Core/Src/rtp.c **** 					{
+ 1913              		.loc 1 501 34 discriminator 3 view .LVU484
+ 1914 0224 18EE903A 		vmov	r3, s17	@ int
+ 1915 0228 002B     		cmp	r3, #0
+ 1916 022a 49D1     		bne	.L95
+ 1917              	.L94:
+ 503:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 1918              		.loc 1 503 7 is_stmt 1 view .LVU485
+ 1919              	.LVL182:
+ 504:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 1920              		.loc 1 504 11 view .LVU486
+ 504:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 1921              		.loc 1 504 38 is_stmt 0 view .LVU487
+ 1922 022c 224B     		ldr	r3, .L113+48
+ 1923 022e 9888     		ldrh	r0, [r3, #4]
+ 504:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 1924              		.loc 1 504 54 view .LVU488
+ 1925 0230 D988     		ldrh	r1, [r3, #6]
+ 504:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 1926              		.loc 1 504 11 view .LVU489
+ 1927 0232 1439     		subs	r1, r1, #20
+ 1928 0234 1438     		subs	r0, r0, #20
+ 1929 0236 4FF6FF72 		movw	r2, #65535
+ 1930 023a 89B2     		uxth	r1, r1
+ 1931 023c 80B2     		uxth	r0, r0
+ 1932 023e FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1933              	.LVL183:
+ 505:Core/Src/rtp.c ****  						RTP_Adj_Info_Show(pos_temp[0][0],pos_temp[0][1],pos_temp[1][0],pos_temp[1][1],pos_temp[2][0]
+ 1934              		.loc 1 505 11 is_stmt 1 view .LVU490
+ 1935 0242 4FF47842 		mov	r2, #63488
+ 1936 0246 1421     		movs	r1, #20
+ARM GAS  /tmp/ccm8ljg6.s 			page 49
+
+
+ 1937 0248 0846     		mov	r0, r1
+ 1938 024a FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 1939              	.LVL184:
+ 506:Core/Src/rtp.c ****  						continue;
+ 1940              		.loc 1 506 8 view .LVU491
+ 506:Core/Src/rtp.c ****  						continue;
+ 1941              		.loc 1 506 149 is_stmt 0 view .LVU492
+ 1942 024e 0022     		movs	r2, #0
+ 1943 0250 1A4B     		ldr	r3, .L113+52
+ 1944 0252 DDE90601 		ldrd	r0, [sp, #24]
+ 1945 0256 FFF7FEFF 		bl	__aeabi_dmul
+ 1946              	.LVL185:
+ 506:Core/Src/rtp.c ****  						continue;
+ 1947              		.loc 1 506 8 view .LVU493
+ 1948 025a FFF7FEFF 		bl	__aeabi_d2uiz
+ 1949              	.LVL186:
+ 1950 025e 80B2     		uxth	r0, r0
+ 1951 0260 0490     		str	r0, [sp, #16]
+ 1952 0262 CDF80CB0 		str	fp, [sp, #12]
+ 1953 0266 CDF808A0 		str	r10, [sp, #8]
+ 1954 026a 0196     		str	r6, [sp, #4]
+ 1955 026c CDF80090 		str	r9, [sp]
+ 1956 0270 4346     		mov	r3, r8
+ 1957 0272 3A46     		mov	r2, r7
+ 1958 0274 2146     		mov	r1, r4
+ 1959 0276 2846     		mov	r0, r5
+ 1960 0278 FFF7FEFF 		bl	RTP_Adj_Info_Show
+ 1961              	.LVL187:
+ 507:Core/Src/rtp.c **** 					}
+ 1962              		.loc 1 507 8 is_stmt 1 view .LVU494
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 1963              		.loc 1 467 11 is_stmt 0 view .LVU495
+ 1964 027c 0024     		movs	r4, #0
+ 503:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 1965              		.loc 1 503 10 view .LVU496
+ 1966 027e 2546     		mov	r5, r4
+ 507:Core/Src/rtp.c **** 					}
+ 1967              		.loc 1 507 8 view .LVU497
+ 1968 0280 1DE7     		b	.L87
+ 1969              	.L114:
+ 1970 0282 00BFAFF3 		.align	3
+ 1970      0080
+ 1971              	.L113:
+ 1972 0288 66666666 		.word	1717986918
+ 1973 028c 6666EE3F 		.word	1072588390
+ 1974 0290 CDCCCCCC 		.word	3435973837
+ 1975 0294 CCCCF03F 		.word	1072745676
+ 1976 0298 00000000 		.word	POINT_COLOR
+ 1977 029c 00000000 		.word	BACK_COLOR
+ 1978 02a0 00000000 		.word	.LC9
+ 1979 02a4 1C000000 		.word	.LC10
+ 1980 02a8 38000000 		.word	.LC11
+ 1981 02ac 54000000 		.word	.LC12
+ 1982 02b0 70000000 		.word	.LC13
+ 1983 02b4 00000000 		.word	tp_dev
+ 1984 02b8 00000000 		.word	lcddev
+ 1985 02bc 00005940 		.word	1079574528
+ARM GAS  /tmp/ccm8ljg6.s 			page 50
+
+
+ 1986              	.LVL188:
+ 1987              	.L95:
+ 509:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[2][1]);//y1-y3
+ 1988              		.loc 1 509 6 is_stmt 1 view .LVU498
+ 509:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[2][1]);//y1-y3
+ 1989              		.loc 1 509 29 is_stmt 0 view .LVU499
+ 1990 02c0 A5EB0900 		sub	r0, r5, r9
+ 509:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[2][1]);//y1-y3
+ 1991              		.loc 1 509 11 view .LVU500
+ 1992 02c4 0028     		cmp	r0, #0
+ 1993 02c6 B8BF     		it	lt
+ 1994 02c8 4042     		rsblt	r0, r0, #0
+ 1995              	.LVL189:
+ 510:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1996              		.loc 1 510 6 is_stmt 1 view .LVU501
+ 510:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1997              		.loc 1 510 29 is_stmt 0 view .LVU502
+ 1998 02ca A31B     		subs	r3, r4, r6
+ 510:Core/Src/rtp.c **** 					tem1*=tem1;
+ 1999              		.loc 1 510 11 view .LVU503
+ 2000 02cc 002B     		cmp	r3, #0
+ 2001 02ce B8BF     		it	lt
+ 2002 02d0 5B42     		rsblt	r3, r3, #0
+ 2003              	.LVL190:
+ 511:Core/Src/rtp.c **** 					tem2*=tem2;
+ 2004              		.loc 1 511 6 is_stmt 1 view .LVU504
+ 512:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,3µƒæ‡¿Î
+ 2005              		.loc 1 512 6 view .LVU505
+ 512:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,3µƒæ‡¿Î
+ 2006              		.loc 1 512 10 is_stmt 0 view .LVU506
+ 2007 02d2 03FB03F3 		mul	r3, r3, r3
+ 2008              	.LVL191:
+ 513:Core/Src/rtp.c **** 					
+ 2009              		.loc 1 513 6 is_stmt 1 view .LVU507
+ 513:Core/Src/rtp.c **** 					
+ 2010              		.loc 1 513 9 is_stmt 0 view .LVU508
+ 2011 02d6 00FB0030 		mla	r0, r0, r0, r3
+ 2012              	.LVL192:
+ 513:Core/Src/rtp.c **** 					
+ 2013              		.loc 1 513 9 view .LVU509
+ 2014 02da FFF7FEFF 		bl	__aeabi_ui2d
+ 2015              	.LVL193:
+ 513:Core/Src/rtp.c **** 					
+ 2016              		.loc 1 513 9 view .LVU510
+ 2017 02de 41EC100B 		vmov	d0, r0, r1
+ 2018 02e2 FFF7FEFF 		bl	sqrt
+ 2019              	.LVL194:
+ 2020 02e6 51EC100B 		vmov	r0, r1, d0
+ 513:Core/Src/rtp.c **** 					
+ 2021              		.loc 1 513 8 view .LVU511
+ 2022 02ea FFF7FEFF 		bl	__aeabi_d2uiz
+ 2023              	.LVL195:
+ 2024 02ee 83B2     		uxth	r3, r0
+ 2025 02f0 08EE103A 		vmov	s16, r3	@ int
+ 2026              	.LVL196:
+ 515:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[3][1]);//y2-y4
+ 2027              		.loc 1 515 6 is_stmt 1 view .LVU512
+ARM GAS  /tmp/ccm8ljg6.s 			page 51
+
+
+ 515:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[3][1]);//y2-y4
+ 2028              		.loc 1 515 29 is_stmt 0 view .LVU513
+ 2029 02f4 A7EB0A00 		sub	r0, r7, r10
+ 515:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[3][1]);//y2-y4
+ 2030              		.loc 1 515 11 view .LVU514
+ 2031 02f8 0028     		cmp	r0, #0
+ 2032 02fa B8BF     		it	lt
+ 2033 02fc 4042     		rsblt	r0, r0, #0
+ 2034              	.LVL197:
+ 516:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2035              		.loc 1 516 6 is_stmt 1 view .LVU515
+ 516:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2036              		.loc 1 516 29 is_stmt 0 view .LVU516
+ 2037 02fe A8EB0B03 		sub	r3, r8, fp
+ 516:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2038              		.loc 1 516 11 view .LVU517
+ 2039 0302 002B     		cmp	r3, #0
+ 2040 0304 B8BF     		it	lt
+ 2041 0306 5B42     		rsblt	r3, r3, #0
+ 2042              	.LVL198:
+ 517:Core/Src/rtp.c **** 					tem2*=tem2;
+ 2043              		.loc 1 517 6 is_stmt 1 view .LVU518
+ 518:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ2,4µƒæ‡¿Î
+ 2044              		.loc 1 518 6 view .LVU519
+ 518:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ2,4µƒæ‡¿Î
+ 2045              		.loc 1 518 10 is_stmt 0 view .LVU520
+ 2046 0308 03FB03F3 		mul	r3, r3, r3
+ 2047              	.LVL199:
+ 519:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2048              		.loc 1 519 6 is_stmt 1 view .LVU521
+ 519:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2049              		.loc 1 519 9 is_stmt 0 view .LVU522
+ 2050 030c 00FB0030 		mla	r0, r0, r0, r3
+ 2051              	.LVL200:
+ 519:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2052              		.loc 1 519 9 view .LVU523
+ 2053 0310 FFF7FEFF 		bl	__aeabi_ui2d
+ 2054              	.LVL201:
+ 519:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2055              		.loc 1 519 9 view .LVU524
+ 2056 0314 41EC100B 		vmov	d0, r0, r1
+ 2057 0318 FFF7FEFF 		bl	sqrt
+ 2058              	.LVL202:
+ 2059 031c 51EC100B 		vmov	r0, r1, d0
+ 519:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2060              		.loc 1 519 8 view .LVU525
+ 2061 0320 FFF7FEFF 		bl	__aeabi_d2uiz
+ 2062              	.LVL203:
+ 2063 0324 80B2     		uxth	r0, r0
+ 2064              	.LVL204:
+ 520:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2065              		.loc 1 520 6 is_stmt 1 view .LVU526
+ 520:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2066              		.loc 1 520 10 is_stmt 0 view .LVU527
+ 2067 0326 B8EE488A 		vcvt.f32.u32	s16, s16
+ 2068              	.LVL205:
+ 520:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ARM GAS  /tmp/ccm8ljg6.s 			page 52
+
+
+ 2069              		.loc 1 520 19 view .LVU528
+ 2070 032a 07EE900A 		vmov	s15, r0	@ int
+ 2071 032e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 520:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2072              		.loc 1 520 9 view .LVU529
+ 2073 0332 C8EE277A 		vdiv.f32	s15, s16, s15
+ 2074 0336 17EE900A 		vmov	r0, s15
+ 2075              	.LVL206:
+ 520:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2076              		.loc 1 520 9 view .LVU530
+ 2077 033a FFF7FEFF 		bl	__aeabi_f2d
+ 2078              	.LVL207:
+ 2079 033e 0246     		mov	r2, r0
+ 2080 0340 0B46     		mov	r3, r1
+ 2081 0342 CDE90623 		strd	r2, [sp, #24]
+ 2082              	.LVL208:
+ 521:Core/Src/rtp.c **** 					{
+ 2083              		.loc 1 521 6 is_stmt 1 view .LVU531
+ 521:Core/Src/rtp.c **** 					{
+ 2084              		.loc 1 521 8 is_stmt 0 view .LVU532
+ 2085 0346 B6A3     		adr	r3, .L115
+ 2086 0348 D3E90023 		ldrd	r2, [r3]
+ 2087              	.LVL209:
+ 521:Core/Src/rtp.c **** 					{
+ 2088              		.loc 1 521 8 view .LVU533
+ 2089 034c FFF7FEFF 		bl	__aeabi_dcmplt
+ 2090              	.LVL210:
+ 2091 0350 38B9     		cbnz	r0, .L97
+ 521:Core/Src/rtp.c **** 					{
+ 2092              		.loc 1 521 17 discriminator 1 view .LVU534
+ 2093 0352 B5A3     		adr	r3, .L115+8
+ 2094 0354 D3E90023 		ldrd	r2, [r3]
+ 2095 0358 DDE90601 		ldrd	r0, [sp, #24]
+ 2096 035c FFF7FEFF 		bl	__aeabi_dcmpgt
+ 2097              	.LVL211:
+ 2098 0360 50B3     		cbz	r0, .L109
+ 2099              	.L97:
+ 523:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 2100              		.loc 1 523 7 is_stmt 1 view .LVU535
+ 2101              	.LVL212:
+ 524:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2102              		.loc 1 524 11 view .LVU536
+ 524:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2103              		.loc 1 524 38 is_stmt 0 view .LVU537
+ 2104 0362 B34B     		ldr	r3, .L115+16
+ 2105 0364 9888     		ldrh	r0, [r3, #4]
+ 524:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2106              		.loc 1 524 54 view .LVU538
+ 2107 0366 D988     		ldrh	r1, [r3, #6]
+ 524:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2108              		.loc 1 524 11 view .LVU539
+ 2109 0368 1439     		subs	r1, r1, #20
+ 2110 036a 1438     		subs	r0, r0, #20
+ 2111 036c 4FF6FF72 		movw	r2, #65535
+ 2112 0370 89B2     		uxth	r1, r1
+ 2113 0372 80B2     		uxth	r0, r0
+ 2114 0374 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ARM GAS  /tmp/ccm8ljg6.s 			page 53
+
+
+ 2115              	.LVL213:
+ 525:Core/Src/rtp.c ****  						RTP_Adj_Info_Show(pos_temp[0][0],pos_temp[0][1],pos_temp[1][0],pos_temp[1][1],pos_temp[2][0]
+ 2116              		.loc 1 525 11 is_stmt 1 view .LVU540
+ 2117 0378 4FF47842 		mov	r2, #63488
+ 2118 037c 1421     		movs	r1, #20
+ 2119 037e 0846     		mov	r0, r1
+ 2120 0380 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 2121              	.LVL214:
+ 526:Core/Src/rtp.c **** 						continue;
+ 2122              		.loc 1 526 8 view .LVU541
+ 526:Core/Src/rtp.c **** 						continue;
+ 2123              		.loc 1 526 149 is_stmt 0 view .LVU542
+ 2124 0384 0022     		movs	r2, #0
+ 2125 0386 AB4B     		ldr	r3, .L115+20
+ 2126 0388 DDE90601 		ldrd	r0, [sp, #24]
+ 2127 038c FFF7FEFF 		bl	__aeabi_dmul
+ 2128              	.LVL215:
+ 526:Core/Src/rtp.c **** 						continue;
+ 2129              		.loc 1 526 8 view .LVU543
+ 2130 0390 FFF7FEFF 		bl	__aeabi_d2uiz
+ 2131              	.LVL216:
+ 2132 0394 80B2     		uxth	r0, r0
+ 2133 0396 0490     		str	r0, [sp, #16]
+ 2134 0398 CDF80CB0 		str	fp, [sp, #12]
+ 2135 039c CDF808A0 		str	r10, [sp, #8]
+ 2136 03a0 0196     		str	r6, [sp, #4]
+ 2137 03a2 CDF80090 		str	r9, [sp]
+ 2138 03a6 4346     		mov	r3, r8
+ 2139 03a8 3A46     		mov	r2, r7
+ 2140 03aa 2146     		mov	r1, r4
+ 2141 03ac 2846     		mov	r0, r5
+ 2142 03ae FFF7FEFF 		bl	RTP_Adj_Info_Show
+ 2143              	.LVL217:
+ 527:Core/Src/rtp.c **** 					}//’˝»∑¡À
+ 2144              		.loc 1 527 7 is_stmt 1 view .LVU544
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 2145              		.loc 1 467 11 is_stmt 0 view .LVU545
+ 2146 03b2 0024     		movs	r4, #0
+ 523:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 2147              		.loc 1 523 10 view .LVU546
+ 2148 03b4 2546     		mov	r5, r4
+ 527:Core/Src/rtp.c **** 					}//’˝»∑¡À
+ 2149              		.loc 1 527 7 view .LVU547
+ 2150 03b6 82E6     		b	.L87
+ 2151              	.LVL218:
+ 2152              	.L109:
+ 531:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[2][1]);//y1-y3
+ 2153              		.loc 1 531 6 is_stmt 1 view .LVU548
+ 531:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[2][1]);//y1-y3
+ 2154              		.loc 1 531 29 is_stmt 0 view .LVU549
+ 2155 03b8 A7EB0900 		sub	r0, r7, r9
+ 531:Core/Src/rtp.c **** 					tem2=abs(pos_temp[1][1]-pos_temp[2][1]);//y1-y3
+ 2156              		.loc 1 531 11 view .LVU550
+ 2157 03bc 0028     		cmp	r0, #0
+ 2158 03be B8BF     		it	lt
+ 2159 03c0 4042     		rsblt	r0, r0, #0
+ 2160              	.LVL219:
+ARM GAS  /tmp/ccm8ljg6.s 			page 54
+
+
+ 532:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2161              		.loc 1 532 6 is_stmt 1 view .LVU551
+ 532:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2162              		.loc 1 532 29 is_stmt 0 view .LVU552
+ 2163 03c2 A8EB0603 		sub	r3, r8, r6
+ 532:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2164              		.loc 1 532 11 view .LVU553
+ 2165 03c6 002B     		cmp	r3, #0
+ 2166 03c8 B8BF     		it	lt
+ 2167 03ca 5B42     		rsblt	r3, r3, #0
+ 2168              	.LVL220:
+ 533:Core/Src/rtp.c **** 					tem2*=tem2;
+ 2169              		.loc 1 533 6 is_stmt 1 view .LVU554
+ 534:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,4µƒæ‡¿Î
+ 2170              		.loc 1 534 6 view .LVU555
+ 534:Core/Src/rtp.c **** 					d1=sqrt(tem1+tem2);//µ√µΩ1,4µƒæ‡¿Î
+ 2171              		.loc 1 534 10 is_stmt 0 view .LVU556
+ 2172 03cc 03FB03F3 		mul	r3, r3, r3
+ 2173              	.LVL221:
+ 535:Core/Src/rtp.c **** 	
+ 2174              		.loc 1 535 6 is_stmt 1 view .LVU557
+ 535:Core/Src/rtp.c **** 	
+ 2175              		.loc 1 535 9 is_stmt 0 view .LVU558
+ 2176 03d0 00FB0030 		mla	r0, r0, r0, r3
+ 2177              	.LVL222:
+ 535:Core/Src/rtp.c **** 	
+ 2178              		.loc 1 535 9 view .LVU559
+ 2179 03d4 FFF7FEFF 		bl	__aeabi_ui2d
+ 2180              	.LVL223:
+ 535:Core/Src/rtp.c **** 	
+ 2181              		.loc 1 535 9 view .LVU560
+ 2182 03d8 41EC100B 		vmov	d0, r0, r1
+ 2183 03dc FFF7FEFF 		bl	sqrt
+ 2184              	.LVL224:
+ 2185 03e0 51EC100B 		vmov	r0, r1, d0
+ 535:Core/Src/rtp.c **** 	
+ 2186              		.loc 1 535 8 view .LVU561
+ 2187 03e4 FFF7FEFF 		bl	__aeabi_d2uiz
+ 2188              	.LVL225:
+ 2189 03e8 83B2     		uxth	r3, r0
+ 2190 03ea 08EE103A 		vmov	s16, r3	@ int
+ 2191              	.LVL226:
+ 537:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[3][1]);//y2-y4
+ 2192              		.loc 1 537 6 is_stmt 1 view .LVU562
+ 537:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[3][1]);//y2-y4
+ 2193              		.loc 1 537 29 is_stmt 0 view .LVU563
+ 2194 03ee A5EB0A00 		sub	r0, r5, r10
+ 537:Core/Src/rtp.c **** 					tem2=abs(pos_temp[0][1]-pos_temp[3][1]);//y2-y4
+ 2195              		.loc 1 537 11 view .LVU564
+ 2196 03f2 0028     		cmp	r0, #0
+ 2197 03f4 B8BF     		it	lt
+ 2198 03f6 4042     		rsblt	r0, r0, #0
+ 2199              	.LVL227:
+ 538:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2200              		.loc 1 538 6 is_stmt 1 view .LVU565
+ 538:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2201              		.loc 1 538 29 is_stmt 0 view .LVU566
+ARM GAS  /tmp/ccm8ljg6.s 			page 55
+
+
+ 2202 03f8 A4EB0B03 		sub	r3, r4, fp
+ 538:Core/Src/rtp.c **** 					tem1*=tem1;
+ 2203              		.loc 1 538 11 view .LVU567
+ 2204 03fc 002B     		cmp	r3, #0
+ 2205 03fe B8BF     		it	lt
+ 2206 0400 5B42     		rsblt	r3, r3, #0
+ 2207              	.LVL228:
+ 539:Core/Src/rtp.c **** 					tem2*=tem2;
+ 2208              		.loc 1 539 6 is_stmt 1 view .LVU568
+ 540:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ2,3µƒæ‡¿Î
+ 2209              		.loc 1 540 6 view .LVU569
+ 540:Core/Src/rtp.c **** 					d2=sqrt(tem1+tem2);//µ√µΩ2,3µƒæ‡¿Î
+ 2210              		.loc 1 540 10 is_stmt 0 view .LVU570
+ 2211 0402 03FB03F3 		mul	r3, r3, r3
+ 2212              	.LVL229:
+ 541:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2213              		.loc 1 541 6 is_stmt 1 view .LVU571
+ 541:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2214              		.loc 1 541 9 is_stmt 0 view .LVU572
+ 2215 0406 00FB0030 		mla	r0, r0, r0, r3
+ 2216              	.LVL230:
+ 541:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2217              		.loc 1 541 9 view .LVU573
+ 2218 040a FFF7FEFF 		bl	__aeabi_ui2d
+ 2219              	.LVL231:
+ 541:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2220              		.loc 1 541 9 view .LVU574
+ 2221 040e 41EC100B 		vmov	d0, r0, r1
+ 2222 0412 FFF7FEFF 		bl	sqrt
+ 2223              	.LVL232:
+ 2224 0416 51EC100B 		vmov	r0, r1, d0
+ 541:Core/Src/rtp.c **** 					fac=(float)d1/d2;
+ 2225              		.loc 1 541 8 view .LVU575
+ 2226 041a FFF7FEFF 		bl	__aeabi_d2uiz
+ 2227              	.LVL233:
+ 2228 041e 80B2     		uxth	r0, r0
+ 2229              	.LVL234:
+ 542:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2230              		.loc 1 542 6 is_stmt 1 view .LVU576
+ 542:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2231              		.loc 1 542 10 is_stmt 0 view .LVU577
+ 2232 0420 B8EE488A 		vcvt.f32.u32	s16, s16
+ 2233              	.LVL235:
+ 542:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2234              		.loc 1 542 19 view .LVU578
+ 2235 0424 07EE900A 		vmov	s15, r0	@ int
+ 2236 0428 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 542:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2237              		.loc 1 542 9 view .LVU579
+ 2238 042c C8EE277A 		vdiv.f32	s15, s16, s15
+ 2239 0430 17EE900A 		vmov	r0, s15
+ 2240              	.LVL236:
+ 542:Core/Src/rtp.c **** 					if(fac<0.95||fac>1.05)//≤ª∫œ∏Ò
+ 2241              		.loc 1 542 9 view .LVU580
+ 2242 0434 FFF7FEFF 		bl	__aeabi_f2d
+ 2243              	.LVL237:
+ 2244 0438 0246     		mov	r2, r0
+ARM GAS  /tmp/ccm8ljg6.s 			page 56
+
+
+ 2245 043a 0B46     		mov	r3, r1
+ 2246 043c CDE90623 		strd	r2, [sp, #24]
+ 2247              	.LVL238:
+ 543:Core/Src/rtp.c **** 					{
+ 2248              		.loc 1 543 6 is_stmt 1 view .LVU581
+ 543:Core/Src/rtp.c **** 					{
+ 2249              		.loc 1 543 8 is_stmt 0 view .LVU582
+ 2250 0440 77A3     		adr	r3, .L115
+ 2251 0442 D3E90023 		ldrd	r2, [r3]
+ 2252              	.LVL239:
+ 543:Core/Src/rtp.c **** 					{
+ 2253              		.loc 1 543 8 view .LVU583
+ 2254 0446 FFF7FEFF 		bl	__aeabi_dcmplt
+ 2255              	.LVL240:
+ 2256 044a 0028     		cmp	r0, #0
+ 2257 044c 40F09280 		bne	.L100
+ 543:Core/Src/rtp.c **** 					{
+ 2258              		.loc 1 543 17 discriminator 1 view .LVU584
+ 2259 0450 75A3     		adr	r3, .L115+8
+ 2260 0452 D3E90023 		ldrd	r2, [r3]
+ 2261 0456 DDE90601 		ldrd	r0, [sp, #24]
+ 2262 045a FFF7FEFF 		bl	__aeabi_dcmpgt
+ 2263              	.LVL241:
+ 2264 045e 0028     		cmp	r0, #0
+ 2265 0460 40F08880 		bne	.L100
+ 552:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 2266              		.loc 1 552 6 is_stmt 1 view .LVU585
+ 552:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 2267              		.loc 1 552 32 is_stmt 0 view .LVU586
+ 2268 0464 7249     		ldr	r1, .L115+16
+ 2269 0466 8A88     		ldrh	r2, [r1, #4]
+ 552:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 2270              		.loc 1 552 38 view .LVU587
+ 2271 0468 A2F12803 		sub	r3, r2, #40
+ 2272 046c 06EE903A 		vmov	s13, r3	@ int
+ 552:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 2273              		.loc 1 552 18 view .LVU588
+ 2274 0470 F8EEE66A 		vcvt.f32.s32	s13, s13
+ 552:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 2275              		.loc 1 552 58 view .LVU589
+ 2276 0474 7B1B     		subs	r3, r7, r5
+ 2277 0476 07EE903A 		vmov	s15, r3	@ int
+ 552:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 2278              		.loc 1 552 42 view .LVU590
+ 2279 047a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 2280 047e 86EEA77A 		vdiv.f32	s14, s13, s15
+ 552:Core/Src/rtp.c **** 					tp_dev.xoff=(lcddev.width-tp_dev.xfac*(pos_temp[1][0]+pos_temp[0][0]))/2;//µ√µΩxoff
+ 2281              		.loc 1 552 17 view .LVU591
+ 2282 0482 6D4B     		ldr	r3, .L115+24
+ 2283 0484 83ED077A 		vstr.32	s14, [r3, #28]
+ 553:Core/Src/rtp.c **** 						  
+ 2284              		.loc 1 553 6 is_stmt 1 view .LVU592
+ 553:Core/Src/rtp.c **** 						  
+ 2285              		.loc 1 553 59 is_stmt 0 view .LVU593
+ 2286 0488 E819     		adds	r0, r5, r7
+ 2287 048a 07EE900A 		vmov	s15, r0	@ int
+ 553:Core/Src/rtp.c **** 						  
+ARM GAS  /tmp/ccm8ljg6.s 			page 57
+
+
+ 2288              		.loc 1 553 43 view .LVU594
+ 2289 048e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 2290 0492 67EE877A 		vmul.f32	s15, s15, s14
+ 553:Core/Src/rtp.c **** 						  
+ 2291              		.loc 1 553 31 view .LVU595
+ 2292 0496 06EE902A 		vmov	s13, r2	@ int
+ 2293 049a F8EEE66A 		vcvt.f32.s32	s13, s13
+ 2294 049e 76EEE77A 		vsub.f32	s15, s13, s15
+ 553:Core/Src/rtp.c **** 						  
+ 2295              		.loc 1 553 76 view .LVU596
+ 2296 04a2 F6EE005A 		vmov.f32	s11, #5.0e-1
+ 2297 04a6 67EEA57A 		vmul.f32	s15, s15, s11
+ 553:Core/Src/rtp.c **** 						  
+ 2298              		.loc 1 553 17 view .LVU597
+ 2299 04aa FDEEE77A 		vcvt.s32.f32	s15, s15
+ 2300 04ae 17EE900A 		vmov	r0, s15	@ int
+ 2301 04b2 9884     		strh	r0, [r3, #36]	@ movhi
+ 555:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ 2302              		.loc 1 555 6 is_stmt 1 view .LVU598
+ 555:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ 2303              		.loc 1 555 32 is_stmt 0 view .LVU599
+ 2304 04b4 C988     		ldrh	r1, [r1, #6]
+ 555:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ 2305              		.loc 1 555 39 view .LVU600
+ 2306 04b6 A1F12800 		sub	r0, r1, #40
+ 2307 04ba 06EE900A 		vmov	s13, r0	@ int
+ 555:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ 2308              		.loc 1 555 18 view .LVU601
+ 2309 04be F8EEE66A 		vcvt.f32.s32	s13, s13
+ 555:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ 2310              		.loc 1 555 59 view .LVU602
+ 2311 04c2 301B     		subs	r0, r6, r4
+ 2312 04c4 07EE900A 		vmov	s15, r0	@ int
+ 555:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ 2313              		.loc 1 555 43 view .LVU603
+ 2314 04c8 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 2315 04cc 86EEA76A 		vdiv.f32	s12, s13, s15
+ 555:Core/Src/rtp.c **** 					tp_dev.yoff=(lcddev.height-tp_dev.yfac*(pos_temp[2][1]+pos_temp[0][1]))/2;//µ√µΩyoff  
+ 2316              		.loc 1 555 17 view .LVU604
+ 2317 04d0 83ED086A 		vstr.32	s12, [r3, #32]
+ 556:Core/Src/rtp.c **** 					if(abs(tp_dev.xfac)>2||abs(tp_dev.yfac)>2)//¥•∆¡∫Õ‘§…Ëµƒœ‡∑¥¡À.
+ 2318              		.loc 1 556 6 is_stmt 1 view .LVU605
+ 556:Core/Src/rtp.c **** 					if(abs(tp_dev.xfac)>2||abs(tp_dev.yfac)>2)//¥•∆¡∫Õ‘§…Ëµƒœ‡∑¥¡À.
+ 2319              		.loc 1 556 60 is_stmt 0 view .LVU606
+ 2320 04d4 A019     		adds	r0, r4, r6
+ 2321 04d6 07EE900A 		vmov	s15, r0	@ int
+ 556:Core/Src/rtp.c **** 					if(abs(tp_dev.xfac)>2||abs(tp_dev.yfac)>2)//¥•∆¡∫Õ‘§…Ëµƒœ‡∑¥¡À.
+ 2322              		.loc 1 556 44 view .LVU607
+ 2323 04da F8EEE77A 		vcvt.f32.s32	s15, s15
+ 2324 04de 67EE867A 		vmul.f32	s15, s15, s12
+ 556:Core/Src/rtp.c **** 					if(abs(tp_dev.xfac)>2||abs(tp_dev.yfac)>2)//¥•∆¡∫Õ‘§…Ëµƒœ‡∑¥¡À.
+ 2325              		.loc 1 556 32 view .LVU608
+ 2326 04e2 06EE901A 		vmov	s13, r1	@ int
+ 2327 04e6 F8EEE66A 		vcvt.f32.s32	s13, s13
+ 2328 04ea 76EEE77A 		vsub.f32	s15, s13, s15
+ 556:Core/Src/rtp.c **** 					if(abs(tp_dev.xfac)>2||abs(tp_dev.yfac)>2)//¥•∆¡∫Õ‘§…Ëµƒœ‡∑¥¡À.
+ 2329              		.loc 1 556 77 view .LVU609
+ARM GAS  /tmp/ccm8ljg6.s 			page 58
+
+
+ 2330 04ee 67EEA57A 		vmul.f32	s15, s15, s11
+ 556:Core/Src/rtp.c **** 					if(abs(tp_dev.xfac)>2||abs(tp_dev.yfac)>2)//¥•∆¡∫Õ‘§…Ëµƒœ‡∑¥¡À.
+ 2331              		.loc 1 556 17 view .LVU610
+ 2332 04f2 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 2333 04f6 17EE900A 		vmov	r0, s15	@ int
+ 2334 04fa D884     		strh	r0, [r3, #38]	@ movhi
+ 557:Core/Src/rtp.c **** 					{
+ 2335              		.loc 1 557 6 is_stmt 1 view .LVU611
+ 557:Core/Src/rtp.c **** 					{
+ 2336              		.loc 1 557 9 is_stmt 0 view .LVU612
+ 2337 04fc FDEEC77A 		vcvt.s32.f32	s15, s14
+ 2338 0500 17EE903A 		vmov	r3, s15	@ int
+ 2339 0504 002B     		cmp	r3, #0
+ 2340 0506 B8BF     		it	lt
+ 2341 0508 5B42     		rsblt	r3, r3, #0
+ 557:Core/Src/rtp.c **** 					{
+ 2342              		.loc 1 557 8 view .LVU613
+ 2343 050a 022B     		cmp	r3, #2
+ 2344 050c 08DC     		bgt	.L103
+ 557:Core/Src/rtp.c **** 					{
+ 2345              		.loc 1 557 29 discriminator 1 view .LVU614
+ 2346 050e FDEEC67A 		vcvt.s32.f32	s15, s12
+ 2347 0512 17EE903A 		vmov	r3, s15	@ int
+ 2348 0516 002B     		cmp	r3, #0
+ 2349 0518 B8BF     		it	lt
+ 2350 051a 5B42     		rsblt	r3, r3, #0
+ 557:Core/Src/rtp.c **** 					{
+ 2351              		.loc 1 557 27 discriminator 1 view .LVU615
+ 2352 051c 022B     		cmp	r3, #2
+ 2353 051e 5BDD     		ble	.L104
+ 2354              	.L103:
+ 559:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 2355              		.loc 1 559 7 is_stmt 1 view .LVU616
+ 2356              	.LVL242:
+ 560:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2357              		.loc 1 560 11 view .LVU617
+ 2358 0520 1439     		subs	r1, r1, #20
+ 2359 0522 A2F11400 		sub	r0, r2, #20
+ 2360 0526 4FF6FF72 		movw	r2, #65535
+ 2361 052a 89B2     		uxth	r1, r1
+ 2362 052c 80B2     		uxth	r0, r0
+ 2363 052e FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 2364              	.LVL243:
+ 561:Core/Src/rtp.c **** 						LCD_ShowString(40,26, 16,"TP Need readjust!",1);
+ 2365              		.loc 1 561 11 view .LVU618
+ 2366 0532 4FF47842 		mov	r2, #63488
+ 2367 0536 1421     		movs	r1, #20
+ 2368 0538 0846     		mov	r0, r1
+ 2369 053a FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 2370              	.LVL244:
+ 562:Core/Src/rtp.c **** 						tp_dev.touchtype=!tp_dev.touchtype;//–ﬁ∏ƒ¥•∆¡¿‡–Õ.
+ 2371              		.loc 1 562 7 view .LVU619
+ 2372 053e 0123     		movs	r3, #1
+ 2373 0540 0093     		str	r3, [sp]
+ 2374 0542 3E4B     		ldr	r3, .L115+28
+ 2375 0544 1022     		movs	r2, #16
+ 2376 0546 1A21     		movs	r1, #26
+ARM GAS  /tmp/ccm8ljg6.s 			page 59
+
+
+ 2377 0548 2820     		movs	r0, #40
+ 2378 054a FFF7FEFF 		bl	LCD_ShowString
+ 2379              	.LVL245:
+ 563:Core/Src/rtp.c **** 						if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 2380              		.loc 1 563 7 view .LVU620
+ 563:Core/Src/rtp.c **** 						if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 2381              		.loc 1 563 31 is_stmt 0 view .LVU621
+ 2382 054e 3A4A     		ldr	r2, .L115+24
+ 2383 0550 92F82830 		ldrb	r3, [r2, #40]	@ zero_extendqisi2
+ 563:Core/Src/rtp.c **** 						if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 2384              		.loc 1 563 24 view .LVU622
+ 2385 0554 B3FA83F3 		clz	r3, r3
+ 2386 0558 5B09     		lsrs	r3, r3, #5
+ 563:Core/Src/rtp.c **** 						if(tp_dev.touchtype)//X,Y∑ΩœÚ”Î∆¡ƒªœ‡∑¥
+ 2387              		.loc 1 563 23 view .LVU623
+ 2388 055a 82F82830 		strb	r3, [r2, #40]
+ 564:Core/Src/rtp.c **** 						{
+ 2389              		.loc 1 564 7 is_stmt 1 view .LVU624
+ 564:Core/Src/rtp.c **** 						{
+ 2390              		.loc 1 564 9 is_stmt 0 view .LVU625
+ 2391 055e 002B     		cmp	r3, #0
+ 2392 0560 33D0     		beq	.L105
+ 566:Core/Src/rtp.c **** 							CMD_RDY=0XD0;	 
+ 2393              		.loc 1 566 8 is_stmt 1 view .LVU626
+ 566:Core/Src/rtp.c **** 							CMD_RDY=0XD0;	 
+ 2394              		.loc 1 566 15 is_stmt 0 view .LVU627
+ 2395 0562 374B     		ldr	r3, .L115+32
+ 2396 0564 9022     		movs	r2, #144
+ 2397 0566 1A70     		strb	r2, [r3]
+ 567:Core/Src/rtp.c **** 						}else				   //X,Y∑ΩœÚ”Î∆¡ƒªœ‡Õ¨
+ 2398              		.loc 1 567 8 is_stmt 1 view .LVU628
+ 567:Core/Src/rtp.c **** 						}else				   //X,Y∑ΩœÚ”Î∆¡ƒªœ‡Õ¨
+ 2399              		.loc 1 567 15 is_stmt 0 view .LVU629
+ 2400 0568 364B     		ldr	r3, .L115+36
+ 2401 056a D022     		movs	r2, #208
+ 2402 056c 1A70     		strb	r2, [r3]
+ 2403              	.L106:
+ 573:Core/Src/rtp.c **** 					}		
+ 2404              		.loc 1 573 7 is_stmt 1 view .LVU630
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 2405              		.loc 1 467 11 is_stmt 0 view .LVU631
+ 2406 056e 0024     		movs	r4, #0
+ 2407              	.LVL246:
+ 559:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 2408              		.loc 1 559 10 view .LVU632
+ 2409 0570 2546     		mov	r5, r4
+ 2410              	.LVL247:
+ 573:Core/Src/rtp.c **** 					}		
+ 2411              		.loc 1 573 7 view .LVU633
+ 2412 0572 A4E5     		b	.L87
+ 2413              	.LVL248:
+ 2414              	.L100:
+ 545:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 2415              		.loc 1 545 7 is_stmt 1 view .LVU634
+ 546:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2416              		.loc 1 546 11 view .LVU635
+ 546:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ARM GAS  /tmp/ccm8ljg6.s 			page 60
+
+
+ 2417              		.loc 1 546 38 is_stmt 0 view .LVU636
+ 2418 0574 2E4B     		ldr	r3, .L115+16
+ 2419 0576 9888     		ldrh	r0, [r3, #4]
+ 546:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2420              		.loc 1 546 54 view .LVU637
+ 2421 0578 D988     		ldrh	r1, [r3, #6]
+ 546:Core/Src/rtp.c ****    	 					RTP_Drow_Touch_Point(20,20,RED);								//ª≠µ„1
+ 2422              		.loc 1 546 11 view .LVU638
+ 2423 057a 1439     		subs	r1, r1, #20
+ 2424 057c 1438     		subs	r0, r0, #20
+ 2425 057e 4FF6FF72 		movw	r2, #65535
+ 2426 0582 89B2     		uxth	r1, r1
+ 2427 0584 80B2     		uxth	r0, r0
+ 2428 0586 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 2429              	.LVL249:
+ 547:Core/Src/rtp.c ****  						RTP_Adj_Info_Show(pos_temp[0][0],pos_temp[0][1],pos_temp[1][0],pos_temp[1][1],pos_temp[2][0]
+ 2430              		.loc 1 547 11 is_stmt 1 view .LVU639
+ 2431 058a 4FF47842 		mov	r2, #63488
+ 2432 058e 1421     		movs	r1, #20
+ 2433 0590 0846     		mov	r0, r1
+ 2434 0592 FFF7FEFF 		bl	RTP_Drow_Touch_Point
+ 2435              	.LVL250:
+ 548:Core/Src/rtp.c **** 						continue;
+ 2436              		.loc 1 548 8 view .LVU640
+ 548:Core/Src/rtp.c **** 						continue;
+ 2437              		.loc 1 548 149 is_stmt 0 view .LVU641
+ 2438 0596 0022     		movs	r2, #0
+ 2439 0598 264B     		ldr	r3, .L115+20
+ 2440 059a DDE90601 		ldrd	r0, [sp, #24]
+ 2441 059e FFF7FEFF 		bl	__aeabi_dmul
+ 2442              	.LVL251:
+ 548:Core/Src/rtp.c **** 						continue;
+ 2443              		.loc 1 548 8 view .LVU642
+ 2444 05a2 FFF7FEFF 		bl	__aeabi_d2uiz
+ 2445              	.LVL252:
+ 2446 05a6 80B2     		uxth	r0, r0
+ 2447 05a8 0490     		str	r0, [sp, #16]
+ 2448 05aa CDF80CB0 		str	fp, [sp, #12]
+ 2449 05ae CDF808A0 		str	r10, [sp, #8]
+ 2450 05b2 0196     		str	r6, [sp, #4]
+ 2451 05b4 CDF80090 		str	r9, [sp]
+ 2452 05b8 4346     		mov	r3, r8
+ 2453 05ba 3A46     		mov	r2, r7
+ 2454 05bc 2146     		mov	r1, r4
+ 2455 05be 2846     		mov	r0, r5
+ 2456 05c0 FFF7FEFF 		bl	RTP_Adj_Info_Show
+ 2457              	.LVL253:
+ 549:Core/Src/rtp.c **** 					}//’˝»∑¡À
+ 2458              		.loc 1 549 7 is_stmt 1 view .LVU643
+ 467:Core/Src/rtp.c **** 			tp_dev.sta&=~(1<<6);//±Íº«∞¥º¸“—æ≠±ª¥¶¿Ìπ˝¡À.
+ 2459              		.loc 1 467 11 is_stmt 0 view .LVU644
+ 2460 05c4 0024     		movs	r4, #0
+ 2461              	.LVL254:
+ 545:Core/Src/rtp.c ****  				    	RTP_Drow_Touch_Point(lcddev.width-20,lcddev.height-20,WHITE);	//«Â≥˝µ„4
+ 2462              		.loc 1 545 10 view .LVU645
+ 2463 05c6 2546     		mov	r5, r4
+ 2464              	.LVL255:
+ARM GAS  /tmp/ccm8ljg6.s 			page 61
+
+
+ 549:Core/Src/rtp.c **** 					}//’˝»∑¡À
+ 2465              		.loc 1 549 7 view .LVU646
+ 2466 05c8 79E5     		b	.L87
+ 2467              	.LVL256:
+ 2468              	.L105:
+ 570:Core/Src/rtp.c **** 							CMD_RDY=0X90;	 
+ 2469              		.loc 1 570 8 is_stmt 1 view .LVU647
+ 570:Core/Src/rtp.c **** 							CMD_RDY=0X90;	 
+ 2470              		.loc 1 570 15 is_stmt 0 view .LVU648
+ 2471 05ca 1D4B     		ldr	r3, .L115+32
+ 2472 05cc D022     		movs	r2, #208
+ 2473 05ce 1A70     		strb	r2, [r3]
+ 571:Core/Src/rtp.c **** 						}			    
+ 2474              		.loc 1 571 8 is_stmt 1 view .LVU649
+ 571:Core/Src/rtp.c **** 						}			    
+ 2475              		.loc 1 571 15 is_stmt 0 view .LVU650
+ 2476 05d0 1C4B     		ldr	r3, .L115+36
+ 2477 05d2 9022     		movs	r2, #144
+ 2478 05d4 1A70     		strb	r2, [r3]
+ 2479 05d6 CAE7     		b	.L106
+ 2480              	.LVL257:
+ 2481              	.L104:
+ 575:Core/Src/rtp.c **** 					LCD_Clear(WHITE);//«Â∆¡
+ 2482              		.loc 1 575 6 is_stmt 1 view .LVU651
+ 575:Core/Src/rtp.c **** 					LCD_Clear(WHITE);//«Â∆¡
+ 2483              		.loc 1 575 17 is_stmt 0 view .LVU652
+ 2484 05d8 1B4B     		ldr	r3, .L115+40
+ 2485 05da 1F22     		movs	r2, #31
+ 2486 05dc 1A80     		strh	r2, [r3]	@ movhi
+ 576:Core/Src/rtp.c **** 					LCD_ShowString(35,110, 16,"Touch Screen Adjust OK!",1);//–£’˝ÕÍ≥…
+ 2487              		.loc 1 576 6 is_stmt 1 view .LVU653
+ 2488 05de 4FF6FF70 		movw	r0, #65535
+ 2489 05e2 FFF7FEFF 		bl	LCD_Clear
+ 2490              	.LVL258:
+ 577:Core/Src/rtp.c **** 					delay_ms(1000);
+ 2491              		.loc 1 577 6 view .LVU654
+ 2492 05e6 0123     		movs	r3, #1
+ 2493 05e8 0093     		str	r3, [sp]
+ 2494 05ea 184B     		ldr	r3, .L115+44
+ 2495 05ec 1022     		movs	r2, #16
+ 2496 05ee 6E21     		movs	r1, #110
+ 2497 05f0 2320     		movs	r0, #35
+ 2498 05f2 FFF7FEFF 		bl	LCD_ShowString
+ 2499              	.LVL259:
+ 578:Core/Src/rtp.c **** 					RTP_Save_Adjdata();  
+ 2500              		.loc 1 578 6 view .LVU655
+ 2501 05f6 4FF47A70 		mov	r0, #1000
+ 2502 05fa FFF7FEFF 		bl	delay_ms
+ 2503              	.LVL260:
+ 579:Core/Src/rtp.c ****  					LCD_Clear(WHITE);//«Â∆¡   
+ 2504              		.loc 1 579 6 view .LVU656
+ 2505 05fe FFF7FEFF 		bl	RTP_Save_Adjdata
+ 2506              	.LVL261:
+ 580:Core/Src/rtp.c **** 					return;//–£’˝ÕÍ≥…				 
+ 2507              		.loc 1 580 7 view .LVU657
+ 2508 0602 4FF6FF70 		movw	r0, #65535
+ 2509 0606 FFF7FEFF 		bl	LCD_Clear
+ARM GAS  /tmp/ccm8ljg6.s 			page 62
+
+
+ 2510              	.LVL262:
+ 581:Core/Src/rtp.c **** 			}
+ 2511              		.loc 1 581 6 view .LVU658
+ 2512 060a 03E0     		b	.L86
+ 2513              	.LVL263:
+ 2514              	.L108:
+ 472:Core/Src/rtp.c **** 			switch(cnt)
+ 2515              		.loc 1 472 7 is_stmt 0 view .LVU659
+ 2516 060c 0024     		movs	r4, #0
+ 2517 060e 4DE5     		b	.L88
+ 2518              	.LVL264:
+ 2519              	.L112:
+ 587:Core/Src/rtp.c **** 		{
+ 588:Core/Src/rtp.c **** 			RTP_Get_Adjdata();
+ 2520              		.loc 1 588 4 is_stmt 1 view .LVU660
+ 2521 0610 FFF7FEFF 		bl	RTP_Get_Adjdata
+ 2522              	.LVL265:
+ 589:Core/Src/rtp.c **** 			break;
+ 2523              		.loc 1 589 4 view .LVU661
+ 2524              	.L86:
+ 590:Core/Src/rtp.c **** 	 	} 
+ 591:Core/Src/rtp.c ****  	}
+ 592:Core/Src/rtp.c **** }		
+ 2525              		.loc 1 592 1 is_stmt 0 view .LVU662
+ 2526 0614 0DB0     		add	sp, sp, #52
+ 2527              	.LCFI28:
+ 2528              		.cfi_def_cfa_offset 44
+ 2529              		@ sp needed
+ 2530 0616 BDEC028B 		vldm	sp!, {d8}
+ 2531              	.LCFI29:
+ 2532              		.cfi_restore 80
+ 2533              		.cfi_restore 81
+ 2534              		.cfi_def_cfa_offset 36
+ 2535 061a BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 2536              	.L116:
+ 2537 061e 00BF     		.align	3
+ 2538              	.L115:
+ 2539 0620 66666666 		.word	1717986918
+ 2540 0624 6666EE3F 		.word	1072588390
+ 2541 0628 CDCCCCCC 		.word	3435973837
+ 2542 062c CCCCF03F 		.word	1072745676
+ 2543 0630 00000000 		.word	lcddev
+ 2544 0634 00005940 		.word	1079574528
+ 2545 0638 00000000 		.word	tp_dev
+ 2546 063c 80000000 		.word	.LC14
+ 2547 0640 00000000 		.word	.LANCHOR0
+ 2548 0644 00000000 		.word	.LANCHOR1
+ 2549 0648 00000000 		.word	POINT_COLOR
+ 2550 064c 94000000 		.word	.LC15
+ 2551              		.cfi_endproc
+ 2552              	.LFE141:
+ 2554              		.section	.text.RTP_Init,"ax",%progbits
+ 2555              		.align	1
+ 2556              		.global	RTP_Init
+ 2557              		.syntax unified
+ 2558              		.thumb
+ 2559              		.thumb_func
+ARM GAS  /tmp/ccm8ljg6.s 			page 63
+
+
+ 2560              		.fpu fpv4-sp-d16
+ 2562              	RTP_Init:
+ 2563              	.LFB142:
+ 593:Core/Src/rtp.c **** 
+ 594:Core/Src/rtp.c **** /*****************************************************************************
+ 595:Core/Src/rtp.c ****  * @name       :u8 TP_Init(void)
+ 596:Core/Src/rtp.c ****  * @date       :2018-08-09 
+ 597:Core/Src/rtp.c ****  * @function   :Initialization touch screen
+ 598:Core/Src/rtp.c ****  * @parameters :None
+ 599:Core/Src/rtp.c ****  * @retvalue   :0-no calibration
+ 600:Core/Src/rtp.c **** 								1-Has been calibrated
+ 601:Core/Src/rtp.c **** ******************************************************************************/  
+ 602:Core/Src/rtp.c **** u8 RTP_Init(void)
+ 603:Core/Src/rtp.c **** {	
+ 2564              		.loc 1 603 1 is_stmt 1 view -0
+ 2565              		.cfi_startproc
+ 2566              		@ args = 0, pretend = 0, frame = 8
+ 2567              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2568 0000 30B5     		push	{r4, r5, lr}
+ 2569              	.LCFI30:
+ 2570              		.cfi_def_cfa_offset 12
+ 2571              		.cfi_offset 4, -12
+ 2572              		.cfi_offset 5, -8
+ 2573              		.cfi_offset 14, -4
+ 2574 0002 83B0     		sub	sp, sp, #12
+ 2575              	.LCFI31:
+ 2576              		.cfi_def_cfa_offset 24
+ 604:Core/Src/rtp.c **** 	GPIO_InitTypeDef  GPIO_InitStructure;
+ 2577              		.loc 1 604 2 view .LVU664
+ 605:Core/Src/rtp.c **** 	//◊¢“‚, ±÷” πƒ‹÷Æ∫Û,∂‘GPIOµƒ≤Ÿ◊˜≤≈”––ß
+ 606:Core/Src/rtp.c **** 	//À˘“‘…œ¿≠÷Æ«∞,±ÿ–Î πƒ‹ ±÷”.≤≈ƒ‹ µœ÷’Ê’˝µƒ…œ¿≠ ‰≥ˆ
+ 607:Core/Src/rtp.c **** 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOC, ENABLE);// πƒ‹GPIOB,C,F ±÷”
+ 2578              		.loc 1 607 2 view .LVU665
+ 2579 0004 0121     		movs	r1, #1
+ 2580 0006 0620     		movs	r0, #6
+ 2581 0008 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+ 2582              	.LVL266:
+ 608:Core/Src/rtp.c **** 
+ 609:Core/Src/rtp.c ****     //GPIOB1,2≥ı ºªØ…Ë÷√
+ 610:Core/Src/rtp.c ****     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2;//PB1/PB2 …Ë÷√Œ™…œ¿≠ ‰»Î
+ 2583              		.loc 1 610 5 view .LVU666
+ 2584              		.loc 1 610 33 is_stmt 0 view .LVU667
+ 2585 000c 0623     		movs	r3, #6
+ 2586 000e 0093     		str	r3, [sp]
+ 611:Core/Src/rtp.c ****     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;// ‰»Îƒ£ Ω
+ 2587              		.loc 1 611 5 is_stmt 1 view .LVU668
+ 2588              		.loc 1 611 34 is_stmt 0 view .LVU669
+ 2589 0010 0023     		movs	r3, #0
+ 2590 0012 8DF80430 		strb	r3, [sp, #4]
+ 612:Core/Src/rtp.c ****     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//Õ∆ÕÏ ‰≥ˆ
+ 2591              		.loc 1 612 5 is_stmt 1 view .LVU670
+ 2592              		.loc 1 612 35 is_stmt 0 view .LVU671
+ 2593 0016 8DF80630 		strb	r3, [sp, #6]
+ 613:Core/Src/rtp.c ****     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+ 2594              		.loc 1 613 5 is_stmt 1 view .LVU672
+ 2595              		.loc 1 613 35 is_stmt 0 view .LVU673
+ 2596 001a 0323     		movs	r3, #3
+ARM GAS  /tmp/ccm8ljg6.s 			page 64
+
+
+ 2597 001c 8DF80530 		strb	r3, [sp, #5]
+ 614:Core/Src/rtp.c ****     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//…œ¿≠
+ 2598              		.loc 1 614 5 is_stmt 1 view .LVU674
+ 2599              		.loc 1 614 34 is_stmt 0 view .LVU675
+ 2600 0020 0124     		movs	r4, #1
+ 2601 0022 8DF80740 		strb	r4, [sp, #7]
+ 615:Core/Src/rtp.c ****     GPIO_Init(GPIOB, &GPIO_InitStructure);//≥ı ºªØ
+ 2602              		.loc 1 615 5 is_stmt 1 view .LVU676
+ 2603 0026 164D     		ldr	r5, .L122
+ 2604 0028 6946     		mov	r1, sp
+ 2605 002a 2846     		mov	r0, r5
+ 2606 002c FFF7FEFF 		bl	GPIO_Init
+ 2607              	.LVL267:
+ 616:Core/Src/rtp.c **** 		
+ 617:Core/Src/rtp.c **** 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//PB0…Ë÷√Œ™Õ∆ÕÏ ‰≥ˆ
+ 2608              		.loc 1 617 3 view .LVU677
+ 2609              		.loc 1 617 31 is_stmt 0 view .LVU678
+ 2610 0030 0094     		str	r4, [sp]
+ 618:Core/Src/rtp.c **** 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;// ‰≥ˆƒ£ Ω
+ 2611              		.loc 1 618 3 is_stmt 1 view .LVU679
+ 2612              		.loc 1 618 32 is_stmt 0 view .LVU680
+ 2613 0032 8DF80440 		strb	r4, [sp, #4]
+ 619:Core/Src/rtp.c **** 	  GPIO_Init(GPIOB, &GPIO_InitStructure);//≥ı ºªØ
+ 2614              		.loc 1 619 4 is_stmt 1 view .LVU681
+ 2615 0036 6946     		mov	r1, sp
+ 2616 0038 2846     		mov	r0, r5
+ 2617 003a FFF7FEFF 		bl	GPIO_Init
+ 2618              	.LVL268:
+ 620:Core/Src/rtp.c **** 		
+ 621:Core/Src/rtp.c **** 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_13;//PC13…Ë÷√Œ™Õ∆ÕÏ ‰≥ˆ
+ 2619              		.loc 1 621 3 view .LVU682
+ 2620              		.loc 1 621 31 is_stmt 0 view .LVU683
+ 2621 003e 42F21003 		movw	r3, #8208
+ 2622 0042 0093     		str	r3, [sp]
+ 622:Core/Src/rtp.c **** 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;// ‰≥ˆƒ£ Ω
+ 2623              		.loc 1 622 3 is_stmt 1 view .LVU684
+ 2624              		.loc 1 622 32 is_stmt 0 view .LVU685
+ 2625 0044 8DF80440 		strb	r4, [sp, #4]
+ 623:Core/Src/rtp.c **** 	  GPIO_Init(GPIOC, &GPIO_InitStructure);//≥ı ºªØ	
+ 2626              		.loc 1 623 4 is_stmt 1 view .LVU686
+ 2627 0048 6946     		mov	r1, sp
+ 2628 004a 0E48     		ldr	r0, .L122+4
+ 2629 004c FFF7FEFF 		bl	GPIO_Init
+ 2630              	.LVL269:
+ 624:Core/Src/rtp.c **** 						 	
+ 625:Core/Src/rtp.c **** #if SCAN_TYPE
+ 626:Core/Src/rtp.c **** 	Touch_EXTI_Init();
+ 627:Core/Src/rtp.c **** #endif	
+ 628:Core/Src/rtp.c **** 
+ 629:Core/Src/rtp.c ****   RTP_Read_XY(&tp_dev.x[0],&tp_dev.y[0]);//µ⁄“ª¥Œ∂¡»°≥ı ºªØ	 
+ 2631              		.loc 1 629 3 view .LVU687
+ 2632 0050 0D49     		ldr	r1, .L122+8
+ 2633 0052 A1F10A00 		sub	r0, r1, #10
+ 2634 0056 FFF7FEFF 		bl	RTP_Read_XY
+ 2635              	.LVL270:
+ 630:Core/Src/rtp.c **** 	if(RTP_Get_Adjdata())
+ 2636              		.loc 1 630 2 view .LVU688
+ARM GAS  /tmp/ccm8ljg6.s 			page 65
+
+
+ 2637              		.loc 1 630 5 is_stmt 0 view .LVU689
+ 2638 005a FFF7FEFF 		bl	RTP_Get_Adjdata
+ 2639              	.LVL271:
+ 2640              		.loc 1 630 4 view .LVU690
+ 2641 005e 10B1     		cbz	r0, .L121
+ 631:Core/Src/rtp.c **** 	{
+ 632:Core/Src/rtp.c **** 		return 0;//“—æ≠–£◊º
+ 2642              		.loc 1 632 10 view .LVU691
+ 2643 0060 0020     		movs	r0, #0
+ 2644              	.L118:
+ 633:Core/Src/rtp.c **** 	}
+ 634:Core/Src/rtp.c **** 	else			   //Œ¥–£◊º?
+ 635:Core/Src/rtp.c **** 	{ 										    
+ 636:Core/Src/rtp.c **** 		LCD_Clear(WHITE);//«Â∆¡
+ 637:Core/Src/rtp.c **** 	    RTP_Adjust();  //∆¡ƒª–£◊º 
+ 638:Core/Src/rtp.c **** 		RTP_Save_Adjdata();	 
+ 639:Core/Src/rtp.c **** 	}			
+ 640:Core/Src/rtp.c **** 	RTP_Get_Adjdata();	
+ 641:Core/Src/rtp.c **** 	return 1; 									 
+ 642:Core/Src/rtp.c **** }
+ 2645              		.loc 1 642 1 view .LVU692
+ 2646 0062 03B0     		add	sp, sp, #12
+ 2647              	.LCFI32:
+ 2648              		.cfi_remember_state
+ 2649              		.cfi_def_cfa_offset 12
+ 2650              		@ sp needed
+ 2651 0064 30BD     		pop	{r4, r5, pc}
+ 2652              	.L121:
+ 2653              	.LCFI33:
+ 2654              		.cfi_restore_state
+ 636:Core/Src/rtp.c **** 	    RTP_Adjust();  //∆¡ƒª–£◊º 
+ 2655              		.loc 1 636 3 is_stmt 1 view .LVU693
+ 2656 0066 4FF6FF70 		movw	r0, #65535
+ 2657 006a FFF7FEFF 		bl	LCD_Clear
+ 2658              	.LVL272:
+ 637:Core/Src/rtp.c **** 		RTP_Save_Adjdata();	 
+ 2659              		.loc 1 637 6 view .LVU694
+ 2660 006e FFF7FEFF 		bl	RTP_Adjust
+ 2661              	.LVL273:
+ 638:Core/Src/rtp.c **** 	}			
+ 2662              		.loc 1 638 3 view .LVU695
+ 2663 0072 FFF7FEFF 		bl	RTP_Save_Adjdata
+ 2664              	.LVL274:
+ 640:Core/Src/rtp.c **** 	return 1; 									 
+ 2665              		.loc 1 640 2 view .LVU696
+ 2666 0076 FFF7FEFF 		bl	RTP_Get_Adjdata
+ 2667              	.LVL275:
+ 641:Core/Src/rtp.c **** }
+ 2668              		.loc 1 641 2 view .LVU697
+ 641:Core/Src/rtp.c **** }
+ 2669              		.loc 1 641 9 is_stmt 0 view .LVU698
+ 2670 007a 2046     		mov	r0, r4
+ 2671 007c F1E7     		b	.L118
+ 2672              	.L123:
+ 2673 007e 00BF     		.align	2
+ 2674              	.L122:
+ 2675 0080 00040240 		.word	1073873920
+ARM GAS  /tmp/ccm8ljg6.s 			page 66
+
+
+ 2676 0084 00080240 		.word	1073874944
+ 2677 0088 0E000000 		.word	tp_dev+14
+ 2678              		.cfi_endproc
+ 2679              	.LFE142:
+ 2681              		.global	CMD_RDY
+ 2682              		.global	CMD_RDX
+ 2683              		.section	.data.CMD_RDX,"aw"
+ 2684              		.set	.LANCHOR0,. + 0
+ 2687              	CMD_RDX:
+ 2688 0000 D0       		.byte	-48
+ 2689              		.section	.data.CMD_RDY,"aw"
+ 2690              		.set	.LANCHOR1,. + 0
+ 2693              	CMD_RDY:
+ 2694 0000 90       		.byte	-112
+ 2695              		.text
+ 2696              	.Letext0:
+ 2697              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 2698              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 2699              		.file 4 "Core/Inc/system_stm32f4xx.h"
+ 2700              		.file 5 "Core/Inc/stm32f4xx.h"
+ 2701              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_gpio.h"
+ 2702              		.file 7 "Core/Inc/touch.h"
+ 2703              		.file 8 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 2704              		.file 9 "/usr/include/newlib/sys/_types.h"
+ 2705              		.file 10 "/usr/include/newlib/sys/reent.h"
+ 2706              		.file 11 "/usr/include/newlib/sys/lock.h"
+ 2707              		.file 12 "/usr/include/newlib/stdlib.h"
+ 2708              		.file 13 "Core/Inc/lcd.h"
+ 2709              		.file 14 "/usr/include/newlib/math.h"
+ 2710              		.file 15 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ 2711              		.file 16 "Core/Inc/gui.h"
+ 2712              		.file 17 "Core/Inc/delay.h"
+ 2713              		.file 18 "Core/Inc/24c02.h"
+ARM GAS  /tmp/ccm8ljg6.s 			page 67
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rtp.c
+     /tmp/ccm8ljg6.s:18     .text.RTP_Write_Byte:0000000000000000 $t
+     /tmp/ccm8ljg6.s:26     .text.RTP_Write_Byte:0000000000000000 RTP_Write_Byte
+     /tmp/ccm8ljg6.s:108    .text.RTP_Write_Byte:000000000000003c $d
+     /tmp/ccm8ljg6.s:114    .text.RTP_Read_AD:0000000000000000 $t
+     /tmp/ccm8ljg6.s:121    .text.RTP_Read_AD:0000000000000000 RTP_Read_AD
+     /tmp/ccm8ljg6.s:246    .text.RTP_Read_AD:0000000000000064 $d
+     /tmp/ccm8ljg6.s:254    .text.RTP_Read_XOY:0000000000000000 $t
+     /tmp/ccm8ljg6.s:261    .text.RTP_Read_XOY:0000000000000000 RTP_Read_XOY
+     /tmp/ccm8ljg6.s:426    .text.RTP_Read_XOY:0000000000000094 $d
+     /tmp/ccm8ljg6.s:431    .text.RTP_Read_XY:0000000000000000 $t
+     /tmp/ccm8ljg6.s:438    .text.RTP_Read_XY:0000000000000000 RTP_Read_XY
+     /tmp/ccm8ljg6.s:490    .text.RTP_Read_XY:0000000000000020 $d
+     /tmp/ccm8ljg6.s:496    .text.RTP_Read_XY2:0000000000000000 $t
+     /tmp/ccm8ljg6.s:503    .text.RTP_Read_XY2:0000000000000000 RTP_Read_XY2
+     /tmp/ccm8ljg6.s:649    .text.RTP_Drow_Touch_Point:0000000000000000 $t
+     /tmp/ccm8ljg6.s:656    .text.RTP_Drow_Touch_Point:0000000000000000 RTP_Drow_Touch_Point
+     /tmp/ccm8ljg6.s:750    .text.RTP_Drow_Touch_Point:0000000000000084 $d
+     /tmp/ccm8ljg6.s:755    .text.RTP_Draw_Big_Point:0000000000000000 $t
+     /tmp/ccm8ljg6.s:762    .text.RTP_Draw_Big_Point:0000000000000000 RTP_Draw_Big_Point
+     /tmp/ccm8ljg6.s:810    .text.RTP_Draw_Big_Point:0000000000000030 $d
+     /tmp/ccm8ljg6.s:815    .text.RTP_Scan:0000000000000000 $t
+     /tmp/ccm8ljg6.s:822    .text.RTP_Scan:0000000000000000 RTP_Scan
+     /tmp/ccm8ljg6.s:973    .text.RTP_Scan:00000000000000cc $d
+     /tmp/ccm8ljg6.s:980    .text.RTP_Save_Adjdata:0000000000000000 $t
+     /tmp/ccm8ljg6.s:987    .text.RTP_Save_Adjdata:0000000000000000 RTP_Save_Adjdata
+     /tmp/ccm8ljg6.s:1069   .text.RTP_Save_Adjdata:000000000000006c $d
+     /tmp/ccm8ljg6.s:1075   .text.RTP_Get_Adjdata:0000000000000000 $t
+     /tmp/ccm8ljg6.s:1082   .text.RTP_Get_Adjdata:0000000000000000 RTP_Get_Adjdata
+     /tmp/ccm8ljg6.s:1218   .text.RTP_Get_Adjdata:000000000000008c $d
+     /tmp/ccm8ljg6.s:1226   .rodata.RTP_Adj_Info_Show.str1.4:0000000000000000 $d
+     /tmp/ccm8ljg6.s:1254   .text.RTP_Adj_Info_Show:0000000000000000 $t
+     /tmp/ccm8ljg6.s:1261   .text.RTP_Adj_Info_Show:0000000000000000 RTP_Adj_Info_Show
+     /tmp/ccm8ljg6.s:1466   .text.RTP_Adj_Info_Show:000000000000013c $d
+     /tmp/ccm8ljg6.s:1480   .rodata.RTP_Adjust.str1.4:0000000000000000 $d
+     /tmp/ccm8ljg6.s:1508   .text.RTP_Adjust:0000000000000000 $t
+     /tmp/ccm8ljg6.s:1515   .text.RTP_Adjust:0000000000000000 RTP_Adjust
+     /tmp/ccm8ljg6.s:1721   .text.RTP_Adjust:00000000000000fc $d
+     /tmp/ccm8ljg6.s:1725   .text.RTP_Adjust:000000000000010c $t
+     /tmp/ccm8ljg6.s:1972   .text.RTP_Adjust:0000000000000288 $d
+     /tmp/ccm8ljg6.s:1990   .text.RTP_Adjust:00000000000002c0 $t
+     /tmp/ccm8ljg6.s:2539   .text.RTP_Adjust:0000000000000620 $d
+     /tmp/ccm8ljg6.s:2555   .text.RTP_Init:0000000000000000 $t
+     /tmp/ccm8ljg6.s:2562   .text.RTP_Init:0000000000000000 RTP_Init
+     /tmp/ccm8ljg6.s:2675   .text.RTP_Init:0000000000000080 $d
+     /tmp/ccm8ljg6.s:2693   .data.CMD_RDY:0000000000000000 CMD_RDY
+     /tmp/ccm8ljg6.s:2687   .data.CMD_RDX:0000000000000000 CMD_RDX
+
+UNDEFINED SYMBOLS
+delay_us
+LCD_DrawLine
+LCD_DrawPoint
+gui_circle
+POINT_COLOR
+tp_dev
+AT24C02_WriteLenByte
+ARM GAS  /tmp/ccm8ljg6.s 			page 68
+
+
+AT24C02_WriteOneByte
+AT24C02_ReadOneByte
+AT24C02_ReadLenByte
+LCD_ShowString
+LCD_ShowNum
+__aeabi_ui2d
+__aeabi_d2uiz
+__aeabi_f2d
+__aeabi_dcmplt
+__aeabi_dcmpgt
+__aeabi_dmul
+LCD_Clear
+delay_ms
+sqrt
+BACK_COLOR
+lcddev
+RCC_AHB1PeriphClockCmd
+GPIO_Init

@@ -1,0 +1,1027 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"iic.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.IIC_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	IIC_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	IIC_Init:
+  27              	.LFB130:
+  28              		.file 1 "Core/Src/iic.c"
+   1:Core/Src/iic.c **** //////////////////////////////////////////////////////////////////////////////////
+   2:Core/Src/iic.c **** //本程序只供学习使用，未经作者许可，不得用于其它商业用途
+   3:Core/Src/iic.c **** //测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
+   4:Core/Src/iic.c **** //QDtech-TFT液晶驱动 for STM32 FSMC
+   5:Core/Src/iic.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/iic.c **** //公司网站:www.qdtft.com
+   7:Core/Src/iic.c **** //wiki技术资料网站：http://www.lcdwiki.com
+   8:Core/Src/iic.c **** //我司提供技术支持，任何技术问题欢迎随时交流学习
+   9:Core/Src/iic.c **** //固话(传真) :+86 0755-21077707
+  10:Core/Src/iic.c **** //手机: (销售)18823372746 （技术)15989313508
+  11:Core/Src/iic.c **** //邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
+  12:Core/Src/iic.c **** //QQ:(售前咨询)3002706772 (技术支持)3002778157
+  13:Core/Src/iic.c **** //技术交流QQ群:778679828
+  14:Core/Src/iic.c **** //创建日期:2020/06/29
+  15:Core/Src/iic.c **** //版本：V1.0
+  16:Core/Src/iic.c **** //版权所有，盗版必究。
+  17:Core/Src/iic.c **** //Copyright(C) 深圳市全动电子技术有限公司 2018-2028
+  18:Core/Src/iic.c **** //All rights reserved
+  19:Core/Src/iic.c **** /************************************************************************************
+  20:Core/Src/iic.c **** //STM32F407VxT6最小系统开发板IIC示例
+  21:Core/Src/iic.c **** //     LED0           --->            PA1
+  22:Core/Src/iic.c **** //     KEY0           --->            PE4
+  23:Core/Src/iic.c **** //     KEY_UP         --->            PA0
+  24:Core/Src/iic.c **** //     IIC_SCL        --->            PB8
+  25:Core/Src/iic.c **** //     IIC_SDA        --->            PB9
+  26:Core/Src/iic.c **** //支持ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  27:Core/Src/iic.c **** //TFT LCD可以直接插入STM32F407VxT6最小系统开发板TFTLCD插槽或者通过排线接入TFTLCD插座
+  28:Core/Src/iic.c **** //STM32连接引脚是指TFTLCD插槽或者插座引脚内部连接的STM32引脚
+  29:Core/Src/iic.c **** //=================================电源接线=======================================//
+  30:Core/Src/iic.c **** //     LCD模块                    STM32连接引脚
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 2
+
+
+  31:Core/Src/iic.c **** //      VDD           --->           DC5V/3.3V          //电源
+  32:Core/Src/iic.c **** //      GND           --->             GND              //电源地
+  33:Core/Src/iic.c **** //=============================液晶屏数据线接线===================================//
+  34:Core/Src/iic.c **** //     LCD模块                    STM32连接引脚
+  35:Core/Src/iic.c **** //      DB0           --->            PD14        -|   
+  36:Core/Src/iic.c **** //      DB1           --->            PD15         |  
+  37:Core/Src/iic.c **** //      DB2           --->            PD0          | 
+  38:Core/Src/iic.c **** //      DB3           --->            PD1          | 
+  39:Core/Src/iic.c **** //      DB4           --->            PE7          |
+  40:Core/Src/iic.c **** //      DB5           --->            PE8          |
+  41:Core/Src/iic.c **** //      DB6           --->            PE9          |
+  42:Core/Src/iic.c **** //      DB7           --->            PE10         |===>液晶屏16位并口数据信号
+  43:Core/Src/iic.c **** //      DB8           --->            PE11         |
+  44:Core/Src/iic.c **** //      DB9           --->            PE12         |
+  45:Core/Src/iic.c **** //      DB10          --->            PE13         |
+  46:Core/Src/iic.c **** //      DB11          --->            PE14         |
+  47:Core/Src/iic.c **** //      DB12          --->            PE15         |
+  48:Core/Src/iic.c **** //      DB13          --->            PD8          |
+  49:Core/Src/iic.c **** //      DB14          --->            PD9          |
+  50:Core/Src/iic.c **** //      DB15          --->            PD10        -|
+  51:Core/Src/iic.c **** //=============================液晶屏控制线接线===================================//
+  52:Core/Src/iic.c **** //     LCD模块 				            STM32连接引脚 
+  53:Core/Src/iic.c **** //      WR            --->            PD5             //液晶屏写数据控制信号
+  54:Core/Src/iic.c **** //      RD            --->            PD4             //液晶屏读数据控制信号
+  55:Core/Src/iic.c **** //      RS            --->            PD11            //液晶屏数据/命令控制信号
+  56:Core/Src/iic.c **** //      RST           --->          复位引脚（默认）  //液晶屏复位控制信号（也可选择PD13）
+  57:Core/Src/iic.c **** //      CS            --->            PD7             //液晶屏片选控制信号
+  58:Core/Src/iic.c **** //      BL            --->            PB15            //液晶屏背光控制信号
+  59:Core/Src/iic.c **** *************************************************************************************/
+  60:Core/Src/iic.c **** /* @attention
+  61:Core/Src/iic.c ****   *
+  62:Core/Src/iic.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  63:Core/Src/iic.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  64:Core/Src/iic.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  65:Core/Src/iic.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  66:Core/Src/iic.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  67:Core/Src/iic.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  68:Core/Src/iic.c **** *************************************************************************************/
+  69:Core/Src/iic.c **** #include "iic.h"
+  70:Core/Src/iic.c **** #include "delay.h"
+  71:Core/Src/iic.c **** 
+  72:Core/Src/iic.c **** /*****************************************************************************
+  73:Core/Src/iic.c ****  * @name       :void IIC_Init(void)
+  74:Core/Src/iic.c ****  * @date       :2020-05-08 
+  75:Core/Src/iic.c ****  * @function   :Initialize IIC GPIO
+  76:Core/Src/iic.c ****  * @parameters :None
+  77:Core/Src/iic.c ****  * @retvalue   :None
+  78:Core/Src/iic.c **** ******************************************************************************/
+  79:Core/Src/iic.c **** void IIC_Init(void)
+  80:Core/Src/iic.c **** {
+  29              		.loc 1 80 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 10B5     		push	{r4, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 3
+
+
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  38 0002 82B0     		sub	sp, sp, #8
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 16
+  81:Core/Src/iic.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+  41              		.loc 1 81 2 view .LVU1
+  82:Core/Src/iic.c **** 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE); //使能GPIOB时钟
+  42              		.loc 1 82 2 view .LVU2
+  43 0004 0121     		movs	r1, #1
+  44 0006 0220     		movs	r0, #2
+  45 0008 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+  46              	.LVL0:
+  83:Core/Src/iic.c **** 	//GPIOB8,B9初始化设置
+  84:Core/Src/iic.c **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
+  47              		.loc 1 84 2 view .LVU3
+  48              		.loc 1 84 30 is_stmt 0 view .LVU4
+  49 000c 4FF44073 		mov	r3, #768
+  50 0010 0093     		str	r3, [sp]
+  85:Core/Src/iic.c **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;	   //普通输出模式
+  51              		.loc 1 85 2 is_stmt 1 view .LVU5
+  52              		.loc 1 85 31 is_stmt 0 view .LVU6
+  53 0012 0124     		movs	r4, #1
+  54 0014 8DF80440 		strb	r4, [sp, #4]
+  86:Core/Src/iic.c **** 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;	   //推挽输出
+  55              		.loc 1 86 2 is_stmt 1 view .LVU7
+  56              		.loc 1 86 32 is_stmt 0 view .LVU8
+  57 0018 0023     		movs	r3, #0
+  58 001a 8DF80630 		strb	r3, [sp, #6]
+  87:Core/Src/iic.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; //100MHz
+  59              		.loc 1 87 2 is_stmt 1 view .LVU9
+  60              		.loc 1 87 32 is_stmt 0 view .LVU10
+  61 001e 0323     		movs	r3, #3
+  62 0020 8DF80530 		strb	r3, [sp, #5]
+  88:Core/Src/iic.c **** 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;	   //上拉
+  63              		.loc 1 88 2 is_stmt 1 view .LVU11
+  64              		.loc 1 88 31 is_stmt 0 view .LVU12
+  65 0024 8DF80740 		strb	r4, [sp, #7]
+  89:Core/Src/iic.c **** 	GPIO_Init(GPIOB, &GPIO_InitStructure);			   //初始化
+  66              		.loc 1 89 2 is_stmt 1 view .LVU13
+  67 0028 6946     		mov	r1, sp
+  68 002a 0548     		ldr	r0, .L3
+  69 002c FFF7FEFF 		bl	GPIO_Init
+  70              	.LVL1:
+  90:Core/Src/iic.c **** 	IIC_SCL = 1;									   //拉高SCL
+  71              		.loc 1 90 2 view .LVU14
+  72              		.loc 1 90 10 is_stmt 0 view .LVU15
+  73 0030 044B     		ldr	r3, .L3+4
+  74 0032 C3F8A042 		str	r4, [r3, #672]
+  91:Core/Src/iic.c **** 	IIC_SDA = 1;									   //拉高SDA
+  75              		.loc 1 91 2 is_stmt 1 view .LVU16
+  76              		.loc 1 91 10 is_stmt 0 view .LVU17
+  77 0036 C3F8A442 		str	r4, [r3, #676]
+  92:Core/Src/iic.c **** }
+  78              		.loc 1 92 1 view .LVU18
+  79 003a 02B0     		add	sp, sp, #8
+  80              	.LCFI2:
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 4
+
+
+  81              		.cfi_def_cfa_offset 8
+  82              		@ sp needed
+  83 003c 10BD     		pop	{r4, pc}
+  84              	.L4:
+  85 003e 00BF     		.align	2
+  86              	.L3:
+  87 0040 00040240 		.word	1073873920
+  88 0044 00804042 		.word	1111523328
+  89              		.cfi_endproc
+  90              	.LFE130:
+  92              		.section	.text.IIC_Start,"ax",%progbits
+  93              		.align	1
+  94              		.global	IIC_Start
+  95              		.syntax unified
+  96              		.thumb
+  97              		.thumb_func
+  98              		.fpu fpv4-sp-d16
+ 100              	IIC_Start:
+ 101              	.LFB131:
+  93:Core/Src/iic.c **** 
+  94:Core/Src/iic.c **** /*****************************************************************************
+  95:Core/Src/iic.c ****  * @name       :void IIC_Start(void)
+  96:Core/Src/iic.c ****  * @date       :2018-08-09 
+  97:Core/Src/iic.c ****  * @function   :Generating IIC starting signal
+  98:Core/Src/iic.c ****  * @parameters :None
+  99:Core/Src/iic.c ****  * @retvalue   :None
+ 100:Core/Src/iic.c **** ******************************************************************************/
+ 101:Core/Src/iic.c **** void IIC_Start(void)
+ 102:Core/Src/iic.c **** {
+ 102              		.loc 1 102 1 is_stmt 1 view -0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 0
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106 0000 38B5     		push	{r3, r4, r5, lr}
+ 107              	.LCFI3:
+ 108              		.cfi_def_cfa_offset 16
+ 109              		.cfi_offset 3, -16
+ 110              		.cfi_offset 4, -12
+ 111              		.cfi_offset 5, -8
+ 112              		.cfi_offset 14, -4
+ 103:Core/Src/iic.c **** 	SDA_OUT(); //sda线输出
+ 113              		.loc 1 103 2 view .LVU20
+ 114 0002 0D4B     		ldr	r3, .L7
+ 115 0004 1A68     		ldr	r2, [r3]
+ 116 0006 22F44022 		bic	r2, r2, #786432
+ 117 000a 1A60     		str	r2, [r3]
+ 118              		.loc 1 103 2 view .LVU21
+ 119 000c 1A68     		ldr	r2, [r3]
+ 120 000e 42F48022 		orr	r2, r2, #262144
+ 121 0012 1A60     		str	r2, [r3]
+ 122              		.loc 1 103 11 view .LVU22
+ 104:Core/Src/iic.c **** 	IIC_SDA = 1;
+ 123              		.loc 1 104 2 view .LVU23
+ 124              		.loc 1 104 10 is_stmt 0 view .LVU24
+ 125 0014 094C     		ldr	r4, .L7+4
+ 126 0016 0123     		movs	r3, #1
+ 127 0018 C4F8A432 		str	r3, [r4, #676]
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 5
+
+
+ 105:Core/Src/iic.c **** 	IIC_SCL = 1;
+ 128              		.loc 1 105 2 is_stmt 1 view .LVU25
+ 129              		.loc 1 105 10 is_stmt 0 view .LVU26
+ 130 001c C4F8A032 		str	r3, [r4, #672]
+ 106:Core/Src/iic.c **** 	delay_us(4);
+ 131              		.loc 1 106 2 is_stmt 1 view .LVU27
+ 132 0020 0420     		movs	r0, #4
+ 133 0022 FFF7FEFF 		bl	delay_us
+ 134              	.LVL2:
+ 107:Core/Src/iic.c **** 	IIC_SDA = 0; //START:when CLK is high,DATA change form high to low
+ 135              		.loc 1 107 2 view .LVU28
+ 136              		.loc 1 107 10 is_stmt 0 view .LVU29
+ 137 0026 0025     		movs	r5, #0
+ 138 0028 C4F8A452 		str	r5, [r4, #676]
+ 108:Core/Src/iic.c **** 	delay_us(4);
+ 139              		.loc 1 108 2 is_stmt 1 view .LVU30
+ 140 002c 0420     		movs	r0, #4
+ 141 002e FFF7FEFF 		bl	delay_us
+ 142              	.LVL3:
+ 109:Core/Src/iic.c **** 	IIC_SCL = 0; //钳住I2C总线，准备发送或接收数据
+ 143              		.loc 1 109 2 view .LVU31
+ 144              		.loc 1 109 10 is_stmt 0 view .LVU32
+ 145 0032 C4F8A052 		str	r5, [r4, #672]
+ 110:Core/Src/iic.c **** }
+ 146              		.loc 1 110 1 view .LVU33
+ 147 0036 38BD     		pop	{r3, r4, r5, pc}
+ 148              	.L8:
+ 149              		.align	2
+ 150              	.L7:
+ 151 0038 00040240 		.word	1073873920
+ 152 003c 00804042 		.word	1111523328
+ 153              		.cfi_endproc
+ 154              	.LFE131:
+ 156              		.section	.text.IIC_Stop,"ax",%progbits
+ 157              		.align	1
+ 158              		.global	IIC_Stop
+ 159              		.syntax unified
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.fpu fpv4-sp-d16
+ 164              	IIC_Stop:
+ 165              	.LFB132:
+ 111:Core/Src/iic.c **** 
+ 112:Core/Src/iic.c **** /*****************************************************************************
+ 113:Core/Src/iic.c ****  * @name       :void IIC_Stop(void)
+ 114:Core/Src/iic.c ****  * @date       :2018-08-09 
+ 115:Core/Src/iic.c ****  * @function   :Generating IIC stop signal
+ 116:Core/Src/iic.c ****  * @parameters :None
+ 117:Core/Src/iic.c ****  * @retvalue   :None
+ 118:Core/Src/iic.c **** ******************************************************************************/
+ 119:Core/Src/iic.c **** void IIC_Stop(void)
+ 120:Core/Src/iic.c **** {
+ 166              		.loc 1 120 1 is_stmt 1 view -0
+ 167              		.cfi_startproc
+ 168              		@ args = 0, pretend = 0, frame = 0
+ 169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 6
+
+
+ 171              	.LCFI4:
+ 172              		.cfi_def_cfa_offset 8
+ 173              		.cfi_offset 4, -8
+ 174              		.cfi_offset 14, -4
+ 121:Core/Src/iic.c **** 	SDA_OUT(); //sda线输出
+ 175              		.loc 1 121 2 view .LVU35
+ 176 0002 0D4B     		ldr	r3, .L11
+ 177 0004 1A68     		ldr	r2, [r3]
+ 178 0006 22F44022 		bic	r2, r2, #786432
+ 179 000a 1A60     		str	r2, [r3]
+ 180              		.loc 1 121 2 view .LVU36
+ 181 000c 1A68     		ldr	r2, [r3]
+ 182 000e 42F48022 		orr	r2, r2, #262144
+ 183 0012 1A60     		str	r2, [r3]
+ 184              		.loc 1 121 11 view .LVU37
+ 122:Core/Src/iic.c **** 	IIC_SCL = 0;
+ 185              		.loc 1 122 2 view .LVU38
+ 186              		.loc 1 122 10 is_stmt 0 view .LVU39
+ 187 0014 094C     		ldr	r4, .L11+4
+ 188 0016 0023     		movs	r3, #0
+ 189 0018 C4F8A032 		str	r3, [r4, #672]
+ 123:Core/Src/iic.c **** 	IIC_SDA = 0; //STOP:when CLK is high DATA change form low to high
+ 190              		.loc 1 123 2 is_stmt 1 view .LVU40
+ 191              		.loc 1 123 10 is_stmt 0 view .LVU41
+ 192 001c C4F8A432 		str	r3, [r4, #676]
+ 124:Core/Src/iic.c **** 	delay_us(4);
+ 193              		.loc 1 124 2 is_stmt 1 view .LVU42
+ 194 0020 0420     		movs	r0, #4
+ 195 0022 FFF7FEFF 		bl	delay_us
+ 196              	.LVL4:
+ 125:Core/Src/iic.c **** 	IIC_SCL = 1;
+ 197              		.loc 1 125 2 view .LVU43
+ 198              		.loc 1 125 10 is_stmt 0 view .LVU44
+ 199 0026 0123     		movs	r3, #1
+ 200 0028 C4F8A032 		str	r3, [r4, #672]
+ 126:Core/Src/iic.c **** 	IIC_SDA = 1; //发送I2C总线结束信号
+ 201              		.loc 1 126 2 is_stmt 1 view .LVU45
+ 202              		.loc 1 126 10 is_stmt 0 view .LVU46
+ 203 002c C4F8A432 		str	r3, [r4, #676]
+ 127:Core/Src/iic.c **** 	delay_us(4);
+ 204              		.loc 1 127 2 is_stmt 1 view .LVU47
+ 205 0030 0420     		movs	r0, #4
+ 206 0032 FFF7FEFF 		bl	delay_us
+ 207              	.LVL5:
+ 128:Core/Src/iic.c **** }
+ 208              		.loc 1 128 1 is_stmt 0 view .LVU48
+ 209 0036 10BD     		pop	{r4, pc}
+ 210              	.L12:
+ 211              		.align	2
+ 212              	.L11:
+ 213 0038 00040240 		.word	1073873920
+ 214 003c 00804042 		.word	1111523328
+ 215              		.cfi_endproc
+ 216              	.LFE132:
+ 218              		.section	.text.IIC_Wait_Ack,"ax",%progbits
+ 219              		.align	1
+ 220              		.global	IIC_Wait_Ack
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 7
+
+
+ 221              		.syntax unified
+ 222              		.thumb
+ 223              		.thumb_func
+ 224              		.fpu fpv4-sp-d16
+ 226              	IIC_Wait_Ack:
+ 227              	.LFB133:
+ 129:Core/Src/iic.c **** 
+ 130:Core/Src/iic.c **** /*****************************************************************************
+ 131:Core/Src/iic.c ****  * @name       :u8 IIC_Wait_Ack(void)
+ 132:Core/Src/iic.c ****  * @date       :2018-08-09 
+ 133:Core/Src/iic.c ****  * @function   :Wait for the response signal
+ 134:Core/Src/iic.c ****  * @parameters :None
+ 135:Core/Src/iic.c ****  * @retvalue   :0-receive response signal successfully
+ 136:Core/Src/iic.c **** 								1-receive response signal unsuccessfully
+ 137:Core/Src/iic.c **** ******************************************************************************/
+ 138:Core/Src/iic.c **** u8 IIC_Wait_Ack(void)
+ 139:Core/Src/iic.c **** {
+ 228              		.loc 1 139 1 is_stmt 1 view -0
+ 229              		.cfi_startproc
+ 230              		@ args = 0, pretend = 0, frame = 0
+ 231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 232 0000 38B5     		push	{r3, r4, r5, lr}
+ 233              	.LCFI5:
+ 234              		.cfi_def_cfa_offset 16
+ 235              		.cfi_offset 3, -16
+ 236              		.cfi_offset 4, -12
+ 237              		.cfi_offset 5, -8
+ 238              		.cfi_offset 14, -4
+ 140:Core/Src/iic.c **** 	u8 ucErrTime = 0;
+ 239              		.loc 1 140 2 view .LVU50
+ 240              	.LVL6:
+ 141:Core/Src/iic.c **** 	SDA_IN(); //SDA设置为输入
+ 241              		.loc 1 141 2 view .LVU51
+ 242 0002 124B     		ldr	r3, .L19
+ 243 0004 1A68     		ldr	r2, [r3]
+ 244 0006 22F44022 		bic	r2, r2, #786432
+ 245 000a 1A60     		str	r2, [r3]
+ 246              		.loc 1 141 2 view .LVU52
+ 247 000c 1A68     		ldr	r2, [r3]
+ 248 000e 1A60     		str	r2, [r3]
+ 249              		.loc 1 141 10 view .LVU53
+ 142:Core/Src/iic.c **** 	IIC_SDA = 1;
+ 250              		.loc 1 142 2 view .LVU54
+ 251              		.loc 1 142 10 is_stmt 0 view .LVU55
+ 252 0010 0F4D     		ldr	r5, .L19+4
+ 253 0012 0124     		movs	r4, #1
+ 254 0014 C5F8A442 		str	r4, [r5, #676]
+ 143:Core/Src/iic.c **** 	delay_us(1);
+ 255              		.loc 1 143 2 is_stmt 1 view .LVU56
+ 256 0018 2046     		mov	r0, r4
+ 257 001a FFF7FEFF 		bl	delay_us
+ 258              	.LVL7:
+ 144:Core/Src/iic.c **** 	IIC_SCL = 1;
+ 259              		.loc 1 144 2 view .LVU57
+ 260              		.loc 1 144 10 is_stmt 0 view .LVU58
+ 261 001e C5F8A042 		str	r4, [r5, #672]
+ 145:Core/Src/iic.c **** 	delay_us(1);
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 8
+
+
+ 262              		.loc 1 145 2 is_stmt 1 view .LVU59
+ 263 0022 2046     		mov	r0, r4
+ 264 0024 FFF7FEFF 		bl	delay_us
+ 265              	.LVL8:
+ 146:Core/Src/iic.c **** 	while (READ_SDA)
+ 266              		.loc 1 146 2 view .LVU60
+ 140:Core/Src/iic.c **** 	SDA_IN(); //SDA设置为输入
+ 267              		.loc 1 140 5 is_stmt 0 view .LVU61
+ 268 0028 0023     		movs	r3, #0
+ 269              	.LVL9:
+ 270              	.L14:
+ 271              		.loc 1 146 8 is_stmt 1 view .LVU62
+ 272              		.loc 1 146 9 is_stmt 0 view .LVU63
+ 273 002a 094A     		ldr	r2, .L19+4
+ 274 002c D2F82422 		ldr	r2, [r2, #548]
+ 275              		.loc 1 146 8 view .LVU64
+ 276 0030 3AB1     		cbz	r2, .L18
+ 147:Core/Src/iic.c **** 	{
+ 148:Core/Src/iic.c **** 		ucErrTime++;
+ 277              		.loc 1 148 3 is_stmt 1 view .LVU65
+ 278              		.loc 1 148 12 is_stmt 0 view .LVU66
+ 279 0032 0133     		adds	r3, r3, #1
+ 280              	.LVL10:
+ 281              		.loc 1 148 12 view .LVU67
+ 282 0034 DBB2     		uxtb	r3, r3
+ 283              	.LVL11:
+ 149:Core/Src/iic.c **** 		if (ucErrTime > 250)
+ 284              		.loc 1 149 3 is_stmt 1 view .LVU68
+ 285              		.loc 1 149 6 is_stmt 0 view .LVU69
+ 286 0036 FA2B     		cmp	r3, #250
+ 287 0038 F7D9     		bls	.L14
+ 150:Core/Src/iic.c **** 		{
+ 151:Core/Src/iic.c **** 			IIC_Stop();
+ 288              		.loc 1 151 4 is_stmt 1 view .LVU70
+ 289 003a FFF7FEFF 		bl	IIC_Stop
+ 290              	.LVL12:
+ 152:Core/Src/iic.c **** 			return 1;
+ 291              		.loc 1 152 4 view .LVU71
+ 292              		.loc 1 152 11 is_stmt 0 view .LVU72
+ 293 003e 0120     		movs	r0, #1
+ 294 0040 03E0     		b	.L15
+ 295              	.LVL13:
+ 296              	.L18:
+ 153:Core/Src/iic.c **** 		}
+ 154:Core/Src/iic.c **** 	}
+ 155:Core/Src/iic.c **** 	IIC_SCL = 0; //时钟输出0
+ 297              		.loc 1 155 2 is_stmt 1 view .LVU73
+ 298              		.loc 1 155 10 is_stmt 0 view .LVU74
+ 299 0042 0020     		movs	r0, #0
+ 300 0044 024B     		ldr	r3, .L19+4
+ 301              	.LVL14:
+ 302              		.loc 1 155 10 view .LVU75
+ 303 0046 C3F8A002 		str	r0, [r3, #672]
+ 156:Core/Src/iic.c **** 	return 0;
+ 304              		.loc 1 156 2 is_stmt 1 view .LVU76
+ 305              	.L15:
+ 157:Core/Src/iic.c **** }
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 9
+
+
+ 306              		.loc 1 157 1 is_stmt 0 view .LVU77
+ 307 004a 38BD     		pop	{r3, r4, r5, pc}
+ 308              	.L20:
+ 309              		.align	2
+ 310              	.L19:
+ 311 004c 00040240 		.word	1073873920
+ 312 0050 00804042 		.word	1111523328
+ 313              		.cfi_endproc
+ 314              	.LFE133:
+ 316              		.section	.text.IIC_Ack,"ax",%progbits
+ 317              		.align	1
+ 318              		.global	IIC_Ack
+ 319              		.syntax unified
+ 320              		.thumb
+ 321              		.thumb_func
+ 322              		.fpu fpv4-sp-d16
+ 324              	IIC_Ack:
+ 325              	.LFB134:
+ 158:Core/Src/iic.c **** 
+ 159:Core/Src/iic.c **** /*****************************************************************************
+ 160:Core/Src/iic.c ****  * @name       :void IIC_Ack(void)
+ 161:Core/Src/iic.c ****  * @date       :2018-08-09 
+ 162:Core/Src/iic.c ****  * @function   :Generate ACK response signal
+ 163:Core/Src/iic.c ****  * @parameters :None
+ 164:Core/Src/iic.c ****  * @retvalue   :None
+ 165:Core/Src/iic.c **** ******************************************************************************/
+ 166:Core/Src/iic.c **** void IIC_Ack(void)
+ 167:Core/Src/iic.c **** {
+ 326              		.loc 1 167 1 is_stmt 1 view -0
+ 327              		.cfi_startproc
+ 328              		@ args = 0, pretend = 0, frame = 0
+ 329              		@ frame_needed = 0, uses_anonymous_args = 0
+ 330 0000 38B5     		push	{r3, r4, r5, lr}
+ 331              	.LCFI6:
+ 332              		.cfi_def_cfa_offset 16
+ 333              		.cfi_offset 3, -16
+ 334              		.cfi_offset 4, -12
+ 335              		.cfi_offset 5, -8
+ 336              		.cfi_offset 14, -4
+ 168:Core/Src/iic.c **** 	IIC_SCL = 0;
+ 337              		.loc 1 168 2 view .LVU79
+ 338              		.loc 1 168 10 is_stmt 0 view .LVU80
+ 339 0002 0D4C     		ldr	r4, .L23
+ 340 0004 0025     		movs	r5, #0
+ 341 0006 C4F8A052 		str	r5, [r4, #672]
+ 169:Core/Src/iic.c **** 	SDA_OUT();
+ 342              		.loc 1 169 2 is_stmt 1 view .LVU81
+ 343 000a 0C4B     		ldr	r3, .L23+4
+ 344 000c 1A68     		ldr	r2, [r3]
+ 345 000e 22F44022 		bic	r2, r2, #786432
+ 346 0012 1A60     		str	r2, [r3]
+ 347              		.loc 1 169 2 view .LVU82
+ 348 0014 1A68     		ldr	r2, [r3]
+ 349 0016 42F48022 		orr	r2, r2, #262144
+ 350 001a 1A60     		str	r2, [r3]
+ 351              		.loc 1 169 11 view .LVU83
+ 170:Core/Src/iic.c **** 	IIC_SDA = 0;
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 10
+
+
+ 352              		.loc 1 170 2 view .LVU84
+ 353              		.loc 1 170 10 is_stmt 0 view .LVU85
+ 354 001c C4F8A452 		str	r5, [r4, #676]
+ 171:Core/Src/iic.c **** 	delay_us(2);
+ 355              		.loc 1 171 2 is_stmt 1 view .LVU86
+ 356 0020 0220     		movs	r0, #2
+ 357 0022 FFF7FEFF 		bl	delay_us
+ 358              	.LVL15:
+ 172:Core/Src/iic.c **** 	IIC_SCL = 1;
+ 359              		.loc 1 172 2 view .LVU87
+ 360              		.loc 1 172 10 is_stmt 0 view .LVU88
+ 361 0026 0123     		movs	r3, #1
+ 362 0028 C4F8A032 		str	r3, [r4, #672]
+ 173:Core/Src/iic.c **** 	delay_us(2);
+ 363              		.loc 1 173 2 is_stmt 1 view .LVU89
+ 364 002c 0220     		movs	r0, #2
+ 365 002e FFF7FEFF 		bl	delay_us
+ 366              	.LVL16:
+ 174:Core/Src/iic.c **** 	IIC_SCL = 0;
+ 367              		.loc 1 174 2 view .LVU90
+ 368              		.loc 1 174 10 is_stmt 0 view .LVU91
+ 369 0032 C4F8A052 		str	r5, [r4, #672]
+ 175:Core/Src/iic.c **** }
+ 370              		.loc 1 175 1 view .LVU92
+ 371 0036 38BD     		pop	{r3, r4, r5, pc}
+ 372              	.L24:
+ 373              		.align	2
+ 374              	.L23:
+ 375 0038 00804042 		.word	1111523328
+ 376 003c 00040240 		.word	1073873920
+ 377              		.cfi_endproc
+ 378              	.LFE134:
+ 380              		.section	.text.IIC_NAck,"ax",%progbits
+ 381              		.align	1
+ 382              		.global	IIC_NAck
+ 383              		.syntax unified
+ 384              		.thumb
+ 385              		.thumb_func
+ 386              		.fpu fpv4-sp-d16
+ 388              	IIC_NAck:
+ 389              	.LFB135:
+ 176:Core/Src/iic.c **** 
+ 177:Core/Src/iic.c **** /*****************************************************************************
+ 178:Core/Src/iic.c ****  * @name       :void IIC_NAck(void)
+ 179:Core/Src/iic.c ****  * @date       :2018-08-09 
+ 180:Core/Src/iic.c ****  * @function   :Don't generate ACK response signal
+ 181:Core/Src/iic.c ****  * @parameters :None
+ 182:Core/Src/iic.c ****  * @retvalue   :None
+ 183:Core/Src/iic.c **** ******************************************************************************/
+ 184:Core/Src/iic.c **** void IIC_NAck(void)
+ 185:Core/Src/iic.c **** {
+ 390              		.loc 1 185 1 is_stmt 1 view -0
+ 391              		.cfi_startproc
+ 392              		@ args = 0, pretend = 0, frame = 0
+ 393              		@ frame_needed = 0, uses_anonymous_args = 0
+ 394 0000 70B5     		push	{r4, r5, r6, lr}
+ 395              	.LCFI7:
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 11
+
+
+ 396              		.cfi_def_cfa_offset 16
+ 397              		.cfi_offset 4, -16
+ 398              		.cfi_offset 5, -12
+ 399              		.cfi_offset 6, -8
+ 400              		.cfi_offset 14, -4
+ 186:Core/Src/iic.c **** 	IIC_SCL = 0;
+ 401              		.loc 1 186 2 view .LVU94
+ 402              		.loc 1 186 10 is_stmt 0 view .LVU95
+ 403 0002 0D4C     		ldr	r4, .L27
+ 404 0004 0025     		movs	r5, #0
+ 405 0006 C4F8A052 		str	r5, [r4, #672]
+ 187:Core/Src/iic.c **** 	SDA_OUT();
+ 406              		.loc 1 187 2 is_stmt 1 view .LVU96
+ 407 000a 0C4B     		ldr	r3, .L27+4
+ 408 000c 1A68     		ldr	r2, [r3]
+ 409 000e 22F44022 		bic	r2, r2, #786432
+ 410 0012 1A60     		str	r2, [r3]
+ 411              		.loc 1 187 2 view .LVU97
+ 412 0014 1A68     		ldr	r2, [r3]
+ 413 0016 42F48022 		orr	r2, r2, #262144
+ 414 001a 1A60     		str	r2, [r3]
+ 415              		.loc 1 187 11 view .LVU98
+ 188:Core/Src/iic.c **** 	IIC_SDA = 1;
+ 416              		.loc 1 188 2 view .LVU99
+ 417              		.loc 1 188 10 is_stmt 0 view .LVU100
+ 418 001c 0126     		movs	r6, #1
+ 419 001e C4F8A462 		str	r6, [r4, #676]
+ 189:Core/Src/iic.c **** 	delay_us(2);
+ 420              		.loc 1 189 2 is_stmt 1 view .LVU101
+ 421 0022 0220     		movs	r0, #2
+ 422 0024 FFF7FEFF 		bl	delay_us
+ 423              	.LVL17:
+ 190:Core/Src/iic.c **** 	IIC_SCL = 1;
+ 424              		.loc 1 190 2 view .LVU102
+ 425              		.loc 1 190 10 is_stmt 0 view .LVU103
+ 426 0028 C4F8A062 		str	r6, [r4, #672]
+ 191:Core/Src/iic.c **** 	delay_us(2);
+ 427              		.loc 1 191 2 is_stmt 1 view .LVU104
+ 428 002c 0220     		movs	r0, #2
+ 429 002e FFF7FEFF 		bl	delay_us
+ 430              	.LVL18:
+ 192:Core/Src/iic.c **** 	IIC_SCL = 0;
+ 431              		.loc 1 192 2 view .LVU105
+ 432              		.loc 1 192 10 is_stmt 0 view .LVU106
+ 433 0032 C4F8A052 		str	r5, [r4, #672]
+ 193:Core/Src/iic.c **** }
+ 434              		.loc 1 193 1 view .LVU107
+ 435 0036 70BD     		pop	{r4, r5, r6, pc}
+ 436              	.L28:
+ 437              		.align	2
+ 438              	.L27:
+ 439 0038 00804042 		.word	1111523328
+ 440 003c 00040240 		.word	1073873920
+ 441              		.cfi_endproc
+ 442              	.LFE135:
+ 444              		.section	.text.IIC_Send_Byte,"ax",%progbits
+ 445              		.align	1
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 12
+
+
+ 446              		.global	IIC_Send_Byte
+ 447              		.syntax unified
+ 448              		.thumb
+ 449              		.thumb_func
+ 450              		.fpu fpv4-sp-d16
+ 452              	IIC_Send_Byte:
+ 453              	.LVL19:
+ 454              	.LFB136:
+ 194:Core/Src/iic.c **** 
+ 195:Core/Src/iic.c **** /*****************************************************************************
+ 196:Core/Src/iic.c ****  * @name       :void IIC_Send_Byte(u8 txd)
+ 197:Core/Src/iic.c ****  * @date       :2018-08-09 
+ 198:Core/Src/iic.c ****  * @function   :send a byte data by IIC bus
+ 199:Core/Src/iic.c ****  * @parameters :txd:Data to be sent
+ 200:Core/Src/iic.c ****  * @retvalue   :None
+ 201:Core/Src/iic.c **** ******************************************************************************/
+ 202:Core/Src/iic.c **** void IIC_Send_Byte(u8 txd)
+ 203:Core/Src/iic.c **** {
+ 455              		.loc 1 203 1 is_stmt 1 view -0
+ 456              		.cfi_startproc
+ 457              		@ args = 0, pretend = 0, frame = 0
+ 458              		@ frame_needed = 0, uses_anonymous_args = 0
+ 459              		.loc 1 203 1 is_stmt 0 view .LVU109
+ 460 0000 70B5     		push	{r4, r5, r6, lr}
+ 461              	.LCFI8:
+ 462              		.cfi_def_cfa_offset 16
+ 463              		.cfi_offset 4, -16
+ 464              		.cfi_offset 5, -12
+ 465              		.cfi_offset 6, -8
+ 466              		.cfi_offset 14, -4
+ 467 0002 0546     		mov	r5, r0
+ 204:Core/Src/iic.c **** 	u8 t;
+ 468              		.loc 1 204 2 is_stmt 1 view .LVU110
+ 205:Core/Src/iic.c **** 	SDA_OUT();
+ 469              		.loc 1 205 2 view .LVU111
+ 470 0004 134B     		ldr	r3, .L33
+ 471 0006 1A68     		ldr	r2, [r3]
+ 472 0008 22F44022 		bic	r2, r2, #786432
+ 473 000c 1A60     		str	r2, [r3]
+ 474              		.loc 1 205 2 view .LVU112
+ 475 000e 1A68     		ldr	r2, [r3]
+ 476 0010 42F48022 		orr	r2, r2, #262144
+ 477 0014 1A60     		str	r2, [r3]
+ 478              		.loc 1 205 11 view .LVU113
+ 206:Core/Src/iic.c **** 	IIC_SCL = 0; //拉低时钟开始数据传输
+ 479              		.loc 1 206 2 view .LVU114
+ 480              		.loc 1 206 10 is_stmt 0 view .LVU115
+ 481 0016 0024     		movs	r4, #0
+ 482 0018 0F4B     		ldr	r3, .L33+4
+ 483 001a C3F8A042 		str	r4, [r3, #672]
+ 207:Core/Src/iic.c **** 	for (t = 0; t < 8; t++)
+ 484              		.loc 1 207 2 is_stmt 1 view .LVU116
+ 485              	.LVL20:
+ 486              		.loc 1 207 2 is_stmt 0 view .LVU117
+ 487 001e 16E0     		b	.L30
+ 488              	.LVL21:
+ 489              	.L31:
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 13
+
+
+ 208:Core/Src/iic.c **** 	{
+ 209:Core/Src/iic.c **** 		IIC_SDA = (txd & 0x80) >> 7;
+ 490              		.loc 1 209 3 is_stmt 1 discriminator 3 view .LVU118
+ 491              		.loc 1 209 26 is_stmt 0 discriminator 3 view .LVU119
+ 492 0020 EB09     		lsrs	r3, r5, #7
+ 493              		.loc 1 209 11 discriminator 3 view .LVU120
+ 494 0022 0D4E     		ldr	r6, .L33+4
+ 495 0024 C6F8A432 		str	r3, [r6, #676]
+ 210:Core/Src/iic.c **** 		txd <<= 1;
+ 496              		.loc 1 210 3 is_stmt 1 discriminator 3 view .LVU121
+ 497              		.loc 1 210 7 is_stmt 0 discriminator 3 view .LVU122
+ 498 0028 6D00     		lsls	r5, r5, #1
+ 499              	.LVL22:
+ 500              		.loc 1 210 7 discriminator 3 view .LVU123
+ 501 002a EDB2     		uxtb	r5, r5
+ 502              	.LVL23:
+ 211:Core/Src/iic.c **** 		delay_us(2); //对TEA5767这三个延时都是必须的
+ 503              		.loc 1 211 3 is_stmt 1 discriminator 3 view .LVU124
+ 504 002c 0220     		movs	r0, #2
+ 505 002e FFF7FEFF 		bl	delay_us
+ 506              	.LVL24:
+ 212:Core/Src/iic.c **** 		IIC_SCL = 1;
+ 507              		.loc 1 212 3 discriminator 3 view .LVU125
+ 508              		.loc 1 212 11 is_stmt 0 discriminator 3 view .LVU126
+ 509 0032 0123     		movs	r3, #1
+ 510 0034 C6F8A032 		str	r3, [r6, #672]
+ 213:Core/Src/iic.c **** 		delay_us(2);
+ 511              		.loc 1 213 3 is_stmt 1 discriminator 3 view .LVU127
+ 512 0038 0220     		movs	r0, #2
+ 513 003a FFF7FEFF 		bl	delay_us
+ 514              	.LVL25:
+ 214:Core/Src/iic.c **** 		IIC_SCL = 0;
+ 515              		.loc 1 214 3 discriminator 3 view .LVU128
+ 516              		.loc 1 214 11 is_stmt 0 discriminator 3 view .LVU129
+ 517 003e 0023     		movs	r3, #0
+ 518 0040 C6F8A032 		str	r3, [r6, #672]
+ 215:Core/Src/iic.c **** 		delay_us(2);
+ 519              		.loc 1 215 3 is_stmt 1 discriminator 3 view .LVU130
+ 520 0044 0220     		movs	r0, #2
+ 521 0046 FFF7FEFF 		bl	delay_us
+ 522              	.LVL26:
+ 207:Core/Src/iic.c **** 	{
+ 523              		.loc 1 207 21 discriminator 3 view .LVU131
+ 207:Core/Src/iic.c **** 	{
+ 524              		.loc 1 207 22 is_stmt 0 discriminator 3 view .LVU132
+ 525 004a 0134     		adds	r4, r4, #1
+ 526              	.LVL27:
+ 207:Core/Src/iic.c **** 	{
+ 527              		.loc 1 207 22 discriminator 3 view .LVU133
+ 528 004c E4B2     		uxtb	r4, r4
+ 529              	.LVL28:
+ 530              	.L30:
+ 207:Core/Src/iic.c **** 	{
+ 531              		.loc 1 207 14 is_stmt 1 discriminator 1 view .LVU134
+ 207:Core/Src/iic.c **** 	{
+ 532              		.loc 1 207 2 is_stmt 0 discriminator 1 view .LVU135
+ 533 004e 072C     		cmp	r4, #7
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 14
+
+
+ 534 0050 E6D9     		bls	.L31
+ 216:Core/Src/iic.c **** 	}
+ 217:Core/Src/iic.c **** }
+ 535              		.loc 1 217 1 view .LVU136
+ 536 0052 70BD     		pop	{r4, r5, r6, pc}
+ 537              	.LVL29:
+ 538              	.L34:
+ 539              		.loc 1 217 1 view .LVU137
+ 540              		.align	2
+ 541              	.L33:
+ 542 0054 00040240 		.word	1073873920
+ 543 0058 00804042 		.word	1111523328
+ 544              		.cfi_endproc
+ 545              	.LFE136:
+ 547              		.section	.text.IIC_Read_Byte,"ax",%progbits
+ 548              		.align	1
+ 549              		.global	IIC_Read_Byte
+ 550              		.syntax unified
+ 551              		.thumb
+ 552              		.thumb_func
+ 553              		.fpu fpv4-sp-d16
+ 555              	IIC_Read_Byte:
+ 556              	.LVL30:
+ 557              	.LFB137:
+ 218:Core/Src/iic.c **** 
+ 219:Core/Src/iic.c **** /*****************************************************************************
+ 220:Core/Src/iic.c ****  * @name       :u8 IIC_Read_Byte(unsigned char ack)
+ 221:Core/Src/iic.c ****  * @date       :2018-08-09 
+ 222:Core/Src/iic.c ****  * @function   :read a byte data by IIC bus
+ 223:Core/Src/iic.c ****  * @parameters :ack:0-send nACK
+ 224:Core/Src/iic.c **** 									  1-send ACK
+ 225:Core/Src/iic.c ****  * @retvalue   :Data to be read
+ 226:Core/Src/iic.c **** ******************************************************************************/
+ 227:Core/Src/iic.c **** u8 IIC_Read_Byte(unsigned char ack)
+ 228:Core/Src/iic.c **** {
+ 558              		.loc 1 228 1 is_stmt 1 view -0
+ 559              		.cfi_startproc
+ 560              		@ args = 0, pretend = 0, frame = 0
+ 561              		@ frame_needed = 0, uses_anonymous_args = 0
+ 562              		.loc 1 228 1 is_stmt 0 view .LVU139
+ 563 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 564              	.LCFI9:
+ 565              		.cfi_def_cfa_offset 24
+ 566              		.cfi_offset 3, -24
+ 567              		.cfi_offset 4, -20
+ 568              		.cfi_offset 5, -16
+ 569              		.cfi_offset 6, -12
+ 570              		.cfi_offset 7, -8
+ 571              		.cfi_offset 14, -4
+ 572 0002 0746     		mov	r7, r0
+ 229:Core/Src/iic.c **** 	unsigned char i, receive = 0;
+ 573              		.loc 1 229 2 is_stmt 1 view .LVU140
+ 574              	.LVL31:
+ 230:Core/Src/iic.c **** 	SDA_IN(); //SDA设置为输入
+ 575              		.loc 1 230 2 view .LVU141
+ 576 0004 154B     		ldr	r3, .L43
+ 577 0006 1A68     		ldr	r2, [r3]
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 15
+
+
+ 578 0008 22F44022 		bic	r2, r2, #786432
+ 579 000c 1A60     		str	r2, [r3]
+ 580              		.loc 1 230 2 view .LVU142
+ 581 000e 1A68     		ldr	r2, [r3]
+ 582 0010 1A60     		str	r2, [r3]
+ 583              		.loc 1 230 10 view .LVU143
+ 231:Core/Src/iic.c **** 	for (i = 0; i < 8; i++)
+ 584              		.loc 1 231 2 view .LVU144
+ 585              	.LVL32:
+ 229:Core/Src/iic.c **** 	unsigned char i, receive = 0;
+ 586              		.loc 1 229 19 is_stmt 0 view .LVU145
+ 587 0012 0024     		movs	r4, #0
+ 588              		.loc 1 231 9 view .LVU146
+ 589 0014 2546     		mov	r5, r4
+ 590              		.loc 1 231 2 view .LVU147
+ 591 0016 04E0     		b	.L36
+ 592              	.LVL33:
+ 593              	.L37:
+ 232:Core/Src/iic.c **** 	{
+ 233:Core/Src/iic.c **** 		IIC_SCL = 0;
+ 234:Core/Src/iic.c **** 		delay_us(2);
+ 235:Core/Src/iic.c **** 		IIC_SCL = 1;
+ 236:Core/Src/iic.c **** 		receive <<= 1;
+ 237:Core/Src/iic.c **** 		if (READ_SDA)
+ 238:Core/Src/iic.c **** 		{
+ 239:Core/Src/iic.c **** 			receive++;
+ 240:Core/Src/iic.c **** 		}
+ 241:Core/Src/iic.c **** 		delay_us(1);
+ 594              		.loc 1 241 3 is_stmt 1 discriminator 2 view .LVU148
+ 595 0018 0120     		movs	r0, #1
+ 596 001a FFF7FEFF 		bl	delay_us
+ 597              	.LVL34:
+ 231:Core/Src/iic.c **** 	for (i = 0; i < 8; i++)
+ 598              		.loc 1 231 21 discriminator 2 view .LVU149
+ 231:Core/Src/iic.c **** 	for (i = 0; i < 8; i++)
+ 599              		.loc 1 231 22 is_stmt 0 discriminator 2 view .LVU150
+ 600 001e 0135     		adds	r5, r5, #1
+ 601              	.LVL35:
+ 231:Core/Src/iic.c **** 	for (i = 0; i < 8; i++)
+ 602              		.loc 1 231 22 discriminator 2 view .LVU151
+ 603 0020 EDB2     		uxtb	r5, r5
+ 604              	.LVL36:
+ 605              	.L36:
+ 231:Core/Src/iic.c **** 	for (i = 0; i < 8; i++)
+ 606              		.loc 1 231 14 is_stmt 1 discriminator 1 view .LVU152
+ 231:Core/Src/iic.c **** 	for (i = 0; i < 8; i++)
+ 607              		.loc 1 231 2 is_stmt 0 discriminator 1 view .LVU153
+ 608 0022 072D     		cmp	r5, #7
+ 609 0024 12D8     		bhi	.L42
+ 233:Core/Src/iic.c **** 		delay_us(2);
+ 610              		.loc 1 233 3 is_stmt 1 view .LVU154
+ 233:Core/Src/iic.c **** 		delay_us(2);
+ 611              		.loc 1 233 11 is_stmt 0 view .LVU155
+ 612 0026 0E4E     		ldr	r6, .L43+4
+ 613 0028 0023     		movs	r3, #0
+ 614 002a C6F8A032 		str	r3, [r6, #672]
+ 234:Core/Src/iic.c **** 		IIC_SCL = 1;
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 16
+
+
+ 615              		.loc 1 234 3 is_stmt 1 view .LVU156
+ 616 002e 0220     		movs	r0, #2
+ 617 0030 FFF7FEFF 		bl	delay_us
+ 618              	.LVL37:
+ 235:Core/Src/iic.c **** 		receive <<= 1;
+ 619              		.loc 1 235 3 view .LVU157
+ 235:Core/Src/iic.c **** 		receive <<= 1;
+ 620              		.loc 1 235 11 is_stmt 0 view .LVU158
+ 621 0034 0123     		movs	r3, #1
+ 622 0036 C6F8A032 		str	r3, [r6, #672]
+ 236:Core/Src/iic.c **** 		if (READ_SDA)
+ 623              		.loc 1 236 3 is_stmt 1 view .LVU159
+ 236:Core/Src/iic.c **** 		if (READ_SDA)
+ 624              		.loc 1 236 11 is_stmt 0 view .LVU160
+ 625 003a 9C40     		lsls	r4, r4, r3
+ 626              	.LVL38:
+ 236:Core/Src/iic.c **** 		if (READ_SDA)
+ 627              		.loc 1 236 11 view .LVU161
+ 628 003c E4B2     		uxtb	r4, r4
+ 629              	.LVL39:
+ 237:Core/Src/iic.c **** 		{
+ 630              		.loc 1 237 3 is_stmt 1 view .LVU162
+ 237:Core/Src/iic.c **** 		{
+ 631              		.loc 1 237 7 is_stmt 0 view .LVU163
+ 632 003e D6F82432 		ldr	r3, [r6, #548]
+ 237:Core/Src/iic.c **** 		{
+ 633              		.loc 1 237 6 view .LVU164
+ 634 0042 002B     		cmp	r3, #0
+ 635 0044 E8D0     		beq	.L37
+ 239:Core/Src/iic.c **** 		}
+ 636              		.loc 1 239 4 is_stmt 1 view .LVU165
+ 239:Core/Src/iic.c **** 		}
+ 637              		.loc 1 239 11 is_stmt 0 view .LVU166
+ 638 0046 0134     		adds	r4, r4, #1
+ 639              	.LVL40:
+ 239:Core/Src/iic.c **** 		}
+ 640              		.loc 1 239 11 view .LVU167
+ 641 0048 E4B2     		uxtb	r4, r4
+ 642              	.LVL41:
+ 239:Core/Src/iic.c **** 		}
+ 643              		.loc 1 239 11 view .LVU168
+ 644 004a E5E7     		b	.L37
+ 645              	.L42:
+ 242:Core/Src/iic.c **** 	}
+ 243:Core/Src/iic.c **** 	if (!ack)
+ 646              		.loc 1 243 2 is_stmt 1 view .LVU169
+ 647              		.loc 1 243 5 is_stmt 0 view .LVU170
+ 648 004c 1FB9     		cbnz	r7, .L39
+ 244:Core/Src/iic.c **** 	{
+ 245:Core/Src/iic.c **** 		IIC_NAck(); //发送nACK
+ 649              		.loc 1 245 3 is_stmt 1 view .LVU171
+ 650 004e FFF7FEFF 		bl	IIC_NAck
+ 651              	.LVL42:
+ 652              	.L40:
+ 246:Core/Src/iic.c **** 	}
+ 247:Core/Src/iic.c **** 	else
+ 248:Core/Src/iic.c **** 	{
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 17
+
+
+ 249:Core/Src/iic.c **** 		IIC_Ack(); //发送ACK
+ 250:Core/Src/iic.c **** 	}
+ 251:Core/Src/iic.c **** 	return receive;
+ 653              		.loc 1 251 2 view .LVU172
+ 252:Core/Src/iic.c **** }
+ 654              		.loc 1 252 1 is_stmt 0 view .LVU173
+ 655 0052 2046     		mov	r0, r4
+ 656 0054 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 657              	.LVL43:
+ 658              	.L39:
+ 249:Core/Src/iic.c **** 	}
+ 659              		.loc 1 249 3 is_stmt 1 view .LVU174
+ 660 0056 FFF7FEFF 		bl	IIC_Ack
+ 661              	.LVL44:
+ 662 005a FAE7     		b	.L40
+ 663              	.L44:
+ 664              		.align	2
+ 665              	.L43:
+ 666 005c 00040240 		.word	1073873920
+ 667 0060 00804042 		.word	1111523328
+ 668              		.cfi_endproc
+ 669              	.LFE137:
+ 671              		.text
+ 672              	.Letext0:
+ 673              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 674              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 675              		.file 4 "Core/Inc/stm32f4xx.h"
+ 676              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_gpio.h"
+ 677              		.file 6 "Core/Inc/delay.h"
+ 678              		.file 7 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchV6kZD.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 iic.c
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:18     .text.IIC_Init:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:26     .text.IIC_Init:00000000 IIC_Init
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:87     .text.IIC_Init:00000040 $d
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:93     .text.IIC_Start:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:100    .text.IIC_Start:00000000 IIC_Start
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:151    .text.IIC_Start:00000038 $d
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:157    .text.IIC_Stop:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:164    .text.IIC_Stop:00000000 IIC_Stop
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:213    .text.IIC_Stop:00000038 $d
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:219    .text.IIC_Wait_Ack:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:226    .text.IIC_Wait_Ack:00000000 IIC_Wait_Ack
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:311    .text.IIC_Wait_Ack:0000004c $d
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:317    .text.IIC_Ack:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:324    .text.IIC_Ack:00000000 IIC_Ack
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:375    .text.IIC_Ack:00000038 $d
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:381    .text.IIC_NAck:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:388    .text.IIC_NAck:00000000 IIC_NAck
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:439    .text.IIC_NAck:00000038 $d
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:445    .text.IIC_Send_Byte:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:452    .text.IIC_Send_Byte:00000000 IIC_Send_Byte
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:542    .text.IIC_Send_Byte:00000054 $d
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:548    .text.IIC_Read_Byte:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:555    .text.IIC_Read_Byte:00000000 IIC_Read_Byte
+C:\Users\savao\AppData\Local\Temp\cchV6kZD.s:666    .text.IIC_Read_Byte:0000005c $d
+
+UNDEFINED SYMBOLS
+RCC_AHB1PeriphClockCmd
+GPIO_Init
+delay_us

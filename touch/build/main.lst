@@ -1,0 +1,244 @@
+ARM GAS  /tmp/ccbGuKnJ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 616E6820 		.ascii	"anh la duc\000"
+  20      6C612064 
+  20      756300
+  21              		.section	.text.main,"ax",%progbits
+  22              		.align	1
+  23              		.global	main
+  24              		.arch armv7e-m
+  25              		.syntax unified
+  26              		.thumb
+  27              		.thumb_func
+  28              		.fpu fpv4-sp-d16
+  30              	main:
+  31              	.LFB133:
+  32              		.file 1 "Core/Src/main.c"
+   1:Core/Src/main.c **** //////////////////////////////////////////////////////////////////////////////////
+   2:Core/Src/main.c **** //???????????????��?????????????????????????????
+   3:Core/Src/main.c **** //??????????????STM32F407VGT6,STM32F407VxT6??��????????,???168MHZ??????8MHZ
+   4:Core/Src/main.c **** //QDtech-TFT??????? for STM32 FSMC
+   5:Core/Src/main.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/main.c **** //??????:www.qdtft.com
+   7:Core/Src/main.c **** //wiki?????????????http://www.lcdwiki.com
+   8:Core/Src/main.c **** //??????????????�ʦ�?????????????????
+   9:Core/Src/main.c **** //???(????) :+86 0755-21077707
+  10:Core/Src/main.c **** //???: (????)18823372746 ??????)15989313508
+  11:Core/Src/main.c **** //????:(????/????) sales@qdtft.com  (???/????????)service@qdtft.com
+  12:Core/Src/main.c **** //QQ:(??????)3002706772 (???????)3002778157
+  13:Core/Src/main.c **** //????????QQ?:778679828
+  14:Core/Src/main.c **** //????????:2020/06/29
+  15:Core/Src/main.c **** //?��??V1.0
+  16:Core/Src/main.c **** //??????��?????????
+  17:Core/Src/main.c **** //Copyright(C) ?????????????????????? 2018-2028
+  18:Core/Src/main.c **** //All rights reserved
+  19:Core/Src/main.c **** /************************************************************************************
+  20:Core/Src/main.c **** //STM32F407VxT6??��???????��???????
+  21:Core/Src/main.c **** //     LED0                 --->            PA1
+  22:Core/Src/main.c **** //     KEY0                 --->            PE4
+  23:Core/Src/main.c **** //     24C02_IIC_SCL        --->            PB8
+  24:Core/Src/main.c **** //     24C02_IIC_SDA        --->            PB9
+ARM GAS  /tmp/ccbGuKnJ.s 			page 2
+
+
+  25:Core/Src/main.c **** //???ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  26:Core/Src/main.c **** //TFT LCD??????????STM32F407VxT6??��????????TFTLCD????????????????TFTLCD????
+  27:Core/Src/main.c **** //STM32???????????TFTLCD?????????????????????STM32????
+  28:Core/Src/main.c **** //=================================???????=======================================//
+  29:Core/Src/main.c **** //     LCD???                    STM32????????
+  30:Core/Src/main.c **** //      VDD           --->           DC5V/3.3V          //???
+  31:Core/Src/main.c **** //      GND           --->             GND              //?????
+  32:Core/Src/main.c **** //=============================??????????????===================================//
+  33:Core/Src/main.c **** //     LCD???                    STM32????????
+  34:Core/Src/main.c **** //      DB0           --->            PD14        -|   
+  35:Core/Src/main.c **** //      DB1           --->            PD15         |  
+  36:Core/Src/main.c **** //      DB2           --->            PD0          | 
+  37:Core/Src/main.c **** //      DB3           --->            PD1          | 
+  38:Core/Src/main.c **** //      DB4           --->            PE7          |
+  39:Core/Src/main.c **** //      DB5           --->            PE8          |
+  40:Core/Src/main.c **** //      DB6           --->            PE9          |
+  41:Core/Src/main.c **** //      DB7           --->            PE10         |===>?????16��???????????
+  42:Core/Src/main.c **** //      DB8           --->            PE11         |
+  43:Core/Src/main.c **** //      DB9           --->            PE12         |
+  44:Core/Src/main.c **** //      DB10          --->            PE13         |
+  45:Core/Src/main.c **** //      DB11          --->            PE14         |
+  46:Core/Src/main.c **** //      DB12          --->            PE15         |
+  47:Core/Src/main.c **** //      DB13          --->            PD8          |
+  48:Core/Src/main.c **** //      DB14          --->            PD9          |
+  49:Core/Src/main.c **** //      DB15          --->            PD10        -|
+  50:Core/Src/main.c **** //=============================??????????????===================================//
+  51:Core/Src/main.c **** //     LCD??? 				            STM32???????? 
+  52:Core/Src/main.c **** //      WR/CLK            --->            PD5             //?????��??????????
+  53:Core/Src/main.c **** //      RD            --->            PD4             //?????????????????
+  54:Core/Src/main.c **** //      RS            --->            PD11            //?????????/??????????
+  55:Core/Src/main.c **** //      RST           --->          ??��?????????  //???????��??????????????PD13??
+  56:Core/Src/main.c **** //      CS            --->            PD7             //??????????????
+  57:Core/Src/main.c **** //      BL/LED            --->            PB15            //???????????????
+  58:Core/Src/main.c **** //===============================????????????=====================================//
+  59:Core/Src/main.c **** //	   LCD???                    STM32???????? 
+  60:Core/Src/main.c **** //      PEN           --->            PB1             //???????��?????????��????
+  61:Core/Src/main.c **** //      MI            --->            PB2             //???��????SPI????????
+  62:Core/Src/main.c **** //      MO            --->            PC4             //???��????SPI????��????????????IIC??
+  63:Core/Src/main.c **** //      TCS           --->            PC13            //???��????????????????????????��???
+  64:Core/Src/main.c **** //      TCK           --->            PB0             //???��????SPI?????????????IIC??????????
+  65:Core/Src/main.c **** *************************************************************************************/
+  66:Core/Src/main.c **** /* @attention
+  67:Core/Src/main.c ****   *
+  68:Core/Src/main.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  69:Core/Src/main.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  70:Core/Src/main.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  71:Core/Src/main.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  72:Core/Src/main.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  73:Core/Src/main.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  74:Core/Src/main.c **** *************************************************************************************/
+  75:Core/Src/main.c **** #include "delay.h"
+  76:Core/Src/main.c **** #include "sys.h"
+  77:Core/Src/main.c **** #include "lcd.h"
+  78:Core/Src/main.c **** #include "gui.h"
+  79:Core/Src/main.c **** #include "test.h"
+  80:Core/Src/main.c **** #include "usart.h"
+  81:Core/Src/main.c **** #include "led.h"
+ARM GAS  /tmp/ccbGuKnJ.s 			page 3
+
+
+  82:Core/Src/main.c **** #include "key.h"
+  83:Core/Src/main.c **** #include "24c02.h"
+  84:Core/Src/main.c **** #include "touch.h"
+  85:Core/Src/main.c **** #include "stdio.h"
+  86:Core/Src/main.c **** int main(void)
+  87:Core/Src/main.c **** {
+  33              		.loc 1 87 1 view -0
+  34              		.cfi_startproc
+  35              		@ Volatile: function does not return.
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+  38 0000 08B5     		push	{r3, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 3, -8
+  42              		.cfi_offset 14, -4
+  88:Core/Src/main.c ****   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //???????��??????????2
+  43              		.loc 1 88 3 view .LVU1
+  44 0002 4FF4A060 		mov	r0, #1280
+  45 0006 FFF7FEFF 		bl	NVIC_PriorityGroupConfig
+  46              	.LVL0:
+  89:Core/Src/main.c ****   delay_init(168);                                //????????????
+  47              		.loc 1 89 3 view .LVU2
+  48 000a A820     		movs	r0, #168
+  49 000c FFF7FEFF 		bl	delay_init
+  50              	.LVL1:
+  90:Core/Src/main.c ****   // USART1_Init(115200);                            //????1?????
+  91:Core/Src/main.c ****   USART2_Init(115200);                            //????1?????
+  51              		.loc 1 91 3 view .LVU3
+  52 0010 4FF4E130 		mov	r0, #115200
+  53 0014 FFF7FEFF 		bl	USART2_Init
+  54              	.LVL2:
+  92:Core/Src/main.c ****   LED_Init();                                     //?????LED
+  55              		.loc 1 92 3 view .LVU4
+  56 0018 FFF7FEFF 		bl	LED_Init
+  57              	.LVL3:
+  93:Core/Src/main.c ****   LCD_Init();                                     //??????????
+  58              		.loc 1 93 3 view .LVU5
+  59 001c FFF7FEFF 		bl	LCD_Init
+  60              	.LVL4:
+  94:Core/Src/main.c ****   KEY_Init();                                     //?????????
+  61              		.loc 1 94 3 view .LVU6
+  62 0020 FFF7FEFF 		bl	KEY_Init
+  63              	.LVL5:
+  95:Core/Src/main.c ****   AT24C02_Init();                                 //?????IIC
+  64              		.loc 1 95 3 view .LVU7
+  65 0024 FFF7FEFF 		bl	AT24C02_Init
+  66              	.LVL6:
+  96:Core/Src/main.c ****   TP_Init();                                      //???????????
+  67              		.loc 1 96 3 view .LVU8
+  68 0028 FFF7FEFF 		bl	TP_Init
+  69              	.LVL7:
+  70              	.L2:
+  97:Core/Src/main.c ****                                                   //???????
+  98:Core/Src/main.c ****   while (1)
+  71              		.loc 1 98 3 discriminator 1 view .LVU9
+  99:Core/Src/main.c ****   {
+ARM GAS  /tmp/ccbGuKnJ.s 			page 4
+
+
+ 100:Core/Src/main.c **** 
+ 101:Core/Src/main.c ****     printf("anh la duc");
+  72              		.loc 1 101 5 discriminator 1 view .LVU10
+  73 002c 0248     		ldr	r0, .L4
+  74 002e FFF7FEFF 		bl	printf
+  75              	.LVL8:
+ 102:Core/Src/main.c ****     Touch_Test(); //??????????
+  76              		.loc 1 102 5 discriminator 1 view .LVU11
+  77 0032 FFF7FEFF 		bl	Touch_Test
+  78              	.LVL9:
+  98:Core/Src/main.c ****   {
+  79              		.loc 1 98 9 discriminator 1 view .LVU12
+  80 0036 F9E7     		b	.L2
+  81              	.L5:
+  82              		.align	2
+  83              	.L4:
+  84 0038 00000000 		.word	.LC0
+  85              		.cfi_endproc
+  86              	.LFE133:
+  88              		.text
+  89              	.Letext0:
+  90              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+  91              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+  92              		.file 4 "Core/Inc/system_stm32f4xx.h"
+  93              		.file 5 "Core/Inc/stm32f4xx.h"
+  94              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+  95              		.file 7 "/usr/include/newlib/sys/_types.h"
+  96              		.file 8 "/usr/include/newlib/sys/reent.h"
+  97              		.file 9 "/usr/include/newlib/sys/lock.h"
+  98              		.file 10 "/usr/include/newlib/stdlib.h"
+  99              		.file 11 "Core/Inc/lcd.h"
+ 100              		.file 12 "Core/Inc/usart.h"
+ 101              		.file 13 "Core/Inc/touch.h"
+ 102              		.file 14 "Drivers/STM32F4xx_FWLIB/inc/misc.h"
+ 103              		.file 15 "Core/Inc/delay.h"
+ 104              		.file 16 "Core/Inc/led.h"
+ 105              		.file 17 "Core/Inc/key.h"
+ 106              		.file 18 "Core/Inc/24c02.h"
+ 107              		.file 19 "/usr/include/newlib/stdio.h"
+ 108              		.file 20 "Core/Inc/test.h"
+ARM GAS  /tmp/ccbGuKnJ.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccbGuKnJ.s:18     .rodata.main.str1.4:0000000000000000 $d
+     /tmp/ccbGuKnJ.s:22     .text.main:0000000000000000 $t
+     /tmp/ccbGuKnJ.s:30     .text.main:0000000000000000 main
+     /tmp/ccbGuKnJ.s:84     .text.main:0000000000000038 $d
+
+UNDEFINED SYMBOLS
+NVIC_PriorityGroupConfig
+delay_init
+USART2_Init
+LED_Init
+LCD_Init
+KEY_Init
+AT24C02_Init
+TP_Init
+printf
+Touch_Test

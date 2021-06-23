@@ -1,0 +1,1267 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"i2c_lcd.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.I2C_Read,"ax",%progbits
+  18              		.align	1
+  19              		.global	I2C_Read
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	I2C_Read:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Core/Src/i2c_lcd.c"
+   1:Core/Src/i2c_lcd.c **** #include "i2c_lcd.h"
+   2:Core/Src/i2c_lcd.c **** #include "stm32f4xx.h"
+   3:Core/Src/i2c_lcd.c **** #include "iic.h"
+   4:Core/Src/i2c_lcd.c **** 
+   5:Core/Src/i2c_lcd.c **** static u8 u8LCD_Buff[8]; //bo nho dem luu lai toan bo
+   6:Core/Src/i2c_lcd.c **** static u8 u8LcdTmp;
+   7:Core/Src/i2c_lcd.c **** 
+   8:Core/Src/i2c_lcd.c **** #define MODE_4_BIT 0x28
+   9:Core/Src/i2c_lcd.c **** #define CLR_SCR 0x01
+  10:Core/Src/i2c_lcd.c **** #define DISP_ON 0x0C
+  11:Core/Src/i2c_lcd.c **** #define CURSOR_ON 0x0E
+  12:Core/Src/i2c_lcd.c **** #define CURSOR_HOME 0x80
+  13:Core/Src/i2c_lcd.c **** 
+  14:Core/Src/i2c_lcd.c **** static void I2C_LCD_Write_4bit(u8 u8Data);
+  15:Core/Src/i2c_lcd.c **** static void I2C_LCD_FlushVal(void);
+  16:Core/Src/i2c_lcd.c **** static void I2C_LCD_WriteCmd(u8 u8Cmd);
+  17:Core/Src/i2c_lcd.c **** 
+  18:Core/Src/i2c_lcd.c **** uint8_t I2C_Read(u8 Address, u8 *pData, u8 length)
+  19:Core/Src/i2c_lcd.c **** {
+  30              		.loc 1 19 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 19 1 is_stmt 0 view .LVU1
+  35 0000 70B5     		push	{r4, r5, r6, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 4, -16
+  39              		.cfi_offset 5, -12
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 2
+
+
+  40              		.cfi_offset 6, -8
+  41              		.cfi_offset 14, -4
+  42 0002 0446     		mov	r4, r0
+  43 0004 0D46     		mov	r5, r1
+  44 0006 1646     		mov	r6, r2
+  20:Core/Src/i2c_lcd.c **** 	u8 i;
+  45              		.loc 1 20 2 is_stmt 1 view .LVU2
+  21:Core/Src/i2c_lcd.c **** 	IIC_Start();
+  46              		.loc 1 21 2 view .LVU3
+  47 0008 FFF7FEFF 		bl	IIC_Start
+  48              	.LVL1:
+  22:Core/Src/i2c_lcd.c **** 
+  23:Core/Src/i2c_lcd.c **** 	IIC_Send_Byte(Address);
+  49              		.loc 1 23 2 view .LVU4
+  50 000c 2046     		mov	r0, r4
+  51 000e FFF7FEFF 		bl	IIC_Send_Byte
+  52              	.LVL2:
+  24:Core/Src/i2c_lcd.c **** 
+  25:Core/Src/i2c_lcd.c **** 	for (i = 0; i < length - 1; ++i)
+  53              		.loc 1 25 2 view .LVU5
+  54              		.loc 1 25 9 is_stmt 0 view .LVU6
+  55 0012 0024     		movs	r4, #0
+  56              		.loc 1 25 2 view .LVU7
+  57 0014 05E0     		b	.L2
+  58              	.LVL3:
+  59              	.L3:
+  26:Core/Src/i2c_lcd.c **** 	{
+  27:Core/Src/i2c_lcd.c **** 		pData[i] = IIC_Read_Byte(1);
+  60              		.loc 1 27 3 is_stmt 1 discriminator 3 view .LVU8
+  61              		.loc 1 27 14 is_stmt 0 discriminator 3 view .LVU9
+  62 0016 0120     		movs	r0, #1
+  63 0018 FFF7FEFF 		bl	IIC_Read_Byte
+  64              	.LVL4:
+  65              		.loc 1 27 12 discriminator 3 view .LVU10
+  66 001c 2855     		strb	r0, [r5, r4]
+  25:Core/Src/i2c_lcd.c **** 	{
+  67              		.loc 1 25 30 is_stmt 1 discriminator 3 view .LVU11
+  68 001e 0134     		adds	r4, r4, #1
+  69              	.LVL5:
+  25:Core/Src/i2c_lcd.c **** 	{
+  70              		.loc 1 25 30 is_stmt 0 discriminator 3 view .LVU12
+  71 0020 E4B2     		uxtb	r4, r4
+  72              	.LVL6:
+  73              	.L2:
+  25:Core/Src/i2c_lcd.c **** 	{
+  74              		.loc 1 25 14 is_stmt 1 discriminator 1 view .LVU13
+  25:Core/Src/i2c_lcd.c **** 	{
+  75              		.loc 1 25 25 is_stmt 0 discriminator 1 view .LVU14
+  76 0022 731E     		subs	r3, r6, #1
+  25:Core/Src/i2c_lcd.c **** 	{
+  77              		.loc 1 25 2 discriminator 1 view .LVU15
+  78 0024 9C42     		cmp	r4, r3
+  79 0026 F6DB     		blt	.L3
+  28:Core/Src/i2c_lcd.c **** 	}
+  29:Core/Src/i2c_lcd.c **** 	pData[i] = IIC_Read_Byte(0);
+  80              		.loc 1 29 2 is_stmt 1 view .LVU16
+  81              		.loc 1 29 13 is_stmt 0 view .LVU17
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 3
+
+
+  82 0028 0020     		movs	r0, #0
+  83 002a FFF7FEFF 		bl	IIC_Read_Byte
+  84              	.LVL7:
+  85              		.loc 1 29 11 view .LVU18
+  86 002e 2855     		strb	r0, [r5, r4]
+  30:Core/Src/i2c_lcd.c **** 
+  31:Core/Src/i2c_lcd.c **** 	IIC_Stop();
+  87              		.loc 1 31 2 is_stmt 1 view .LVU19
+  88 0030 FFF7FEFF 		bl	IIC_Stop
+  89              	.LVL8:
+  32:Core/Src/i2c_lcd.c **** 
+  33:Core/Src/i2c_lcd.c **** 	return 1;
+  90              		.loc 1 33 2 view .LVU20
+  34:Core/Src/i2c_lcd.c **** }
+  91              		.loc 1 34 1 is_stmt 0 view .LVU21
+  92 0034 0120     		movs	r0, #1
+  93 0036 70BD     		pop	{r4, r5, r6, pc}
+  94              		.loc 1 34 1 view .LVU22
+  95              		.cfi_endproc
+  96              	.LFE130:
+  98              		.section	.text.I2C_Write,"ax",%progbits
+  99              		.align	1
+ 100              		.global	I2C_Write
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu fpv4-sp-d16
+ 106              	I2C_Write:
+ 107              	.LVL9:
+ 108              	.LFB131:
+  35:Core/Src/i2c_lcd.c **** 
+  36:Core/Src/i2c_lcd.c **** uint8_t I2C_Write(u8 Address, u8 *pData, u8 length)
+  37:Core/Src/i2c_lcd.c **** {
+ 109              		.loc 1 37 1 is_stmt 1 view -0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113              		.loc 1 37 1 is_stmt 0 view .LVU24
+ 114 0000 70B5     		push	{r4, r5, r6, lr}
+ 115              	.LCFI1:
+ 116              		.cfi_def_cfa_offset 16
+ 117              		.cfi_offset 4, -16
+ 118              		.cfi_offset 5, -12
+ 119              		.cfi_offset 6, -8
+ 120              		.cfi_offset 14, -4
+ 121 0002 0446     		mov	r4, r0
+ 122 0004 0E46     		mov	r6, r1
+ 123 0006 1546     		mov	r5, r2
+  38:Core/Src/i2c_lcd.c **** 	u8 i;
+ 124              		.loc 1 38 2 is_stmt 1 view .LVU25
+  39:Core/Src/i2c_lcd.c **** 
+  40:Core/Src/i2c_lcd.c **** 	IIC_Start();
+ 125              		.loc 1 40 2 view .LVU26
+ 126 0008 FFF7FEFF 		bl	IIC_Start
+ 127              	.LVL10:
+  41:Core/Src/i2c_lcd.c **** 
+  42:Core/Src/i2c_lcd.c **** 	IIC_Send_Byte(Address);
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 4
+
+
+ 128              		.loc 1 42 2 view .LVU27
+ 129 000c 2046     		mov	r0, r4
+ 130 000e FFF7FEFF 		bl	IIC_Send_Byte
+ 131              	.LVL11:
+  43:Core/Src/i2c_lcd.c **** 	for (i = 0; i < length; ++i)
+ 132              		.loc 1 43 2 view .LVU28
+ 133              		.loc 1 43 9 is_stmt 0 view .LVU29
+ 134 0012 0024     		movs	r4, #0
+ 135              		.loc 1 43 2 view .LVU30
+ 136 0014 04E0     		b	.L6
+ 137              	.LVL12:
+ 138              	.L7:
+  44:Core/Src/i2c_lcd.c **** 	{
+  45:Core/Src/i2c_lcd.c **** 		IIC_Send_Byte(pData[i]);
+ 139              		.loc 1 45 3 is_stmt 1 discriminator 3 view .LVU31
+ 140 0016 305D     		ldrb	r0, [r6, r4]	@ zero_extendqisi2
+ 141 0018 FFF7FEFF 		bl	IIC_Send_Byte
+ 142              	.LVL13:
+  43:Core/Src/i2c_lcd.c **** 	for (i = 0; i < length; ++i)
+ 143              		.loc 1 43 26 discriminator 3 view .LVU32
+ 144 001c 0134     		adds	r4, r4, #1
+ 145              	.LVL14:
+  43:Core/Src/i2c_lcd.c **** 	for (i = 0; i < length; ++i)
+ 146              		.loc 1 43 26 is_stmt 0 discriminator 3 view .LVU33
+ 147 001e E4B2     		uxtb	r4, r4
+ 148              	.LVL15:
+ 149              	.L6:
+  43:Core/Src/i2c_lcd.c **** 	for (i = 0; i < length; ++i)
+ 150              		.loc 1 43 14 is_stmt 1 discriminator 1 view .LVU34
+  43:Core/Src/i2c_lcd.c **** 	for (i = 0; i < length; ++i)
+ 151              		.loc 1 43 2 is_stmt 0 discriminator 1 view .LVU35
+ 152 0020 AC42     		cmp	r4, r5
+ 153 0022 F8D3     		bcc	.L7
+  46:Core/Src/i2c_lcd.c **** 	}
+  47:Core/Src/i2c_lcd.c **** 	IIC_Stop();
+ 154              		.loc 1 47 2 is_stmt 1 view .LVU36
+ 155 0024 FFF7FEFF 		bl	IIC_Stop
+ 156              	.LVL16:
+  48:Core/Src/i2c_lcd.c **** 
+  49:Core/Src/i2c_lcd.c **** 	return 1;
+ 157              		.loc 1 49 2 view .LVU37
+  50:Core/Src/i2c_lcd.c **** }
+ 158              		.loc 1 50 1 is_stmt 0 view .LVU38
+ 159 0028 0120     		movs	r0, #1
+ 160 002a 70BD     		pop	{r4, r5, r6, pc}
+ 161              		.loc 1 50 1 view .LVU39
+ 162              		.cfi_endproc
+ 163              	.LFE131:
+ 165              		.section	.text.I2C_LCD_FlushVal,"ax",%progbits
+ 166              		.align	1
+ 167              		.syntax unified
+ 168              		.thumb
+ 169              		.thumb_func
+ 170              		.fpu fpv4-sp-d16
+ 172              	I2C_LCD_FlushVal:
+ 173              	.LFB132:
+  51:Core/Src/i2c_lcd.c **** void I2C_LCD_FlushVal(void)
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 5
+
+
+  52:Core/Src/i2c_lcd.c **** {
+ 174              		.loc 1 52 1 is_stmt 1 view -0
+ 175              		.cfi_startproc
+ 176              		@ args = 0, pretend = 0, frame = 0
+ 177              		@ frame_needed = 0, uses_anonymous_args = 0
+ 178 0000 08B5     		push	{r3, lr}
+ 179              	.LCFI2:
+ 180              		.cfi_def_cfa_offset 8
+ 181              		.cfi_offset 3, -8
+ 182              		.cfi_offset 14, -4
+  53:Core/Src/i2c_lcd.c **** 	u8 i;
+ 183              		.loc 1 53 2 view .LVU41
+  54:Core/Src/i2c_lcd.c **** 
+  55:Core/Src/i2c_lcd.c **** 	for (i = 0; i < 8; ++i)
+ 184              		.loc 1 55 2 view .LVU42
+ 185              	.LVL17:
+ 186              		.loc 1 55 9 is_stmt 0 view .LVU43
+ 187 0002 0023     		movs	r3, #0
+ 188              		.loc 1 55 2 view .LVU44
+ 189 0004 01E0     		b	.L10
+ 190              	.LVL18:
+ 191              	.L11:
+ 192              		.loc 1 55 21 is_stmt 1 discriminator 2 view .LVU45
+ 193 0006 0133     		adds	r3, r3, #1
+ 194              	.LVL19:
+ 195              		.loc 1 55 21 is_stmt 0 discriminator 2 view .LVU46
+ 196 0008 DBB2     		uxtb	r3, r3
+ 197              	.LVL20:
+ 198              	.L10:
+ 199              		.loc 1 55 14 is_stmt 1 discriminator 1 view .LVU47
+ 200              		.loc 1 55 2 is_stmt 0 discriminator 1 view .LVU48
+ 201 000a 072B     		cmp	r3, #7
+ 202 000c 0CD8     		bhi	.L14
+  56:Core/Src/i2c_lcd.c **** 	{
+  57:Core/Src/i2c_lcd.c **** 		u8LcdTmp >>= 1;
+ 203              		.loc 1 57 3 is_stmt 1 view .LVU49
+ 204              		.loc 1 57 12 is_stmt 0 view .LVU50
+ 205 000e 0949     		ldr	r1, .L15
+ 206 0010 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+ 207 0012 5208     		lsrs	r2, r2, #1
+ 208 0014 0A70     		strb	r2, [r1]
+  58:Core/Src/i2c_lcd.c **** 		if (u8LCD_Buff[i])
+ 209              		.loc 1 58 3 is_stmt 1 view .LVU51
+ 210              		.loc 1 58 17 is_stmt 0 view .LVU52
+ 211 0016 0849     		ldr	r1, .L15+4
+ 212 0018 C95C     		ldrb	r1, [r1, r3]	@ zero_extendqisi2
+ 213              		.loc 1 58 6 view .LVU53
+ 214 001a 0029     		cmp	r1, #0
+ 215 001c F3D0     		beq	.L11
+  59:Core/Src/i2c_lcd.c **** 		{
+  60:Core/Src/i2c_lcd.c **** 			u8LcdTmp |= 0x80;
+ 216              		.loc 1 60 4 is_stmt 1 view .LVU54
+ 217              		.loc 1 60 13 is_stmt 0 view .LVU55
+ 218 001e 62F07F02 		orn	r2, r2, #127
+ 219 0022 0449     		ldr	r1, .L15
+ 220 0024 0A70     		strb	r2, [r1]
+ 221 0026 EEE7     		b	.L11
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 6
+
+
+ 222              	.L14:
+  61:Core/Src/i2c_lcd.c **** 		}
+  62:Core/Src/i2c_lcd.c **** 	}
+  63:Core/Src/i2c_lcd.c **** 	I2C_Write(I2C_LCD_ADDR, &u8LcdTmp, 1);
+ 223              		.loc 1 63 2 is_stmt 1 view .LVU56
+ 224 0028 0122     		movs	r2, #1
+ 225 002a 0249     		ldr	r1, .L15
+ 226 002c 4E20     		movs	r0, #78
+ 227 002e FFF7FEFF 		bl	I2C_Write
+ 228              	.LVL21:
+  64:Core/Src/i2c_lcd.c **** }
+ 229              		.loc 1 64 1 is_stmt 0 view .LVU57
+ 230 0032 08BD     		pop	{r3, pc}
+ 231              	.L16:
+ 232              		.align	2
+ 233              	.L15:
+ 234 0034 00000000 		.word	.LANCHOR0
+ 235 0038 00000000 		.word	.LANCHOR1
+ 236              		.cfi_endproc
+ 237              	.LFE132:
+ 239              		.section	.text.I2C_LCD_Write_4bit,"ax",%progbits
+ 240              		.align	1
+ 241              		.syntax unified
+ 242              		.thumb
+ 243              		.thumb_func
+ 244              		.fpu fpv4-sp-d16
+ 246              	I2C_LCD_Write_4bit:
+ 247              	.LVL22:
+ 248              	.LFB134:
+  65:Core/Src/i2c_lcd.c **** 
+  66:Core/Src/i2c_lcd.c **** void I2C_LCD_Init(void)
+  67:Core/Src/i2c_lcd.c **** {
+  68:Core/Src/i2c_lcd.c **** 	u8 i;
+  69:Core/Src/i2c_lcd.c **** 
+  70:Core/Src/i2c_lcd.c **** 	delay_ms(50);
+  71:Core/Src/i2c_lcd.c **** 
+  72:Core/Src/i2c_lcd.c **** 	IIC_Init();
+  73:Core/Src/i2c_lcd.c **** 
+  74:Core/Src/i2c_lcd.c **** 	for (i = 0; i < 8; ++i)
+  75:Core/Src/i2c_lcd.c **** 	{
+  76:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[i] = 0;
+  77:Core/Src/i2c_lcd.c **** 	}
+  78:Core/Src/i2c_lcd.c **** 
+  79:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+  80:Core/Src/i2c_lcd.c **** 
+  81:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RS] = 0;
+  82:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+  83:Core/Src/i2c_lcd.c **** 
+  84:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RW] = 0;
+  85:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+  86:Core/Src/i2c_lcd.c **** 
+  87:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(0x03);
+  88:Core/Src/i2c_lcd.c **** 	delay_ms(5);
+  89:Core/Src/i2c_lcd.c **** 
+  90:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(0x03);
+  91:Core/Src/i2c_lcd.c **** 	delay_ms(1);
+  92:Core/Src/i2c_lcd.c **** 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 7
+
+
+  93:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(0x03);
+  94:Core/Src/i2c_lcd.c **** 	delay_ms(1);
+  95:Core/Src/i2c_lcd.c **** 
+  96:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(MODE_4_BIT >> 4);
+  97:Core/Src/i2c_lcd.c **** 	delay_ms(1);
+  98:Core/Src/i2c_lcd.c **** 
+  99:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(MODE_4_BIT);
+ 100:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(DISP_ON);
+ 101:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(CURSOR_ON);
+ 102:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(CLR_SCR);
+ 103:Core/Src/i2c_lcd.c **** }
+ 104:Core/Src/i2c_lcd.c **** 
+ 105:Core/Src/i2c_lcd.c **** void I2C_LCD_Write_4bit(u8 u8Data)
+ 106:Core/Src/i2c_lcd.c **** {
+ 249              		.loc 1 106 1 is_stmt 1 view -0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253              		.loc 1 106 1 is_stmt 0 view .LVU59
+ 254 0000 10B5     		push	{r4, lr}
+ 255              	.LCFI3:
+ 256              		.cfi_def_cfa_offset 8
+ 257              		.cfi_offset 4, -8
+ 258              		.cfi_offset 14, -4
+ 107:Core/Src/i2c_lcd.c **** 	//4 bit can ghi chinh la 4 5 6 7
+ 108:Core/Src/i2c_lcd.c **** 	//dau tien gan LCD_E=1
+ 109:Core/Src/i2c_lcd.c **** 	//ghi du lieu
+ 110:Core/Src/i2c_lcd.c **** 	//sau do gan LCD_E=0
+ 111:Core/Src/i2c_lcd.c **** 
+ 112:Core/Src/i2c_lcd.c **** 	if (u8Data & 0x08)
+ 259              		.loc 1 112 2 is_stmt 1 view .LVU60
+ 260              		.loc 1 112 5 is_stmt 0 view .LVU61
+ 261 0002 10F0080F 		tst	r0, #8
+ 262 0006 1ED0     		beq	.L18
+ 113:Core/Src/i2c_lcd.c **** 	{
+ 114:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D7] = 1;
+ 263              		.loc 1 114 3 is_stmt 1 view .LVU62
+ 264              		.loc 1 114 22 is_stmt 0 view .LVU63
+ 265 0008 174B     		ldr	r3, .L27
+ 266 000a 0122     		movs	r2, #1
+ 267 000c DA71     		strb	r2, [r3, #7]
+ 268              	.L19:
+ 115:Core/Src/i2c_lcd.c **** 	}
+ 116:Core/Src/i2c_lcd.c **** 	else
+ 117:Core/Src/i2c_lcd.c **** 	{
+ 118:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D7] = 0;
+ 119:Core/Src/i2c_lcd.c **** 	}
+ 120:Core/Src/i2c_lcd.c **** 	if (u8Data & 0x04)
+ 269              		.loc 1 120 2 is_stmt 1 view .LVU64
+ 270              		.loc 1 120 5 is_stmt 0 view .LVU65
+ 271 000e 10F0040F 		tst	r0, #4
+ 272 0012 1CD0     		beq	.L20
+ 121:Core/Src/i2c_lcd.c **** 	{
+ 122:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D6] = 1;
+ 273              		.loc 1 122 3 is_stmt 1 view .LVU66
+ 274              		.loc 1 122 22 is_stmt 0 view .LVU67
+ 275 0014 144B     		ldr	r3, .L27
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 8
+
+
+ 276 0016 0122     		movs	r2, #1
+ 277 0018 9A71     		strb	r2, [r3, #6]
+ 278              	.L21:
+ 123:Core/Src/i2c_lcd.c **** 	}
+ 124:Core/Src/i2c_lcd.c **** 	else
+ 125:Core/Src/i2c_lcd.c **** 	{
+ 126:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D6] = 0;
+ 127:Core/Src/i2c_lcd.c **** 	}
+ 128:Core/Src/i2c_lcd.c **** 	if (u8Data & 0x02)
+ 279              		.loc 1 128 2 is_stmt 1 view .LVU68
+ 280              		.loc 1 128 5 is_stmt 0 view .LVU69
+ 281 001a 10F0020F 		tst	r0, #2
+ 282 001e 1AD0     		beq	.L22
+ 129:Core/Src/i2c_lcd.c **** 	{
+ 130:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D5] = 1;
+ 283              		.loc 1 130 3 is_stmt 1 view .LVU70
+ 284              		.loc 1 130 22 is_stmt 0 view .LVU71
+ 285 0020 114B     		ldr	r3, .L27
+ 286 0022 0122     		movs	r2, #1
+ 287 0024 5A71     		strb	r2, [r3, #5]
+ 288              	.L23:
+ 131:Core/Src/i2c_lcd.c **** 	}
+ 132:Core/Src/i2c_lcd.c **** 	else
+ 133:Core/Src/i2c_lcd.c **** 	{
+ 134:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D5] = 0;
+ 135:Core/Src/i2c_lcd.c **** 	}
+ 136:Core/Src/i2c_lcd.c **** 	if (u8Data & 0x01)
+ 289              		.loc 1 136 2 is_stmt 1 view .LVU72
+ 290              		.loc 1 136 5 is_stmt 0 view .LVU73
+ 291 0026 10F0010F 		tst	r0, #1
+ 292 002a 18D0     		beq	.L24
+ 137:Core/Src/i2c_lcd.c **** 	{
+ 138:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D4] = 1;
+ 293              		.loc 1 138 3 is_stmt 1 view .LVU74
+ 294              		.loc 1 138 22 is_stmt 0 view .LVU75
+ 295 002c 0E4B     		ldr	r3, .L27
+ 296 002e 0122     		movs	r2, #1
+ 297 0030 1A71     		strb	r2, [r3, #4]
+ 298              	.L25:
+ 139:Core/Src/i2c_lcd.c **** 	}
+ 140:Core/Src/i2c_lcd.c **** 	else
+ 141:Core/Src/i2c_lcd.c **** 	{
+ 142:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_D4] = 0;
+ 143:Core/Src/i2c_lcd.c **** 	}
+ 144:Core/Src/i2c_lcd.c **** 
+ 145:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_EN] = 1;
+ 299              		.loc 1 145 2 is_stmt 1 view .LVU76
+ 300              		.loc 1 145 21 is_stmt 0 view .LVU77
+ 301 0032 0D4C     		ldr	r4, .L27
+ 302 0034 0123     		movs	r3, #1
+ 303 0036 A370     		strb	r3, [r4, #2]
+ 146:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 304              		.loc 1 146 2 is_stmt 1 view .LVU78
+ 305 0038 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 306              	.LVL23:
+ 147:Core/Src/i2c_lcd.c **** 
+ 148:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_EN] = 0;
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 9
+
+
+ 307              		.loc 1 148 2 view .LVU79
+ 308              		.loc 1 148 21 is_stmt 0 view .LVU80
+ 309 003c 0023     		movs	r3, #0
+ 310 003e A370     		strb	r3, [r4, #2]
+ 149:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 311              		.loc 1 149 2 is_stmt 1 view .LVU81
+ 312 0040 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 313              	.LVL24:
+ 150:Core/Src/i2c_lcd.c **** }
+ 314              		.loc 1 150 1 is_stmt 0 view .LVU82
+ 315 0044 10BD     		pop	{r4, pc}
+ 316              	.LVL25:
+ 317              	.L18:
+ 118:Core/Src/i2c_lcd.c **** 	}
+ 318              		.loc 1 118 3 is_stmt 1 view .LVU83
+ 118:Core/Src/i2c_lcd.c **** 	}
+ 319              		.loc 1 118 22 is_stmt 0 view .LVU84
+ 320 0046 084B     		ldr	r3, .L27
+ 321 0048 0022     		movs	r2, #0
+ 322 004a DA71     		strb	r2, [r3, #7]
+ 323 004c DFE7     		b	.L19
+ 324              	.L20:
+ 126:Core/Src/i2c_lcd.c **** 	}
+ 325              		.loc 1 126 3 is_stmt 1 view .LVU85
+ 126:Core/Src/i2c_lcd.c **** 	}
+ 326              		.loc 1 126 22 is_stmt 0 view .LVU86
+ 327 004e 064B     		ldr	r3, .L27
+ 328 0050 0022     		movs	r2, #0
+ 329 0052 9A71     		strb	r2, [r3, #6]
+ 330 0054 E1E7     		b	.L21
+ 331              	.L22:
+ 134:Core/Src/i2c_lcd.c **** 	}
+ 332              		.loc 1 134 3 is_stmt 1 view .LVU87
+ 134:Core/Src/i2c_lcd.c **** 	}
+ 333              		.loc 1 134 22 is_stmt 0 view .LVU88
+ 334 0056 044B     		ldr	r3, .L27
+ 335 0058 0022     		movs	r2, #0
+ 336 005a 5A71     		strb	r2, [r3, #5]
+ 337 005c E3E7     		b	.L23
+ 338              	.L24:
+ 142:Core/Src/i2c_lcd.c **** 	}
+ 339              		.loc 1 142 3 is_stmt 1 view .LVU89
+ 142:Core/Src/i2c_lcd.c **** 	}
+ 340              		.loc 1 142 22 is_stmt 0 view .LVU90
+ 341 005e 024B     		ldr	r3, .L27
+ 342 0060 0022     		movs	r2, #0
+ 343 0062 1A71     		strb	r2, [r3, #4]
+ 344 0064 E5E7     		b	.L25
+ 345              	.L28:
+ 346 0066 00BF     		.align	2
+ 347              	.L27:
+ 348 0068 00000000 		.word	.LANCHOR1
+ 349              		.cfi_endproc
+ 350              	.LFE134:
+ 352              		.section	.text.LCD_WaitBusy,"ax",%progbits
+ 353              		.align	1
+ 354              		.global	LCD_WaitBusy
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 10
+
+
+ 355              		.syntax unified
+ 356              		.thumb
+ 357              		.thumb_func
+ 358              		.fpu fpv4-sp-d16
+ 360              	LCD_WaitBusy:
+ 361              	.LFB135:
+ 151:Core/Src/i2c_lcd.c **** 
+ 152:Core/Src/i2c_lcd.c **** void LCD_WaitBusy(void)
+ 153:Core/Src/i2c_lcd.c **** {
+ 362              		.loc 1 153 1 is_stmt 1 view -0
+ 363              		.cfi_startproc
+ 364              		@ args = 0, pretend = 0, frame = 8
+ 365              		@ frame_needed = 0, uses_anonymous_args = 0
+ 366 0000 70B5     		push	{r4, r5, r6, lr}
+ 367              	.LCFI4:
+ 368              		.cfi_def_cfa_offset 16
+ 369              		.cfi_offset 4, -16
+ 370              		.cfi_offset 5, -12
+ 371              		.cfi_offset 6, -8
+ 372              		.cfi_offset 14, -4
+ 373 0002 82B0     		sub	sp, sp, #8
+ 374              	.LCFI5:
+ 375              		.cfi_def_cfa_offset 24
+ 154:Core/Src/i2c_lcd.c **** 	char temp;
+ 376              		.loc 1 154 2 view .LVU92
+ 155:Core/Src/i2c_lcd.c **** 
+ 156:Core/Src/i2c_lcd.c **** 	//dau tien ghi tat ca 4 bit thap bang 1
+ 157:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_D4] = 1;
+ 377              		.loc 1 157 2 view .LVU93
+ 378              		.loc 1 157 21 is_stmt 0 view .LVU94
+ 379 0004 154C     		ldr	r4, .L32
+ 380 0006 0125     		movs	r5, #1
+ 381 0008 2571     		strb	r5, [r4, #4]
+ 158:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_D5] = 1;
+ 382              		.loc 1 158 2 is_stmt 1 view .LVU95
+ 383              		.loc 1 158 21 is_stmt 0 view .LVU96
+ 384 000a 6571     		strb	r5, [r4, #5]
+ 159:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_D6] = 1;
+ 385              		.loc 1 159 2 is_stmt 1 view .LVU97
+ 386              		.loc 1 159 21 is_stmt 0 view .LVU98
+ 387 000c A571     		strb	r5, [r4, #6]
+ 160:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_D7] = 1;
+ 388              		.loc 1 160 2 is_stmt 1 view .LVU99
+ 389              		.loc 1 160 21 is_stmt 0 view .LVU100
+ 390 000e E571     		strb	r5, [r4, #7]
+ 161:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 391              		.loc 1 161 2 is_stmt 1 view .LVU101
+ 392 0010 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 393              	.LVL26:
+ 162:Core/Src/i2c_lcd.c **** 
+ 163:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RS] = 0;
+ 394              		.loc 1 163 2 view .LVU102
+ 395              		.loc 1 163 21 is_stmt 0 view .LVU103
+ 396 0014 0023     		movs	r3, #0
+ 397 0016 2370     		strb	r3, [r4]
+ 164:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 398              		.loc 1 164 2 is_stmt 1 view .LVU104
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 11
+
+
+ 399 0018 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 400              	.LVL27:
+ 165:Core/Src/i2c_lcd.c **** 
+ 166:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RW] = 1;
+ 401              		.loc 1 166 2 view .LVU105
+ 402              		.loc 1 166 21 is_stmt 0 view .LVU106
+ 403 001c 6570     		strb	r5, [r4, #1]
+ 167:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 404              		.loc 1 167 2 is_stmt 1 view .LVU107
+ 405 001e FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 406              	.LVL28:
+ 407              	.L30:
+ 168:Core/Src/i2c_lcd.c **** 
+ 169:Core/Src/i2c_lcd.c **** 	do
+ 408              		.loc 1 169 2 discriminator 1 view .LVU108
+ 170:Core/Src/i2c_lcd.c **** 	{
+ 171:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_EN] = 1;
+ 409              		.loc 1 171 3 discriminator 1 view .LVU109
+ 410              		.loc 1 171 22 is_stmt 0 discriminator 1 view .LVU110
+ 411 0022 0E4C     		ldr	r4, .L32
+ 412 0024 0125     		movs	r5, #1
+ 413 0026 A570     		strb	r5, [r4, #2]
+ 172:Core/Src/i2c_lcd.c **** 		I2C_LCD_FlushVal();
+ 414              		.loc 1 172 3 is_stmt 1 discriminator 1 view .LVU111
+ 415 0028 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 416              	.LVL29:
+ 173:Core/Src/i2c_lcd.c **** 		I2C_Read(I2C_LCD_ADDR + 1, &temp, 1);
+ 417              		.loc 1 173 3 discriminator 1 view .LVU112
+ 418 002c 2A46     		mov	r2, r5
+ 419 002e 0DF10701 		add	r1, sp, #7
+ 420 0032 4F20     		movs	r0, #79
+ 421 0034 FFF7FEFF 		bl	I2C_Read
+ 422              	.LVL30:
+ 174:Core/Src/i2c_lcd.c **** 
+ 175:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_EN] = 0;
+ 423              		.loc 1 175 3 discriminator 1 view .LVU113
+ 424              		.loc 1 175 22 is_stmt 0 discriminator 1 view .LVU114
+ 425 0038 0026     		movs	r6, #0
+ 426 003a A670     		strb	r6, [r4, #2]
+ 176:Core/Src/i2c_lcd.c **** 		I2C_LCD_FlushVal();
+ 427              		.loc 1 176 3 is_stmt 1 discriminator 1 view .LVU115
+ 428 003c FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 429              	.LVL31:
+ 177:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_EN] = 1;
+ 430              		.loc 1 177 3 discriminator 1 view .LVU116
+ 431              		.loc 1 177 22 is_stmt 0 discriminator 1 view .LVU117
+ 432 0040 A570     		strb	r5, [r4, #2]
+ 178:Core/Src/i2c_lcd.c **** 		I2C_LCD_FlushVal();
+ 433              		.loc 1 178 3 is_stmt 1 discriminator 1 view .LVU118
+ 434 0042 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 435              	.LVL32:
+ 179:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_EN] = 0;
+ 436              		.loc 1 179 3 discriminator 1 view .LVU119
+ 437              		.loc 1 179 22 is_stmt 0 discriminator 1 view .LVU120
+ 438 0046 A670     		strb	r6, [r4, #2]
+ 180:Core/Src/i2c_lcd.c **** 		I2C_LCD_FlushVal();
+ 439              		.loc 1 180 3 is_stmt 1 discriminator 1 view .LVU121
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 12
+
+
+ 440 0048 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 441              	.LVL33:
+ 181:Core/Src/i2c_lcd.c **** 	} while (temp & 0x08);
+ 442              		.loc 1 181 10 discriminator 1 view .LVU122
+ 443              		.loc 1 181 16 is_stmt 0 discriminator 1 view .LVU123
+ 444 004c 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 445              		.loc 1 181 2 discriminator 1 view .LVU124
+ 446 0050 13F0080F 		tst	r3, #8
+ 447 0054 E5D1     		bne	.L30
+ 182:Core/Src/i2c_lcd.c **** }
+ 448              		.loc 1 182 1 view .LVU125
+ 449 0056 02B0     		add	sp, sp, #8
+ 450              	.LCFI6:
+ 451              		.cfi_def_cfa_offset 16
+ 452              		@ sp needed
+ 453 0058 70BD     		pop	{r4, r5, r6, pc}
+ 454              	.L33:
+ 455 005a 00BF     		.align	2
+ 456              	.L32:
+ 457 005c 00000000 		.word	.LANCHOR1
+ 458              		.cfi_endproc
+ 459              	.LFE135:
+ 461              		.section	.text.I2C_LCD_WriteCmd,"ax",%progbits
+ 462              		.align	1
+ 463              		.syntax unified
+ 464              		.thumb
+ 465              		.thumb_func
+ 466              		.fpu fpv4-sp-d16
+ 468              	I2C_LCD_WriteCmd:
+ 469              	.LVL34:
+ 470              	.LFB136:
+ 183:Core/Src/i2c_lcd.c **** 
+ 184:Core/Src/i2c_lcd.c **** void I2C_LCD_WriteCmd(u8 u8Cmd)
+ 185:Core/Src/i2c_lcd.c **** {
+ 471              		.loc 1 185 1 is_stmt 1 view -0
+ 472              		.cfi_startproc
+ 473              		@ args = 0, pretend = 0, frame = 0
+ 474              		@ frame_needed = 0, uses_anonymous_args = 0
+ 475              		.loc 1 185 1 is_stmt 0 view .LVU127
+ 476 0000 70B5     		push	{r4, r5, r6, lr}
+ 477              	.LCFI7:
+ 478              		.cfi_def_cfa_offset 16
+ 479              		.cfi_offset 4, -16
+ 480              		.cfi_offset 5, -12
+ 481              		.cfi_offset 6, -8
+ 482              		.cfi_offset 14, -4
+ 483 0002 0446     		mov	r4, r0
+ 186:Core/Src/i2c_lcd.c **** 
+ 187:Core/Src/i2c_lcd.c **** 	LCD_WaitBusy();
+ 484              		.loc 1 187 2 is_stmt 1 view .LVU128
+ 485 0004 FFF7FEFF 		bl	LCD_WaitBusy
+ 486              	.LVL35:
+ 188:Core/Src/i2c_lcd.c **** 
+ 189:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RS] = 0;
+ 487              		.loc 1 189 2 view .LVU129
+ 488              		.loc 1 189 21 is_stmt 0 view .LVU130
+ 489 0008 074D     		ldr	r5, .L36
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 13
+
+
+ 490 000a 0026     		movs	r6, #0
+ 491 000c 2E70     		strb	r6, [r5]
+ 190:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 492              		.loc 1 190 2 is_stmt 1 view .LVU131
+ 493 000e FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 494              	.LVL36:
+ 191:Core/Src/i2c_lcd.c **** 
+ 192:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RW] = 0;
+ 495              		.loc 1 192 2 view .LVU132
+ 496              		.loc 1 192 21 is_stmt 0 view .LVU133
+ 497 0012 6E70     		strb	r6, [r5, #1]
+ 193:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 498              		.loc 1 193 2 is_stmt 1 view .LVU134
+ 499 0014 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 500              	.LVL37:
+ 194:Core/Src/i2c_lcd.c **** 
+ 195:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(u8Cmd >> 4);
+ 501              		.loc 1 195 2 view .LVU135
+ 502 0018 2009     		lsrs	r0, r4, #4
+ 503 001a FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 504              	.LVL38:
+ 196:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(u8Cmd);
+ 505              		.loc 1 196 2 view .LVU136
+ 506 001e 2046     		mov	r0, r4
+ 507 0020 FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 508              	.LVL39:
+ 197:Core/Src/i2c_lcd.c **** }
+ 509              		.loc 1 197 1 is_stmt 0 view .LVU137
+ 510 0024 70BD     		pop	{r4, r5, r6, pc}
+ 511              	.L37:
+ 512 0026 00BF     		.align	2
+ 513              	.L36:
+ 514 0028 00000000 		.word	.LANCHOR1
+ 515              		.cfi_endproc
+ 516              	.LFE136:
+ 518              		.section	.text.I2C_LCD_Init,"ax",%progbits
+ 519              		.align	1
+ 520              		.global	I2C_LCD_Init
+ 521              		.syntax unified
+ 522              		.thumb
+ 523              		.thumb_func
+ 524              		.fpu fpv4-sp-d16
+ 526              	I2C_LCD_Init:
+ 527              	.LFB133:
+  67:Core/Src/i2c_lcd.c **** 	u8 i;
+ 528              		.loc 1 67 1 is_stmt 1 view -0
+ 529              		.cfi_startproc
+ 530              		@ args = 0, pretend = 0, frame = 0
+ 531              		@ frame_needed = 0, uses_anonymous_args = 0
+ 532 0000 38B5     		push	{r3, r4, r5, lr}
+ 533              	.LCFI8:
+ 534              		.cfi_def_cfa_offset 16
+ 535              		.cfi_offset 3, -16
+ 536              		.cfi_offset 4, -12
+ 537              		.cfi_offset 5, -8
+ 538              		.cfi_offset 14, -4
+  68:Core/Src/i2c_lcd.c **** 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 14
+
+
+ 539              		.loc 1 68 2 view .LVU139
+  70:Core/Src/i2c_lcd.c **** 
+ 540              		.loc 1 70 2 view .LVU140
+ 541 0002 3220     		movs	r0, #50
+ 542 0004 FFF7FEFF 		bl	delay_ms
+ 543              	.LVL40:
+  72:Core/Src/i2c_lcd.c **** 
+ 544              		.loc 1 72 2 view .LVU141
+ 545 0008 FFF7FEFF 		bl	IIC_Init
+ 546              	.LVL41:
+  74:Core/Src/i2c_lcd.c **** 	{
+ 547              		.loc 1 74 2 view .LVU142
+  74:Core/Src/i2c_lcd.c **** 	{
+ 548              		.loc 1 74 9 is_stmt 0 view .LVU143
+ 549 000c 0023     		movs	r3, #0
+  74:Core/Src/i2c_lcd.c **** 	{
+ 550              		.loc 1 74 2 view .LVU144
+ 551 000e 04E0     		b	.L39
+ 552              	.LVL42:
+ 553              	.L40:
+  76:Core/Src/i2c_lcd.c **** 	}
+ 554              		.loc 1 76 3 is_stmt 1 discriminator 3 view .LVU145
+  76:Core/Src/i2c_lcd.c **** 	}
+ 555              		.loc 1 76 17 is_stmt 0 discriminator 3 view .LVU146
+ 556 0010 1A4A     		ldr	r2, .L42
+ 557 0012 0021     		movs	r1, #0
+ 558 0014 D154     		strb	r1, [r2, r3]
+  74:Core/Src/i2c_lcd.c **** 	{
+ 559              		.loc 1 74 21 is_stmt 1 discriminator 3 view .LVU147
+ 560 0016 0133     		adds	r3, r3, #1
+ 561              	.LVL43:
+  74:Core/Src/i2c_lcd.c **** 	{
+ 562              		.loc 1 74 21 is_stmt 0 discriminator 3 view .LVU148
+ 563 0018 DBB2     		uxtb	r3, r3
+ 564              	.LVL44:
+ 565              	.L39:
+  74:Core/Src/i2c_lcd.c **** 	{
+ 566              		.loc 1 74 14 is_stmt 1 discriminator 1 view .LVU149
+  74:Core/Src/i2c_lcd.c **** 	{
+ 567              		.loc 1 74 2 is_stmt 0 discriminator 1 view .LVU150
+ 568 001a 072B     		cmp	r3, #7
+ 569 001c F8D9     		bls	.L40
+  79:Core/Src/i2c_lcd.c **** 
+ 570              		.loc 1 79 2 is_stmt 1 view .LVU151
+ 571 001e FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 572              	.LVL45:
+  81:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 573              		.loc 1 81 2 view .LVU152
+  81:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 574              		.loc 1 81 21 is_stmt 0 view .LVU153
+ 575 0022 164C     		ldr	r4, .L42
+ 576 0024 0025     		movs	r5, #0
+ 577 0026 2570     		strb	r5, [r4]
+  82:Core/Src/i2c_lcd.c **** 
+ 578              		.loc 1 82 2 is_stmt 1 view .LVU154
+ 579 0028 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 580              	.LVL46:
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 15
+
+
+  84:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 581              		.loc 1 84 2 view .LVU155
+  84:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 582              		.loc 1 84 21 is_stmt 0 view .LVU156
+ 583 002c 6570     		strb	r5, [r4, #1]
+  85:Core/Src/i2c_lcd.c **** 
+ 584              		.loc 1 85 2 is_stmt 1 view .LVU157
+ 585 002e FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 586              	.LVL47:
+  87:Core/Src/i2c_lcd.c **** 	delay_ms(5);
+ 587              		.loc 1 87 2 view .LVU158
+ 588 0032 0320     		movs	r0, #3
+ 589 0034 FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 590              	.LVL48:
+  88:Core/Src/i2c_lcd.c **** 
+ 591              		.loc 1 88 2 view .LVU159
+ 592 0038 0520     		movs	r0, #5
+ 593 003a FFF7FEFF 		bl	delay_ms
+ 594              	.LVL49:
+  90:Core/Src/i2c_lcd.c **** 	delay_ms(1);
+ 595              		.loc 1 90 2 view .LVU160
+ 596 003e 0320     		movs	r0, #3
+ 597 0040 FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 598              	.LVL50:
+  91:Core/Src/i2c_lcd.c **** 
+ 599              		.loc 1 91 2 view .LVU161
+ 600 0044 0120     		movs	r0, #1
+ 601 0046 FFF7FEFF 		bl	delay_ms
+ 602              	.LVL51:
+  93:Core/Src/i2c_lcd.c **** 	delay_ms(1);
+ 603              		.loc 1 93 2 view .LVU162
+ 604 004a 0320     		movs	r0, #3
+ 605 004c FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 606              	.LVL52:
+  94:Core/Src/i2c_lcd.c **** 
+ 607              		.loc 1 94 2 view .LVU163
+ 608 0050 0120     		movs	r0, #1
+ 609 0052 FFF7FEFF 		bl	delay_ms
+ 610              	.LVL53:
+  96:Core/Src/i2c_lcd.c **** 	delay_ms(1);
+ 611              		.loc 1 96 2 view .LVU164
+ 612 0056 0220     		movs	r0, #2
+ 613 0058 FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 614              	.LVL54:
+  97:Core/Src/i2c_lcd.c **** 
+ 615              		.loc 1 97 2 view .LVU165
+ 616 005c 0120     		movs	r0, #1
+ 617 005e FFF7FEFF 		bl	delay_ms
+ 618              	.LVL55:
+  99:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(DISP_ON);
+ 619              		.loc 1 99 2 view .LVU166
+ 620 0062 2820     		movs	r0, #40
+ 621 0064 FFF7FEFF 		bl	I2C_LCD_WriteCmd
+ 622              	.LVL56:
+ 100:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(CURSOR_ON);
+ 623              		.loc 1 100 2 view .LVU167
+ 624 0068 0C20     		movs	r0, #12
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 16
+
+
+ 625 006a FFF7FEFF 		bl	I2C_LCD_WriteCmd
+ 626              	.LVL57:
+ 101:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(CLR_SCR);
+ 627              		.loc 1 101 2 view .LVU168
+ 628 006e 0E20     		movs	r0, #14
+ 629 0070 FFF7FEFF 		bl	I2C_LCD_WriteCmd
+ 630              	.LVL58:
+ 102:Core/Src/i2c_lcd.c **** }
+ 631              		.loc 1 102 2 view .LVU169
+ 632 0074 0120     		movs	r0, #1
+ 633 0076 FFF7FEFF 		bl	I2C_LCD_WriteCmd
+ 634              	.LVL59:
+ 103:Core/Src/i2c_lcd.c **** 
+ 635              		.loc 1 103 1 is_stmt 0 view .LVU170
+ 636 007a 38BD     		pop	{r3, r4, r5, pc}
+ 637              	.L43:
+ 638              		.align	2
+ 639              	.L42:
+ 640 007c 00000000 		.word	.LANCHOR1
+ 641              		.cfi_endproc
+ 642              	.LFE133:
+ 644              		.section	.text.LCD_Write_Chr,"ax",%progbits
+ 645              		.align	1
+ 646              		.global	LCD_Write_Chr
+ 647              		.syntax unified
+ 648              		.thumb
+ 649              		.thumb_func
+ 650              		.fpu fpv4-sp-d16
+ 652              	LCD_Write_Chr:
+ 653              	.LVL60:
+ 654              	.LFB137:
+ 198:Core/Src/i2c_lcd.c **** 
+ 199:Core/Src/i2c_lcd.c **** void LCD_Write_Chr(char chr)
+ 200:Core/Src/i2c_lcd.c **** {
+ 655              		.loc 1 200 1 is_stmt 1 view -0
+ 656              		.cfi_startproc
+ 657              		@ args = 0, pretend = 0, frame = 0
+ 658              		@ frame_needed = 0, uses_anonymous_args = 0
+ 659              		.loc 1 200 1 is_stmt 0 view .LVU172
+ 660 0000 38B5     		push	{r3, r4, r5, lr}
+ 661              	.LCFI9:
+ 662              		.cfi_def_cfa_offset 16
+ 663              		.cfi_offset 3, -16
+ 664              		.cfi_offset 4, -12
+ 665              		.cfi_offset 5, -8
+ 666              		.cfi_offset 14, -4
+ 667 0002 0446     		mov	r4, r0
+ 201:Core/Src/i2c_lcd.c **** 
+ 202:Core/Src/i2c_lcd.c **** 	LCD_WaitBusy();
+ 668              		.loc 1 202 2 is_stmt 1 view .LVU173
+ 669 0004 FFF7FEFF 		bl	LCD_WaitBusy
+ 670              	.LVL61:
+ 203:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RS] = 1;
+ 671              		.loc 1 203 2 view .LVU174
+ 672              		.loc 1 203 21 is_stmt 0 view .LVU175
+ 673 0008 074D     		ldr	r5, .L46
+ 674 000a 0123     		movs	r3, #1
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 17
+
+
+ 675 000c 2B70     		strb	r3, [r5]
+ 204:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 676              		.loc 1 204 2 is_stmt 1 view .LVU176
+ 677 000e FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 678              	.LVL62:
+ 205:Core/Src/i2c_lcd.c **** 	u8LCD_Buff[LCD_RW] = 0;
+ 679              		.loc 1 205 2 view .LVU177
+ 680              		.loc 1 205 21 is_stmt 0 view .LVU178
+ 681 0012 0023     		movs	r3, #0
+ 682 0014 6B70     		strb	r3, [r5, #1]
+ 206:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 683              		.loc 1 206 2 is_stmt 1 view .LVU179
+ 684 0016 FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 685              	.LVL63:
+ 207:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(chr >> 4);
+ 686              		.loc 1 207 2 view .LVU180
+ 687 001a 2009     		lsrs	r0, r4, #4
+ 688 001c FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 689              	.LVL64:
+ 208:Core/Src/i2c_lcd.c **** 	I2C_LCD_Write_4bit(chr);
+ 690              		.loc 1 208 2 view .LVU181
+ 691 0020 2046     		mov	r0, r4
+ 692 0022 FFF7FEFF 		bl	I2C_LCD_Write_4bit
+ 693              	.LVL65:
+ 209:Core/Src/i2c_lcd.c **** }
+ 694              		.loc 1 209 1 is_stmt 0 view .LVU182
+ 695 0026 38BD     		pop	{r3, r4, r5, pc}
+ 696              	.L47:
+ 697              		.align	2
+ 698              	.L46:
+ 699 0028 00000000 		.word	.LANCHOR1
+ 700              		.cfi_endproc
+ 701              	.LFE137:
+ 703              		.section	.text.I2C_LCD_Puts,"ax",%progbits
+ 704              		.align	1
+ 705              		.global	I2C_LCD_Puts
+ 706              		.syntax unified
+ 707              		.thumb
+ 708              		.thumb_func
+ 709              		.fpu fpv4-sp-d16
+ 711              	I2C_LCD_Puts:
+ 712              	.LVL66:
+ 713              	.LFB138:
+ 210:Core/Src/i2c_lcd.c **** 
+ 211:Core/Src/i2c_lcd.c **** void I2C_LCD_Puts(char *sz)
+ 212:Core/Src/i2c_lcd.c **** {
+ 714              		.loc 1 212 1 is_stmt 1 view -0
+ 715              		.cfi_startproc
+ 716              		@ args = 0, pretend = 0, frame = 0
+ 717              		@ frame_needed = 0, uses_anonymous_args = 0
+ 718              		.loc 1 212 1 is_stmt 0 view .LVU184
+ 719 0000 10B5     		push	{r4, lr}
+ 720              	.LCFI10:
+ 721              		.cfi_def_cfa_offset 8
+ 722              		.cfi_offset 4, -8
+ 723              		.cfi_offset 14, -4
+ 724 0002 0446     		mov	r4, r0
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 18
+
+
+ 725 0004 02E0     		b	.L50
+ 726              	.LVL67:
+ 727              	.L52:
+ 213:Core/Src/i2c_lcd.c **** 
+ 214:Core/Src/i2c_lcd.c **** 	while (1)
+ 215:Core/Src/i2c_lcd.c **** 	{
+ 216:Core/Src/i2c_lcd.c **** 		if (*sz)
+ 217:Core/Src/i2c_lcd.c **** 		{
+ 218:Core/Src/i2c_lcd.c **** 			LCD_Write_Chr(*sz++);
+ 728              		.loc 1 218 4 is_stmt 1 view .LVU185
+ 729              		.loc 1 218 21 is_stmt 0 view .LVU186
+ 730 0006 0134     		adds	r4, r4, #1
+ 731              	.LVL68:
+ 732              		.loc 1 218 4 view .LVU187
+ 733 0008 FFF7FEFF 		bl	LCD_Write_Chr
+ 734              	.LVL69:
+ 214:Core/Src/i2c_lcd.c **** 	{
+ 735              		.loc 1 214 8 is_stmt 1 view .LVU188
+ 736              	.L50:
+ 214:Core/Src/i2c_lcd.c **** 	{
+ 737              		.loc 1 214 2 view .LVU189
+ 216:Core/Src/i2c_lcd.c **** 		{
+ 738              		.loc 1 216 3 view .LVU190
+ 216:Core/Src/i2c_lcd.c **** 		{
+ 739              		.loc 1 216 7 is_stmt 0 view .LVU191
+ 740 000c 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 216:Core/Src/i2c_lcd.c **** 		{
+ 741              		.loc 1 216 6 view .LVU192
+ 742 000e 0028     		cmp	r0, #0
+ 743 0010 F9D1     		bne	.L52
+ 219:Core/Src/i2c_lcd.c **** 		}
+ 220:Core/Src/i2c_lcd.c **** 		else
+ 221:Core/Src/i2c_lcd.c **** 		{
+ 222:Core/Src/i2c_lcd.c **** 			break;
+ 223:Core/Src/i2c_lcd.c **** 		}
+ 224:Core/Src/i2c_lcd.c **** 	}
+ 225:Core/Src/i2c_lcd.c **** }
+ 744              		.loc 1 225 1 view .LVU193
+ 745 0012 10BD     		pop	{r4, pc}
+ 746              		.loc 1 225 1 view .LVU194
+ 747              		.cfi_endproc
+ 748              	.LFE138:
+ 750              		.section	.text.I2C_LCD_Clear,"ax",%progbits
+ 751              		.align	1
+ 752              		.global	I2C_LCD_Clear
+ 753              		.syntax unified
+ 754              		.thumb
+ 755              		.thumb_func
+ 756              		.fpu fpv4-sp-d16
+ 758              	I2C_LCD_Clear:
+ 759              	.LFB139:
+ 226:Core/Src/i2c_lcd.c **** 
+ 227:Core/Src/i2c_lcd.c **** void I2C_LCD_Clear(void)
+ 228:Core/Src/i2c_lcd.c **** {
+ 760              		.loc 1 228 1 is_stmt 1 view -0
+ 761              		.cfi_startproc
+ 762              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 19
+
+
+ 763              		@ frame_needed = 0, uses_anonymous_args = 0
+ 764 0000 08B5     		push	{r3, lr}
+ 765              	.LCFI11:
+ 766              		.cfi_def_cfa_offset 8
+ 767              		.cfi_offset 3, -8
+ 768              		.cfi_offset 14, -4
+ 229:Core/Src/i2c_lcd.c **** 
+ 230:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(CLR_SCR);
+ 769              		.loc 1 230 2 view .LVU196
+ 770 0002 0120     		movs	r0, #1
+ 771 0004 FFF7FEFF 		bl	I2C_LCD_WriteCmd
+ 772              	.LVL70:
+ 231:Core/Src/i2c_lcd.c **** }
+ 773              		.loc 1 231 1 is_stmt 0 view .LVU197
+ 774 0008 08BD     		pop	{r3, pc}
+ 775              		.cfi_endproc
+ 776              	.LFE139:
+ 778              		.section	.text.I2C_LCD_NewLine,"ax",%progbits
+ 779              		.align	1
+ 780              		.global	I2C_LCD_NewLine
+ 781              		.syntax unified
+ 782              		.thumb
+ 783              		.thumb_func
+ 784              		.fpu fpv4-sp-d16
+ 786              	I2C_LCD_NewLine:
+ 787              	.LFB140:
+ 232:Core/Src/i2c_lcd.c **** 
+ 233:Core/Src/i2c_lcd.c **** void I2C_LCD_NewLine(void)
+ 234:Core/Src/i2c_lcd.c **** {
+ 788              		.loc 1 234 1 is_stmt 1 view -0
+ 789              		.cfi_startproc
+ 790              		@ args = 0, pretend = 0, frame = 0
+ 791              		@ frame_needed = 0, uses_anonymous_args = 0
+ 792 0000 08B5     		push	{r3, lr}
+ 793              	.LCFI12:
+ 794              		.cfi_def_cfa_offset 8
+ 795              		.cfi_offset 3, -8
+ 796              		.cfi_offset 14, -4
+ 235:Core/Src/i2c_lcd.c **** 
+ 236:Core/Src/i2c_lcd.c **** 	I2C_LCD_WriteCmd(0xc0);
+ 797              		.loc 1 236 2 view .LVU199
+ 798 0002 C020     		movs	r0, #192
+ 799 0004 FFF7FEFF 		bl	I2C_LCD_WriteCmd
+ 800              	.LVL71:
+ 237:Core/Src/i2c_lcd.c **** }
+ 801              		.loc 1 237 1 is_stmt 0 view .LVU200
+ 802 0008 08BD     		pop	{r3, pc}
+ 803              		.cfi_endproc
+ 804              	.LFE140:
+ 806              		.section	.text.I2C_LCD_BackLight,"ax",%progbits
+ 807              		.align	1
+ 808              		.global	I2C_LCD_BackLight
+ 809              		.syntax unified
+ 810              		.thumb
+ 811              		.thumb_func
+ 812              		.fpu fpv4-sp-d16
+ 814              	I2C_LCD_BackLight:
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 20
+
+
+ 815              	.LVL72:
+ 816              	.LFB141:
+ 238:Core/Src/i2c_lcd.c **** 
+ 239:Core/Src/i2c_lcd.c **** void I2C_LCD_BackLight(u8 u8BackLight)
+ 240:Core/Src/i2c_lcd.c **** {
+ 817              		.loc 1 240 1 is_stmt 1 view -0
+ 818              		.cfi_startproc
+ 819              		@ args = 0, pretend = 0, frame = 0
+ 820              		@ frame_needed = 0, uses_anonymous_args = 0
+ 821              		.loc 1 240 1 is_stmt 0 view .LVU202
+ 822 0000 08B5     		push	{r3, lr}
+ 823              	.LCFI13:
+ 824              		.cfi_def_cfa_offset 8
+ 825              		.cfi_offset 3, -8
+ 826              		.cfi_offset 14, -4
+ 241:Core/Src/i2c_lcd.c **** 
+ 242:Core/Src/i2c_lcd.c **** 	if (u8BackLight)
+ 827              		.loc 1 242 2 is_stmt 1 view .LVU203
+ 828              		.loc 1 242 5 is_stmt 0 view .LVU204
+ 829 0002 28B1     		cbz	r0, .L58
+ 243:Core/Src/i2c_lcd.c **** 	{
+ 244:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_BL] = 1;
+ 830              		.loc 1 244 3 is_stmt 1 view .LVU205
+ 831              		.loc 1 244 22 is_stmt 0 view .LVU206
+ 832 0004 044B     		ldr	r3, .L61
+ 833 0006 0122     		movs	r2, #1
+ 834 0008 DA70     		strb	r2, [r3, #3]
+ 835              	.L59:
+ 245:Core/Src/i2c_lcd.c **** 	}
+ 246:Core/Src/i2c_lcd.c **** 	else
+ 247:Core/Src/i2c_lcd.c **** 	{
+ 248:Core/Src/i2c_lcd.c **** 		u8LCD_Buff[LCD_BL] = 0;
+ 249:Core/Src/i2c_lcd.c **** 	}
+ 250:Core/Src/i2c_lcd.c **** 	I2C_LCD_FlushVal();
+ 836              		.loc 1 250 2 is_stmt 1 view .LVU207
+ 837 000a FFF7FEFF 		bl	I2C_LCD_FlushVal
+ 838              	.LVL73:
+ 251:Core/Src/i2c_lcd.c **** }
+ 839              		.loc 1 251 1 is_stmt 0 view .LVU208
+ 840 000e 08BD     		pop	{r3, pc}
+ 841              	.LVL74:
+ 842              	.L58:
+ 248:Core/Src/i2c_lcd.c **** 	}
+ 843              		.loc 1 248 3 is_stmt 1 view .LVU209
+ 248:Core/Src/i2c_lcd.c **** 	}
+ 844              		.loc 1 248 22 is_stmt 0 view .LVU210
+ 845 0010 014B     		ldr	r3, .L61
+ 846 0012 0022     		movs	r2, #0
+ 847 0014 DA70     		strb	r2, [r3, #3]
+ 848 0016 F8E7     		b	.L59
+ 849              	.L62:
+ 850              		.align	2
+ 851              	.L61:
+ 852 0018 00000000 		.word	.LANCHOR1
+ 853              		.cfi_endproc
+ 854              	.LFE141:
+ 856              		.section	.bss.u8LCD_Buff,"aw",%nobits
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 21
+
+
+ 857              		.align	2
+ 858              		.set	.LANCHOR1,. + 0
+ 861              	u8LCD_Buff:
+ 862 0000 00000000 		.space	8
+ 862      00000000 
+ 863              		.section	.bss.u8LcdTmp,"aw",%nobits
+ 864              		.set	.LANCHOR0,. + 0
+ 867              	u8LcdTmp:
+ 868 0000 00       		.space	1
+ 869              		.text
+ 870              	.Letext0:
+ 871              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 872              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 873              		.file 4 "Core/Inc/delay.h"
+ 874              		.file 5 "Core/Inc/iic.h"
+ 875              		.file 6 "Core/Inc/stm32f4xx.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 i2c_lcd.c
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:18     .text.I2C_Read:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:26     .text.I2C_Read:00000000 I2C_Read
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:99     .text.I2C_Write:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:106    .text.I2C_Write:00000000 I2C_Write
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:166    .text.I2C_LCD_FlushVal:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:172    .text.I2C_LCD_FlushVal:00000000 I2C_LCD_FlushVal
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:234    .text.I2C_LCD_FlushVal:00000034 $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:240    .text.I2C_LCD_Write_4bit:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:246    .text.I2C_LCD_Write_4bit:00000000 I2C_LCD_Write_4bit
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:348    .text.I2C_LCD_Write_4bit:00000068 $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:353    .text.LCD_WaitBusy:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:360    .text.LCD_WaitBusy:00000000 LCD_WaitBusy
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:457    .text.LCD_WaitBusy:0000005c $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:462    .text.I2C_LCD_WriteCmd:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:468    .text.I2C_LCD_WriteCmd:00000000 I2C_LCD_WriteCmd
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:514    .text.I2C_LCD_WriteCmd:00000028 $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:519    .text.I2C_LCD_Init:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:526    .text.I2C_LCD_Init:00000000 I2C_LCD_Init
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:640    .text.I2C_LCD_Init:0000007c $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:645    .text.LCD_Write_Chr:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:652    .text.LCD_Write_Chr:00000000 LCD_Write_Chr
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:699    .text.LCD_Write_Chr:00000028 $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:704    .text.I2C_LCD_Puts:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:711    .text.I2C_LCD_Puts:00000000 I2C_LCD_Puts
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:751    .text.I2C_LCD_Clear:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:758    .text.I2C_LCD_Clear:00000000 I2C_LCD_Clear
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:779    .text.I2C_LCD_NewLine:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:786    .text.I2C_LCD_NewLine:00000000 I2C_LCD_NewLine
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:807    .text.I2C_LCD_BackLight:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:814    .text.I2C_LCD_BackLight:00000000 I2C_LCD_BackLight
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:852    .text.I2C_LCD_BackLight:00000018 $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:857    .bss.u8LCD_Buff:00000000 $d
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:861    .bss.u8LCD_Buff:00000000 u8LCD_Buff
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:867    .bss.u8LcdTmp:00000000 u8LcdTmp
+C:\Users\savao\AppData\Local\Temp\cc2eTzl3.s:868    .bss.u8LcdTmp:00000000 $d
+
+UNDEFINED SYMBOLS
+IIC_Start
+IIC_Send_Byte
+IIC_Read_Byte
+IIC_Stop
+delay_ms
+IIC_Init

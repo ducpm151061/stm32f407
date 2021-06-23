@@ -1,0 +1,368 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 0D0A6865 		.ascii	"\015\012hello Phung Minh Duc\000"
+  20      6C6C6F20 
+  20      5068756E 
+  20      67204D69 
+  20      6E682044 
+  21 0017 00       		.align	2
+  22              	.LC1:
+  23 0018 0D0A5354 		.ascii	"\015\012STM32F407VxT6 time5\015\012\000"
+  23      4D333246 
+  23      34303756 
+  23      78543620 
+  23      74696D65 
+  24              		.align	2
+  25              	.LC2:
+  26 0030 53544D33 		.ascii	"STM32F407VxT6 time2\015\012\000"
+  26      32463430 
+  26      37567854 
+  26      36207469 
+  26      6D65320D 
+  27 0046 0000     		.align	2
+  28              	.LC3:
+  29 0048 0D0A4B45 		.ascii	"\015\012KEY0da duoc an\015\012\000"
+  29      59306461 
+  29      2064756F 
+  29      6320616E 
+  29      0D0A00
+  30              		.section	.text.main,"ax",%progbits
+  31              		.align	1
+  32              		.global	main
+  33              		.arch armv7e-m
+  34              		.syntax unified
+  35              		.thumb
+  36              		.thumb_func
+  37              		.fpu fpv4-sp-d16
+  39              	main:
+  40              	.LFB133:
+  41              		.file 1 "Core/Src/main.c"
+   1:Core/Src/main.c **** //////////////////////////////////////////////////////////////////////////////////
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s 			page 2
+
+
+   2:Core/Src/main.c **** //本程序只供学习使用，未经作者许可，不得用于其它商业用途
+   3:Core/Src/main.c **** //测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MH
+   4:Core/Src/main.c **** //QDtech-TFT液晶驱动 for STM32 FSMC
+   5:Core/Src/main.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/main.c **** //公司网站:www.qdtft.com
+   7:Core/Src/main.c **** //wiki技术资料网站：http://www.lcdwiki.com
+   8:Core/Src/main.c **** //我司提供技术支持，任何技术问题欢迎随时交流学习
+   9:Core/Src/main.c **** //固话(传真) :+86 0755-21077707
+  10:Core/Src/main.c **** //手机: (销售)18823372746 （技术)15989313508
+  11:Core/Src/main.c **** //邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
+  12:Core/Src/main.c **** //QQ:(售前咨询)3002706772 (技术支持)3002778157
+  13:Core/Src/main.c **** //技术交流QQ群:778679828
+  14:Core/Src/main.c **** //创建日期:2020/06/29
+  15:Core/Src/main.c **** //版本：V1.0
+  16:Core/Src/main.c **** //版权所有，盗版必究。
+  17:Core/Src/main.c **** //Copyright(C) 深圳市全动电子技术有限公司 2018-2028
+  18:Core/Src/main.c **** //All rights reserved
+  19:Core/Src/main.c **** /************************************************************************************
+  20:Core/Src/main.c **** //STM32F407VxT6最小系统开发板串口示例
+  21:Core/Src/main.c **** //LED0       --->   PA1
+  22:Core/Src/main.c **** //LED1       --->   PC5
+  23:Core/Src/main.c **** //KEY0       --->   PE4
+  24:Core/Src/main.c **** //KEY_UP     --->   PA0
+  25:Core/Src/main.c **** //USART1_TX  --->   PA9
+  26:Core/Src/main.c **** //USART1_RX  --->   PA10
+  27:Core/Src/main.c **** *************************************************************************************/
+  28:Core/Src/main.c **** /* @attention
+  29:Core/Src/main.c ****   *
+  30:Core/Src/main.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  31:Core/Src/main.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  32:Core/Src/main.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  33:Core/Src/main.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  34:Core/Src/main.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  35:Core/Src/main.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  36:Core/Src/main.c **** *************************************************************************************/
+  37:Core/Src/main.c **** #include "delay.h"
+  38:Core/Src/main.c **** #include "sys.h"
+  39:Core/Src/main.c **** #include "usart.h"
+  40:Core/Src/main.c **** #include "led.h"
+  41:Core/Src/main.c **** #include "key.h"
+  42:Core/Src/main.c **** 
+  43:Core/Src/main.c **** int main(void)
+  44:Core/Src/main.c **** {
+  42              		.loc 1 44 1 view -0
+  43              		.cfi_startproc
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 0, uses_anonymous_args = 0
+  46 0000 10B5     		push	{r4, lr}
+  47              	.LCFI0:
+  48              		.cfi_def_cfa_offset 8
+  49              		.cfi_offset 4, -8
+  50              		.cfi_offset 14, -4
+  45:Core/Src/main.c **** 	u8 count;
+  51              		.loc 1 45 2 view .LVU1
+  46:Core/Src/main.c **** 	u16 rlen = 0, times = 0;
+  52              		.loc 1 46 2 view .LVU2
+  53              	.LVL0:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s 			page 3
+
+
+  47:Core/Src/main.c **** 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置系统中断优先级分组2
+  54              		.loc 1 47 2 view .LVU3
+  55 0002 4FF4A060 		mov	r0, #1280
+  56 0006 FFF7FEFF 		bl	NVIC_PriorityGroupConfig
+  57              	.LVL1:
+  48:Core/Src/main.c **** 	delay_init(168);								//初始化延时函数
+  58              		.loc 1 48 2 view .LVU4
+  59 000a A820     		movs	r0, #168
+  60 000c FFF7FEFF 		bl	delay_init
+  61              	.LVL2:
+  49:Core/Src/main.c **** 	USART1_Init(115200);							//初始化串口1
+  62              		.loc 1 49 2 view .LVU5
+  63 0010 4FF4E130 		mov	r0, #115200
+  64 0014 FFF7FEFF 		bl	USART1_Init
+  65              	.LVL3:
+  50:Core/Src/main.c **** 	KEY_Init();										//初始化按键GPIO
+  66              		.loc 1 50 2 view .LVU6
+  67 0018 FFF7FEFF 		bl	KEY_Init
+  68              	.LVL4:
+  51:Core/Src/main.c **** 	LED_Init();										//初始化LED灯GPIO
+  69              		.loc 1 51 2 view .LVU7
+  70 001c FFF7FEFF 		bl	LED_Init
+  71              	.LVL5:
+  46:Core/Src/main.c **** 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置系统中断优先级分组2
+  72              		.loc 1 46 16 is_stmt 0 view .LVU8
+  73 0020 0024     		movs	r4, #0
+  74 0022 19E0     		b	.L2
+  75              	.LVL6:
+  76              	.L11:
+  52:Core/Src/main.c **** 	while (1)
+  53:Core/Src/main.c **** 	{
+  54:Core/Src/main.c **** 		// USART1_Send("%d",count);
+  55:Core/Src/main.c **** 		count++;
+  56:Core/Src/main.c **** 		if (USART_RX_STA & 0x8000)
+  57:Core/Src/main.c **** 		{
+  58:Core/Src/main.c **** 			rlen = USART_RX_STA & 0x3fff; //得到此次接收到的数据长度
+  77              		.loc 1 58 4 is_stmt 1 view .LVU9
+  59:Core/Src/main.c **** 			USART1_Send("\r\nhello Phung Minh Duc");
+  78              		.loc 1 59 4 view .LVU10
+  79 0024 2848     		ldr	r0, .L14
+  80 0026 FFF7FEFF 		bl	USART1_Send
+  81              	.LVL7:
+  60:Core/Src/main.c **** 			// USART1_Send("%.*s\r\n\r\n", rlen, USART_RX_BUF); //发送输入的内容
+  61:Core/Src/main.c **** 			USART_RX_STA = 0;
+  82              		.loc 1 61 4 view .LVU11
+  83              		.loc 1 61 17 is_stmt 0 view .LVU12
+  84 002a 284B     		ldr	r3, .L14+4
+  85 002c 0022     		movs	r2, #0
+  86 002e 1A80     		strh	r2, [r3]	@ movhi
+  87 0030 0AE0     		b	.L4
+  88              	.L12:
+  62:Core/Src/main.c **** 		}
+  63:Core/Src/main.c **** 		else
+  64:Core/Src/main.c **** 		{
+  65:Core/Src/main.c **** 			times++;
+  66:Core/Src/main.c **** 			if (times % 5000 == 0)
+  67:Core/Src/main.c **** 			{
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s 			page 4
+
+
+  68:Core/Src/main.c **** 				USART1_Send("\r\nSTM32F407VxT6 time5\r\n");
+  89              		.loc 1 68 5 is_stmt 1 view .LVU13
+  90 0032 2748     		ldr	r0, .L14+8
+  91 0034 FFF7FEFF 		bl	USART1_Send
+  92              	.LVL8:
+  93 0038 20E0     		b	.L5
+  94              	.L13:
+  69:Core/Src/main.c **** 			}
+  70:Core/Src/main.c **** 			if (times % 200 == 0)
+  71:Core/Src/main.c **** 				USART1_Send("STM32F407VxT6 time2\r\n");
+  95              		.loc 1 71 5 view .LVU14
+  96 003a 2648     		ldr	r0, .L14+12
+  97 003c FFF7FEFF 		bl	USART1_Send
+  98              	.LVL9:
+  99 0040 26E0     		b	.L6
+ 100              	.L7:
+  72:Core/Src/main.c **** 			if (times % 30 == 0)
+  73:Core/Src/main.c **** 				LED0 = !LED0; //闪烁LED,提示系统正在运行.
+  74:Core/Src/main.c **** 			delay_ms(10);
+ 101              		.loc 1 74 4 view .LVU15
+ 102 0042 0A20     		movs	r0, #10
+ 103 0044 FFF7FEFF 		bl	delay_ms
+ 104              	.LVL10:
+ 105              	.L4:
+  75:Core/Src/main.c **** 		}
+  76:Core/Src/main.c **** 		if (KEY_Scan(0) == KEY0_VALUE) //按下KEY0按键
+ 106              		.loc 1 76 3 view .LVU16
+ 107              		.loc 1 76 7 is_stmt 0 view .LVU17
+ 108 0048 0020     		movs	r0, #0
+ 109 004a FFF7FEFF 		bl	KEY_Scan
+ 110              	.LVL11:
+ 111              		.loc 1 76 22 view .LVU18
+ 112 004e 224B     		ldr	r3, .L14+16
+ 113 0050 D3F81032 		ldr	r3, [r3, #528]
+ 114              		.loc 1 76 6 view .LVU19
+ 115 0054 9842     		cmp	r0, r3
+ 116 0056 30D0     		beq	.L10
+ 117              	.LVL12:
+ 118              	.L2:
+  52:Core/Src/main.c **** 	{
+ 119              		.loc 1 52 2 is_stmt 1 view .LVU20
+  55:Core/Src/main.c **** 		if (USART_RX_STA & 0x8000)
+ 120              		.loc 1 55 3 view .LVU21
+  56:Core/Src/main.c **** 		{
+ 121              		.loc 1 56 3 view .LVU22
+  56:Core/Src/main.c **** 		{
+ 122              		.loc 1 56 7 is_stmt 0 view .LVU23
+ 123 0058 1C4B     		ldr	r3, .L14+4
+ 124 005a B3F90030 		ldrsh	r3, [r3]
+  56:Core/Src/main.c **** 		{
+ 125              		.loc 1 56 6 view .LVU24
+ 126 005e 002B     		cmp	r3, #0
+ 127 0060 E0DB     		blt	.L11
+  65:Core/Src/main.c **** 			if (times % 5000 == 0)
+ 128              		.loc 1 65 4 is_stmt 1 view .LVU25
+  65:Core/Src/main.c **** 			if (times % 5000 == 0)
+ 129              		.loc 1 65 9 is_stmt 0 view .LVU26
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s 			page 5
+
+
+ 130 0062 0134     		adds	r4, r4, #1
+ 131              	.LVL13:
+  65:Core/Src/main.c **** 			if (times % 5000 == 0)
+ 132              		.loc 1 65 9 view .LVU27
+ 133 0064 A4B2     		uxth	r4, r4
+ 134              	.LVL14:
+  66:Core/Src/main.c **** 			{
+ 135              		.loc 1 66 4 is_stmt 1 view .LVU28
+  66:Core/Src/main.c **** 			{
+ 136              		.loc 1 66 21 is_stmt 0 view .LVU29
+ 137 0066 1D4B     		ldr	r3, .L14+20
+ 138 0068 A3FB0423 		umull	r2, r3, r3, r4
+ 139 006c 1B0B     		lsrs	r3, r3, #12
+ 140 006e 41F28832 		movw	r2, #5000
+ 141 0072 02FB1343 		mls	r3, r2, r3, r4
+ 142 0076 9BB2     		uxth	r3, r3
+  66:Core/Src/main.c **** 			{
+ 143              		.loc 1 66 7 view .LVU30
+ 144 0078 002B     		cmp	r3, #0
+ 145 007a DAD0     		beq	.L12
+ 146              	.L5:
+  70:Core/Src/main.c **** 				USART1_Send("STM32F407VxT6 time2\r\n");
+ 147              		.loc 1 70 4 is_stmt 1 view .LVU31
+  70:Core/Src/main.c **** 				USART1_Send("STM32F407VxT6 time2\r\n");
+ 148              		.loc 1 70 20 is_stmt 0 view .LVU32
+ 149 007c 184B     		ldr	r3, .L14+24
+ 150 007e A3FB0423 		umull	r2, r3, r3, r4
+ 151 0082 9B09     		lsrs	r3, r3, #6
+ 152 0084 C822     		movs	r2, #200
+ 153 0086 02FB1343 		mls	r3, r2, r3, r4
+ 154 008a 9BB2     		uxth	r3, r3
+  70:Core/Src/main.c **** 				USART1_Send("STM32F407VxT6 time2\r\n");
+ 155              		.loc 1 70 7 view .LVU33
+ 156 008c 002B     		cmp	r3, #0
+ 157 008e D4D0     		beq	.L13
+ 158              	.L6:
+  72:Core/Src/main.c **** 				LED0 = !LED0; //闪烁LED,提示系统正在运行.
+ 159              		.loc 1 72 4 is_stmt 1 view .LVU34
+  72:Core/Src/main.c **** 				LED0 = !LED0; //闪烁LED,提示系统正在运行.
+ 160              		.loc 1 72 19 is_stmt 0 view .LVU35
+ 161 0090 144A     		ldr	r2, .L14+28
+ 162 0092 A2FB0432 		umull	r3, r2, r2, r4
+ 163 0096 22F00F03 		bic	r3, r2, #15
+ 164 009a A3EB1213 		sub	r3, r3, r2, lsr #4
+ 165 009e A4EB4303 		sub	r3, r4, r3, lsl #1
+ 166 00a2 9BB2     		uxth	r3, r3
+  72:Core/Src/main.c **** 				LED0 = !LED0; //闪烁LED,提示系统正在运行.
+ 167              		.loc 1 72 7 view .LVU36
+ 168 00a4 002B     		cmp	r3, #0
+ 169 00a6 CCD1     		bne	.L7
+  73:Core/Src/main.c **** 			delay_ms(10);
+ 170              		.loc 1 73 5 is_stmt 1 view .LVU37
+  73:Core/Src/main.c **** 			delay_ms(10);
+ 171              		.loc 1 73 13 is_stmt 0 view .LVU38
+ 172 00a8 0F4A     		ldr	r2, .L14+32
+ 173 00aa D2F88432 		ldr	r3, [r2, #644]
+  73:Core/Src/main.c **** 			delay_ms(10);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s 			page 6
+
+
+ 174              		.loc 1 73 12 view .LVU39
+ 175 00ae B3FA83F3 		clz	r3, r3
+ 176 00b2 5B09     		lsrs	r3, r3, #5
+  73:Core/Src/main.c **** 			delay_ms(10);
+ 177              		.loc 1 73 10 view .LVU40
+ 178 00b4 C2F88432 		str	r3, [r2, #644]
+ 179 00b8 C3E7     		b	.L7
+ 180              	.L10:
+  77:Core/Src/main.c **** 		{
+  78:Core/Src/main.c **** 			delay_ms(200); //放在连续输出
+ 181              		.loc 1 78 4 is_stmt 1 view .LVU41
+ 182 00ba C820     		movs	r0, #200
+ 183 00bc FFF7FEFF 		bl	delay_ms
+ 184              	.LVL15:
+  79:Core/Src/main.c **** 			USART1_Send("\r\nKEY0da duoc an\r\n");
+ 185              		.loc 1 79 4 view .LVU42
+ 186 00c0 0A48     		ldr	r0, .L14+36
+ 187 00c2 FFF7FEFF 		bl	USART1_Send
+ 188              	.LVL16:
+ 189 00c6 C7E7     		b	.L2
+ 190              	.L15:
+ 191              		.align	2
+ 192              	.L14:
+ 193 00c8 00000000 		.word	.LC0
+ 194 00cc 00000000 		.word	USART_RX_STA
+ 195 00d0 18000000 		.word	.LC1
+ 196 00d4 30000000 		.word	.LC2
+ 197 00d8 00004242 		.word	1111621632
+ 198 00dc 5917B7D1 		.word	-776530087
+ 199 00e0 1F85EB51 		.word	1374389535
+ 200 00e4 89888888 		.word	-2004318071
+ 201 00e8 00004042 		.word	1111490560
+ 202 00ec 48000000 		.word	.LC3
+ 203              		.cfi_endproc
+ 204              	.LFE133:
+ 206              		.text
+ 207              	.Letext0:
+ 208              		.file 2 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 209              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 210              		.file 4 "Core/Inc/stm32f4xx.h"
+ 211              		.file 5 "Core/Inc/usart.h"
+ 212              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/misc.h"
+ 213              		.file 7 "Core/Inc/delay.h"
+ 214              		.file 8 "Core/Inc/key.h"
+ 215              		.file 9 "Core/Inc/led.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s:18     .rodata.main.str1.4:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s:31     .text.main:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s:39     .text.main:00000000 main
+C:\Users\ADMIN\AppData\Local\Temp\ccv8VYLu.s:193    .text.main:000000c8 $d
+
+UNDEFINED SYMBOLS
+NVIC_PriorityGroupConfig
+delay_init
+USART1_Init
+KEY_Init
+LED_Init
+USART1_Send
+delay_ms
+KEY_Scan
+USART_RX_STA

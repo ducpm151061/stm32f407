@@ -1,0 +1,192 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cckDOyXg.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"led.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.LED_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	LED_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	LED_Init:
+  27              	.LFB130:
+  28              		.file 1 "Core/Src/led.c"
+   1:Core/Src/led.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/led.c **** //本程序只供学习使用，未经作者许可，不得用于其它商业用途
+   3:Core/Src/led.c **** //测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
+   4:Core/Src/led.c **** //QDtech-TFT液晶驱动 for STM32 FSMC
+   5:Core/Src/led.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/led.c **** //公司网站:www.qdtft.com
+   7:Core/Src/led.c **** //wiki技术资料网站：http://www.lcdwiki.com
+   8:Core/Src/led.c **** //我司提供技术支持，任何技术问题欢迎随时交流学习
+   9:Core/Src/led.c **** //固话(传真) :+86 0755-21077707 
+  10:Core/Src/led.c **** //手机: (销售)18823372746 （技术)15989313508
+  11:Core/Src/led.c **** //邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
+  12:Core/Src/led.c **** //QQ:(售前咨询)3002706772 (技术支持)3002778157
+  13:Core/Src/led.c **** //技术交流QQ群:778679828
+  14:Core/Src/led.c **** //创建日期:2020/06/29
+  15:Core/Src/led.c **** //版本：V1.0
+  16:Core/Src/led.c **** //版权所有，盗版必究。
+  17:Core/Src/led.c **** //Copyright(C) 深圳市全动电子技术有限公司 2018-2028
+  18:Core/Src/led.c **** //All rights reserved
+  19:Core/Src/led.c **** /************************************************************************************
+  20:Core/Src/led.c **** //STM32F407VxT6最小系统开发板按键示例
+  21:Core/Src/led.c **** //LED0   --->   PA1
+  22:Core/Src/led.c **** //LED1   --->   PC5
+  23:Core/Src/led.c **** //KEY0   --->   PE4
+  24:Core/Src/led.c **** //KEY_UP --->   PA0
+  25:Core/Src/led.c **** *************************************************************************************/	
+  26:Core/Src/led.c ****  /* @attention
+  27:Core/Src/led.c ****   *
+  28:Core/Src/led.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  29:Core/Src/led.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  30:Core/Src/led.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cckDOyXg.s 			page 2
+
+
+  31:Core/Src/led.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  32:Core/Src/led.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  33:Core/Src/led.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  34:Core/Src/led.c **** *************************************************************************************/
+  35:Core/Src/led.c **** #include "led.h" 
+  36:Core/Src/led.c **** 
+  37:Core/Src/led.c **** /*****************************************************************************
+  38:Core/Src/led.c ****  * @name       :void LED_Init(void)
+  39:Core/Src/led.c ****  * @date       :2020-05-08 
+  40:Core/Src/led.c ****  * @function   :Initialize LED GPIO
+  41:Core/Src/led.c ****  * @parameters :None
+  42:Core/Src/led.c ****  * @retvalue   :None
+  43:Core/Src/led.c **** ******************************************************************************/	 
+  44:Core/Src/led.c **** void LED_Init(void)
+  45:Core/Src/led.c **** {    	 
+  29              		.loc 1 45 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 12
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
+  38              		.cfi_offset 14, -4
+  39 0002 83B0     		sub	sp, sp, #12
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 24
+  46:Core/Src/led.c ****   GPIO_InitTypeDef GPIO_InitStructure;
+  42              		.loc 1 46 3 view .LVU1
+  47:Core/Src/led.c ****   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA|RCC_AHB1Periph_GPIOC, ENABLE);//使能GPIOA、GPIOC时钟
+  43              		.loc 1 47 3 view .LVU2
+  44 0004 0121     		movs	r1, #1
+  45 0006 0520     		movs	r0, #5
+  46 0008 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+  47              	.LVL0:
+  48:Core/Src/led.c ****   //PA1,PC5初始化设置
+  49:Core/Src/led.c ****   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;          //LED0对应IO口
+  48              		.loc 1 49 3 view .LVU3
+  49              		.loc 1 49 31 is_stmt 0 view .LVU4
+  50 000c 0225     		movs	r5, #2
+  51 000e 0095     		str	r5, [sp]
+  50:Core/Src/led.c ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;      //普通输出模式
+  52              		.loc 1 50 3 is_stmt 1 view .LVU5
+  53              		.loc 1 50 32 is_stmt 0 view .LVU6
+  54 0010 0123     		movs	r3, #1
+  55 0012 8DF80430 		strb	r3, [sp, #4]
+  51:Core/Src/led.c ****   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;     //推挽输出
+  56              		.loc 1 51 3 is_stmt 1 view .LVU7
+  57              		.loc 1 51 33 is_stmt 0 view .LVU8
+  58 0016 0022     		movs	r2, #0
+  59 0018 8DF80620 		strb	r2, [sp, #6]
+  52:Core/Src/led.c ****   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; //100MHz
+  60              		.loc 1 52 3 is_stmt 1 view .LVU9
+  61              		.loc 1 52 33 is_stmt 0 view .LVU10
+  62 001c 0322     		movs	r2, #3
+  63 001e 8DF80520 		strb	r2, [sp, #5]
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cckDOyXg.s 			page 3
+
+
+  53:Core/Src/led.c ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;       //上拉
+  64              		.loc 1 53 3 is_stmt 1 view .LVU11
+  65              		.loc 1 53 32 is_stmt 0 view .LVU12
+  66 0022 8DF80730 		strb	r3, [sp, #7]
+  54:Core/Src/led.c ****   GPIO_Init(GPIOA, &GPIO_InitStructure);             //初始化GPIOA
+  67              		.loc 1 54 3 is_stmt 1 view .LVU13
+  68 0026 0B4C     		ldr	r4, .L3
+  69 0028 6946     		mov	r1, sp
+  70 002a 2046     		mov	r0, r4
+  71 002c FFF7FEFF 		bl	GPIO_Init
+  72              	.LVL1:
+  55:Core/Src/led.c **** 	GPIO_SetBits(GPIOA,GPIO_Pin_1);                    //PA1设置高，LED0灯灭
+  73              		.loc 1 55 2 view .LVU14
+  74 0030 2946     		mov	r1, r5
+  75 0032 2046     		mov	r0, r4
+  76 0034 FFF7FEFF 		bl	GPIO_SetBits
+  77              	.LVL2:
+  56:Core/Src/led.c **** 	
+  57:Core/Src/led.c **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;          //LED1对应IO口
+  78              		.loc 1 57 2 view .LVU15
+  79              		.loc 1 57 30 is_stmt 0 view .LVU16
+  80 0038 2025     		movs	r5, #32
+  81 003a 0095     		str	r5, [sp]
+  58:Core/Src/led.c **** 	GPIO_Init(GPIOC, &GPIO_InitStructure);             //初始化GPIOC	
+  82              		.loc 1 58 2 is_stmt 1 view .LVU17
+  83 003c 04F50064 		add	r4, r4, #2048
+  84 0040 6946     		mov	r1, sp
+  85 0042 2046     		mov	r0, r4
+  86 0044 FFF7FEFF 		bl	GPIO_Init
+  87              	.LVL3:
+  59:Core/Src/led.c **** 	GPIO_SetBits(GPIOC,GPIO_Pin_5);                    //PC5设置高，LED1灯灭
+  88              		.loc 1 59 2 view .LVU18
+  89 0048 2946     		mov	r1, r5
+  90 004a 2046     		mov	r0, r4
+  91 004c FFF7FEFF 		bl	GPIO_SetBits
+  92              	.LVL4:
+  60:Core/Src/led.c **** }
+  93              		.loc 1 60 1 is_stmt 0 view .LVU19
+  94 0050 03B0     		add	sp, sp, #12
+  95              	.LCFI2:
+  96              		.cfi_def_cfa_offset 12
+  97              		@ sp needed
+  98 0052 30BD     		pop	{r4, r5, pc}
+  99              	.L4:
+ 100              		.align	2
+ 101              	.L3:
+ 102 0054 00000240 		.word	1073872896
+ 103              		.cfi_endproc
+ 104              	.LFE130:
+ 106              		.text
+ 107              	.Letext0:
+ 108              		.file 2 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 109              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 110              		.file 4 "Core/Inc/stm32f4xx.h"
+ 111              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_gpio.h"
+ 112              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cckDOyXg.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 led.c
+C:\Users\ADMIN\AppData\Local\Temp\cckDOyXg.s:18     .text.LED_Init:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cckDOyXg.s:26     .text.LED_Init:00000000 LED_Init
+C:\Users\ADMIN\AppData\Local\Temp\cckDOyXg.s:102    .text.LED_Init:00000054 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB1PeriphClockCmd
+GPIO_Init
+GPIO_SetBits

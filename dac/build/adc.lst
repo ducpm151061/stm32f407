@@ -1,0 +1,481 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"adc.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.ADC1_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	ADC1_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	ADC1_Init:
+  27              	.LFB130:
+  28              		.file 1 "Core/Src/adc.c"
+   1:Core/Src/adc.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/adc.c **** //±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
+   3:Core/Src/adc.c **** //²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
+   4:Core/Src/adc.c **** //QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+   5:Core/Src/adc.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/adc.c **** //¹«Ë¾ÍøÕ¾:www.qdtft.com
+   7:Core/Src/adc.c **** //wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
+   8:Core/Src/adc.c **** //ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
+   9:Core/Src/adc.c **** //¹Ì»°(´«Õæ) :+86 0755-21077707 
+  10:Core/Src/adc.c **** //ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
+  11:Core/Src/adc.c **** //ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
+  12:Core/Src/adc.c **** //QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
+  13:Core/Src/adc.c **** //¼¼Êõ½»Á÷QQÈº:778679828
+  14:Core/Src/adc.c **** //´´½¨ÈÕÆÚ:2020/06/29
+  15:Core/Src/adc.c **** //°æ±¾£ºV1.0
+  16:Core/Src/adc.c **** //°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
+  17:Core/Src/adc.c **** //Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+  18:Core/Src/adc.c **** //All rights reserved
+  19:Core/Src/adc.c **** /************************************************************************************
+  20:Core/Src/adc.c **** //STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åDACÊ¾Àý
+  21:Core/Src/adc.c **** //     LED0           --->            PA1
+  22:Core/Src/adc.c **** //     KEY0           --->            PE4
+  23:Core/Src/adc.c **** //     KEY_UP         --->            PA0
+  24:Core/Src/adc.c **** //Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  25:Core/Src/adc.c **** //TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
+  26:Core/Src/adc.c **** //STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
+  27:Core/Src/adc.c **** //=================================µçÔ´½ÓÏß=======================================//
+  28:Core/Src/adc.c **** //     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+  29:Core/Src/adc.c **** //      VDD           --->           DC5V/3.3V          //µçÔ´
+  30:Core/Src/adc.c **** //      GND           --->             GND              //µçÔ´µØ
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 2
+
+
+  31:Core/Src/adc.c **** //=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
+  32:Core/Src/adc.c **** //     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+  33:Core/Src/adc.c **** //      DB0           --->            PD14        -|   
+  34:Core/Src/adc.c **** //      DB1           --->            PD15         |  
+  35:Core/Src/adc.c **** //      DB2           --->            PD0          | 
+  36:Core/Src/adc.c **** //      DB3           --->            PD1          | 
+  37:Core/Src/adc.c **** //      DB4           --->            PE7          |
+  38:Core/Src/adc.c **** //      DB5           --->            PE8          |
+  39:Core/Src/adc.c **** //      DB6           --->            PE9          |
+  40:Core/Src/adc.c **** //      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+  41:Core/Src/adc.c **** //      DB8           --->            PE11         |
+  42:Core/Src/adc.c **** //      DB9           --->            PE12         |
+  43:Core/Src/adc.c **** //      DB10          --->            PE13         |
+  44:Core/Src/adc.c **** //      DB11          --->            PE14         |
+  45:Core/Src/adc.c **** //      DB12          --->            PE15         |
+  46:Core/Src/adc.c **** //      DB13          --->            PD8          |
+  47:Core/Src/adc.c **** //      DB14          --->            PD9          |
+  48:Core/Src/adc.c **** //      DB15          --->            PD10        -|
+  49:Core/Src/adc.c **** //=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
+  50:Core/Src/adc.c **** //     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
+  51:Core/Src/adc.c **** //      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
+  52:Core/Src/adc.c **** //      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
+  53:Core/Src/adc.c **** //      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
+  54:Core/Src/adc.c **** //      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
+  55:Core/Src/adc.c **** //      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
+  56:Core/Src/adc.c **** //      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
+  57:Core/Src/adc.c **** *************************************************************************************/	
+  58:Core/Src/adc.c ****  /* @attention
+  59:Core/Src/adc.c ****   *
+  60:Core/Src/adc.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  61:Core/Src/adc.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  62:Core/Src/adc.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  63:Core/Src/adc.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  64:Core/Src/adc.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  65:Core/Src/adc.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  66:Core/Src/adc.c **** *************************************************************************************/
+  67:Core/Src/adc.c **** #include "adc.h"
+  68:Core/Src/adc.c **** #include "delay.h"		 
+  69:Core/Src/adc.c **** 
+  70:Core/Src/adc.c **** /*****************************************************************************
+  71:Core/Src/adc.c ****  * @name       :void  ADC1_Init(void)
+  72:Core/Src/adc.c ****  * @date       :2018-08-09 
+  73:Core/Src/adc.c ****  * @function   :Initialize ADC
+  74:Core/Src/adc.c ****  * @parameters :None
+  75:Core/Src/adc.c ****  * @retvalue   :None
+  76:Core/Src/adc.c **** ******************************************************************************/	 												   
+  77:Core/Src/adc.c **** void ADC1_Init(void)
+  78:Core/Src/adc.c **** {    
+  29              		.loc 1 78 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 48
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 12
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 3
+
+
+  38              		.cfi_offset 14, -4
+  39 0002 8DB0     		sub	sp, sp, #52
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 64
+  79:Core/Src/adc.c ****   GPIO_InitTypeDef  GPIO_InitStructure;
+  42              		.loc 1 79 3 view .LVU1
+  80:Core/Src/adc.c **** 	ADC_CommonInitTypeDef ADC_CommonInitStructure;
+  43              		.loc 1 80 2 view .LVU2
+  81:Core/Src/adc.c **** 	ADC_InitTypeDef   ADC_InitStructure;
+  44              		.loc 1 81 2 view .LVU3
+  82:Core/Src/adc.c **** 	
+  83:Core/Src/adc.c ****   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//Ê¹ÄÜGPIOAÊ±ÖÓ
+  45              		.loc 1 83 3 view .LVU4
+  46 0004 0121     		movs	r1, #1
+  47 0006 0846     		mov	r0, r1
+  48 0008 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+  49              	.LVL0:
+  84:Core/Src/adc.c ****   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE); //Ê¹ÄÜADC1Ê±ÖÓ
+  50              		.loc 1 84 3 view .LVU5
+  51 000c 0121     		movs	r1, #1
+  52 000e 4FF48070 		mov	r0, #256
+  53 0012 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  54              	.LVL1:
+  85:Core/Src/adc.c **** 
+  86:Core/Src/adc.c ****   //ÏÈ³õÊ¼»¯ADC1Í¨µÀ5 IO¿Ú
+  87:Core/Src/adc.c ****   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;//PA5 Í¨µÀ5
+  55              		.loc 1 87 3 view .LVU6
+  56              		.loc 1 87 31 is_stmt 0 view .LVU7
+  57 0016 2023     		movs	r3, #32
+  58 0018 0A93     		str	r3, [sp, #40]
+  88:Core/Src/adc.c ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//Ä£ÄâÊäÈë
+  59              		.loc 1 88 3 is_stmt 1 view .LVU8
+  60              		.loc 1 88 32 is_stmt 0 view .LVU9
+  61 001a 0323     		movs	r3, #3
+  62 001c 8DF82C30 		strb	r3, [sp, #44]
+  89:Core/Src/adc.c ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;//²»´øÉÏÏÂÀ­
+  63              		.loc 1 89 3 is_stmt 1 view .LVU10
+  64              		.loc 1 89 32 is_stmt 0 view .LVU11
+  65 0020 0024     		movs	r4, #0
+  66 0022 8DF82F40 		strb	r4, [sp, #47]
+  90:Core/Src/adc.c ****   GPIO_Init(GPIOA, &GPIO_InitStructure);//³õÊ¼»¯  
+  67              		.loc 1 90 3 is_stmt 1 view .LVU12
+  68 0026 0AA9     		add	r1, sp, #40
+  69 0028 1648     		ldr	r0, .L3
+  70 002a FFF7FEFF 		bl	GPIO_Init
+  71              	.LVL2:
+  91:Core/Src/adc.c ****  
+  92:Core/Src/adc.c **** 	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,ENABLE);	  //ADC1¸´Î»
+  72              		.loc 1 92 2 view .LVU13
+  73 002e 0121     		movs	r1, #1
+  74 0030 4FF48070 		mov	r0, #256
+  75 0034 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  76              	.LVL3:
+  93:Core/Src/adc.c **** 	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,DISABLE);	//¸´Î»½áÊø	 
+  77              		.loc 1 93 2 view .LVU14
+  78 0038 2146     		mov	r1, r4
+  79 003a 4FF48070 		mov	r0, #256
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 4
+
+
+  80 003e FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  81              	.LVL4:
+  94:Core/Src/adc.c ****  
+  95:Core/Src/adc.c ****   ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;//¶ÀÁ¢Ä£Ê½
+  82              		.loc 1 95 3 view .LVU15
+  83              		.loc 1 95 36 is_stmt 0 view .LVU16
+  84 0042 0694     		str	r4, [sp, #24]
+  96:Core/Src/adc.c ****   ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;//Á½¸ö²ÉÑù½×¶ÎÖ®¼äµÄÑ
+  85              		.loc 1 96 3 is_stmt 1 view .LVU17
+  86              		.loc 1 96 48 is_stmt 0 view .LVU18
+  87 0044 0994     		str	r4, [sp, #36]
+  97:Core/Src/adc.c ****   ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled; //DMAÊ§ÄÜ
+  88              		.loc 1 97 3 is_stmt 1 view .LVU19
+  89              		.loc 1 97 45 is_stmt 0 view .LVU20
+  90 0046 0894     		str	r4, [sp, #32]
+  98:Core/Src/adc.c ****   ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;//Ô¤·ÖÆµ4·ÖÆµ¡£ADCCLK=PCLK2/4=84/4=21M
+  91              		.loc 1 98 3 is_stmt 1 view .LVU21
+  92              		.loc 1 98 41 is_stmt 0 view .LVU22
+  93 0048 4FF48033 		mov	r3, #65536
+  94 004c 0793     		str	r3, [sp, #28]
+  99:Core/Src/adc.c ****   ADC_CommonInit(&ADC_CommonInitStructure);//³õÊ¼»¯
+  95              		.loc 1 99 3 is_stmt 1 view .LVU23
+  96 004e 06A8     		add	r0, sp, #24
+  97 0050 FFF7FEFF 		bl	ADC_CommonInit
+  98              	.LVL5:
+ 100:Core/Src/adc.c **** 	
+ 101:Core/Src/adc.c ****   ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;//12Î»Ä£Ê½
+  99              		.loc 1 101 3 view .LVU24
+ 100              		.loc 1 101 36 is_stmt 0 view .LVU25
+ 101 0054 0094     		str	r4, [sp]
+ 102:Core/Src/adc.c ****   ADC_InitStructure.ADC_ScanConvMode = DISABLE;//·ÇÉ¨ÃèÄ£Ê½	
+ 102              		.loc 1 102 3 is_stmt 1 view .LVU26
+ 103              		.loc 1 102 38 is_stmt 0 view .LVU27
+ 104 0056 8DF80440 		strb	r4, [sp, #4]
+ 103:Core/Src/adc.c ****   ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//¹Ø±ÕÁ¬Ðø×ª»»
+ 105              		.loc 1 103 3 is_stmt 1 view .LVU28
+ 106              		.loc 1 103 44 is_stmt 0 view .LVU29
+ 107 005a 8DF80540 		strb	r4, [sp, #5]
+ 104:Core/Src/adc.c ****   ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;//½ûÖ¹´¥·¢¼ì²â£¬Ê¹ÓÃÈí
+ 108              		.loc 1 104 3 is_stmt 1 view .LVU30
+ 109              		.loc 1 104 46 is_stmt 0 view .LVU31
+ 110 005e 0294     		str	r4, [sp, #8]
+ 105:Core/Src/adc.c ****   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//ÓÒ¶ÔÆë	
+ 111              		.loc 1 105 3 is_stmt 1 view .LVU32
+ 112              		.loc 1 105 35 is_stmt 0 view .LVU33
+ 113 0060 0494     		str	r4, [sp, #16]
+ 106:Core/Src/adc.c ****   ADC_InitStructure.ADC_NbrOfConversion = 1;//1¸ö×ª»»ÔÚ¹æÔòÐòÁÐÖÐ Ò²¾ÍÊÇÖ»×ª»»¹æÔòÐòÁÐ1 
+ 114              		.loc 1 106 3 is_stmt 1 view .LVU34
+ 115              		.loc 1 106 41 is_stmt 0 view .LVU35
+ 116 0062 0125     		movs	r5, #1
+ 117 0064 8DF81450 		strb	r5, [sp, #20]
+ 107:Core/Src/adc.c ****   ADC_Init(ADC1, &ADC_InitStructure);//ADC³õÊ¼»¯
+ 118              		.loc 1 107 3 is_stmt 1 view .LVU36
+ 119 0068 04F18044 		add	r4, r4, #1073741824
+ 120 006c 04F59034 		add	r4, r4, #73728
+ 121 0070 6946     		mov	r1, sp
+ 122 0072 2046     		mov	r0, r4
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 5
+
+
+ 123 0074 FFF7FEFF 		bl	ADC_Init
+ 124              	.LVL6:
+ 108:Core/Src/adc.c **** 	ADC_Cmd(ADC1, ENABLE);//¿ªÆôAD×ª»»Æ÷	
+ 125              		.loc 1 108 2 view .LVU37
+ 126 0078 2946     		mov	r1, r5
+ 127 007a 2046     		mov	r0, r4
+ 128 007c FFF7FEFF 		bl	ADC_Cmd
+ 129              	.LVL7:
+ 109:Core/Src/adc.c **** }	
+ 130              		.loc 1 109 1 is_stmt 0 view .LVU38
+ 131 0080 0DB0     		add	sp, sp, #52
+ 132              	.LCFI2:
+ 133              		.cfi_def_cfa_offset 12
+ 134              		@ sp needed
+ 135 0082 30BD     		pop	{r4, r5, pc}
+ 136              	.L4:
+ 137              		.align	2
+ 138              	.L3:
+ 139 0084 00000240 		.word	1073872896
+ 140              		.cfi_endproc
+ 141              	.LFE130:
+ 143              		.section	.text.Get_ADC_Value,"ax",%progbits
+ 144              		.align	1
+ 145              		.global	Get_ADC_Value
+ 146              		.syntax unified
+ 147              		.thumb
+ 148              		.thumb_func
+ 149              		.fpu fpv4-sp-d16
+ 151              	Get_ADC_Value:
+ 152              	.LVL8:
+ 153              	.LFB131:
+ 110:Core/Src/adc.c **** 
+ 111:Core/Src/adc.c **** /*****************************************************************************
+ 112:Core/Src/adc.c ****  * @name       :u16 Get_ADC_Value(u8 ch) 
+ 113:Core/Src/adc.c ****  * @date       :2018-08-09 
+ 114:Core/Src/adc.c ****  * @function   :get adc value
+ 115:Core/Src/adc.c ****  * @parameters :ch:adc channel(0~16:ADC_Channel_0~ADC_Channel_16)
+ 116:Core/Src/adc.c ****  * @retvalue   :ADC value
+ 117:Core/Src/adc.c **** ******************************************************************************/				  
+ 118:Core/Src/adc.c **** u16 Get_ADC_Value(u8 ch)   
+ 119:Core/Src/adc.c **** {
+ 154              		.loc 1 119 1 is_stmt 1 view -0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              		.loc 1 119 1 is_stmt 0 view .LVU40
+ 159 0000 10B5     		push	{r4, lr}
+ 160              	.LCFI3:
+ 161              		.cfi_def_cfa_offset 8
+ 162              		.cfi_offset 4, -8
+ 163              		.cfi_offset 14, -4
+ 164 0002 0146     		mov	r1, r0
+ 120:Core/Src/adc.c **** 	//ÉèÖÃÖ¸¶¨ADCµÄ¹æÔò×éÍ¨µÀ£¬Ò»¸öÐòÁÐ£¬²ÉÑùÊ±¼ä
+ 121:Core/Src/adc.c **** 	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_480Cycles );	//ADC1,ADCÍ¨µÀ,480¸öÖÜÆÚ,Ìá¸ß²ÉÑ
+ 165              		.loc 1 121 2 is_stmt 1 view .LVU41
+ 166 0004 094C     		ldr	r4, .L8
+ 167 0006 0723     		movs	r3, #7
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 6
+
+
+ 168 0008 0122     		movs	r2, #1
+ 169 000a 2046     		mov	r0, r4
+ 170              	.LVL9:
+ 171              		.loc 1 121 2 is_stmt 0 view .LVU42
+ 172 000c FFF7FEFF 		bl	ADC_RegularChannelConfig
+ 173              	.LVL10:
+ 122:Core/Src/adc.c **** 	ADC_SoftwareStartConv(ADC1);		//Ê¹ÄÜÖ¸¶¨µÄADC1µÄÈí¼þ×ª»»Æô¶¯¹¦ÄÜ	 
+ 174              		.loc 1 122 2 is_stmt 1 view .LVU43
+ 175 0010 2046     		mov	r0, r4
+ 176 0012 FFF7FEFF 		bl	ADC_SoftwareStartConv
+ 177              	.LVL11:
+ 123:Core/Src/adc.c **** 	while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//µÈ´ý×ª»»½áÊø
+ 178              		.loc 1 123 2 view .LVU44
+ 179              	.L6:
+ 180              		.loc 1 123 48 discriminator 1 view .LVU45
+ 181              		.loc 1 123 7 discriminator 1 view .LVU46
+ 182              		.loc 1 123 9 is_stmt 0 discriminator 1 view .LVU47
+ 183 0016 0221     		movs	r1, #2
+ 184 0018 0448     		ldr	r0, .L8
+ 185 001a FFF7FEFF 		bl	ADC_GetFlagStatus
+ 186              	.LVL12:
+ 187              		.loc 1 123 7 discriminator 1 view .LVU48
+ 188 001e 0028     		cmp	r0, #0
+ 189 0020 F9D0     		beq	.L6
+ 124:Core/Src/adc.c **** 	return ADC_GetConversionValue(ADC1);	//·µ»Ø×î½üÒ»´ÎADC1¹æÔò×éµÄ×ª»»½á¹û
+ 190              		.loc 1 124 2 is_stmt 1 view .LVU49
+ 191              		.loc 1 124 9 is_stmt 0 view .LVU50
+ 192 0022 0248     		ldr	r0, .L8
+ 193 0024 FFF7FEFF 		bl	ADC_GetConversionValue
+ 194              	.LVL13:
+ 125:Core/Src/adc.c **** }
+ 195              		.loc 1 125 1 view .LVU51
+ 196 0028 10BD     		pop	{r4, pc}
+ 197              	.L9:
+ 198 002a 00BF     		.align	2
+ 199              	.L8:
+ 200 002c 00200140 		.word	1073815552
+ 201              		.cfi_endproc
+ 202              	.LFE131:
+ 204              		.section	.text.Get_ADC_Average_Value,"ax",%progbits
+ 205              		.align	1
+ 206              		.global	Get_ADC_Average_Value
+ 207              		.syntax unified
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.fpu fpv4-sp-d16
+ 212              	Get_ADC_Average_Value:
+ 213              	.LVL14:
+ 214              	.LFB132:
+ 126:Core/Src/adc.c **** 
+ 127:Core/Src/adc.c **** /*****************************************************************************
+ 128:Core/Src/adc.c ****  * @name       :u16 Get_Adc_Average_Value(u8 ch,u8 times) 
+ 129:Core/Src/adc.c ****  * @date       :2018-08-09 
+ 130:Core/Src/adc.c ****  * @function   :get adc average value
+ 131:Core/Src/adc.c ****  * @parameters :ch:adc channel(0~16:ADC_Channel_0~ADC_Channel_16)
+ 132:Core/Src/adc.c **** 								times:the times of get adc value
+ 133:Core/Src/adc.c ****  * @retvalue   :the average value of adc
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 7
+
+
+ 134:Core/Src/adc.c **** ******************************************************************************/		
+ 135:Core/Src/adc.c **** u16 Get_ADC_Average_Value(u8 ch,u8 times)
+ 136:Core/Src/adc.c **** {
+ 215              		.loc 1 136 1 is_stmt 1 view -0
+ 216              		.cfi_startproc
+ 217              		@ args = 0, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219              		.loc 1 136 1 is_stmt 0 view .LVU53
+ 220 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 221              	.LCFI4:
+ 222              		.cfi_def_cfa_offset 24
+ 223              		.cfi_offset 3, -24
+ 224              		.cfi_offset 4, -20
+ 225              		.cfi_offset 5, -16
+ 226              		.cfi_offset 6, -12
+ 227              		.cfi_offset 7, -8
+ 228              		.cfi_offset 14, -4
+ 229 0002 0746     		mov	r7, r0
+ 230 0004 0E46     		mov	r6, r1
+ 137:Core/Src/adc.c **** 	u32 temp_val=0;
+ 231              		.loc 1 137 2 is_stmt 1 view .LVU54
+ 232              	.LVL15:
+ 138:Core/Src/adc.c **** 	u8 t;
+ 233              		.loc 1 138 2 view .LVU55
+ 139:Core/Src/adc.c **** 	for(t=0;t<times;t++)
+ 234              		.loc 1 139 2 view .LVU56
+ 235              		.loc 1 139 7 is_stmt 0 view .LVU57
+ 236 0006 0024     		movs	r4, #0
+ 137:Core/Src/adc.c **** 	u32 temp_val=0;
+ 237              		.loc 1 137 6 view .LVU58
+ 238 0008 2546     		mov	r5, r4
+ 239              		.loc 1 139 2 view .LVU59
+ 240 000a 08E0     		b	.L11
+ 241              	.LVL16:
+ 242              	.L12:
+ 140:Core/Src/adc.c **** 	{
+ 141:Core/Src/adc.c **** 		temp_val+=Get_ADC_Value(ch);
+ 243              		.loc 1 141 3 is_stmt 1 discriminator 3 view .LVU60
+ 244              		.loc 1 141 13 is_stmt 0 discriminator 3 view .LVU61
+ 245 000c 3846     		mov	r0, r7
+ 246 000e FFF7FEFF 		bl	Get_ADC_Value
+ 247              	.LVL17:
+ 248              		.loc 1 141 11 discriminator 3 view .LVU62
+ 249 0012 0544     		add	r5, r5, r0
+ 250              	.LVL18:
+ 142:Core/Src/adc.c **** 		delay_ms(5);
+ 251              		.loc 1 142 3 is_stmt 1 discriminator 3 view .LVU63
+ 252 0014 0520     		movs	r0, #5
+ 253 0016 FFF7FEFF 		bl	delay_ms
+ 254              	.LVL19:
+ 139:Core/Src/adc.c **** 	for(t=0;t<times;t++)
+ 255              		.loc 1 139 18 discriminator 3 view .LVU64
+ 139:Core/Src/adc.c **** 	for(t=0;t<times;t++)
+ 256              		.loc 1 139 19 is_stmt 0 discriminator 3 view .LVU65
+ 257 001a 0134     		adds	r4, r4, #1
+ 258              	.LVL20:
+ 139:Core/Src/adc.c **** 	for(t=0;t<times;t++)
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 8
+
+
+ 259              		.loc 1 139 19 discriminator 3 view .LVU66
+ 260 001c E4B2     		uxtb	r4, r4
+ 261              	.LVL21:
+ 262              	.L11:
+ 139:Core/Src/adc.c **** 	for(t=0;t<times;t++)
+ 263              		.loc 1 139 10 is_stmt 1 discriminator 1 view .LVU67
+ 139:Core/Src/adc.c **** 	for(t=0;t<times;t++)
+ 264              		.loc 1 139 2 is_stmt 0 discriminator 1 view .LVU68
+ 265 001e B442     		cmp	r4, r6
+ 266 0020 F4D3     		bcc	.L12
+ 143:Core/Src/adc.c **** 	}
+ 144:Core/Src/adc.c **** 	return temp_val/times;
+ 267              		.loc 1 144 2 is_stmt 1 view .LVU69
+ 268              		.loc 1 144 17 is_stmt 0 view .LVU70
+ 269 0022 B5FBF6F0 		udiv	r0, r5, r6
+ 145:Core/Src/adc.c **** } 
+ 270              		.loc 1 145 1 view .LVU71
+ 271 0026 80B2     		uxth	r0, r0
+ 272 0028 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 273              		.loc 1 145 1 view .LVU72
+ 274              		.cfi_endproc
+ 275              	.LFE132:
+ 277              		.text
+ 278              	.Letext0:
+ 279              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 280              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 281              		.file 4 "Core/Inc/stm32f4xx.h"
+ 282              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_adc.h"
+ 283              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_gpio.h"
+ 284              		.file 7 "Core/Inc/delay.h"
+ 285              		.file 8 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cchPraAg.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:18     .text.ADC1_Init:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:26     .text.ADC1_Init:00000000 ADC1_Init
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:139    .text.ADC1_Init:00000084 $d
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:144    .text.Get_ADC_Value:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:151    .text.Get_ADC_Value:00000000 Get_ADC_Value
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:200    .text.Get_ADC_Value:0000002c $d
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:205    .text.Get_ADC_Average_Value:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cchPraAg.s:212    .text.Get_ADC_Average_Value:00000000 Get_ADC_Average_Value
+
+UNDEFINED SYMBOLS
+RCC_AHB1PeriphClockCmd
+RCC_APB2PeriphClockCmd
+GPIO_Init
+RCC_APB2PeriphResetCmd
+ADC_CommonInit
+ADC_Init
+ADC_Cmd
+ADC_RegularChannelConfig
+ADC_SoftwareStartConv
+ADC_GetFlagStatus
+ADC_GetConversionValue
+delay_ms

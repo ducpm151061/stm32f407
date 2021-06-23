@@ -1,0 +1,238 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc7V7nry.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"dac.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.DAC1_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	DAC1_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	DAC1_Init:
+  27              	.LFB130:
+  28              		.file 1 "Core/Src/dac.c"
+   1:Core/Src/dac.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/dac.c **** //本程序只供学习使用，未经作者许可，不得用于其它商业用途
+   3:Core/Src/dac.c **** //测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
+   4:Core/Src/dac.c **** //QDtech-TFT液晶驱动 for STM32 FSMC
+   5:Core/Src/dac.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/dac.c **** //公司网站:www.qdtft.com
+   7:Core/Src/dac.c **** //wiki技术资料网站：http://www.lcdwiki.com
+   8:Core/Src/dac.c **** //我司提供技术支持，任何技术问题欢迎随时交流学习
+   9:Core/Src/dac.c **** //固话(传真) :+86 0755-21077707 
+  10:Core/Src/dac.c **** //手机: (销售)18823372746 （技术)15989313508
+  11:Core/Src/dac.c **** //邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
+  12:Core/Src/dac.c **** //QQ:(售前咨询)3002706772 (技术支持)3002778157
+  13:Core/Src/dac.c **** //技术交流QQ群:778679828
+  14:Core/Src/dac.c **** //创建日期:2020/06/29
+  15:Core/Src/dac.c **** //版本：V1.0
+  16:Core/Src/dac.c **** //版权所有，盗版必究。
+  17:Core/Src/dac.c **** //Copyright(C) 深圳市全动电子技术有限公司 2018-2028
+  18:Core/Src/dac.c **** //All rights reserved
+  19:Core/Src/dac.c **** /************************************************************************************
+  20:Core/Src/dac.c **** //STM32F407VxT6最小系统开发板DAC示例
+  21:Core/Src/dac.c **** //     LED0           --->            PA1
+  22:Core/Src/dac.c **** //     KEY0           --->            PE4
+  23:Core/Src/dac.c **** //     KEY_UP         --->            PA0
+  24:Core/Src/dac.c **** //支持ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  25:Core/Src/dac.c **** //TFT LCD可以直接插入STM32F407VxT6最小系统开发板TFTLCD插槽或者通过排线接入TFTLCD插座
+  26:Core/Src/dac.c **** //STM32连接引脚是指TFTLCD插槽或者插座引脚内部连接的STM32引脚
+  27:Core/Src/dac.c **** //=================================电源接线=======================================//
+  28:Core/Src/dac.c **** //     LCD模块                    STM32连接引脚
+  29:Core/Src/dac.c **** //      VDD           --->           DC5V/3.3V          //电源
+  30:Core/Src/dac.c **** //      GND           --->             GND              //电源地
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc7V7nry.s 			page 2
+
+
+  31:Core/Src/dac.c **** //=============================液晶屏数据线接线===================================//
+  32:Core/Src/dac.c **** //     LCD模块                    STM32连接引脚
+  33:Core/Src/dac.c **** //      DB0           --->            PD14        -|   
+  34:Core/Src/dac.c **** //      DB1           --->            PD15         |  
+  35:Core/Src/dac.c **** //      DB2           --->            PD0          | 
+  36:Core/Src/dac.c **** //      DB3           --->            PD1          | 
+  37:Core/Src/dac.c **** //      DB4           --->            PE7          |
+  38:Core/Src/dac.c **** //      DB5           --->            PE8          |
+  39:Core/Src/dac.c **** //      DB6           --->            PE9          |
+  40:Core/Src/dac.c **** //      DB7           --->            PE10         |===>液晶屏16位并口数据信号
+  41:Core/Src/dac.c **** //      DB8           --->            PE11         |
+  42:Core/Src/dac.c **** //      DB9           --->            PE12         |
+  43:Core/Src/dac.c **** //      DB10          --->            PE13         |
+  44:Core/Src/dac.c **** //      DB11          --->            PE14         |
+  45:Core/Src/dac.c **** //      DB12          --->            PE15         |
+  46:Core/Src/dac.c **** //      DB13          --->            PD8          |
+  47:Core/Src/dac.c **** //      DB14          --->            PD9          |
+  48:Core/Src/dac.c **** //      DB15          --->            PD10        -|
+  49:Core/Src/dac.c **** //=============================液晶屏控制线接线===================================//
+  50:Core/Src/dac.c **** //     LCD模块 				            STM32连接引脚 
+  51:Core/Src/dac.c **** //      WR            --->            PD5             //液晶屏写数据控制信号
+  52:Core/Src/dac.c **** //      RD            --->            PD4             //液晶屏读数据控制信号
+  53:Core/Src/dac.c **** //      RS            --->            PD11            //液晶屏数据/命令控制信号
+  54:Core/Src/dac.c **** //      RST           --->          复位引脚（默认）  //液晶屏复位控制信号（也可选择PD13）
+  55:Core/Src/dac.c **** //      CS            --->            PD7             //液晶屏片选控制信号
+  56:Core/Src/dac.c **** //      BL            --->            PB15            //液晶屏背光控制信号
+  57:Core/Src/dac.c **** *************************************************************************************/	
+  58:Core/Src/dac.c ****  /* @attention
+  59:Core/Src/dac.c ****   *
+  60:Core/Src/dac.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  61:Core/Src/dac.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  62:Core/Src/dac.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  63:Core/Src/dac.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  64:Core/Src/dac.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  65:Core/Src/dac.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  66:Core/Src/dac.c **** *************************************************************************************/
+  67:Core/Src/dac.c **** #include "dac.h"
+  68:Core/Src/dac.c **** 
+  69:Core/Src/dac.c **** /*****************************************************************************
+  70:Core/Src/dac.c ****  * @name       :void DAC1_Init(void)
+  71:Core/Src/dac.c ****  * @date       :2018-08-09 
+  72:Core/Src/dac.c ****  * @function   :Initialize DAC1
+  73:Core/Src/dac.c ****  * @parameters :None
+  74:Core/Src/dac.c ****  * @retvalue   :None
+  75:Core/Src/dac.c **** ******************************************************************************/	
+  76:Core/Src/dac.c **** void DAC1_Init(void)
+  77:Core/Src/dac.c **** {  
+  29              		.loc 1 77 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 24
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 12
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
+  38              		.cfi_offset 14, -4
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc7V7nry.s 			page 3
+
+
+  39 0002 87B0     		sub	sp, sp, #28
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 40
+  78:Core/Src/dac.c ****   GPIO_InitTypeDef  GPIO_InitStructure;
+  42              		.loc 1 78 3 view .LVU1
+  79:Core/Src/dac.c **** 	DAC_InitTypeDef DAC_InitType;
+  43              		.loc 1 79 2 view .LVU2
+  80:Core/Src/dac.c ****   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//使能GPIOA时钟
+  44              		.loc 1 80 3 view .LVU3
+  45 0004 0121     		movs	r1, #1
+  46 0006 0846     		mov	r0, r1
+  47 0008 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+  48              	.LVL0:
+  81:Core/Src/dac.c ****   RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);//使能DAC时钟  
+  49              		.loc 1 81 3 view .LVU4
+  50 000c 0121     		movs	r1, #1
+  51 000e 4FF00050 		mov	r0, #536870912
+  52 0012 FFF7FEFF 		bl	RCC_APB1PeriphClockCmd
+  53              	.LVL1:
+  82:Core/Src/dac.c ****   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  54              		.loc 1 82 3 view .LVU5
+  55              		.loc 1 82 31 is_stmt 0 view .LVU6
+  56 0016 1023     		movs	r3, #16
+  57 0018 0493     		str	r3, [sp, #16]
+  83:Core/Src/dac.c ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//模拟输入
+  58              		.loc 1 83 3 is_stmt 1 view .LVU7
+  59              		.loc 1 83 32 is_stmt 0 view .LVU8
+  60 001a 0323     		movs	r3, #3
+  61 001c 8DF81430 		strb	r3, [sp, #20]
+  84:Core/Src/dac.c ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;//下拉
+  62              		.loc 1 84 3 is_stmt 1 view .LVU9
+  63              		.loc 1 84 32 is_stmt 0 view .LVU10
+  64 0020 0225     		movs	r5, #2
+  65 0022 8DF81750 		strb	r5, [sp, #23]
+  85:Core/Src/dac.c ****   GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化
+  66              		.loc 1 85 3 is_stmt 1 view .LVU11
+  67 0026 04A9     		add	r1, sp, #16
+  68 0028 0A48     		ldr	r0, .L3
+  69 002a FFF7FEFF 		bl	GPIO_Init
+  70              	.LVL2:
+  86:Core/Src/dac.c **** 	DAC_InitType.DAC_Trigger=DAC_Trigger_None;	//不使用触发功能 TEN1=0
+  71              		.loc 1 86 2 view .LVU12
+  72              		.loc 1 86 26 is_stmt 0 view .LVU13
+  73 002e 0024     		movs	r4, #0
+  74 0030 0094     		str	r4, [sp]
+  87:Core/Src/dac.c **** 	DAC_InitType.DAC_WaveGeneration=DAC_WaveGeneration_None;//不使用波形发生
+  75              		.loc 1 87 2 is_stmt 1 view .LVU14
+  76              		.loc 1 87 33 is_stmt 0 view .LVU15
+  77 0032 0194     		str	r4, [sp, #4]
+  88:Core/Src/dac.c **** 	DAC_InitType.DAC_LFSRUnmask_TriangleAmplitude=DAC_LFSRUnmask_Bit0;//屏蔽、幅值设置
+  78              		.loc 1 88 2 is_stmt 1 view .LVU16
+  79              		.loc 1 88 47 is_stmt 0 view .LVU17
+  80 0034 0294     		str	r4, [sp, #8]
+  89:Core/Src/dac.c **** 	DAC_InitType.DAC_OutputBuffer=DAC_OutputBuffer_Disable ;	//DAC1输出缓存关闭 BOFF1=1
+  81              		.loc 1 89 2 is_stmt 1 view .LVU18
+  82              		.loc 1 89 31 is_stmt 0 view .LVU19
+  83 0036 0395     		str	r5, [sp, #12]
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc7V7nry.s 			page 4
+
+
+  90:Core/Src/dac.c ****   DAC_Init(DAC_Channel_1,&DAC_InitType);	 //初始化DAC通道1
+  84              		.loc 1 90 3 is_stmt 1 view .LVU20
+  85 0038 6946     		mov	r1, sp
+  86 003a 2046     		mov	r0, r4
+  87 003c FFF7FEFF 		bl	DAC_Init
+  88              	.LVL3:
+  91:Core/Src/dac.c **** 	DAC_Cmd(DAC_Channel_1, ENABLE);  //使能DAC通道1 
+  89              		.loc 1 91 2 view .LVU21
+  90 0040 0121     		movs	r1, #1
+  91 0042 2046     		mov	r0, r4
+  92 0044 FFF7FEFF 		bl	DAC_Cmd
+  93              	.LVL4:
+  92:Core/Src/dac.c ****   DAC_SetChannel1Data(DAC_Align_12b_R, 0);  //12位右对齐数据格式设置DAC值
+  94              		.loc 1 92 3 view .LVU22
+  95 0048 2146     		mov	r1, r4
+  96 004a 2046     		mov	r0, r4
+  97 004c FFF7FEFF 		bl	DAC_SetChannel1Data
+  98              	.LVL5:
+  93:Core/Src/dac.c **** }
+  99              		.loc 1 93 1 is_stmt 0 view .LVU23
+ 100 0050 07B0     		add	sp, sp, #28
+ 101              	.LCFI2:
+ 102              		.cfi_def_cfa_offset 12
+ 103              		@ sp needed
+ 104 0052 30BD     		pop	{r4, r5, pc}
+ 105              	.L4:
+ 106              		.align	2
+ 107              	.L3:
+ 108 0054 00000240 		.word	1073872896
+ 109              		.cfi_endproc
+ 110              	.LFE130:
+ 112              		.text
+ 113              	.Letext0:
+ 114              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 115              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 116              		.file 4 "Core/Inc/stm32f4xx.h"
+ 117              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_gpio.h"
+ 118              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_dac.h"
+ 119              		.file 7 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cc7V7nry.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 dac.c
+C:\Users\savao\AppData\Local\Temp\cc7V7nry.s:18     .text.DAC1_Init:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cc7V7nry.s:26     .text.DAC1_Init:00000000 DAC1_Init
+C:\Users\savao\AppData\Local\Temp\cc7V7nry.s:108    .text.DAC1_Init:00000054 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB1PeriphClockCmd
+RCC_APB1PeriphClockCmd
+GPIO_Init
+DAC_Init
+DAC_Cmd
+DAC_SetChannel1Data

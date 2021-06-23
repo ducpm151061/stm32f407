@@ -1,0 +1,2308 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"test.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.SPI_W25Q64_test.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 73706920 		.ascii	"spi w25q64 test\015\000"
+  20      77323571 
+  20      36342074 
+  20      6573740D 
+  20      00
+  21 0011 000000   		.align	2
+  22              	.LC1:
+  23 0014 53544D33 		.ascii	"STM32F407VxT6\327\356\320\241\317\265\315\263\277\252"
+  23      32463430 
+  23      37567854 
+  23      36D7EED0 
+  23      A1CFB5CD 
+  24 002b B7A2B0E5 		.ascii	"\267\242\260\345\000"
+  24      00
+  25              		.align	2
+  26              	.LC2:
+  27 0030 53504920 		.ascii	"SPI \262\342\312\324\263\314\320\362\000"
+  27      B2E2CAD4 
+  27      B3CCD0F2 
+  27      00
+  28 003d 000000   		.align	2
+  29              	.LC3:
+  30 0040 4B45595F 		.ascii	"KEY_UP:Write  KEY0:Read\000"
+  30      55503A57 
+  30      72697465 
+  30      20204B45 
+  30      59303A52 
+  31              		.align	2
+  32              	.LC4:
+  33 0058 57323551 		.ascii	"W25Q64 Check Failed!\000"
+  33      36342043 
+  33      6865636B 
+  33      20466169 
+  33      6C656421 
+  34 006d 000000   		.align	2
+  35              	.LC5:
+  36 0070 506C6561 		.ascii	"Please Check!       \000"
+  36      73652043 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 2
+
+
+  36      6865636B 
+  36      21202020 
+  36      20202020 
+  37 0085 000000   		.align	2
+  38              	.LC6:
+  39 0088 57323551 		.ascii	"W25Q64 Ready!\000"
+  39      36342052 
+  39      65616479 
+  39      2100
+  40 0096 0000     		.align	2
+  41              	.LC7:
+  42 0098 32303230 		.ascii	"2020-06-05\000"
+  42      2D30362D 
+  42      303500
+  43 00a3 00       		.align	2
+  44              	.LC8:
+  45 00a4 68747470 		.ascii	"http://www.lcdwiki.com\000"
+  45      3A2F2F77 
+  45      77772E6C 
+  45      63647769 
+  45      6B692E63 
+  46              		.section	.text.SPI_W25Q64_test,"ax",%progbits
+  47              		.align	1
+  48              		.global	SPI_W25Q64_test
+  49              		.arch armv7e-m
+  50              		.syntax unified
+  51              		.thumb
+  52              		.thumb_func
+  53              		.fpu fpv4-sp-d16
+  55              	SPI_W25Q64_test:
+  56              	.LFB133:
+  57              		.file 1 "Core/Src/test.c"
+   1:Core/Src/test.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/test.c **** //本程序只供学习使用，未经作者许可，不得用于其它商业用途
+   3:Core/Src/test.c **** //测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
+   4:Core/Src/test.c **** //QDtech-TFT液晶驱动 for STM32 FSMC
+   5:Core/Src/test.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/test.c **** //公司网站:www.qdtft.com
+   7:Core/Src/test.c **** //wiki技术资料网站：http://www.lcdwiki.com
+   8:Core/Src/test.c **** //我司提供技术支持，任何技术问题欢迎随时交流学习
+   9:Core/Src/test.c **** //固话(传真) :+86 0755-21077707 
+  10:Core/Src/test.c **** //手机: (销售)18823372746 （技术)15989313508
+  11:Core/Src/test.c **** //邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
+  12:Core/Src/test.c **** //QQ:(售前咨询)3002706772 (技术支持)3002778157
+  13:Core/Src/test.c **** //技术交流QQ群:778679828
+  14:Core/Src/test.c **** //创建日期:2020/06/29
+  15:Core/Src/test.c **** //版本：V1.0
+  16:Core/Src/test.c **** //版权所有，盗版必究。
+  17:Core/Src/test.c **** //Copyright(C) 深圳市全动电子技术有限公司 2018-2028
+  18:Core/Src/test.c **** //All rights reserved
+  19:Core/Src/test.c **** /************************************************************************************
+  20:Core/Src/test.c **** //STM32F407VxT6最小系统开发板SPI示例
+  21:Core/Src/test.c **** //     LED0           --->            PA1
+  22:Core/Src/test.c **** //     KEY0           --->            PE4
+  23:Core/Src/test.c **** //     KEY_UP         --->            PA0
+  24:Core/Src/test.c **** //     SPI_CLK        --->            PB3
+  25:Core/Src/test.c **** //     SPI_MOSI       --->            PB5
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 3
+
+
+  26:Core/Src/test.c **** //     SPI_MISO       --->            PB4
+  27:Core/Src/test.c **** //支持ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  28:Core/Src/test.c **** //TFT LCD可以直接插入STM32F407VxT6最小系统开发板TFTLCD插槽或者通过排线接入TFTLCD插座
+  29:Core/Src/test.c **** //STM32连接引脚是指TFTLCD插槽或者插座引脚内部连接的STM32引脚
+  30:Core/Src/test.c **** //=================================电源接线=======================================//
+  31:Core/Src/test.c **** //     LCD模块                    STM32连接引脚
+  32:Core/Src/test.c **** //      VDD           --->           DC5V/3.3V          //电源
+  33:Core/Src/test.c **** //      GND           --->             GND              //电源地
+  34:Core/Src/test.c **** //=============================液晶屏数据线接线===================================//
+  35:Core/Src/test.c **** //     LCD模块                    STM32连接引脚
+  36:Core/Src/test.c **** //      DB0           --->            PD14        -|   
+  37:Core/Src/test.c **** //      DB1           --->            PD15         |  
+  38:Core/Src/test.c **** //      DB2           --->            PD0          | 
+  39:Core/Src/test.c **** //      DB3           --->            PD1          | 
+  40:Core/Src/test.c **** //      DB4           --->            PE7          |
+  41:Core/Src/test.c **** //      DB5           --->            PE8          |
+  42:Core/Src/test.c **** //      DB6           --->            PE9          |
+  43:Core/Src/test.c **** //      DB7           --->            PE10         |===>液晶屏16位并口数据信号
+  44:Core/Src/test.c **** //      DB8           --->            PE11         |
+  45:Core/Src/test.c **** //      DB9           --->            PE12         |
+  46:Core/Src/test.c **** //      DB10          --->            PE13         |
+  47:Core/Src/test.c **** //      DB11          --->            PE14         |
+  48:Core/Src/test.c **** //      DB12          --->            PE15         |
+  49:Core/Src/test.c **** //      DB13          --->            PD8          |
+  50:Core/Src/test.c **** //      DB14          --->            PD9          |
+  51:Core/Src/test.c **** //      DB15          --->            PD10        -|
+  52:Core/Src/test.c **** //=============================液晶屏控制线接线===================================//
+  53:Core/Src/test.c **** //     LCD模块 				            STM32连接引脚 
+  54:Core/Src/test.c **** //      WR            --->            PD5             //液晶屏写数据控制信号
+  55:Core/Src/test.c **** //      RD            --->            PD4             //液晶屏读数据控制信号
+  56:Core/Src/test.c **** //      RS            --->            PD11            //液晶屏数据/命令控制信号
+  57:Core/Src/test.c **** //      RST           --->          复位引脚（默认）  //液晶屏复位控制信号（也可选择PD13）
+  58:Core/Src/test.c **** //      CS            --->            PD7             //液晶屏片选控制信号
+  59:Core/Src/test.c **** //      BL            --->            PB15            //液晶屏背光控制信号
+  60:Core/Src/test.c **** *************************************************************************************/	
+  61:Core/Src/test.c ****  /* @attention
+  62:Core/Src/test.c ****   *
+  63:Core/Src/test.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  64:Core/Src/test.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  65:Core/Src/test.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  66:Core/Src/test.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  67:Core/Src/test.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  68:Core/Src/test.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  69:Core/Src/test.c **** *************************************************************************************/	
+  70:Core/Src/test.c **** #include <stdio.h>
+  71:Core/Src/test.c **** #include <string.h>
+  72:Core/Src/test.c **** #include "lcd.h"
+  73:Core/Src/test.c **** #include "delay.h"
+  74:Core/Src/test.c **** #include "gui.h"
+  75:Core/Src/test.c **** #include "test.h"
+  76:Core/Src/test.c **** #include "led.h"
+  77:Core/Src/test.c **** #include "pic.h"
+  78:Core/Src/test.c **** #include "usart.h" 
+  79:Core/Src/test.c **** #include "w25q64.h"
+  80:Core/Src/test.c **** 
+  81:Core/Src/test.c **** #if 0
+  82:Core/Src/test.c **** //========================variable==========================//
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 4
+
+
+  83:Core/Src/test.c **** u16 ColorTab[5]={RED,GREEN,BLUE,YELLOW,BRED};//定义颜色数组
+  84:Core/Src/test.c **** u16 ColornTab[8]={RED,MAGENTA,GREEN,DARKBLUE,BLUE,BLACK,LIGHTGREEN};
+  85:Core/Src/test.c **** //=====================end of variable======================//
+  86:Core/Src/test.c **** 
+  87:Core/Src/test.c **** /*****************************************************************************
+  88:Core/Src/test.c ****  * @name       :void DrawTestPage(u8 *str)
+  89:Core/Src/test.c ****  * @date       :2018-08-09 
+  90:Core/Src/test.c ****  * @function   :Drawing test interface
+  91:Core/Src/test.c ****  * @parameters :str:the start address of the Chinese and English strings
+  92:Core/Src/test.c ****  * @retvalue   :None
+  93:Core/Src/test.c **** ******************************************************************************/ 
+  94:Core/Src/test.c **** void DrawTestPage(u8 *str)
+  95:Core/Src/test.c **** {
+  96:Core/Src/test.c **** POINT_COLOR=WHITE;
+  97:Core/Src/test.c **** //绘制固定栏up
+  98:Core/Src/test.c **** LCD_Fill(0,0,lcddev.width,20,BLUE);
+  99:Core/Src/test.c **** Gui_StrCenter(0,2,WHITE,BLUE,str,16,1);//居中显示
+ 100:Core/Src/test.c **** //绘制固定栏down
+ 101:Core/Src/test.c **** LCD_Fill(0,lcddev.height-20,lcddev.width-1,lcddev.height-1,BLUE);
+ 102:Core/Src/test.c **** Gui_StrCenter(0,lcddev.height-18,WHITE,BLUE,"http://www.lcdwiki.com",16,1);//居中显示
+ 103:Core/Src/test.c **** //绘制测试区域
+ 104:Core/Src/test.c **** LCD_Fill(0,21,lcddev.width-1,lcddev.height-21,WHITE);
+ 105:Core/Src/test.c **** }
+ 106:Core/Src/test.c **** 
+ 107:Core/Src/test.c **** /*****************************************************************************
+ 108:Core/Src/test.c ****  * @name       :void main_test(void)
+ 109:Core/Src/test.c ****  * @date       :2018-08-09 
+ 110:Core/Src/test.c ****  * @function   :Drawing the main Interface of the Comprehensive Test Program
+ 111:Core/Src/test.c ****  * @parameters :None
+ 112:Core/Src/test.c ****  * @retvalue   :None
+ 113:Core/Src/test.c **** ******************************************************************************/
+ 114:Core/Src/test.c **** void main_test(void)
+ 115:Core/Src/test.c **** {
+ 116:Core/Src/test.c **** 	DrawTestPage("最小系统综合测试程序");	
+ 117:Core/Src/test.c **** 	Gui_StrCenter(0,40,RED,BLUE,"STM32F407VxT6最小系统开发板",16,1);//居中显示
+ 118:Core/Src/test.c **** 	Gui_StrCenter(0,70,RED,BLUE,"综合测试程序",16,1);//居中显示	
+ 119:Core/Src/test.c **** 	Gui_StrCenter(0,100,MAGENTA,BLUE,"ILI9341  ILI9486  ILI9488",16,1);//居中显示
+ 120:Core/Src/test.c **** 	Gui_StrCenter(0,120,MAGENTA,BLUE,"R61509V  ST7793   ST7796S",16,1);//居中显示
+ 121:Core/Src/test.c **** 	Gui_StrCenter(0,140,MAGENTA,BLUE,"NT35310  NT35510  SSD1963",16,1);//居中显示
+ 122:Core/Src/test.c **** 	Gui_StrCenter(0,170,BLUE,BLUE,"STM32F407VxT6 2020-06-05",16,1);//居中显示
+ 123:Core/Src/test.c **** 	delay_ms(1500);		
+ 124:Core/Src/test.c **** 	delay_ms(1500);
+ 125:Core/Src/test.c **** }
+ 126:Core/Src/test.c **** 
+ 127:Core/Src/test.c **** /*****************************************************************************
+ 128:Core/Src/test.c ****  * @name       :void Test_Color(void)
+ 129:Core/Src/test.c ****  * @date       :2018-08-09 
+ 130:Core/Src/test.c ****  * @function   :Color fill test(white,black,red,green,blue)
+ 131:Core/Src/test.c ****  * @parameters :None
+ 132:Core/Src/test.c ****  * @retvalue   :None
+ 133:Core/Src/test.c **** ******************************************************************************/
+ 134:Core/Src/test.c **** void Test_Color(void)
+ 135:Core/Src/test.c **** {
+ 136:Core/Src/test.c **** 	//DrawTestPage("测试1:纯色填充测试");
+ 137:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,WHITE);
+ 138:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"BL Test",16,1);delay_ms(800);
+ 139:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,RED);
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 5
+
+
+ 140:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"RED ",16,1);delay_ms(800);
+ 141:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,GREEN);
+ 142:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"GREEN ",16,1);delay_ms(800);
+ 143:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,BLUE);
+ 144:Core/Src/test.c **** 	Show_Str(20,30,RED,YELLOW,"BLUE ",16,1);delay_ms(800);
+ 145:Core/Src/test.c **** }
+ 146:Core/Src/test.c **** 
+ 147:Core/Src/test.c **** /*****************************************************************************
+ 148:Core/Src/test.c ****  * @name       :void Test_FillRec(void)
+ 149:Core/Src/test.c ****  * @date       :2018-08-09 
+ 150:Core/Src/test.c ****  * @function   :Rectangular display and fill test
+ 151:Core/Src/test.c **** 								Display red,green,blue,yellow,pink rectangular boxes in turn,
+ 152:Core/Src/test.c **** 								1500 milliseconds later,
+ 153:Core/Src/test.c **** 								Fill the rectangle in red,green,blue,yellow and pink in turn
+ 154:Core/Src/test.c ****  * @parameters :None
+ 155:Core/Src/test.c ****  * @retvalue   :None
+ 156:Core/Src/test.c **** ******************************************************************************/
+ 157:Core/Src/test.c **** void Test_FillRec(void)
+ 158:Core/Src/test.c **** {
+ 159:Core/Src/test.c **** 	u8 i=0;
+ 160:Core/Src/test.c **** 	DrawTestPage("测试3:GUI矩形填充测试");
+ 161:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 162:Core/Src/test.c **** 	{
+ 163:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 164:Core/Src/test.c **** 		LCD_DrawRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)+60,
+ 165:Core/Src/test.c **** 	}
+ 166:Core/Src/test.c **** 	delay_ms(1500);	
+ 167:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 168:Core/Src/test.c **** 	{
+ 169:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 170:Core/Src/test.c **** 		LCD_DrawFillRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)
+ 171:Core/Src/test.c **** 	}
+ 172:Core/Src/test.c **** 	delay_ms(1500);
+ 173:Core/Src/test.c **** }
+ 174:Core/Src/test.c **** 
+ 175:Core/Src/test.c **** /*****************************************************************************
+ 176:Core/Src/test.c ****  * @name       :void Test_Circle(void)
+ 177:Core/Src/test.c ****  * @date       :2018-08-09 
+ 178:Core/Src/test.c ****  * @function   :circular display and fill test
+ 179:Core/Src/test.c **** 								Display red,green,blue,yellow,pink circular boxes in turn,
+ 180:Core/Src/test.c **** 								1500 milliseconds later,
+ 181:Core/Src/test.c **** 								Fill the circular in red,green,blue,yellow and pink in turn
+ 182:Core/Src/test.c ****  * @parameters :None
+ 183:Core/Src/test.c ****  * @retvalue   :None
+ 184:Core/Src/test.c **** ******************************************************************************/
+ 185:Core/Src/test.c **** void Test_Circle(void)
+ 186:Core/Src/test.c **** {
+ 187:Core/Src/test.c **** 	u8 i=0;
+ 188:Core/Src/test.c **** 	DrawTestPage("测试4:GUI画圆填充测试");
+ 189:Core/Src/test.c **** 	for (i=0; i<5; i++)  
+ 190:Core/Src/test.c **** 		gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,0);
+ 191:Core/Src/test.c **** 	delay_ms(1500);	
+ 192:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 193:Core/Src/test.c **** 	  	gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,1);
+ 194:Core/Src/test.c **** 	delay_ms(1500);
+ 195:Core/Src/test.c **** }
+ 196:Core/Src/test.c **** 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 6
+
+
+ 197:Core/Src/test.c **** /*****************************************************************************
+ 198:Core/Src/test.c ****  * @name       :void English_Font_test(void)
+ 199:Core/Src/test.c ****  * @date       :2018-08-09 
+ 200:Core/Src/test.c ****  * @function   :English display test
+ 201:Core/Src/test.c ****  * @parameters :None
+ 202:Core/Src/test.c ****  * @retvalue   :None
+ 203:Core/Src/test.c **** ******************************************************************************/
+ 204:Core/Src/test.c **** void English_Font_test(void)
+ 205:Core/Src/test.c **** {
+ 206:Core/Src/test.c **** 	DrawTestPage("测试6:英文显示测试");
+ 207:Core/Src/test.c **** 	Show_Str(10,30,BLUE,YELLOW,"6X12:abcdefghijklmnopqrstuvwxyz0123456789",12,0);
+ 208:Core/Src/test.c **** 	Show_Str(10,45,BLUE,YELLOW,"6X12:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",12,1);
+ 209:Core/Src/test.c **** 	Show_Str(10,60,BLUE,YELLOW,"6X12:~!@#$%^&*()_+{}:<>?/|-+.",12,0);
+ 210:Core/Src/test.c **** 	Show_Str(10,80,BLUE,YELLOW,"8X16:abcdefghijklmnopqrstuvwxyz0123456789",16,0);
+ 211:Core/Src/test.c **** 	Show_Str(10,100,BLUE,YELLOW,"8X16:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",16,1);
+ 212:Core/Src/test.c **** 	Show_Str(10,120,BLUE,YELLOW,"8X16:~!@#$%^&*()_+{}:<>?/|-+.",16,0); 
+ 213:Core/Src/test.c **** 	delay_ms(1200);
+ 214:Core/Src/test.c **** }
+ 215:Core/Src/test.c **** 
+ 216:Core/Src/test.c **** /*****************************************************************************
+ 217:Core/Src/test.c ****  * @name       :void Test_Triangle(void)
+ 218:Core/Src/test.c ****  * @date       :2018-08-09 
+ 219:Core/Src/test.c ****  * @function   :triangle display and fill test
+ 220:Core/Src/test.c **** 								Display red,green,blue,yellow,pink triangle boxes in turn,
+ 221:Core/Src/test.c **** 								1500 milliseconds later,
+ 222:Core/Src/test.c **** 								Fill the triangle in red,green,blue,yellow and pink in turn
+ 223:Core/Src/test.c ****  * @parameters :None
+ 224:Core/Src/test.c ****  * @retvalue   :None
+ 225:Core/Src/test.c **** ******************************************************************************/
+ 226:Core/Src/test.c **** void Test_Triangle(void)
+ 227:Core/Src/test.c **** {
+ 228:Core/Src/test.c **** 	u8 i=0;
+ 229:Core/Src/test.c **** 	DrawTestPage("测试5:GUI Triangle填充测试");
+ 230:Core/Src/test.c **** 	for(i=0;i<5;i++)
+ 231:Core/Src/test.c **** 	{
+ 232:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 233:Core/Src/test.c **** 		Draw_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcdde
+ 234:Core/Src/test.c **** 	}
+ 235:Core/Src/test.c **** 	delay_ms(1500);	
+ 236:Core/Src/test.c **** 	for(i=0;i<5;i++)
+ 237:Core/Src/test.c **** 	{
+ 238:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 239:Core/Src/test.c **** 		Fill_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcdde
+ 240:Core/Src/test.c **** 	}
+ 241:Core/Src/test.c **** 	delay_ms(1500);
+ 242:Core/Src/test.c **** }
+ 243:Core/Src/test.c **** 
+ 244:Core/Src/test.c **** /*****************************************************************************
+ 245:Core/Src/test.c ****  * @name       :void Chinese_Font_test(void)
+ 246:Core/Src/test.c ****  * @date       :2018-08-09 
+ 247:Core/Src/test.c ****  * @function   :chinese display test
+ 248:Core/Src/test.c ****  * @parameters :None
+ 249:Core/Src/test.c ****  * @retvalue   :None
+ 250:Core/Src/test.c **** ******************************************************************************/
+ 251:Core/Src/test.c **** void Chinese_Font_test(void)
+ 252:Core/Src/test.c **** {	
+ 253:Core/Src/test.c **** 	DrawTestPage("测试7:中文显示测试");
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 7
+
+
+ 254:Core/Src/test.c **** 	Show_Str(10,30,BLUE,YELLOW,"16X16:深圳欢迎您",16,0);
+ 255:Core/Src/test.c **** 	Show_Str(10,50,BLUE,YELLOW,"16X16:Welcome to 深圳",16,0);
+ 256:Core/Src/test.c **** 	Show_Str(10,70,BLUE,YELLOW,"24X24:中文测试",24,1);
+ 257:Core/Src/test.c **** 	Show_Str(10,100,BLUE,YELLOW,"32X32:字体测试",32,1);
+ 258:Core/Src/test.c **** 	delay_ms(1200);
+ 259:Core/Src/test.c **** }
+ 260:Core/Src/test.c **** 
+ 261:Core/Src/test.c **** /*****************************************************************************
+ 262:Core/Src/test.c ****  * @name       :void Pic_test(void)
+ 263:Core/Src/test.c ****  * @date       :2018-08-09 
+ 264:Core/Src/test.c ****  * @function   :picture display test
+ 265:Core/Src/test.c ****  * @parameters :None
+ 266:Core/Src/test.c ****  * @retvalue   :None
+ 267:Core/Src/test.c **** ******************************************************************************/
+ 268:Core/Src/test.c **** void Pic_test(void)
+ 269:Core/Src/test.c **** {
+ 270:Core/Src/test.c **** 	DrawTestPage("测试8:图片显示测试");
+ 271:Core/Src/test.c **** 	Gui_Drawbmp16(30,30,40,40,gImage_qq);
+ 272:Core/Src/test.c **** 	Show_Str(30+12,75,BLUE,YELLOW,"QQ",16,1);
+ 273:Core/Src/test.c **** 	Gui_Drawbmp16(90,30,40,40,gImage_qq);
+ 274:Core/Src/test.c **** 	Show_Str(90+12,75,BLUE,YELLOW,"QQ",16,1);
+ 275:Core/Src/test.c **** 	Gui_Drawbmp16(150,30,40,40,gImage_qq);
+ 276:Core/Src/test.c **** 	Show_Str(150+12,75,BLUE,YELLOW,"QQ",16,1);
+ 277:Core/Src/test.c **** 	delay_ms(1200);
+ 278:Core/Src/test.c **** }
+ 279:Core/Src/test.c **** 
+ 280:Core/Src/test.c **** /*****************************************************************************
+ 281:Core/Src/test.c ****  * @name       :void Rotate_Test(void)
+ 282:Core/Src/test.c ****  * @date       :2018-08-09 
+ 283:Core/Src/test.c ****  * @function   :rotate test
+ 284:Core/Src/test.c ****  * @parameters :None
+ 285:Core/Src/test.c ****  * @retvalue   :None
+ 286:Core/Src/test.c **** ******************************************************************************/
+ 287:Core/Src/test.c **** void Rotate_Test(void)
+ 288:Core/Src/test.c **** {
+ 289:Core/Src/test.c **** 	u8 i=0;
+ 290:Core/Src/test.c **** 	u8 *Direction[4]={"Rotation:0","Rotation:90","Rotation:180","Rotation:270"};
+ 291:Core/Src/test.c **** 	
+ 292:Core/Src/test.c **** 	for(i=0;i<4;i++)
+ 293:Core/Src/test.c **** 	{
+ 294:Core/Src/test.c **** 		LCD_Clear(WHITE);
+ 295:Core/Src/test.c **** 		LCD_direction(i);
+ 296:Core/Src/test.c **** 		DrawTestPage("测试10:屏幕旋转测试");
+ 297:Core/Src/test.c **** 		Show_Str(20,30,BLUE,YELLOW,Direction[i],16,1);
+ 298:Core/Src/test.c **** 		Gui_Drawbmp16(30,50,40,40,gImage_qq);
+ 299:Core/Src/test.c **** 		delay_ms(1000);delay_ms(1000);
+ 300:Core/Src/test.c **** 	}
+ 301:Core/Src/test.c **** 	LCD_direction(USE_HORIZONTAL);
+ 302:Core/Src/test.c **** }
+ 303:Core/Src/test.c **** 
+ 304:Core/Src/test.c **** /*****************************************************************************
+ 305:Core/Src/test.c ****  * @name       :void Test_Read(void)
+ 306:Core/Src/test.c ****  * @date       :2018-11-13 
+ 307:Core/Src/test.c ****  * @function   :read test
+ 308:Core/Src/test.c ****  * @parameters :None
+ 309:Core/Src/test.c ****  * @retvalue   :None
+ 310:Core/Src/test.c **** ******************************************************************************/
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 8
+
+
+ 311:Core/Src/test.c **** void Test_Read(void)
+ 312:Core/Src/test.c **** {
+ 313:Core/Src/test.c **** 	u16 color;
+ 314:Core/Src/test.c **** 	u8 buf[10] = {0},i;
+ 315:Core/Src/test.c **** 	u8 cbuf[35] = {0};
+ 316:Core/Src/test.c **** 	DrawTestPage("测试2:读ID和颜色值测试");
+ 317:Core/Src/test.c **** 	sprintf((char *)buf,"ID:0x%x",lcddev.id);
+ 318:Core/Src/test.c **** 	Show_Str(50,25,BLUE,YELLOW,buf,16,1);
+ 319:Core/Src/test.c **** 	for (i=0; i<7; i++) 
+ 320:Core/Src/test.c **** 	{
+ 321:Core/Src/test.c **** 		POINT_COLOR=ColornTab[i];
+ 322:Core/Src/test.c **** 		LCD_DrawFillRectangle(20-10,55+i*25-10,20+10,55+i*25+10);
+ 323:Core/Src/test.c **** 		color = LCD_ReadPoint(20,55+i*25);
+ 324:Core/Src/test.c **** 		if(POINT_COLOR==color)
+ 325:Core/Src/test.c **** 		{
+ 326:Core/Src/test.c **** 			strcpy((char*)buf, "OK");
+ 327:Core/Src/test.c **** 		}
+ 328:Core/Src/test.c **** 		else
+ 329:Core/Src/test.c **** 		{
+ 330:Core/Src/test.c **** 			strcpy((char*)buf, "ERROR");
+ 331:Core/Src/test.c **** 		}
+ 332:Core/Src/test.c **** 		sprintf((char *)cbuf,"read color:0x%04X  %s",color, buf);
+ 333:Core/Src/test.c **** 		Show_Str(20+20,55+i*25-8,POINT_COLOR,YELLOW,cbuf,16,1);
+ 334:Core/Src/test.c **** 	}
+ 335:Core/Src/test.c **** 	delay_ms(1500);
+ 336:Core/Src/test.c **** }
+ 337:Core/Src/test.c **** 
+ 338:Core/Src/test.c **** /*****************************************************************************
+ 339:Core/Src/test.c ****  * @name       :void POINT_Test(void)
+ 340:Core/Src/test.c ****  * @date       :2018-12-29 
+ 341:Core/Src/test.c ****  * @function   :point test
+ 342:Core/Src/test.c ****  * @parameters :None
+ 343:Core/Src/test.c ****  * @retvalue   :None
+ 344:Core/Src/test.c **** ******************************************************************************/
+ 345:Core/Src/test.c **** void POINT_Test(void)
+ 346:Core/Src/test.c **** {
+ 347:Core/Src/test.c **** 	uint8_t x=lcddev.width/2,y=lcddev.height/2,r=20,t,m,i;
+ 348:Core/Src/test.c **** 
+ 349:Core/Src/test.c **** 	t = 7*r/10;
+ 350:Core/Src/test.c **** 	m =100;	//显示速度毫秒值
+ 351:Core/Src/test.c **** 	
+ 352:Core/Src/test.c **** 	DrawTestPage("测试12:GUI Loading");
+ 353:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,BLACK);
+ 354:Core/Src/test.c **** 	POINT_COLOR = WHITE;
+ 355:Core/Src/test.c **** 	BACK_COLOR = BLACK;
+ 356:Core/Src/test.c **** 	Show_Str((lcddev.width-96)/2, lcddev.height/2+r+10, POINT_COLOR,BACK_COLOR,"Loading.....",16,1);
+ 357:Core/Src/test.c **** 	for(i=0;i<2;i++)
+ 358:Core/Src/test.c **** 	{
+ 359:Core/Src/test.c **** 		LCD_Draw9Point(x, y-r, WHITE); //画第一个点
+ 360:Core/Src/test.c **** 		delay_ms(m);
+ 361:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y-t, WHITE); //画第二个点
+ 362:Core/Src/test.c **** 		delay_ms(m);
+ 363:Core/Src/test.c **** 		LCD_Draw9Point(x, y-r, BLACK); //删除第一个点
+ 364:Core/Src/test.c **** 		delay_ms(m);
+ 365:Core/Src/test.c **** 		LCD_Draw9Point(x+r, y, WHITE); //画第三个点
+ 366:Core/Src/test.c **** 		delay_ms(m);
+ 367:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y-t, BLACK);  //删除第二个点
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 9
+
+
+ 368:Core/Src/test.c **** 		delay_ms(m);
+ 369:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y+t, WHITE);  //画第四个点
+ 370:Core/Src/test.c **** 		delay_ms(m);
+ 371:Core/Src/test.c **** 		LCD_Draw9Point(x+r, y, BLACK); //删除第三个点
+ 372:Core/Src/test.c **** 		delay_ms(m);
+ 373:Core/Src/test.c **** 		LCD_Draw9Point(x, y+r, WHITE);  //画第五个点
+ 374:Core/Src/test.c **** 		delay_ms(m);
+ 375:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y+t, BLACK);  //删除第四个点
+ 376:Core/Src/test.c **** 		delay_ms(m);
+ 377:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y+t, WHITE);  //画第六个点
+ 378:Core/Src/test.c **** 		delay_ms(m);
+ 379:Core/Src/test.c **** 		LCD_Draw9Point(x, y+r, BLACK);  //删除第五个点
+ 380:Core/Src/test.c **** 		delay_ms(m);
+ 381:Core/Src/test.c **** 		LCD_Draw9Point(x-r, y, WHITE);  //画第七个点
+ 382:Core/Src/test.c **** 		delay_ms(m);
+ 383:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y+t, BLACK);  //删除第六个点
+ 384:Core/Src/test.c **** 		delay_ms(m);
+ 385:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y-t, WHITE);  //画第八个点
+ 386:Core/Src/test.c **** 		delay_ms(m);
+ 387:Core/Src/test.c **** 		LCD_Draw9Point(x-r, y, BLACK);  //删除第七个点
+ 388:Core/Src/test.c **** 		delay_ms(m);
+ 389:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y-t, BLACK);  //删除第八个点
+ 390:Core/Src/test.c **** 		delay_ms(m);
+ 391:Core/Src/test.c **** 	}
+ 392:Core/Src/test.c **** 	delay_ms(1500);
+ 393:Core/Src/test.c **** }
+ 394:Core/Src/test.c **** 
+ 395:Core/Src/test.c **** /*****************************************************************************
+ 396:Core/Src/test.c ****  * @name       :void Combo_Test(void)
+ 397:Core/Src/test.c ****  * @date       :2018-12-29 
+ 398:Core/Src/test.c ****  * @function   :combo test
+ 399:Core/Src/test.c ****  * @parameters :None
+ 400:Core/Src/test.c ****  * @retvalue   :None
+ 401:Core/Src/test.c **** ******************************************************************************/
+ 402:Core/Src/test.c **** void Combo_Test(void)
+ 403:Core/Src/test.c **** {
+ 404:Core/Src/test.c **** 	DrawTestPage("测试13:GUI Combo");
+ 405:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
+ 406:Core/Src/test.c **** 	//画一个条形输入框
+ 407:Core/Src/test.c **** 	Draw_TextBox(50, 50, 200, 73);
+ 408:Core/Src/test.c **** 	//画下拉列表按钮(19*19)像素
+ 409:Core/Src/test.c **** 	Draw_Button(179, 52, 198, 71);
+ 410:Core/Src/test.c **** 	Draw_DirectButton(179,52);
+ 411:Core/Src/test.c **** 	delay_ms(500);
+ 412:Core/Src/test.c **** 	delay_ms(500);
+ 413:Core/Src/test.c **** 	delay_ms(500);
+ 414:Core/Src/test.c **** 	SetButton(179, 52, 198, 71);
+ 415:Core/Src/test.c **** 	LCD_Fill(183, 56, 194, 67, LGRAY);
+ 416:Core/Src/test.c ****    	Draw_DirectButton(180,53);
+ 417:Core/Src/test.c **** 	delay_ms(500);
+ 418:Core/Src/test.c **** 	delay_ms(500);
+ 419:Core/Src/test.c **** 	delay_ms(500);
+ 420:Core/Src/test.c **** 	EscButton(179, 52, 198, 71);
+ 421:Core/Src/test.c **** 	LCD_Fill(183, 56, 194, 67, LGRAY);
+ 422:Core/Src/test.c **** 	Draw_DirectButton(179,52);
+ 423:Core/Src/test.c **** 	//拉出下拉列表
+ 424:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 10
+
+
+ 425:Core/Src/test.c **** 	LCD_DrawRectangle(50, 74, 200, 143);
+ 426:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 142, WHITE);
+ 427:Core/Src/test.c **** 	//写列表中的内容
+ 428:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 97, DARKBLUE); //第一个默认为选中状态
+ 429:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 430:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 431:Core/Src/test.c **** 	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+ 432:Core/Src/test.c **** 
+ 433:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 434:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 435:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 436:Core/Src/test.c **** 	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+ 437:Core/Src/test.c **** 	delay_ms(500);
+ 438:Core/Src/test.c **** 	delay_ms(500);
+ 439:Core/Src/test.c **** 	delay_ms(500);
+ 440:Core/Src/test.c **** 	//选中第二个
+ 441:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 97, WHITE);	   //先取消第一个
+ 442:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 443:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 444:Core/Src/test.c **** 	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+ 445:Core/Src/test.c **** 
+ 446:Core/Src/test.c **** 	LCD_Fill(51, 98, 199, 120, DARKBLUE);  //选中第二个
+ 447:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 448:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 449:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 450:Core/Src/test.c **** 	delay_ms(500);
+ 451:Core/Src/test.c **** 	delay_ms(500);
+ 452:Core/Src/test.c **** 	delay_ms(500);
+ 453:Core/Src/test.c **** 	//选中第三个
+ 454:Core/Src/test.c **** 	LCD_Fill(51, 98, 199, 120, WHITE);//先取消选中的第二个
+ 455:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 456:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 457:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 458:Core/Src/test.c **** 
+ 459:Core/Src/test.c **** 	LCD_Fill(51, 121, 199, 142, DARKBLUE);//选中第三个
+ 460:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 461:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 462:Core/Src/test.c **** 	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+ 463:Core/Src/test.c **** 	delay_ms(500);
+ 464:Core/Src/test.c **** 	delay_ms(500);
+ 465:Core/Src/test.c **** 	delay_ms(500);
+ 466:Core/Src/test.c **** 	delay_ms(500);
+ 467:Core/Src/test.c **** 	//清除
+ 468:Core/Src/test.c **** 	LCD_Fill(50, 74, 200, 143, GRAY);
+ 469:Core/Src/test.c **** 	delay_ms(1500);
+ 470:Core/Src/test.c **** }
+ 471:Core/Src/test.c **** 
+ 472:Core/Src/test.c **** /*****************************************************************************
+ 473:Core/Src/test.c ****  * @name       :void ProgresBar_Test(void)
+ 474:Core/Src/test.c ****  * @date       :2018-12-29 
+ 475:Core/Src/test.c ****  * @function   :ProgresBar test
+ 476:Core/Src/test.c ****  * @parameters :None
+ 477:Core/Src/test.c ****  * @retvalue   :None
+ 478:Core/Src/test.c **** ******************************************************************************/
+ 479:Core/Src/test.c **** void ProgresBar_Test(void)
+ 480:Core/Src/test.c **** {
+ 481:Core/Src/test.c **** 	uint8_t i,num=1;
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 11
+
+
+ 482:Core/Src/test.c **** 	u16 x1=20;
+ 483:Core/Src/test.c **** 	u16 y1=30;
+ 484:Core/Src/test.c **** 	u16 x2=150;//130
+ 485:Core/Src/test.c **** 	u16 y2=130;//100
+ 486:Core/Src/test.c **** 			
+ 487:Core/Src/test.c **** 	DrawTestPage("测试14:GUI ProgresBar");
+ 488:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 489:Core/Src/test.c **** 	Draw_Button(x1, y1, x2, y2);   // 显示主体窗口
+ 490:Core/Src/test.c **** 	LCD_Fill(x1+3, y1+3, x2-3, y2-75, DARKBLUE);	 // 显示标题栏 
+ 491:Core/Src/test.c **** 	Show_Str(x1+25, y1+5, POINT_COLOR,BACK_COLOR,"ProgresBar",16,1); // 按钮上写字
+ 492:Core/Src/test.c **** 	Draw_Button(x1+5, y1+70, x2-70, y2-5);  // 显示第一个按钮
+ 493:Core/Src/test.c **** 	Draw_Button(x1+70, y1+70, x2-5, y2-5);  // 显示第二个按钮
+ 494:Core/Src/test.c **** 	POINT_COLOR=BLACK;	
+ 495:Core/Src/test.c **** 	BACK_COLOR=LGRAY;
+ 496:Core/Src/test.c **** 	Show_Str(x1+25, y1+74,POINT_COLOR,BACK_COLOR,"OK",16,1);
+ 497:Core/Src/test.c **** 	Show_Str(x1+75, y1+74, POINT_COLOR,BACK_COLOR,"Cancel",16,1);
+ 498:Core/Src/test.c **** 	Show_Str(x1+80, y1+35, POINT_COLOR,BACK_COLOR,"%",16,1);	  
+ 499:Core/Src/test.c **** 	for(i=x1+26;i<x2-5;i++)
+ 500:Core/Src/test.c **** 	{
+ 501:Core/Src/test.c **** 		LCD_Fill(x1+5, y1+53, i, y1+68, RED);
+ 502:Core/Src/test.c **** 		delay_ms(40);
+ 503:Core/Src/test.c **** 		LCD_ShowNum(x1+62, y1+35, num,2,16,0);
+ 504:Core/Src/test.c **** 		num++;
+ 505:Core/Src/test.c **** 	}
+ 506:Core/Src/test.c **** 	LCD_Fill(x1+5, y1+35, x2-5, y1+50, LGRAY);
+ 507:Core/Src/test.c **** 	Show_Str(x1+25, y1+35, BLUE,BACK_COLOR,"Success!!!",16,1);
+ 508:Core/Src/test.c **** 	delay_ms(1500);
+ 509:Core/Src/test.c **** }
+ 510:Core/Src/test.c **** 
+ 511:Core/Src/test.c **** /*****************************************************************************
+ 512:Core/Src/test.c ****  * @name       :void BarReport_Test(void)
+ 513:Core/Src/test.c ****  * @date       :2018-12-29 
+ 514:Core/Src/test.c ****  * @function   :BarReport test
+ 515:Core/Src/test.c ****  * @parameters :None
+ 516:Core/Src/test.c ****  * @retvalue   :None
+ 517:Core/Src/test.c **** ******************************************************************************/
+ 518:Core/Src/test.c **** void BarReport_Test(void)
+ 519:Core/Src/test.c **** {
+ 520:Core/Src/test.c **** 	uint16_t i;	
+ 521:Core/Src/test.c **** 
+ 522:Core/Src/test.c **** 	DrawTestPage("测试15:GUI BarReport");
+ 523:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 524:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 525:Core/Src/test.c **** 	//画纵坐标
+ 526:Core/Src/test.c **** 	LCD_DrawLine(20, 50, 20, 210);
+ 527:Core/Src/test.c **** 	LCD_DrawLine(10, 60, 20, 50);
+ 528:Core/Src/test.c **** 	LCD_DrawLine(30, 60, 20, 50);
+ 529:Core/Src/test.c **** 	//画横坐标
+ 530:Core/Src/test.c **** 	LCD_DrawLine(20, 210, 220, 210);
+ 531:Core/Src/test.c **** 	LCD_DrawLine(210, 200, 220, 210);
+ 532:Core/Src/test.c **** 	LCD_DrawLine(210, 220, 220, 210);
+ 533:Core/Src/test.c **** 	//画条形
+ 534:Core/Src/test.c **** 	LCD_Fill(35, 80, 55, 209,RED);
+ 535:Core/Src/test.c **** 	LCD_Fill(75, 130, 95, 209,YELLOW);
+ 536:Core/Src/test.c **** 	LCD_Fill(115, 60, 135, 209,BLUE);
+ 537:Core/Src/test.c **** 	LCD_Fill(155, 90, 175, 209,GREEN);
+ 538:Core/Src/test.c **** 	//条形渐变
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 12
+
+
+ 539:Core/Src/test.c **** 	delay_ms(50);
+ 540:Core/Src/test.c **** 	for(i=81;i<209;i++) //红色条降低
+ 541:Core/Src/test.c **** 	{
+ 542:Core/Src/test.c **** 		LCD_Fill(35, 80, 55, i,WHITE);
+ 543:Core/Src/test.c **** 		delay_ms(10);
+ 544:Core/Src/test.c **** 	}
+ 545:Core/Src/test.c **** 	for(i=208;i>100;i--) //红色条升高
+ 546:Core/Src/test.c **** 	{
+ 547:Core/Src/test.c **** 		LCD_Fill(35, i, 55, 209,RED);
+ 548:Core/Src/test.c **** 		delay_ms(10);
+ 549:Core/Src/test.c **** 	}
+ 550:Core/Src/test.c **** 	for(i=129;i>80;i--) //黄色条升高
+ 551:Core/Src/test.c **** 	{
+ 552:Core/Src/test.c **** 		LCD_Fill(75, i, 95, 130,YELLOW);
+ 553:Core/Src/test.c **** 		delay_ms(10);
+ 554:Core/Src/test.c **** 	}
+ 555:Core/Src/test.c **** 	for(i=25;i<160;i++) //蓝色条降低
+ 556:Core/Src/test.c **** 	{
+ 557:Core/Src/test.c **** 		LCD_Fill(115, 24, 135, i,WHITE);
+ 558:Core/Src/test.c **** 		delay_ms(10);
+ 559:Core/Src/test.c **** 	}		
+ 560:Core/Src/test.c **** 	delay_ms(1500);
+ 561:Core/Src/test.c **** }
+ 562:Core/Src/test.c **** 
+ 563:Core/Src/test.c **** /*****************************************************************************
+ 564:Core/Src/test.c ****  * @name       :void Window_Test(void)
+ 565:Core/Src/test.c ****  * @date       :2018-12-29 
+ 566:Core/Src/test.c ****  * @function   :Window test
+ 567:Core/Src/test.c ****  * @parameters :None
+ 568:Core/Src/test.c ****  * @retvalue   :None
+ 569:Core/Src/test.c **** ******************************************************************************/
+ 570:Core/Src/test.c **** void Window_Test(void)
+ 571:Core/Src/test.c **** {
+ 572:Core/Src/test.c **** 
+ 573:Core/Src/test.c **** 	uint16_t xstart=2,ystart=30,xend=lcddev.width*2/3,yend=lcddev.height-30;
+ 574:Core/Src/test.c **** 	uint8_t i=3;
+ 575:Core/Src/test.c **** 	DrawTestPage("测试16:GUI Window");
+ 576:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
+ 577:Core/Src/test.c **** 	do
+ 578:Core/Src/test.c **** 	{
+ 579:Core/Src/test.c **** 		Draw_Window(xstart,ystart,xend,yend,"OK");
+ 580:Core/Src/test.c **** 		delay_ms(500);
+ 581:Core/Src/test.c **** 		delay_ms(500);
+ 582:Core/Src/test.c **** 		xstart+=15;ystart+=15;xend-=30;yend-=30;
+ 583:Core/Src/test.c **** 	}while(--i);
+ 584:Core/Src/test.c **** 	delay_ms(1500);
+ 585:Core/Src/test.c **** }
+ 586:Core/Src/test.c **** 
+ 587:Core/Src/test.c **** /*****************************************************************************
+ 588:Core/Src/test.c ****  * @name       :void Button_Test(void)
+ 589:Core/Src/test.c ****  * @date       :2018-12-29 
+ 590:Core/Src/test.c ****  * @function   :Button test
+ 591:Core/Src/test.c ****  * @parameters :None
+ 592:Core/Src/test.c ****  * @retvalue   :None
+ 593:Core/Src/test.c **** ******************************************************************************/
+ 594:Core/Src/test.c **** void Button_Test(void)
+ 595:Core/Src/test.c **** {		  	
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 13
+
+
+ 596:Core/Src/test.c **** 	DrawTestPage("测试17:GUI Button");
+ 597:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 598:Core/Src/test.c **** 	Draw_TextBox(30, 60, 170, 90);	 // 显示一个文字输入框
+ 599:Core/Src/test.c **** 	Draw_Button(180, 60, 235, 90);			 // 显示1个按钮
+ 600:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 601:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 602:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 603:Core/Src/test.c **** 
+ 604:Core/Src/test.c **** 	
+ 605:Core/Src/test.c **** 	POINT_COLOR = BLUE;
+ 606:Core/Src/test.c **** 	BACK_COLOR = WHITE;
+ 607:Core/Src/test.c **** 	Show_Str(30,38,POINT_COLOR,BACK_COLOR,"News",16,1);
+ 608:Core/Src/test.c **** 	LCD_DrawLine(30,55,62,55);
+ 609:Core/Src/test.c **** 	Show_Str(118,38,POINT_COLOR,BACK_COLOR,"Pic",16,1);
+ 610:Core/Src/test.c **** 	LCD_DrawLine(118,55,150,55);
+ 611:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 612:Core/Src/test.c **** 	Show_Str(70,38,POINT_COLOR,BACK_COLOR,"Label",16,1);
+ 613:Core/Src/test.c **** 	delay_ms(500);
+ 614:Core/Src/test.c **** 	delay_ms(500);
+ 615:Core/Src/test.c **** 	delay_ms(500);
+ 616:Core/Src/test.c **** 	
+ 617:Core/Src/test.c **** 	LCD_ShowChar(35, 67, POINT_COLOR,BACK_COLOR,'C',16,1);
+ 618:Core/Src/test.c **** 	delay_ms(500);
+ 619:Core/Src/test.c **** 	LCD_ShowChar(43, 67, POINT_COLOR,BACK_COLOR,'o',16,1);
+ 620:Core/Src/test.c **** 	delay_ms(500);
+ 621:Core/Src/test.c **** 	LCD_ShowChar(51, 67, POINT_COLOR,BACK_COLOR,'r',16,1);
+ 622:Core/Src/test.c **** 	delay_ms(500);
+ 623:Core/Src/test.c **** 	LCD_ShowChar(58, 67, POINT_COLOR,BACK_COLOR,'t',16,1);
+ 624:Core/Src/test.c **** 	delay_ms(500);
+ 625:Core/Src/test.c **** 	LCD_ShowChar(66, 67, POINT_COLOR,BACK_COLOR,'e',16,1);
+ 626:Core/Src/test.c **** 	delay_ms(500);
+ 627:Core/Src/test.c **** 	LCD_ShowChar(74, 67, POINT_COLOR,BACK_COLOR,'x',16,1);
+ 628:Core/Src/test.c **** 	delay_ms(500);
+ 629:Core/Src/test.c **** 	LCD_ShowChar(82, 67, POINT_COLOR,BACK_COLOR,'-',16,1);
+ 630:Core/Src/test.c **** 	delay_ms(500);
+ 631:Core/Src/test.c **** 	LCD_ShowChar(88, 67, POINT_COLOR,BACK_COLOR,'M',16,1);
+ 632:Core/Src/test.c **** 	delay_ms(500);
+ 633:Core/Src/test.c **** 
+ 634:Core/Src/test.c **** 
+ 635:Core/Src/test.c **** 	SetButton(180, 60, 235, 90);			 // 按下“搜索”按钮
+ 636:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 637:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 638:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 639:Core/Src/test.c **** 	delay_ms(500);
+ 640:Core/Src/test.c **** 
+ 641:Core/Src/test.c **** 	EscButton(180, 60, 235, 90);			 // 放开“搜索”按钮
+ 642:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 643:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 644:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 645:Core/Src/test.c **** 	POINT_COLOR = RED;
+ 646:Core/Src/test.c **** 	BACK_COLOR = WHITE;		 
+ 647:Core/Src/test.c **** 	Show_Str(12,100,POINT_COLOR,BACK_COLOR,"The ARM Cortex-M is a group",16,1 );
+ 648:Core/Src/test.c **** 	Show_Str(12,120,POINT_COLOR,BACK_COLOR,"of 32-bit RISC ARM processor",16,1 );
+ 649:Core/Src/test.c **** 	Show_Str(12,140,POINT_COLOR,BACK_COLOR,"cores licensed by ARM Holdings.",16,1 );
+ 650:Core/Src/test.c **** 	Show_Str(12,160,POINT_COLOR,BACK_COLOR,"The cores are intended for ",16,1 );
+ 651:Core/Src/test.c **** 	Show_Str(12,180,POINT_COLOR,BACK_COLOR,"microcontroller use,and consist",16,1);
+ 652:Core/Src/test.c **** 	Show_Str(12,200,POINT_COLOR,BACK_COLOR,"of the Cortex-M0/M1/M2/M3/M4.",16,1);
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 14
+
+
+ 653:Core/Src/test.c **** 	delay_ms(500);
+ 654:Core/Src/test.c **** 	delay_ms(500);
+ 655:Core/Src/test.c **** 	delay_ms(500);
+ 656:Core/Src/test.c **** 	delay_ms(500);
+ 657:Core/Src/test.c **** 	delay_ms(500);
+ 658:Core/Src/test.c **** 	delay_ms(500);
+ 659:Core/Src/test.c **** 	delay_ms(500);
+ 660:Core/Src/test.c **** 	delay_ms(500);
+ 661:Core/Src/test.c **** 	delay_ms(500);
+ 662:Core/Src/test.c **** 	delay_ms(500);
+ 663:Core/Src/test.c **** 	delay_ms(500);
+ 664:Core/Src/test.c **** 	delay_ms(500);
+ 665:Core/Src/test.c **** }
+ 666:Core/Src/test.c **** 
+ 667:Core/Src/test.c **** /*****************************************************************************
+ 668:Core/Src/test.c ****  * @name       :void Test_Dynamic_Num(void)
+ 669:Core/Src/test.c ****  * @date       :2018-11-13 
+ 670:Core/Src/test.c ****  * @function   :Dynamic number test
+ 671:Core/Src/test.c ****  * @parameters :None
+ 672:Core/Src/test.c ****  * @retvalue   :None
+ 673:Core/Src/test.c **** ******************************************************************************/
+ 674:Core/Src/test.c **** void Test_Dynamic_Num(void)
+ 675:Core/Src/test.c **** {
+ 676:Core/Src/test.c **** 		u8 i;
+ 677:Core/Src/test.c **** 	DrawTestPage("测试9:动态数字显示");
+ 678:Core/Src/test.c **** 	POINT_COLOR=BLUE;
+ 679:Core/Src/test.c **** 	srand(123456);
+ 680:Core/Src/test.c **** 	LCD_ShowString(15,50,16, " HCHO:           ug/m3",1);
+ 681:Core/Src/test.c **** 	LCD_ShowString(15,70,16, "  CO2:           ppm",1);
+ 682:Core/Src/test.c **** 	LCD_ShowString(15,90,16, " TVOC:           ug/m3",1);
+ 683:Core/Src/test.c **** 	LCD_ShowString(15,110,16,"PM2.5:           ug/m3",1);
+ 684:Core/Src/test.c **** 	LCD_ShowString(15,130,16," PM10:           ug/m3",1);
+ 685:Core/Src/test.c **** 	LCD_ShowString(15,150,16,"  TEP:           C",1);
+ 686:Core/Src/test.c **** 	LCD_ShowString(15,170,16,"  HUM:           %",1);
+ 687:Core/Src/test.c **** 	POINT_COLOR=RED;
+ 688:Core/Src/test.c **** 	for(i=0;i<15;i++)
+ 689:Core/Src/test.c **** 	{
+ 690:Core/Src/test.c **** 		LCD_ShowNum(100,50,rand()%10000,5,16,0);
+ 691:Core/Src/test.c **** 		LCD_ShowNum(100,70,rand()%10000,5,16),0;
+ 692:Core/Src/test.c **** 		LCD_ShowNum(100,90,rand()%10000,5,16,0);
+ 693:Core/Src/test.c **** 		LCD_ShowNum(100,110,rand()%10000,5,16,0);
+ 694:Core/Src/test.c **** 		LCD_ShowNum(100,130,rand()%10000,5,16,0);
+ 695:Core/Src/test.c **** 		LCD_ShowNum(100,150,rand()%50,5,16,0);
+ 696:Core/Src/test.c **** 		LCD_ShowNum(100,170,rand()%100,5,16,0);
+ 697:Core/Src/test.c **** 		delay_ms(500);
+ 698:Core/Src/test.c **** 	}
+ 699:Core/Src/test.c **** }
+ 700:Core/Src/test.c **** #endif
+ 701:Core/Src/test.c **** 
+ 702:Core/Src/test.c **** const u8 send_test[]="STM32F407VxT6 SPI TEST";   //写入数组
+ 703:Core/Src/test.c **** 
+ 704:Core/Src/test.c **** /*****************************************************************************
+ 705:Core/Src/test.c ****  * @name       :void SPI_W25Q64_test(void)
+ 706:Core/Src/test.c ****  * @date       :2018-08-09 
+ 707:Core/Src/test.c ****  * @function   :show SPI test
+ 708:Core/Src/test.c ****  * @parameters :None
+ 709:Core/Src/test.c ****  * @retvalue   :None
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 15
+
+
+ 710:Core/Src/test.c **** ******************************************************************************/
+ 711:Core/Src/test.c **** void SPI_W25Q64_test(void)
+ 712:Core/Src/test.c **** {
+  58              		.loc 1 712 1 view -0
+  59              		.cfi_startproc
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62 0000 70B5     		push	{r4, r5, r6, lr}
+  63              	.LCFI0:
+  64              		.cfi_def_cfa_offset 16
+  65              		.cfi_offset 4, -16
+  66              		.cfi_offset 5, -12
+  67              		.cfi_offset 6, -8
+  68              		.cfi_offset 14, -4
+  69 0002 84B0     		sub	sp, sp, #16
+  70              	.LCFI1:
+  71              		.cfi_def_cfa_offset 32
+ 713:Core/Src/test.c **** 	printf("spi w25q64 test\r\n");
+  72              		.loc 1 713 2 view .LVU1
+  73 0004 3D48     		ldr	r0, .L5
+  74 0006 FFF7FEFF 		bl	puts
+  75              	.LVL0:
+ 714:Core/Src/test.c **** 	Gui_StrCenter(0,20,RED,BLUE,"STM32F407VxT6最小系统开发板",16,1);//居中显示
+  76              		.loc 1 714 2 view .LVU2
+  77 000a 0125     		movs	r5, #1
+  78 000c 0295     		str	r5, [sp, #8]
+  79 000e 1024     		movs	r4, #16
+  80 0010 0194     		str	r4, [sp, #4]
+  81 0012 3B4B     		ldr	r3, .L5+4
+  82 0014 0093     		str	r3, [sp]
+  83 0016 1F23     		movs	r3, #31
+  84 0018 4FF47842 		mov	r2, #63488
+  85 001c 1421     		movs	r1, #20
+  86 001e 0020     		movs	r0, #0
+  87 0020 FFF7FEFF 		bl	Gui_StrCenter
+  88              	.LVL1:
+ 715:Core/Src/test.c **** 	Gui_StrCenter(0,45,RED,BLUE,"SPI 测试程序",16,1);//居中显示	
+  89              		.loc 1 715 2 view .LVU3
+  90 0024 0295     		str	r5, [sp, #8]
+  91 0026 0194     		str	r4, [sp, #4]
+  92 0028 364B     		ldr	r3, .L5+8
+  93 002a 0093     		str	r3, [sp]
+  94 002c 1F23     		movs	r3, #31
+  95 002e 4FF47842 		mov	r2, #63488
+  96 0032 2D21     		movs	r1, #45
+  97 0034 0020     		movs	r0, #0
+  98 0036 FFF7FEFF 		bl	Gui_StrCenter
+  99              	.LVL2:
+ 716:Core/Src/test.c **** 	Gui_StrCenter(0,70,BLUE,BLUE,"KEY_UP:Write  KEY0:Read",16,1);//居中显示	
+ 100              		.loc 1 716 2 view .LVU4
+ 101 003a 0295     		str	r5, [sp, #8]
+ 102 003c 0194     		str	r4, [sp, #4]
+ 103 003e 324B     		ldr	r3, .L5+12
+ 104 0040 0093     		str	r3, [sp]
+ 105 0042 1F23     		movs	r3, #31
+ 106 0044 1A46     		mov	r2, r3
+ 107 0046 4621     		movs	r1, #70
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 16
+
+
+ 108 0048 0020     		movs	r0, #0
+ 109 004a FFF7FEFF 		bl	Gui_StrCenter
+ 110              	.LVL3:
+ 717:Core/Src/test.c **** 	while(W25QXX_ReadID()!=W25Q64)
+ 111              		.loc 1 717 2 view .LVU5
+ 112              		.loc 1 717 7 is_stmt 0 view .LVU6
+ 113 004e 29E0     		b	.L2
+ 114              	.L3:
+ 718:Core/Src/test.c **** 	{
+ 719:Core/Src/test.c **** 		Gui_StrCenter(0,95,RED,WHITE,"W25Q64 Check Failed!",16,0);
+ 115              		.loc 1 719 3 is_stmt 1 view .LVU7
+ 116 0050 0024     		movs	r4, #0
+ 117 0052 0294     		str	r4, [sp, #8]
+ 118 0054 1025     		movs	r5, #16
+ 119 0056 0195     		str	r5, [sp, #4]
+ 120 0058 2C4B     		ldr	r3, .L5+16
+ 121 005a 0093     		str	r3, [sp]
+ 122 005c 4FF6FF73 		movw	r3, #65535
+ 123 0060 4FF47842 		mov	r2, #63488
+ 124 0064 5F21     		movs	r1, #95
+ 125 0066 2046     		mov	r0, r4
+ 126 0068 FFF7FEFF 		bl	Gui_StrCenter
+ 127              	.LVL4:
+ 720:Core/Src/test.c **** 		delay_ms(500);
+ 128              		.loc 1 720 3 view .LVU8
+ 129 006c 4FF4FA70 		mov	r0, #500
+ 130 0070 FFF7FEFF 		bl	delay_ms
+ 131              	.LVL5:
+ 721:Core/Src/test.c **** 		Gui_StrCenter(0,95,RED,WHITE,"Please Check!       ",16,0);
+ 132              		.loc 1 721 3 view .LVU9
+ 133 0074 0294     		str	r4, [sp, #8]
+ 134 0076 0195     		str	r5, [sp, #4]
+ 135 0078 254B     		ldr	r3, .L5+20
+ 136 007a 0093     		str	r3, [sp]
+ 137 007c 4FF6FF73 		movw	r3, #65535
+ 138 0080 4FF47842 		mov	r2, #63488
+ 139 0084 5F21     		movs	r1, #95
+ 140 0086 2046     		mov	r0, r4
+ 141 0088 FFF7FEFF 		bl	Gui_StrCenter
+ 142              	.LVL6:
+ 722:Core/Src/test.c **** 		delay_ms(500);
+ 143              		.loc 1 722 3 view .LVU10
+ 144 008c 4FF4FA70 		mov	r0, #500
+ 145 0090 FFF7FEFF 		bl	delay_ms
+ 146              	.LVL7:
+ 723:Core/Src/test.c **** 		LED0=!LED0;//LED0闪烁
+ 147              		.loc 1 723 3 view .LVU11
+ 148              		.loc 1 723 9 is_stmt 0 view .LVU12
+ 149 0094 1F4A     		ldr	r2, .L5+24
+ 150 0096 D2F88432 		ldr	r3, [r2, #644]
+ 151              		.loc 1 723 8 view .LVU13
+ 152 009a B3FA83F3 		clz	r3, r3
+ 153 009e 5B09     		lsrs	r3, r3, #5
+ 154              		.loc 1 723 7 view .LVU14
+ 155 00a0 C2F88432 		str	r3, [r2, #644]
+ 156              	.L2:
+ 717:Core/Src/test.c **** 	{
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 17
+
+
+ 157              		.loc 1 717 7 is_stmt 1 view .LVU15
+ 717:Core/Src/test.c **** 	{
+ 158              		.loc 1 717 8 is_stmt 0 view .LVU16
+ 159 00a4 FFF7FEFF 		bl	W25QXX_ReadID
+ 160              	.LVL8:
+ 717:Core/Src/test.c **** 	{
+ 161              		.loc 1 717 7 view .LVU17
+ 162 00a8 4EF61673 		movw	r3, #61206
+ 163 00ac 9842     		cmp	r0, r3
+ 164 00ae CFD1     		bne	.L3
+ 724:Core/Src/test.c **** 	}
+ 725:Core/Src/test.c **** 	Gui_StrCenter(0,95,BLUE,WHITE,"W25Q64 Ready!",16,0);
+ 165              		.loc 1 725 2 is_stmt 1 view .LVU18
+ 166 00b0 0024     		movs	r4, #0
+ 167 00b2 0294     		str	r4, [sp, #8]
+ 168 00b4 1025     		movs	r5, #16
+ 169 00b6 0195     		str	r5, [sp, #4]
+ 170 00b8 174B     		ldr	r3, .L5+28
+ 171 00ba 0093     		str	r3, [sp]
+ 172 00bc 4FF6FF73 		movw	r3, #65535
+ 173 00c0 1F22     		movs	r2, #31
+ 174 00c2 5F21     		movs	r1, #95
+ 175 00c4 2046     		mov	r0, r4
+ 176 00c6 FFF7FEFF 		bl	Gui_StrCenter
+ 177              	.LVL9:
+ 726:Core/Src/test.c **** 	Gui_StrCenter(0,165,BLUE,BLUE,"2020-06-05",16,1);//居中显示
+ 178              		.loc 1 726 2 view .LVU19
+ 179 00ca 0126     		movs	r6, #1
+ 180 00cc 0296     		str	r6, [sp, #8]
+ 181 00ce 0195     		str	r5, [sp, #4]
+ 182 00d0 124B     		ldr	r3, .L5+32
+ 183 00d2 0093     		str	r3, [sp]
+ 184 00d4 1F23     		movs	r3, #31
+ 185 00d6 1A46     		mov	r2, r3
+ 186 00d8 A521     		movs	r1, #165
+ 187 00da 2046     		mov	r0, r4
+ 188 00dc FFF7FEFF 		bl	Gui_StrCenter
+ 189              	.LVL10:
+ 727:Core/Src/test.c **** 	Gui_StrCenter(0,190,GREEN,BLUE,"http://www.lcdwiki.com",16,1);//居中显示
+ 190              		.loc 1 727 2 view .LVU20
+ 191 00e0 0296     		str	r6, [sp, #8]
+ 192 00e2 0195     		str	r5, [sp, #4]
+ 193 00e4 0E4B     		ldr	r3, .L5+36
+ 194 00e6 0093     		str	r3, [sp]
+ 195 00e8 1F23     		movs	r3, #31
+ 196 00ea 4FF4FC62 		mov	r2, #2016
+ 197 00ee BE21     		movs	r1, #190
+ 198 00f0 2046     		mov	r0, r4
+ 199 00f2 FFF7FEFF 		bl	Gui_StrCenter
+ 200              	.LVL11:
+ 728:Core/Src/test.c **** }
+ 201              		.loc 1 728 1 is_stmt 0 view .LVU21
+ 202 00f6 04B0     		add	sp, sp, #16
+ 203              	.LCFI2:
+ 204              		.cfi_def_cfa_offset 16
+ 205              		@ sp needed
+ 206 00f8 70BD     		pop	{r4, r5, r6, pc}
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 18
+
+
+ 207              	.L6:
+ 208 00fa 00BF     		.align	2
+ 209              	.L5:
+ 210 00fc 00000000 		.word	.LC0
+ 211 0100 14000000 		.word	.LC1
+ 212 0104 30000000 		.word	.LC2
+ 213 0108 40000000 		.word	.LC3
+ 214 010c 58000000 		.word	.LC4
+ 215 0110 70000000 		.word	.LC5
+ 216 0114 00004042 		.word	1111490560
+ 217 0118 88000000 		.word	.LC6
+ 218 011c 98000000 		.word	.LC7
+ 219 0120 A4000000 		.word	.LC8
+ 220              		.cfi_endproc
+ 221              	.LFE133:
+ 223              		.section	.rodata.Show_W25Q64_Write.str1.4,"aMS",%progbits,1
+ 224              		.align	2
+ 225              	.LC9:
+ 226 0000 53746172 		.ascii	"Start Write W25Q64....\000"
+ 226      74205772 
+ 226      69746520 
+ 226      57323551 
+ 226      36342E2E 
+ 227 0017 00       		.align	2
+ 228              	.LC10:
+ 229 0018 57323551 		.ascii	"W25Q64 Write Finished!\000"
+ 229      36342057 
+ 229      72697465 
+ 229      2046696E 
+ 229      69736865 
+ 230              		.section	.text.Show_W25Q64_Write,"ax",%progbits
+ 231              		.align	1
+ 232              		.global	Show_W25Q64_Write
+ 233              		.syntax unified
+ 234              		.thumb
+ 235              		.thumb_func
+ 236              		.fpu fpv4-sp-d16
+ 238              	Show_W25Q64_Write:
+ 239              	.LFB134:
+ 729:Core/Src/test.c **** 
+ 730:Core/Src/test.c **** /*****************************************************************************
+ 731:Core/Src/test.c ****  * @name       :void Show_W25Q64_Write(void)
+ 732:Core/Src/test.c ****  * @date       :2018-08-09 
+ 733:Core/Src/test.c ****  * @function   :show W25Q64 write
+ 734:Core/Src/test.c ****  * @parameters :None
+ 735:Core/Src/test.c ****  * @retvalue   :None
+ 736:Core/Src/test.c **** ******************************************************************************/
+ 737:Core/Src/test.c **** void Show_W25Q64_Write(void)
+ 738:Core/Src/test.c **** {
+ 240              		.loc 1 738 1 is_stmt 1 view -0
+ 241              		.cfi_startproc
+ 242              		@ args = 0, pretend = 0, frame = 0
+ 243              		@ frame_needed = 0, uses_anonymous_args = 0
+ 244 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 245              	.LCFI3:
+ 246              		.cfi_def_cfa_offset 20
+ 247              		.cfi_offset 4, -20
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 19
+
+
+ 248              		.cfi_offset 5, -16
+ 249              		.cfi_offset 6, -12
+ 250              		.cfi_offset 7, -8
+ 251              		.cfi_offset 14, -4
+ 252 0002 85B0     		sub	sp, sp, #20
+ 253              	.LCFI4:
+ 254              		.cfi_def_cfa_offset 40
+ 739:Core/Src/test.c **** 	LCD_Fill(0,140,lcddev.width-1,156,WHITE);
+ 255              		.loc 1 739 2 view .LVU23
+ 256              		.loc 1 739 23 is_stmt 0 view .LVU24
+ 257 0004 184D     		ldr	r5, .L9
+ 258 0006 AA88     		ldrh	r2, [r5, #4]
+ 259              		.loc 1 739 2 view .LVU25
+ 260 0008 013A     		subs	r2, r2, #1
+ 261 000a 4FF6FF74 		movw	r4, #65535
+ 262 000e 0094     		str	r4, [sp]
+ 263 0010 9C23     		movs	r3, #156
+ 264 0012 92B2     		uxth	r2, r2
+ 265 0014 8C21     		movs	r1, #140
+ 266 0016 0020     		movs	r0, #0
+ 267 0018 FFF7FEFF 		bl	LCD_Fill
+ 268              	.LVL12:
+ 740:Core/Src/test.c **** 	Show_Str(lcddev.width/2-84,120,RED,WHITE,"Start Write W25Q64....",16,0);
+ 269              		.loc 1 740 2 is_stmt 1 view .LVU26
+ 270              		.loc 1 740 17 is_stmt 0 view .LVU27
+ 271 001c A888     		ldrh	r0, [r5, #4]
+ 272              		.loc 1 740 2 view .LVU28
+ 273 001e 4008     		lsrs	r0, r0, #1
+ 274 0020 5438     		subs	r0, r0, #84
+ 275 0022 0027     		movs	r7, #0
+ 276 0024 0297     		str	r7, [sp, #8]
+ 277 0026 1026     		movs	r6, #16
+ 278 0028 0196     		str	r6, [sp, #4]
+ 279 002a 104B     		ldr	r3, .L9+4
+ 280 002c 0093     		str	r3, [sp]
+ 281 002e 2346     		mov	r3, r4
+ 282 0030 4FF47842 		mov	r2, #63488
+ 283 0034 7821     		movs	r1, #120
+ 284 0036 80B2     		uxth	r0, r0
+ 285 0038 FFF7FEFF 		bl	Show_Str
+ 286              	.LVL13:
+ 741:Core/Src/test.c **** 	W25Q64_Write((u8*)send_test,FLASH_SIZE-64,sizeof(send_test));
+ 287              		.loc 1 741 2 is_stmt 1 view .LVU29
+ 288 003c 1722     		movs	r2, #23
+ 289 003e 0C49     		ldr	r1, .L9+8
+ 290 0040 0C48     		ldr	r0, .L9+12
+ 291 0042 FFF7FEFF 		bl	W25Q64_Write
+ 292              	.LVL14:
+ 742:Core/Src/test.c **** 	Show_Str(lcddev.width/2-84,120,RED,WHITE,"W25Q64 Write Finished!",16,0);//提示传送完成
+ 293              		.loc 1 742 2 view .LVU30
+ 294              		.loc 1 742 17 is_stmt 0 view .LVU31
+ 295 0046 A888     		ldrh	r0, [r5, #4]
+ 296              		.loc 1 742 2 view .LVU32
+ 297 0048 4008     		lsrs	r0, r0, #1
+ 298 004a 5438     		subs	r0, r0, #84
+ 299 004c 0297     		str	r7, [sp, #8]
+ 300 004e 0196     		str	r6, [sp, #4]
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 20
+
+
+ 301 0050 094B     		ldr	r3, .L9+16
+ 302 0052 0093     		str	r3, [sp]
+ 303 0054 2346     		mov	r3, r4
+ 304 0056 4FF47842 		mov	r2, #63488
+ 305 005a 7821     		movs	r1, #120
+ 306 005c 80B2     		uxth	r0, r0
+ 307 005e FFF7FEFF 		bl	Show_Str
+ 308              	.LVL15:
+ 743:Core/Src/test.c **** }
+ 309              		.loc 1 743 1 view .LVU33
+ 310 0062 05B0     		add	sp, sp, #20
+ 311              	.LCFI5:
+ 312              		.cfi_def_cfa_offset 20
+ 313              		@ sp needed
+ 314 0064 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 315              	.L10:
+ 316 0066 00BF     		.align	2
+ 317              	.L9:
+ 318 0068 00000000 		.word	lcddev
+ 319 006c 00000000 		.word	.LC9
+ 320 0070 C0FF7F00 		.word	8388544
+ 321 0074 00000000 		.word	.LANCHOR0
+ 322 0078 18000000 		.word	.LC10
+ 323              		.cfi_endproc
+ 324              	.LFE134:
+ 326              		.section	.rodata.Show_W25Q64_Read.str1.4,"aMS",%progbits,1
+ 327              		.align	2
+ 328              	.LC11:
+ 329 0000 53746172 		.ascii	"Start Read W25Q64.... \000"
+ 329      74205265 
+ 329      61642057 
+ 329      32355136 
+ 329      342E2E2E 
+ 330 0017 00       		.align	2
+ 331              	.LC12:
+ 332 0018 54686520 		.ascii	"The Data Readed Is:   \000"
+ 332      44617461 
+ 332      20526561 
+ 332      64656420 
+ 332      49733A20 
+ 333              		.section	.text.Show_W25Q64_Read,"ax",%progbits
+ 334              		.align	1
+ 335              		.global	Show_W25Q64_Read
+ 336              		.syntax unified
+ 337              		.thumb
+ 338              		.thumb_func
+ 339              		.fpu fpv4-sp-d16
+ 341              	Show_W25Q64_Read:
+ 342              	.LFB135:
+ 744:Core/Src/test.c **** 
+ 745:Core/Src/test.c **** /*****************************************************************************
+ 746:Core/Src/test.c ****  * @name       :void Show_W25Q64_Read(void)
+ 747:Core/Src/test.c ****  * @date       :2018-08-09 
+ 748:Core/Src/test.c ****  * @function   :show W25Q64 read
+ 749:Core/Src/test.c ****  * @parameters :None
+ 750:Core/Src/test.c ****  * @retvalue   :None
+ 751:Core/Src/test.c **** ******************************************************************************/
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 21
+
+
+ 752:Core/Src/test.c **** void Show_W25Q64_Read(void)
+ 753:Core/Src/test.c **** {
+ 343              		.loc 1 753 1 is_stmt 1 view -0
+ 344              		.cfi_startproc
+ 345              		@ args = 0, pretend = 0, frame = 24
+ 346              		@ frame_needed = 0, uses_anonymous_args = 0
+ 347 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 348              	.LCFI6:
+ 349              		.cfi_def_cfa_offset 20
+ 350              		.cfi_offset 4, -20
+ 351              		.cfi_offset 5, -16
+ 352              		.cfi_offset 6, -12
+ 353              		.cfi_offset 7, -8
+ 354              		.cfi_offset 14, -4
+ 355 0002 8BB0     		sub	sp, sp, #44
+ 356              	.LCFI7:
+ 357              		.cfi_def_cfa_offset 64
+ 754:Core/Src/test.c **** 	u8 rece_buf[sizeof(send_test)];
+ 358              		.loc 1 754 2 view .LVU35
+ 755:Core/Src/test.c **** 	Show_Str(lcddev.width/2-84,120,RED,WHITE,"Start Read W25Q64.... ",16,0);
+ 359              		.loc 1 755 2 view .LVU36
+ 360              		.loc 1 755 17 is_stmt 0 view .LVU37
+ 361 0004 1B4F     		ldr	r7, .L13
+ 362 0006 B888     		ldrh	r0, [r7, #4]
+ 363              		.loc 1 755 2 view .LVU38
+ 364 0008 4008     		lsrs	r0, r0, #1
+ 365 000a 5438     		subs	r0, r0, #84
+ 366 000c 0025     		movs	r5, #0
+ 367 000e 0295     		str	r5, [sp, #8]
+ 368 0010 1024     		movs	r4, #16
+ 369 0012 0194     		str	r4, [sp, #4]
+ 370 0014 184B     		ldr	r3, .L13+4
+ 371 0016 0093     		str	r3, [sp]
+ 372 0018 4FF6FF73 		movw	r3, #65535
+ 373 001c 4FF47842 		mov	r2, #63488
+ 374 0020 7821     		movs	r1, #120
+ 375 0022 80B2     		uxth	r0, r0
+ 376 0024 FFF7FEFF 		bl	Show_Str
+ 377              	.LVL16:
+ 756:Core/Src/test.c **** 	W25Q64_Read(rece_buf,FLASH_SIZE-64,sizeof(send_test));
+ 378              		.loc 1 756 2 is_stmt 1 view .LVU39
+ 379 0028 0DEB0406 		add	r6, sp, r4
+ 380 002c 1722     		movs	r2, #23
+ 381 002e 1349     		ldr	r1, .L13+8
+ 382 0030 3046     		mov	r0, r6
+ 383 0032 FFF7FEFF 		bl	W25Q64_Read
+ 384              	.LVL17:
+ 757:Core/Src/test.c **** 	Show_Str(lcddev.width/2-84,120,RED,WHITE,"The Data Readed Is:   ",16,0);
+ 385              		.loc 1 757 2 view .LVU40
+ 386              		.loc 1 757 17 is_stmt 0 view .LVU41
+ 387 0036 B888     		ldrh	r0, [r7, #4]
+ 388              		.loc 1 757 2 view .LVU42
+ 389 0038 4008     		lsrs	r0, r0, #1
+ 390 003a 5438     		subs	r0, r0, #84
+ 391 003c 0295     		str	r5, [sp, #8]
+ 392 003e 0194     		str	r4, [sp, #4]
+ 393 0040 0F4B     		ldr	r3, .L13+12
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 22
+
+
+ 394 0042 0093     		str	r3, [sp]
+ 395 0044 4FF6FF73 		movw	r3, #65535
+ 396 0048 4FF47842 		mov	r2, #63488
+ 397 004c 7821     		movs	r1, #120
+ 398 004e 80B2     		uxth	r0, r0
+ 399 0050 FFF7FEFF 		bl	Show_Str
+ 400              	.LVL18:
+ 758:Core/Src/test.c **** 	Show_Str(lcddev.width/2-84,140,BLUE,WHITE,rece_buf,16,0);//显示读到的字符串
+ 401              		.loc 1 758 2 is_stmt 1 view .LVU43
+ 402              		.loc 1 758 17 is_stmt 0 view .LVU44
+ 403 0054 B888     		ldrh	r0, [r7, #4]
+ 404              		.loc 1 758 2 view .LVU45
+ 405 0056 4008     		lsrs	r0, r0, #1
+ 406 0058 5438     		subs	r0, r0, #84
+ 407 005a 0295     		str	r5, [sp, #8]
+ 408 005c 0194     		str	r4, [sp, #4]
+ 409 005e 0096     		str	r6, [sp]
+ 410 0060 4FF6FF73 		movw	r3, #65535
+ 411 0064 1F22     		movs	r2, #31
+ 412 0066 8C21     		movs	r1, #140
+ 413 0068 80B2     		uxth	r0, r0
+ 414 006a FFF7FEFF 		bl	Show_Str
+ 415              	.LVL19:
+ 759:Core/Src/test.c **** }
+ 416              		.loc 1 759 1 view .LVU46
+ 417 006e 0BB0     		add	sp, sp, #44
+ 418              	.LCFI8:
+ 419              		.cfi_def_cfa_offset 20
+ 420              		@ sp needed
+ 421 0070 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 422              	.L14:
+ 423 0072 00BF     		.align	2
+ 424              	.L13:
+ 425 0074 00000000 		.word	lcddev
+ 426 0078 00000000 		.word	.LC11
+ 427 007c C0FF7F00 		.word	8388544
+ 428 0080 18000000 		.word	.LC12
+ 429              		.cfi_endproc
+ 430              	.LFE135:
+ 432              		.global	send_test
+ 433              		.global	gImage_qq
+ 434              		.section	.rodata.gImage_qq,"a"
+ 435              		.align	2
+ 438              	gImage_qq:
+ 439 0000 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 439      FFFFFFFF 
+ 439      FFFFFFFF 
+ 439      FF
+ 440 000d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 440      FFFFFFFF 
+ 440      FFFFFFFF 
+ 440      FF
+ 441 001a FFFFFFFF 		.ascii	"\377\377\377\377\276\367\377\377\336\3778\306\222\214"
+ 441      BEF7FFFF 
+ 441      DEFF38C6 
+ 441      928C
+ 442 0028 8E6B6E6B 		.ascii	"\216knk\020|\226\255<\347\377\377\377\377\377\377\377"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 23
+
+
+ 442      107C96AD 
+ 442      3CE7FFFF 
+ 442      FFFFFFFF 
+ 442      FF
+ 443 0039 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 443      FFFFFFFF 
+ 443      FFFFFFFF 
+ 443      FF
+ 444 0046 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 444      FFFFFFFF 
+ 444      FFFFFFFF 
+ 444      FF
+ 445 0053 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 445      FFFFFFFF 
+ 445      FFFFFFFF 
+ 445      FF
+ 446 0060 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 446      FFFFFFFF 
+ 446      FFFFFFFF 
+ 446      FF
+ 447 006d FF5DEF15 		.ascii	"\377]\357\025\235OclB\0122\210)F\031%\031E!\3501\216"
+ 447      9D4F636C 
+ 447      420A3288 
+ 447      29461925 
+ 447      194521E8 
+ 448 0083 6B38C6FF 		.ascii	"k8\306\377\377\377\377\377\377\377\377\377\377\377\377"
+ 448      FFFFFFFF 
+ 448      FFFFFFFF 
+ 448      FFFFFF
+ 449 0092 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 449      FFFFFFFF 
+ 449      FFFFFFFF 
+ 449      FF
+ 450 009f FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 450      FFFFFFFF 
+ 450      FFFFFFFF 
+ 450      FF
+ 451 00ac FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 451      FFFFFFFF 
+ 451      FFFFFFFF 
+ 451      FF
+ 452 00b9 FFFFFF36 		.ascii	"\377\377\3776\245\020S\020KQS\017Kl:\3511g!%\031\344"
+ 452      A5105310 
+ 452      4B51530F 
+ 452      4B6C3AE9 
+ 452      31672125 
+ 453 00cf 10A30862 		.ascii	"\020\243\010b\000\203\010\313R\232\326\377\377\377\377"
+ 453      008308CB 
+ 453      529AD6FF 
+ 453      FFFFFF
+ 454 00de FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 454      FFFFFFFF 
+ 454      FFFFFFFF 
+ 454      FF
+ 455 00eb FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 455      FFFFFFFF 
+ 455      FFFFFFFF 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 24
+
+
+ 455      FF
+ 456 00f8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 456      FFFFFFFF 
+ 456      FFFFFFFF 
+ 456      FF
+ 457 0105 FFFFFF3C 		.ascii	"\377\377\377<\347pc\263c\270|\365c\021CM2\352)\210!"
+ 457      E77063B3 
+ 457      63B87CF5 
+ 457      6311434D 
+ 457      32EA2988 
+ 458 011a 26190519 		.ascii	"&\031\005\031\005\031\004\021\004\021\344\020\203\000"
+ 458      05190411 
+ 458      0411E410 
+ 458      8300
+ 459 0128 A308728C 		.ascii	"\243\010r\214\377\377\377\377\377\377\377\377\377\377"
+ 459      FFFFFFFF 
+ 459      FFFFFFFF 
+ 459      FFFF
+ 460 0136 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 460      FFFFFFFF 
+ 460      FFFFFFFF 
+ 460      FF
+ 461 0143 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 461      FFFFFFFF 
+ 461      FFFFFFFF 
+ 461      FF
+ 462 0150 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\333\336K:\360B5lTK\2612.*\353"
+ 462      FFFFDBDE 
+ 462      4B3AF042 
+ 462      356C544B 
+ 462      B1322E2A 
+ 463 0165 21A92167 		.ascii	"!\251!g\031\005\031\004\021\004\021\004\021\004\021"
+ 463      19051904 
+ 463      11041104 
+ 463      110411
+ 464 0174 04110519 		.ascii	"\004\021\005\031\344\020B\000\257s\377\377\377\377\377"
+ 464      E4104200 
+ 464      AF73FFFF 
+ 464      FFFFFF
+ 465 0183 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 465      FFFFFFFF 
+ 465      FFFFFFFF 
+ 465      FF
+ 466 0190 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 466      FFFFFFFF 
+ 466      FFFFFFFF 
+ 466      FF
+ 467 019d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377]\357\0112L2\020K\2172O"
+ 467      FFFFFF5D 
+ 467      EF09324C 
+ 467      32104B8F 
+ 467      324F
+ 468 01af 2A2E2ACC 		.ascii	"*.*\314\031\211\031\211!G\031\005\031\004\021\004\021"
+ 468      19891989 
+ 468      21471905 
+ 468      19041104 
+ 468      11
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 25
+
+
+ 469 01c0 C410C410 		.ascii	"\304\020\304\020\004\021\004\021\004\021\344\020B\000"
+ 469      04110411 
+ 469      0411E410 
+ 469      4200
+ 470 01ce 3184FFFF 		.ascii	"1\204\377\377\377\377\377\377\377\377\377\377\377\377"
+ 470      FFFFFFFF 
+ 470      FFFFFFFF 
+ 470      FFFF
+ 471 01dc FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 471      FFFFFFFF 
+ 471      FFFFFFFF 
+ 471      FF
+ 472 01e9 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\354RG\031"
+ 472      FFFFFFFF 
+ 472      FFFFFFEC 
+ 472      524719
+ 473 01f8 4C320B2A 		.ascii	"L2\013*\354!\354!\014\"\221[\356J\006\021&\031\004\031"
+ 473      EC21EC21 
+ 473      0C22915B 
+ 473      EE4A0611 
+ 473      26190419 
+ 474 020c E410E410 		.ascii	"\344\020\344\020\247)f!\243\010\005\031\004\021\004"
+ 474      A7296621 
+ 474      A3080519 
+ 474      041104
+ 475 021b 11E41082 		.ascii	"\021\344\020\202\000\367\275\377\377\377\377\377\377"
+ 475      00F7BDFF 
+ 475      FFFFFFFF 
+ 475      FF
+ 476 0228 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 476      FFFFFFFF 
+ 476      FFFFFFFF 
+ 476      FF
+ 477 0235 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 477      FFFFFFFF 
+ 477      FFFFFFFF 
+ 477      FF
+ 478 0242 35A58308 		.ascii	"5\245\203\010\210!\210!\211!\252!\212!kBq\214\377\377"
+ 478      88218821 
+ 478      8921AA21 
+ 478      8A216B42 
+ 478      718CFFFF 
+ 479 0256 728C8308 		.ascii	"r\214\203\010\004\021\304\010)B\373\336]\357\354Z\203"
+ 479      0411C408 
+ 479      2942FBDE 
+ 479      5DEFEC5A 
+ 479      83
+ 480 0267 08041104 		.ascii	"\010\004\021\004\021\004\021\203\010\3501\337\377\377"
+ 480      11041183 
+ 480      08E831DF 
+ 480      FFFF
+ 481 0275 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 481      FFFFFFFF 
+ 481      FFFFFFFF 
+ 481      FF
+ 482 0282 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 482      FFFFFFFF 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 26
+
+
+ 482      FFFFFFFF 
+ 482      FF
+ 483 028f FFBEF7C7 		.ascii	"\377\276\367\3071\304\020%\031&\031G\031G\031\250)\212"
+ 483      31C41025 
+ 483      19261947 
+ 483      194719A8 
+ 483      298A
+ 484 02a1 52284A55 		.ascii	"R(JU\255\377\377\3501\243\010\005\031MkMk\377\377}\357"
+ 484      ADFFFFE8 
+ 484      31A30805 
+ 484      194D6B4D 
+ 484      6BFFFF7D 
+ 485 02b6 4521C410 		.ascii	"E!\304\020\004\021\004\021\004\021b\000v\255\377\377"
+ 485      04110411 
+ 485      04116200 
+ 485      76ADFFFF 
+ 486 02c6 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 486      FFFFFFFF 
+ 486      FFFFFFFF 
+ 486      FF
+ 487 02d3 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 487      FFFFFFFF 
+ 487      FFFFFFFF 
+ 487      FF
+ 488 02e0 96B56200 		.ascii	"\226\265b\000\004\021\004\031\005\021\005\031\304\010"
+ 488      04110419 
+ 488      05110519 
+ 488      C408
+ 489 02ee 8B4AB6B5 		.ascii	"\213J\266\265]\357\367\275\377\377\216kb\000)B\252Z"
+ 489      5DEFF7BD 
+ 489      FFFF8E6B 
+ 489      62002942 
+ 489      AA5A
+ 490 0300 0842FFFF 		.ascii	"\010B\377\377\377\377\314R\203\010\004\021\004\021\004"
+ 490      FFFFCC52 
+ 490      83080411 
+ 490      041104
+ 491 030f 11A308AD 		.ascii	"\021\243\010\255R\377\377\377\377\377\377\377\377\377"
+ 491      52FFFFFF 
+ 491      FFFFFFFF 
+ 491      FFFF
+ 492 031d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\034\347\377\377"
+ 492      FFFFFFFF 
+ 492      FF1CE7FF 
+ 492      FF
+ 493 032a FFFFFFFF 		.ascii	"\377\377\377\377\377\377Ncb\000\004\021\004\021\004"
+ 493      FFFF4E63 
+ 493      62000411 
+ 493      041104
+ 494 0339 11E41062 		.ascii	"\021\344\020b\000\216c\377\377\377\377\377\377\377\377"
+ 494      008E63FF 
+ 494      FFFFFFFF 
+ 494      FFFFFF
+ 495 0348 CF730100 		.ascii	"\317s\001\000\363\234,c\226\265\377\377\377\377-[\203"
+ 495      F39C2C63 
+ 495      96B5FFFF 
+ 495      FFFF2D5B 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 27
+
+
+ 495      83
+ 496 0359 00041104 		.ascii	"\000\004\021\004\021\004\021\344\020g!=\357\377\377"
+ 496      110411E4 
+ 496      1067213D 
+ 496      EFFFFF
+ 497 0368 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\370\275\267\265\236"
+ 497      FFFFFFFF 
+ 497      F8BDB7B5 
+ 497      9E
+ 498 0375 EFCB52B3 		.ascii	"\357\313R\263\224\377\377\377\377\337\377\3501\243\010"
+ 498      94FFFFFF 
+ 498      FFDFFFE8 
+ 498      31A308
+ 499 0384 04110411 		.ascii	"\004\021\004\021\004\021\004\021\243\010IB\377\367\377"
+ 499      04110411 
+ 499      A3084942 
+ 499      FFF7FF
+ 500 0393 F7FFFFFF 		.ascii	"\367\377\377\377\377jJ\001\000r\204\377\377\377\377"
+ 500      FF6A4A01 
+ 500      007284FF 
+ 500      FFFFFF
+ 501 03a2 FFF7DFEF 		.ascii	"\377\367\337\357\011:\243\010\004\021\004\021\004\021"
+ 501      093AA308 
+ 501      04110411 
+ 501      0411
+ 502 03b0 04110511 		.ascii	"\004\021\005\021\030\276\377\377\377\377\377\377\377"
+ 502      18BEFFFF 
+ 502      FFFFFFFF 
+ 502      FF
+ 503 03bd FFFFFFF0 		.ascii	"\377\377\377\360{b\000\3501\3071A\0005\245\377\377]"
+ 503      7B6200E8 
+ 503      31C73141 
+ 503      0035A5FF 
+ 503      FF5D
+ 504 03cf EF4621C4 		.ascii	"\357F!\304\020\004\021\004\021\004\021\004\021\344\020"
+ 504      10041104 
+ 504      11041104 
+ 504      11E410
+ 505 03de A308769D 		.ascii	"\243\010v\235\377\367\377\377\267\255\243\010\243\010"
+ 505      FFF7FFFF 
+ 505      B7ADA308 
+ 505      A308
+ 506 03ec C7319EE7 		.ascii	"\3071\236\347\377\367\377\367v\245\243\010\344\020\004"
+ 506      FFF7FFF7 
+ 506      76A5A308 
+ 506      E41004
+ 507 03fb 11041104 		.ascii	"\021\004\021\004\021\005\021\005\0215\245\377\377\377"
+ 507      11051105 
+ 507      1135A5FF 
+ 507      FFFF
+ 508 0409 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\333\336\247)\203\000\304"
+ 508      FFFFFFDB 
+ 508      DEA72983 
+ 508      00C4
+ 509 0417 10C410C4 		.ascii	"\020\304\020\304\020\034\347\236\357\005\021\344\020"
+ 509      101CE79E 
+ 509      EF0511E4 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 28
+
+
+ 509      10
+ 510 0424 04110411 		.ascii	"\004\021\004\021\004\021\004\021\004\031\304\010\345"
+ 510      04110411 
+ 510      0419C408 
+ 510      E5
+ 511 0431 10D16BD1 		.ascii	"\020\321k\321k\305\010d\000\245\010C\000+2w\235\263"
+ 511      6BC50864 
+ 511      00A50843 
+ 511      002B3277 
+ 511      9DB3
+ 512 0443 842519C4 		.ascii	"\204%\031\304\020\004\021\004\021\004\021\004\021%\031"
+ 512      10041104 
+ 512      11041104 
+ 512      112519
+ 513 0452 2609359D 		.ascii	"&\0115\235\377\377\377\377\377\377\377\377\377\377\377"
+ 513      FFFFFFFF 
+ 513      FFFFFFFF 
+ 513      FFFFFF
+ 514 0461 FFAF7362 		.ascii	"\377\257sb\000\004\031\005\031\202\000\015[\216\233"
+ 514      00041905 
+ 514      1982000D 
+ 514      5B8E9B
+ 515 0470 62100511 		.ascii	"b\020\005\021\004\021\004\021\004\031\344\020\205\000"
+ 515      04110411 
+ 515      0419E410 
+ 515      8500
+ 516 047e 0511C439 		.ascii	"\005\021\3049\201Z@{\"\234C\254\003\244\203\233\202"
+ 516      815A407B 
+ 516      229C43AC 
+ 516      03A4839B 
+ 516      82
+ 517 048f 728249C2 		.ascii	"r\202I\302\030\244\000\305\000\344\020\004\031\004\021"
+ 517      18A400C5 
+ 517      00E41004 
+ 517      190411
+ 518 049e 05194719 		.ascii	"\005\031G\031g\021\354Z\276\377\377\377\377\377\377"
+ 518      6711EC5A 
+ 518      BEFFFFFF 
+ 518      FFFFFF
+ 519 04ad FFFFFFDF 		.ascii	"\377\377\377\337\377\333\336\304\020\344\020\004\021"
+ 519      FFDBDEC4 
+ 519      10E41004 
+ 519      11
+ 520 04ba 0511A418 		.ascii	"\005\021\244\030\001\300\203\210\344\000\005\031\004"
+ 520      01C08388 
+ 520      E4000519 
+ 520      04
+ 521 04c7 19C50844 		.ascii	"\031\305\010D!C\203#\325B\376\344\376'\377\007\377\244"
+ 521      21438323 
+ 521      D542FEE4 
+ 521      FE27FF07 
+ 521      FFA4
+ 522 04d9 FE64FE03 		.ascii	"\376d\376\003\376\243\375\342\374B\354\203\263$b\345"
+ 522      FEA3FDE2 
+ 522      FC42EC83 
+ 522      B32462E5 
+ 523 04e9 10C40804 		.ascii	"\020\304\010\004\031&\031\250\031\207!\000\220\323\274"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 29
+
+
+ 523      192619A8 
+ 523      19872100 
+ 523      90D3BC
+ 524 04f8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\337\377\377\377\020"
+ 524      FFFFFFFF 
+ 524      DFFFFFFF 
+ 524      10
+ 525 0505 7C420005 		.ascii	"|B\000\005\031\005\021\203(\001\320D\370\243H\344\000"
+ 525      19051183 
+ 525      2801D044 
+ 525      F8A348E4 
+ 525      00
+ 526 0516 C508445A 		.ascii	"\305\010DZ\002\355\342\375\002\376f\376t\377\270\377"
+ 526      02EDE2FD 
+ 526      02FE66FE 
+ 526      74FFB8FF 
+ 527 0526 73FFE7F6 		.ascii	"s\377\347\366\246\366E\366\244\365\303\374b\374\302"
+ 527      A6F645F6 
+ 527      A4F5C3FC 
+ 527      62FCC2
+ 528 0535 FCC2FCE3 		.ascii	"\374\302\374\343\313\304I\006\021\210\031\207\001\244"
+ 528      CBC44906 
+ 528      11881987 
+ 528      01A4
+ 529 0543 9001F8EC 		.ascii	"\220\001\370\354\232\377\377\377\377\377\377\377\377"
+ 529      9AFFFFFF 
+ 529      FFFFFFFF 
+ 529      FF
+ 530 0550 FFFFFFFF 		.ascii	"\377\377\377\377\276\367\3501\203\000\005\011\202@\001"
+ 530      BEF7E831 
+ 530      83000509 
+ 530      824001
+ 531 055f C023F885 		.ascii	"\300#\370\205\360\243H\244\000DZ\002\375#\314\302\334"
+ 531      F0A348A4 
+ 531      00445A02 
+ 531      FD23CCC2 
+ 531      DC
+ 532 0570 04FE28FE 		.ascii	"\004\376(\376H\366F\366$\366\344\365d\375\343\374b\374"
+ 532      48F646F6 
+ 532      24F6E4F5 
+ 532      64FDE3FC 
+ 532      62FC
+ 533 0582 C2FC02E4 		.ascii	"\302\374\002\344\002\334\342\374\244zH\001g\001\304"
+ 533      02DCE2FC 
+ 533      A47A4801 
+ 533      6701C4
+ 534 0591 7824F802 		.ascii	"x$\370\002\370\204\260}\347\377\377\377\377\377\377"
+ 534      F884B07D 
+ 534      E7FFFFFF 
+ 534      FFFFFF
+ 535 05a0 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\333\336%\031\243\000\3048\002"
+ 535      FFFFDBDE 
+ 535      2519A300 
+ 535      C43802
+ 536 05af E022D844 		.ascii	"\340\"\330D\370\246\370\244xc\000C!\203r\2039\202\233"
+ 536      F8A6F8A4 
+ 536      78630043 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 30
+
+
+ 536      21837283 
+ 536      39829B
+ 537 05c2 21F561FD 		.ascii	"!\365a\375\"\375\342\374\242\374B\374B\374B\374\"\253"
+ 537      22FDE2FC 
+ 537      A2FC42FC 
+ 537      42FC42FC 
+ 537      22AB
+ 538 05d4 8341C392 		.ascii	"\203A\303\222\004R&\001%\031\244\230D\370#\370\002\370"
+ 538      04522601 
+ 538      2519A498 
+ 538      44F823F8 
+ 538      02F8
+ 539 05e6 A4D09EEF 		.ascii	"\244\320\236\357\377\377\377\377\377\377\377\377\377"
+ 539      FFFFFFFF 
+ 539      FFFFFFFF 
+ 539      FF
+ 540 05f3 FFFFFFFF 		.ascii	"\377\377\377\377\377\232\326\207)\245\000C\270\"\370"
+ 540      FF9AD687 
+ 540      29A50043 
+ 540      B822F8
+ 541 0602 23E065F8 		.ascii	"#\340e\370\350\370\007\311\203HB\000\243\000\204\000"
+ 541      E8F807C9 
+ 541      83484200 
+ 541      A3008400 
+ 542 0612 6329A27A 		.ascii	"c)\242zb\263\242\313b\323\002\273\202\212\2039\244\000"
+ 542      62B3A2CB 
+ 542      62D302BB 
+ 542      828A8339 
+ 542      A400
+ 543 0624 E500E500 		.ascii	"\345\000\345\000\345\010\304`d\330D\370$\370#\370\002"
+ 543      E508C460 
+ 543      64D844F8 
+ 543      24F823F8 
+ 543      02
+ 544 0635 F88388DB 		.ascii	"\370\203\210\333\306\377\377\377\377\377\377\377\377"
+ 544      C6FFFFFF 
+ 544      FFFFFFFF 
+ 544      FF
+ 545 0642 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377=\347P[\0101#\350C\370"
+ 545      FFFFFFFF 
+ 545      3DE7505B 
+ 545      083123E8 
+ 545      43F8
+ 546 0654 44F065F8 		.ascii	"D\360e\370\011\371\253\371\211\321\006\211\243HB\030"
+ 546      09F9ABF9 
+ 546      89D10689 
+ 546      A3484218 
+ 547 0664 02004200 		.ascii	"\002\000B\000a\000\202\000b\000b\000\203\000\243 \304"
+ 547      61008200 
+ 547      62006200 
+ 547      8300A320 
+ 547      C4
+ 548 0675 50A58885 		.ascii	"P\245\210\205\330e\370D\370D\370#\370#\370\003\320\202"
+ 548      D865F844 
+ 548      F844F823 
+ 548      F823F803 
+ 548      D082
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 31
+
+
+ 549 0687 10C7295D 		.ascii	"\020\307)]\357\377\377\377\377\377\377\377\377\377\377"
+ 549      EFFFFFFF 
+ 549      FFFFFFFF 
+ 549      FFFFFF
+ 550 0696 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377l2\2458\002\330#\370"
+ 550      FFFFFFFF 
+ 550      6C32A538 
+ 550      02D823F8 
+ 551 06a6 65F866F8 		.ascii	"e\370f\370\247\370J\371\014\372M\372L\352\013\322\251"
+ 551      A7F84AF9 
+ 551      0CFA4DFA 
+ 551      4CEA0BD2 
+ 551      A9
+ 552 06b7 B968B147 		.ascii	"\271h\261G\251'\261\007\271\007\321\347\350\307\370"
+ 552      A927B107 
+ 552      B907D1E7 
+ 552      E8C7F8
+ 553 06c6 A7F865F8 		.ascii	"\247\370e\370e\370D\370#\370\003\370\002\320\243(\005"
+ 553      65F844F8 
+ 553      23F803F8 
+ 553      02D0A328 
+ 553      05
+ 554 06d7 09C408EC 		.ascii	"\011\304\010\354Z\377\377\377\377\377\377\377\377\377"
+ 554      5AFFFFFF 
+ 554      FFFFFFFF 
+ 554      FFFF
+ 555 06e5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\373\336\005\031\304\000"
+ 555      FFFFFFFB 
+ 555      DE0519C4 
+ 555      00
+ 556 06f2 A741E6C0 		.ascii	"\247A\346\300\003\370\206\370\247\370\207\370\206\370"
+ 556      03F886F8 
+ 556      A7F887F8 
+ 556      86F8
+ 557 0700 C7F829F9 		.ascii	"\307\370)\371\212\371\253\371\253\371\213\371j\371)"
+ 557      8AF9ABF9 
+ 557      ABF98BF9 
+ 557      6AF929
+ 558 070f F908F9C7 		.ascii	"\371\010\371\307\370\246\370\206\370e\370d\370#\370"
+ 558      F8A6F886 
+ 558      F865F864 
+ 558      F823F8
+ 559 071e 02F006B1 		.ascii	"\002\360\006\261%)\344\000\344\020%\031%\031\024\235"
+ 559      2529E400 
+ 559      E4102519 
+ 559      2519149D 
+ 560 072e FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 560      FFFFFFFF 
+ 560      FFFFFFFF 
+ 560      FF
+ 561 073b FF96AD62 		.ascii	"\377\226\255b\000\202\0105\225\272\316\213\242D\320"
+ 561      00820835 
+ 561      95BACE8B 
+ 561      A244D0
+ 562 074a 25F887F8 		.ascii	"%\370\207\370\247\370\307\370\247\370\207\370\206\370"
+ 562      A7F8C7F8 
+ 562      A7F887F8 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 32
+
+
+ 562      86F8
+ 563 0758 86F886F8 		.ascii	"\206\370\206\370\207\370\247\370\247\370\246\370\205"
+ 563      87F8A7F8 
+ 563      A7F8A6F8 
+ 563      85
+ 564 0765 F865F864 		.ascii	"\370e\370d\370$\360d\270\015\223\273\266\317c\203\010"
+ 564      F824F064 
+ 564      B80D93BB 
+ 564      B6CF6383 
+ 564      08
+ 565 0776 0411E410 		.ascii	"\004\021\344\020f!I:]\357\377\377\377\377\377\377\377"
+ 565      6621493A 
+ 565      5DEFFFFF 
+ 565      FFFFFFFF 
+ 565      FF
+ 566 0787 FFFFFFFF 		.ascii	"\377\377\377\377\377\323\224B\000\344\020\273\316\377"
+ 566      FFD39442 
+ 566      00E410BB 
+ 566      CEFF
+ 567 0795 FFBEE776 		.ascii	"\377\276\347v\265\314\252\007\301E\340E\370F\370f\370"
+ 567      B5CCAA07 
+ 567      C145E045 
+ 567      F846F866 
+ 567      F8
+ 568 07a6 86F886F8 		.ascii	"\206\370\206\370\206\370\206\370e\370E\370e\370e\350"
+ 568      86F886F8 
+ 568      65F845F8 
+ 568      65F865E8 
+ 569 07b6 44D043A8 		.ascii	"D\320C\250\001\210\202\220<\327\377\357U\225\203\010"
+ 569      01888290 
+ 569      3CD7FFEF 
+ 569      55958308 
+ 570 07c6 04110411 		.ascii	"\004\021\004\021\005\031F\031\263\224"
+ 570      05194619 
+ 570      B394
+ 571 07d0 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\263"
+ 571      FFFFFFFF 
+ 571      FFFFFFFF 
+ 571      B3
+ 572 07dd 94410086 		.ascii	"\224A\000\206!]\337\377\377\377\377\377\377\337\347"
+ 572      215DDFFF 
+ 572      FFFFFFFF 
+ 572      FFDFE7
+ 573 07ec 7AC6D3B4 		.ascii	"z\306\323\264N\263*\302h\321\346\340\246\350\245\350"
+ 573      4EB32AC2 
+ 573      68D1E6E0 
+ 573      A6E8A5E8 
+ 574 07fc A5E8E6D8 		.ascii	"\245\350\346\330\210\311\006\251\"\250\002\250\000\240"
+ 574      88C906A9 
+ 574      22A802A8 
+ 574      00A0
+ 575 080a 00C800D8 		.ascii	"\000\310\000\330\367\345\377\347\370\255\304\020\344"
+ 575      F7E5FFE7 
+ 575      F8ADC410 
+ 575      E4
+ 576 0817 100411E4 		.ascii	"\020\004\021\344\020\005\021\213J\377\377\377\377\377"
+ 576      1005118B 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 33
+
+
+ 576      4AFFFFFF 
+ 576      FFFF
+ 577 0825 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377U\245A\000\247)]\337\377"
+ 577      FFFFFF55 
+ 577      A54100A7 
+ 577      295DDFFF 
+ 578 0835 F7FFFFFF 		.ascii	"\367\377\377\377\377\377\377\377\377\377\377\377\357"
+ 578      FFFFFFFF 
+ 578      FFFFFFFF 
+ 578      EF
+ 579 0842 7DDFDBCE 		.ascii	"}\337\333\316Y\316\370\315\327\315\367\305y\316\373"
+ 579      59CEF8CD 
+ 579      D7CDF7C5 
+ 579      79CEFB
+ 580 0851 BEABA203 		.ascii	"\276\253\242\003\360E\370B\320C\350\000\360r\324\377"
+ 580      F045F842 
+ 580      D043E800 
+ 580      F072D4FF 
+ 581 0861 DF39AEE4 		.ascii	"\3379\256\344\020\344\020\004\021\344\020\005\021\207"
+ 581      10E41004 
+ 581      11E41005 
+ 581      1187
+ 582 086f 29FFFFFF 		.ascii	")\377\377\377\377\377\377\377\377\377\377\377\377Y\316"
+ 582      FFFFFFFF 
+ 582      FFFFFFFF 
+ 582      FF59CE
+ 583 087e 83084621 		.ascii	"\203\010F!\034\327\377\367\377\377\377\377\377\377\377"
+ 583      1CD7FFF7 
+ 583      FFFFFFFF 
+ 583      FFFFFF
+ 584 088d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 584      FFFFFFFF 
+ 584      FFFFFFFF 
+ 584      FF
+ 585 089a FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\357\213\272\004\370E\370"
+ 585      FFFFFFEF 
+ 585      8BBA04F8 
+ 585      45F8
+ 586 08a8 62E044F0 		.ascii	"b\340D\360\000\370\216\333\377\337\370\245\304\020\344"
+ 586      00F88EDB 
+ 586      FFDFF8A5 
+ 586      C410E4
+ 587 08b7 10E41004 		.ascii	"\020\344\020\004\021\344\020%\031\377\377\377\377\377"
+ 587      11E41025 
+ 587      19FFFFFF 
+ 587      FFFF
+ 588 08c5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\276\367\207)\203\0109\266"
+ 588      FFFFFFBE 
+ 588      F7872983 
+ 588      0839B6
+ 589 08d4 FFF7DFF7 		.ascii	"\377\367\337\367\377\377\377\377\377\377\377\377\377"
+ 589      FFFFFFFF 
+ 589      FFFFFFFF 
+ 589      FF
+ 590 08e1 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 590      FFFFFFFF 
+ 590      FFFFFFFF 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 34
+
+
+ 590      FF
+ 591 08ee FFFFBEE7 		.ascii	"\377\377\276\347J\272\003\370E\370d\370D\370\000\370"
+ 591      4ABA03F8 
+ 591      45F864F8 
+ 591      44F800F8 
+ 592 08fe 6EE3FFD7 		.ascii	"n\343\377\327\364\214\203\010\004\021\344\020\344\020"
+ 592      F48C8308 
+ 592      0411E410 
+ 592      E410
+ 593 090c E4100519 		.ascii	"\344\020\005\031\377\377\377\377\377\377\377\377\377"
+ 593      FFFFFFFF 
+ 593      FFFFFFFF 
+ 593      FF
+ 594 0919 FFFFFFFF 		.ascii	"\377\377\377\377\377\357s\000\000r\204\377\357\276\357"
+ 594      FFEF7300 
+ 594      007284FF 
+ 594      EFBEEF
+ 595 0928 DFFFFFFF 		.ascii	"\337\377\377\377\377\377\377\377\377\377\377\377\377"
+ 595      FFFFFFFF 
+ 595      FFFFFFFF 
+ 595      FF
+ 596 0935 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\337\347"
+ 596      FFFFFFFF 
+ 596      FFFFFFDF 
+ 596      E7
+ 597 0942 8BBA03F8 		.ascii	"\213\272\003\370E\370E\370#\370\000\370\323\324\377"
+ 597      45F845F8 
+ 597      23F800F8 
+ 597      D3D4FF
+ 598 0951 D74E5B21 		.ascii	"\327N[!\000):U\245\203\010\304\020%\031\377\377\377"
+ 598      00293A55 
+ 598      A58308C4 
+ 598      102519FF 
+ 598      FFFF
+ 599 0963 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\373\336"
+ 599      FFFFFFFF 
+ 599      FFFFFFFB 
+ 599      DE
+ 600 0970 A308E831 		.ascii	"\243\010\3501\236\337\236\347\277\357\377\377\377\377"
+ 600      9EDF9EE7 
+ 600      BFEFFFFF 
+ 600      FFFF
+ 601 097e FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 601      FFFFFFFF 
+ 601      FFFFFFFF 
+ 601      FF
+ 602 098b FFFFFFFF 		.ascii	"\377\377\377\377\377\377\367Q\274\002\340\003\370\003"
+ 602      FFFFF751 
+ 602      BC02E003 
+ 602      F803
+ 603 0999 F043E0EC 		.ascii	"\360C\340\354\302~\317\374\276F!!\000\323\224\377\377"
+ 603      C27ECFFC 
+ 603      BE462121 
+ 603      00D394FF 
+ 603      FF
+ 604 09aa 51840000 		.ascii	"Q\204\000\000\207)\377\377\377\377\377\377\377\377\377"
+ 604      8729FFFF 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 35
+
+
+ 604      FFFFFFFF 
+ 604      FFFFFF
+ 605 09b9 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377Q\204\000\000\364\214\377"
+ 605      FFFFFF51 
+ 605      840000F4 
+ 605      8CFF
+ 606 09c7 EF9EE7BF 		.ascii	"\357\236\347\277\357\337\377\377\377\377\377\377\377"
+ 606      EFDFFFFF 
+ 606      FFFFFFFF 
+ 606      FF
+ 607 09d4 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 607      FFFFFFFF 
+ 607      FFFFFFFF 
+ 607      FF
+ 608 09e1 FF3DDF55 		.ascii	"\377=\337U\275R\274r\274\267\265]\307\377\337\360k\000"
+ 608      BD52BC72 
+ 608      BCB7B55D 
+ 608      C7FFDFF0 
+ 608      6B00
+ 609 09f3 00093ABF 		.ascii	"\000\011:\277\367\377\377\377\377\024\235U\245\377\377"
+ 609      F7FFFFFF 
+ 609      FF149D55 
+ 609      A5FFFF
+ 610 0a02 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 610      FFFFFFFF 
+ 610      FFFFFFFF 
+ 610      FF
+ 611 0a0f FFFFFFAC 		.ascii	"\377\377\377\254J\244\010\273\276\337\347~\347\276\357"
+ 611      4AA408BB 
+ 611      BEDFE77E 
+ 611      E7BEEF
+ 612 0a1e DFF7DFFF 		.ascii	"\337\367\337\377\377\377\377\377\377\377\377\377\377"
+ 612      FFFFFFFF 
+ 612      FFFFFFFF 
+ 612      FF
+ 613 0a2b FFFFFFFF 		.ascii	"\377\377\377\377\377\337\377\337\367\377\357\337\337"
+ 613      FFDFFFDF 
+ 613      F7FFEFDF 
+ 613      DF
+ 614 0a38 BFD79ED7 		.ascii	"\277\327\236\327\337\337\330\245\203\010&\021\333\326"
+ 614      DFDFD8A5 
+ 614      83082611 
+ 614      DBD6
+ 615 0a46 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 615      FFFFFFFF 
+ 615      FFFFFFFF 
+ 615      FF
+ 616 0a53 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 616      FFFFFFFF 
+ 616      FFFFFFFF 
+ 616      FF
+ 617 0a60 79EE8BDC 		.ascii	"y\356\213\334!1\251!=\317\277\337~\337\236\347\276\357"
+ 617      2131A921 
+ 617      3DCFBFDF 
+ 617      7EDF9EE7 
+ 617      BEEF
+ 618 0a72 BFEFDFF7 		.ascii	"\277\357\337\367\337\367\337\367\337\367\337\367\277"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 36
+
+
+ 618      DFF7DFF7 
+ 618      DFF7DFF7 
+ 618      BF
+ 619 0a7f EFBEEF9E 		.ascii	"\357\276\357\236\347~\337^\327^\327\337\337\232\266"
+ 619      E77EDF5E 
+ 619      D75ED7DF 
+ 619      DF9AB6
+ 620 0a8e 26194208 		.ascii	"&\031B\010\355\243\277\377\377\377\377\377\377\377\377"
+ 620      EDA3BFFF 
+ 620      FFFFFFFF 
+ 620      FFFFFF
+ 621 0a9d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 621      FFFFFFFF 
+ 621      FFFFFFFF 
+ 621      FF
+ 622 0aaa FFFFFFFF 		.ascii	"\377\377\377\377t\335\300\333\000\376B\356\002B\211"
+ 622      74DDC0DB 
+ 622      00FE42EE 
+ 622      024289
+ 623 0ab9 217BB6DF 		.ascii	"!{\266\337\337~\327~\337~\337\236\347\236\347\236\347"
+ 623      DF7ED77E 
+ 623      DF7EDF9E 
+ 623      E79EE79E 
+ 623      E7
+ 624 0aca 9EE79EE7 		.ascii	"\236\347\236\347~\337~\337]\327]\327\236\337\377\347"
+ 624      7EDF7EDF 
+ 624      5DD75DD7 
+ 624      9EDFFFE7 
+ 625 0ada F8A50711 		.ascii	"\370\245\007\021\343\030\002\305`\375\346\323\333\356"
+ 625      E31802C5 
+ 625      60FDE6D3 
+ 625      DBEE
+ 626 0ae8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 626      FFFFFFFF 
+ 626      FFFFFFFF 
+ 626      FF
+ 627 0af5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\236\367\204\272\301\374"
+ 627      FFFFFF9E 
+ 627      F784BAC1 
+ 627      FC
+ 628 0b02 42FE82FE 		.ascii	"B\376\202\376\242\376\201\203E!tt^\307\337\337~\327"
+ 628      A2FE8183 
+ 628      45217474 
+ 628      5EC7DFDF 
+ 628      7ED7
+ 629 0b14 5ED75DD7 		.ascii	"^\327]\327^\327^\327]\327]\327^\327\236\337\377\347"
+ 629      5ED75ED7 
+ 629      5DD75DD7 
+ 629      5ED79EDF 
+ 629      FFE7
+ 630 0b26 3DC7F163 		.ascii	"=\307\361c\204\010BR&\346)\377\206\376\340\363j\303"
+ 630      84084252 
+ 630      26E629FF 
+ 630      86FEE0F3 
+ 630      6AC3
+ 631 0b38 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 631      FFFFFFFF 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 37
+
+
+ 631      FFFFFFFF 
+ 631      FF
+ 632 0b45 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\030\336\301\322\242\375"
+ 632      FFFFFF18 
+ 632      DEC1D2A2 
+ 632      FD
+ 633 0b52 22FE42FE 		.ascii	"\"\376B\376B\376b\376\342\324AjIBSt;\246>\307\277\327"
+ 633      42FE62FE 
+ 633      E2D4416A 
+ 633      49425374 
+ 633      3BA63EC7 
+ 634 0b68 BFD7BFD7 		.ascii	"\277\327\277\327\277\337\277\327>\307\032\246\362c\247"
+ 634      BFDFBFD7 
+ 634      3EC71AA6 
+ 634      F263A7
+ 635 0b77 29824122 		.ascii	")\202A\"\264b\376\203\376\252\376\017\377g\375c\272"
+ 635      B462FE83 
+ 635      FEAAFE0F 
+ 635      FF67FD63 
+ 635      BA
+ 636 0b88 3CEFFFFF 		.ascii	"<\357\377\377\377\377\377\377\377\377\377\377\377\377"
+ 636      FFFFFFFF 
+ 636      FFFFFFFF 
+ 636      FFFF
+ 637 0b96 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\232\346\200\322!\375\302\375"
+ 637      FFFF9AE6 
+ 637      80D221FD 
+ 637      C2FD
+ 638 0ba4 E2F5C2F5 		.ascii	"\342\365\302\365\202\365\202\375b\375a\334!\233\204"
+ 638      82F582FD 
+ 638      62FD61DC 
+ 638      219B84
+ 639 0bb3 6AE96A2C 		.ascii	"j\351j,c\257c\021tnc,c\211Z\004R\201z\302\313\342\374"
+ 639      63AF6311 
+ 639      746E632C 
+ 639      63895A04 
+ 639      52817AC2 
+ 640 0bca 62FD82FD 		.ascii	"b\375\202\375\302\375\302\375\344\375$\375b\312\034"
+ 640      C2FDC2FD 
+ 640      E4FD24FD 
+ 640      62CA1C
+ 641 0bd9 E7FFFFFF 		.ascii	"\347\377\377\377\377\377\377\377\377\377\377\377\377"
+ 641      FFFFFFFF 
+ 641      FFFFFFFF 
+ 641      FF
+ 642 0be6 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\261\314\201\322\300"
+ 642      FFFFFFFF 
+ 642      B1CC81D2 
+ 642      C0
+ 643 0bf3 F3C1FC02 		.ascii	"\363\301\374\002\375\002\375\342\374\302\374\302\374"
+ 643      FD02FDE2 
+ 643      FCC2FCC2 
+ 643      FC
+ 644 0c00 81FC80FB 		.ascii	"\201\374\200\373\300\311\244\2015\255Y\316q\234!\201"
+ 644      C0C9A481 
+ 644      35AD59CE 
+ 644      719C2181 
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 38
+
+
+ 645 0c10 00DAA1FB 		.ascii	"\000\332\241\373\202\374\242\374\202\374\242\374\002"
+ 645      82FCA2FC 
+ 645      82FCA2FC 
+ 645      02
+ 646 0c1d FD22FDE2 		.ascii	"\375\"\375\342\374\000\374`\332\220\314\377\377\377"
+ 646      FC00FC60 
+ 646      DA90CCFF 
+ 646      FFFF
+ 647 0c2b FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 647      FFFFFFFF 
+ 647      FFFFFFFF 
+ 647      FF
+ 648 0c38 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377Y\336\015\304\006\313"
+ 648      FFFFFFFF 
+ 648      59DE0DC4 
+ 648      06CB
+ 649 0c46 E4D203DB 		.ascii	"\344\322\003\333\003\333\343\332\303\322\244\302\011"
+ 649      03DBE3DA 
+ 649      C3D2A4C2 
+ 649      09
+ 650 0c53 B3D2BC9E 		.ascii	"\263\322\274\236\367\377\377\377\377\377\377\373\346"
+ 650      F7FFFFFF 
+ 650      FFFFFFFB 
+ 650      E6
+ 651 0c60 0EB4A6BA 		.ascii	"\016\264\246\272\203\322\343\342\002\353\"\353\"\343"
+ 651      83D2E3E2 
+ 651      02EB22EB 
+ 651      22E3
+ 652 0c6e 03DBE4D2 		.ascii	"\003\333\344\322j\303\266\325\377\377\377\377\377\377"
+ 652      6AC3B6D5 
+ 652      FFFFFFFF 
+ 652      FFFF
+ 653 0c7c FFFFFFFF 		.ascii	"\377\377\377\377"
+ 654              		.section	.rodata.send_test,"a"
+ 655              		.align	2
+ 656              		.set	.LANCHOR0,. + 0
+ 659              	send_test:
+ 660 0000 53544D33 		.ascii	"STM32F407VxT6 SPI TEST\000"
+ 660      32463430 
+ 660      37567854 
+ 660      36205350 
+ 660      49205445 
+ 661              		.text
+ 662              	.Letext0:
+ 663              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 664              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 665              		.file 4 "Core/Inc/stm32f4xx.h"
+ 666              		.file 5 "Core/Inc/lcd.h"
+ 667              		.file 6 "Core/Inc/pic.h"
+ 668              		.file 7 "Core/Inc/gui.h"
+ 669              		.file 8 "Core/Inc/w25q64.h"
+ 670              		.file 9 "Core/Inc/delay.h"
+ 671              		.file 10 "<built-in>"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccBhbCko.s 			page 39
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 test.c
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:18     .rodata.SPI_W25Q64_test.str1.4:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:47     .text.SPI_W25Q64_test:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:55     .text.SPI_W25Q64_test:00000000 SPI_W25Q64_test
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:210    .text.SPI_W25Q64_test:000000fc $d
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:224    .rodata.Show_W25Q64_Write.str1.4:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:231    .text.Show_W25Q64_Write:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:238    .text.Show_W25Q64_Write:00000000 Show_W25Q64_Write
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:318    .text.Show_W25Q64_Write:00000068 $d
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:327    .rodata.Show_W25Q64_Read.str1.4:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:334    .text.Show_W25Q64_Read:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:341    .text.Show_W25Q64_Read:00000000 Show_W25Q64_Read
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:425    .text.Show_W25Q64_Read:00000074 $d
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:659    .rodata.send_test:00000000 send_test
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:438    .rodata.gImage_qq:00000000 gImage_qq
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:435    .rodata.gImage_qq:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccBhbCko.s:655    .rodata.send_test:00000000 $d
+
+UNDEFINED SYMBOLS
+puts
+Gui_StrCenter
+delay_ms
+W25QXX_ReadID
+LCD_Fill
+Show_Str
+W25Q64_Write
+lcddev
+W25Q64_Read

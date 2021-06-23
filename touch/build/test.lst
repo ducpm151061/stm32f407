@@ -1,0 +1,2900 @@
+ARM GAS  /tmp/ccS4UP0l.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"test.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.DrawTestPage.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 68747470 		.ascii	"http://www.lcdwiki.com\000"
+  20      3A2F2F77 
+  20      77772E6C 
+  20      63647769 
+  20      6B692E63 
+  21              		.section	.text.DrawTestPage,"ax",%progbits
+  22              		.align	1
+  23              		.global	DrawTestPage
+  24              		.arch armv7e-m
+  25              		.syntax unified
+  26              		.thumb
+  27              		.thumb_func
+  28              		.fpu fpv4-sp-d16
+  30              	DrawTestPage:
+  31              	.LVL0:
+  32              	.LFB133:
+  33              		.file 1 "Core/Src/test.c"
+   1:Core/Src/test.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/test.c **** //±æ≥Ã–Ú÷ªπ©—ßœ∞ π”√£¨Œ¥æ≠◊˜’ﬂ–Ìø…£¨≤ªµ√”√”⁄∆‰À¸…Ã“µ”√Õæ
+   3:Core/Src/test.c **** //≤‚ ‘”≤º˛£∫µ•∆¨ª˙STM32F407VGT6,STM32F407VxT6◊Ó–°œµÕ≥ø™∑¢∞Â,÷˜∆µ168MHZ£¨æß’Ò8MHZ
+   4:Core/Src/test.c **** //QDtech-TFT“∫æß«˝∂Ø for STM32 FSMC
+   5:Core/Src/test.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/test.c **** //π´ÀæÕ¯’æ:www.qdtft.com
+   7:Core/Src/test.c **** //wikiºº ı◊ ¡œÕ¯’æ£∫http://www.lcdwiki.com
+   8:Core/Src/test.c **** //Œ“ÀæÃ·π©ºº ı÷ß≥÷£¨»Œ∫Œºº ıŒ Ã‚ª∂”≠ÀÊ ±Ωª¡˜—ßœ∞
+   9:Core/Src/test.c **** //πÃª∞(¥´’Ê) :+86 0755-21077707 
+  10:Core/Src/test.c **** // ÷ª˙: (œ˙ €)18823372746 £®ºº ı)15989313508
+  11:Core/Src/test.c **** //” œ‰:(œ˙ €/∂©µ•) sales@qdtft.com  ( €∫Û/ºº ı∑˛ŒÒ)service@qdtft.com
+  12:Core/Src/test.c **** //QQ:( €«∞◊…—Ø)3002706772 (ºº ı÷ß≥÷)3002778157
+  13:Core/Src/test.c **** //ºº ıΩª¡˜QQ»∫:778679828
+  14:Core/Src/test.c **** //¥¥Ω®»’∆⁄:2020/06/29
+  15:Core/Src/test.c **** //∞Ê±æ£∫V1.0
+  16:Core/Src/test.c **** //∞Ê»®À˘”–£¨µ¡∞Ê±ÿæø°£
+  17:Core/Src/test.c **** //Copyright(C) …Ó€⁄ –»´∂ØµÁ◊”ºº ı”–œﬁπ´Àæ 2018-2028
+  18:Core/Src/test.c **** //All rights reserved
+  19:Core/Src/test.c **** /************************************************************************************
+  20:Core/Src/test.c **** //STM32F407VxT6◊Ó–°œµÕ≥ø™∑¢∞Â¥•√˛∆¡ æ¿˝
+  21:Core/Src/test.c **** //     LED0                 --->            PA1
+ARM GAS  /tmp/ccS4UP0l.s 			page 2
+
+
+  22:Core/Src/test.c **** //     KEY0                 --->            PE4
+  23:Core/Src/test.c **** //     24C02_IIC_SCL        --->            PB8
+  24:Core/Src/test.c **** //     24C02_IIC_SDA        --->            PB9
+  25:Core/Src/test.c **** //÷ß≥÷ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  26:Core/Src/test.c **** //TFT LCDø…“‘÷±Ω”≤Â»ÎSTM32F407VxT6◊Ó–°œµÕ≥ø™∑¢∞ÂTFTLCD≤Â≤€ªÚ’ﬂÕ®π˝≈≈œﬂΩ”»ÎTFTLCD≤Â◊˘
+  27:Core/Src/test.c **** //STM32¡¨Ω”“˝Ω≈ «÷∏TFTLCD≤Â≤€ªÚ’ﬂ≤Â◊˘“˝Ω≈ƒ⁄≤ø¡¨Ω”µƒSTM32“˝Ω≈
+  28:Core/Src/test.c **** //=================================µÁ‘¥Ω”œﬂ=======================================//
+  29:Core/Src/test.c **** //     LCDƒ£øÈ                    STM32¡¨Ω”“˝Ω≈
+  30:Core/Src/test.c **** //      VDD           --->           DC5V/3.3V          //µÁ‘¥
+  31:Core/Src/test.c **** //      GND           --->             GND              //µÁ‘¥µÿ
+  32:Core/Src/test.c **** //=============================“∫æß∆¡ ˝æ›œﬂΩ”œﬂ===================================//
+  33:Core/Src/test.c **** //     LCDƒ£øÈ                    STM32¡¨Ω”“˝Ω≈
+  34:Core/Src/test.c **** //      DB0           --->            PD14        -|   
+  35:Core/Src/test.c **** //      DB1           --->            PD15         |  
+  36:Core/Src/test.c **** //      DB2           --->            PD0          | 
+  37:Core/Src/test.c **** //      DB3           --->            PD1          | 
+  38:Core/Src/test.c **** //      DB4           --->            PE7          |
+  39:Core/Src/test.c **** //      DB5           --->            PE8          |
+  40:Core/Src/test.c **** //      DB6           --->            PE9          |
+  41:Core/Src/test.c **** //      DB7           --->            PE10         |===>“∫æß∆¡16Œª≤¢ø⁄ ˝æ›–≈∫≈
+  42:Core/Src/test.c **** //      DB8           --->            PE11         |
+  43:Core/Src/test.c **** //      DB9           --->            PE12         |
+  44:Core/Src/test.c **** //      DB10          --->            PE13         |
+  45:Core/Src/test.c **** //      DB11          --->            PE14         |
+  46:Core/Src/test.c **** //      DB12          --->            PE15         |
+  47:Core/Src/test.c **** //      DB13          --->            PD8          |
+  48:Core/Src/test.c **** //      DB14          --->            PD9          |
+  49:Core/Src/test.c **** //      DB15          --->            PD10        -|
+  50:Core/Src/test.c **** //=============================“∫æß∆¡øÿ÷∆œﬂΩ”œﬂ===================================//
+  51:Core/Src/test.c **** //     LCDƒ£øÈ 				            STM32¡¨Ω”“˝Ω≈ 
+  52:Core/Src/test.c **** //      WR            --->            PD5             //“∫æß∆¡–¥ ˝æ›øÿ÷∆–≈∫≈
+  53:Core/Src/test.c **** //      RD            --->            PD4             //“∫æß∆¡∂¡ ˝æ›øÿ÷∆–≈∫≈
+  54:Core/Src/test.c **** //      RS            --->            PD11            //“∫æß∆¡ ˝æ›/√¸¡Óøÿ÷∆–≈∫≈
+  55:Core/Src/test.c **** //      RST           --->          ∏¥Œª“˝Ω≈£®ƒ¨»œ£©  //“∫æß∆¡∏¥Œªøÿ÷∆–≈∫≈£®“≤ø…—°‘ÒPD13£©
+  56:Core/Src/test.c **** //      CS            --->            PD7             //“∫æß∆¡∆¨—°øÿ÷∆–≈∫≈
+  57:Core/Src/test.c **** //      BL            --->            PB15            //“∫æß∆¡±≥π‚øÿ÷∆–≈∫≈
+  58:Core/Src/test.c **** //===============================¥•√˛∆¡¥•Ω”œﬂ=====================================//
+  59:Core/Src/test.c **** //	   LCDƒ£øÈ                    STM32¡¨Ω”“˝Ω≈ 
+  60:Core/Src/test.c **** //      PEN           --->            PB1             //µÁ»›ªÚµÁ◊Ë¥•√˛∆¡¥•√˛÷–∂œ–≈∫≈
+  61:Core/Src/test.c **** //      MI            --->            PB2             //µÁ◊Ë¥•√˛∆¡SPI◊‹œﬂ∂¡–≈∫≈
+  62:Core/Src/test.c **** //      MO            --->            PC4             //µÁ◊Ë¥•√˛∆¡SPI◊‹œﬂ–¥–≈∫≈ªÚµÁ»›¥•√˛∆¡IIC◊‹œﬂ 
+  63:Core/Src/test.c **** //      TCS           --->            PC13            //µÁ◊Ë¥•√˛∆¡∆¨—°øÿ÷∆–≈∫≈ªÚµÁ»›¥•√˛∆¡∏¥Œª–≈∫≈
+  64:Core/Src/test.c **** //      TCK           --->            PB0             //µÁ◊Ë¥•√˛∆¡SPI◊‹œﬂªÚµÁ»›¥•√˛∆¡IIC◊‹œﬂ ±÷”–≈∫
+  65:Core/Src/test.c **** *************************************************************************************/	
+  66:Core/Src/test.c ****  /* @attention
+  67:Core/Src/test.c ****   *
+  68:Core/Src/test.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  69:Core/Src/test.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  70:Core/Src/test.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  71:Core/Src/test.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  72:Core/Src/test.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  73:Core/Src/test.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  74:Core/Src/test.c **** *************************************************************************************/	
+  75:Core/Src/test.c **** #include <stdio.h>
+  76:Core/Src/test.c **** #include <string.h>
+  77:Core/Src/test.c **** #include "lcd.h"
+  78:Core/Src/test.c **** #include "delay.h"
+ARM GAS  /tmp/ccS4UP0l.s 			page 3
+
+
+  79:Core/Src/test.c **** #include "gui.h"
+  80:Core/Src/test.c **** #include "test.h"
+  81:Core/Src/test.c **** #include "led.h"
+  82:Core/Src/test.c **** #include "pic.h"
+  83:Core/Src/test.c **** #include "usart.h"
+  84:Core/Src/test.c **** #include "touch.h" 
+  85:Core/Src/test.c **** #include "GT911.h"
+  86:Core/Src/test.c **** #include "ft5426.h"
+  87:Core/Src/test.c **** #include "rtp.h"
+  88:Core/Src/test.c **** #include "exti.h"
+  89:Core/Src/test.c **** #include "key.h"
+  90:Core/Src/test.c **** 
+  91:Core/Src/test.c **** 
+  92:Core/Src/test.c **** //========================variable==========================//
+  93:Core/Src/test.c **** u16 ColorTab[5]={RED,GREEN,BLUE,YELLOW,BRED};//∂®“Â—’…´ ˝◊È
+  94:Core/Src/test.c **** u16 ColornTab[8]={RED,MAGENTA,GREEN,DARKBLUE,BLUE,BLACK,LIGHTGREEN};
+  95:Core/Src/test.c **** //=====================end of variable======================//
+  96:Core/Src/test.c **** 
+  97:Core/Src/test.c **** /*****************************************************************************
+  98:Core/Src/test.c ****  * @name       :void DrawTestPage(u8 *str)
+  99:Core/Src/test.c ****  * @date       :2018-08-09 
+ 100:Core/Src/test.c ****  * @function   :Drawing test interface
+ 101:Core/Src/test.c ****  * @parameters :str:the start address of the Chinese and English strings
+ 102:Core/Src/test.c ****  * @retvalue   :None
+ 103:Core/Src/test.c **** ******************************************************************************/ 
+ 104:Core/Src/test.c **** void DrawTestPage(u8 *str)
+ 105:Core/Src/test.c **** {
+  34              		.loc 1 105 1 view -0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+  38              		.loc 1 105 1 is_stmt 0 view .LVU1
+  39 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  40              	.LCFI0:
+  41              		.cfi_def_cfa_offset 28
+  42              		.cfi_offset 4, -28
+  43              		.cfi_offset 5, -24
+  44              		.cfi_offset 6, -20
+  45              		.cfi_offset 7, -16
+  46              		.cfi_offset 8, -12
+  47              		.cfi_offset 9, -8
+  48              		.cfi_offset 14, -4
+  49 0004 85B0     		sub	sp, sp, #20
+  50              	.LCFI1:
+  51              		.cfi_def_cfa_offset 48
+  52 0006 8146     		mov	r9, r0
+ 106:Core/Src/test.c **** POINT_COLOR=WHITE;
+  53              		.loc 1 106 1 is_stmt 1 view .LVU2
+  54              		.loc 1 106 12 is_stmt 0 view .LVU3
+  55 0008 4FF6FF75 		movw	r5, #65535
+  56 000c 1F4B     		ldr	r3, .L3
+  57 000e 1D80     		strh	r5, [r3]	@ movhi
+ 107:Core/Src/test.c **** //ªÊ÷∆πÃ∂®¿∏up
+ 108:Core/Src/test.c **** LCD_Fill(0,0,lcddev.width,20,BLUE);
+  58              		.loc 1 108 1 is_stmt 1 view .LVU4
+  59 0010 1F4C     		ldr	r4, .L3+4
+  60 0012 1F26     		movs	r6, #31
+ARM GAS  /tmp/ccS4UP0l.s 			page 4
+
+
+  61 0014 0096     		str	r6, [sp]
+  62 0016 1423     		movs	r3, #20
+  63 0018 A288     		ldrh	r2, [r4, #4]
+  64 001a 0021     		movs	r1, #0
+  65 001c 0846     		mov	r0, r1
+  66              	.LVL1:
+  67              		.loc 1 108 1 is_stmt 0 view .LVU5
+  68 001e FFF7FEFF 		bl	LCD_Fill
+  69              	.LVL2:
+ 109:Core/Src/test.c **** Gui_StrCenter(0,2,WHITE,BLUE,str,16,1);//æ”÷–œ‘ æ
+  70              		.loc 1 109 1 is_stmt 1 view .LVU6
+  71 0022 4FF00108 		mov	r8, #1
+  72 0026 CDF80880 		str	r8, [sp, #8]
+  73 002a 1027     		movs	r7, #16
+  74 002c 0197     		str	r7, [sp, #4]
+  75 002e CDF80090 		str	r9, [sp]
+  76 0032 3346     		mov	r3, r6
+  77 0034 2A46     		mov	r2, r5
+  78 0036 0221     		movs	r1, #2
+  79 0038 0020     		movs	r0, #0
+  80 003a FFF7FEFF 		bl	Gui_StrCenter
+  81              	.LVL3:
+ 110:Core/Src/test.c **** //ªÊ÷∆πÃ∂®¿∏down
+ 111:Core/Src/test.c **** LCD_Fill(0,lcddev.height-20,lcddev.width-1,lcddev.height-1,BLUE);
+  82              		.loc 1 111 1 view .LVU7
+  83              		.loc 1 111 18 is_stmt 0 view .LVU8
+  84 003e E188     		ldrh	r1, [r4, #6]
+  85              		.loc 1 111 35 view .LVU9
+  86 0040 A288     		ldrh	r2, [r4, #4]
+  87              		.loc 1 111 1 view .LVU10
+  88 0042 4B1E     		subs	r3, r1, #1
+  89 0044 013A     		subs	r2, r2, #1
+  90 0046 1439     		subs	r1, r1, #20
+  91 0048 0096     		str	r6, [sp]
+  92 004a 9BB2     		uxth	r3, r3
+  93 004c 92B2     		uxth	r2, r2
+  94 004e 89B2     		uxth	r1, r1
+  95 0050 0020     		movs	r0, #0
+  96 0052 FFF7FEFF 		bl	LCD_Fill
+  97              	.LVL4:
+ 112:Core/Src/test.c **** Gui_StrCenter(0,lcddev.height-18,WHITE,BLUE,"http://www.lcdwiki.com",16,1);//æ”÷–œ‘ æ
+  98              		.loc 1 112 1 is_stmt 1 view .LVU11
+  99              		.loc 1 112 23 is_stmt 0 view .LVU12
+ 100 0056 E188     		ldrh	r1, [r4, #6]
+ 101              		.loc 1 112 1 view .LVU13
+ 102 0058 1239     		subs	r1, r1, #18
+ 103 005a CDF80880 		str	r8, [sp, #8]
+ 104 005e 0197     		str	r7, [sp, #4]
+ 105 0060 0C4B     		ldr	r3, .L3+8
+ 106 0062 0093     		str	r3, [sp]
+ 107 0064 3346     		mov	r3, r6
+ 108 0066 2A46     		mov	r2, r5
+ 109 0068 89B2     		uxth	r1, r1
+ 110 006a 0020     		movs	r0, #0
+ 111 006c FFF7FEFF 		bl	Gui_StrCenter
+ 112              	.LVL5:
+ 113:Core/Src/test.c **** //ªÊ÷∆≤‚ ‘«¯”Ú
+ARM GAS  /tmp/ccS4UP0l.s 			page 5
+
+
+ 114:Core/Src/test.c **** LCD_Fill(0,21,lcddev.width-1,lcddev.height-21,WHITE);
+ 113              		.loc 1 114 1 is_stmt 1 view .LVU14
+ 114              		.loc 1 114 21 is_stmt 0 view .LVU15
+ 115 0070 A288     		ldrh	r2, [r4, #4]
+ 116              		.loc 1 114 36 view .LVU16
+ 117 0072 E388     		ldrh	r3, [r4, #6]
+ 118              		.loc 1 114 1 view .LVU17
+ 119 0074 153B     		subs	r3, r3, #21
+ 120 0076 013A     		subs	r2, r2, #1
+ 121 0078 0095     		str	r5, [sp]
+ 122 007a 9BB2     		uxth	r3, r3
+ 123 007c 92B2     		uxth	r2, r2
+ 124 007e 1521     		movs	r1, #21
+ 125 0080 0020     		movs	r0, #0
+ 126 0082 FFF7FEFF 		bl	LCD_Fill
+ 127              	.LVL6:
+ 115:Core/Src/test.c **** }
+ 128              		.loc 1 115 1 view .LVU18
+ 129 0086 05B0     		add	sp, sp, #20
+ 130              	.LCFI2:
+ 131              		.cfi_def_cfa_offset 28
+ 132              		@ sp needed
+ 133 0088 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 134              	.LVL7:
+ 135              	.L4:
+ 136              		.loc 1 115 1 view .LVU19
+ 137              		.align	2
+ 138              	.L3:
+ 139 008c 00000000 		.word	POINT_COLOR
+ 140 0090 00000000 		.word	lcddev
+ 141 0094 00000000 		.word	.LC0
+ 142              		.cfi_endproc
+ 143              	.LFE133:
+ 145              		.section	.rodata.Rtp_Test.str1.4,"aMS",%progbits,1
+ 146              		.align	2
+ 147              	.LC1:
+ 148 0000 546F7563 		.ascii	"Touch(\260\264KEY0\320\243\327\274)      \000"
+ 148      6828B0B4 
+ 148      4B455930 
+ 148      D0A3D7BC 
+ 148      29202020 
+ 149              		.align	2
+ 150              	.LC2:
+ 151 0018 52535400 		.ascii	"RST\000"
+ 152              		.section	.text.Rtp_Test,"ax",%progbits
+ 153              		.align	1
+ 154              		.global	Rtp_Test
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 158              		.fpu fpv4-sp-d16
+ 160              	Rtp_Test:
+ 161              	.LFB134:
+ 116:Core/Src/test.c **** 
+ 117:Core/Src/test.c **** #if 0
+ 118:Core/Src/test.c **** /*****************************************************************************
+ 119:Core/Src/test.c ****  * @name       :void main_test(void)
+ARM GAS  /tmp/ccS4UP0l.s 			page 6
+
+
+ 120:Core/Src/test.c ****  * @date       :2018-08-09 
+ 121:Core/Src/test.c ****  * @function   :Drawing the main Interface of the Comprehensive Test Program
+ 122:Core/Src/test.c ****  * @parameters :None
+ 123:Core/Src/test.c ****  * @retvalue   :None
+ 124:Core/Src/test.c **** ******************************************************************************/
+ 125:Core/Src/test.c **** void main_test(void)
+ 126:Core/Src/test.c **** {
+ 127:Core/Src/test.c **** 	DrawTestPage("◊Ó–°œµÕ≥◊€∫œ≤‚ ‘≥Ã–Ú");	
+ 128:Core/Src/test.c **** 	Gui_StrCenter(0,40,RED,BLUE,"STM32F407VxT6◊Ó–°œµÕ≥ø™∑¢∞Â",16,1);//æ”÷–œ‘ æ
+ 129:Core/Src/test.c **** 	Gui_StrCenter(0,70,RED,BLUE,"◊€∫œ≤‚ ‘≥Ã–Ú",16,1);//æ”÷–œ‘ æ	
+ 130:Core/Src/test.c **** 	Gui_StrCenter(0,100,MAGENTA,BLUE,"ILI9341  ILI9486  ILI9488",16,1);//æ”÷–œ‘ æ
+ 131:Core/Src/test.c **** 	Gui_StrCenter(0,120,MAGENTA,BLUE,"R61509V  ST7793   ST7796S",16,1);//æ”÷–œ‘ æ
+ 132:Core/Src/test.c **** 	Gui_StrCenter(0,140,MAGENTA,BLUE,"NT35310  NT35510  SSD1963",16,1);//æ”÷–œ‘ æ
+ 133:Core/Src/test.c **** 	Gui_StrCenter(0,170,BLUE,BLUE,"STM32F407VxT6 2020-06-05",16,1);//æ”÷–œ‘ æ
+ 134:Core/Src/test.c **** 	delay_ms(1500);		
+ 135:Core/Src/test.c **** 	delay_ms(1500);
+ 136:Core/Src/test.c **** }
+ 137:Core/Src/test.c **** 
+ 138:Core/Src/test.c **** /*****************************************************************************
+ 139:Core/Src/test.c ****  * @name       :void Test_Color(void)
+ 140:Core/Src/test.c ****  * @date       :2018-08-09 
+ 141:Core/Src/test.c ****  * @function   :Color fill test(white,black,red,green,blue)
+ 142:Core/Src/test.c ****  * @parameters :None
+ 143:Core/Src/test.c ****  * @retvalue   :None
+ 144:Core/Src/test.c **** ******************************************************************************/
+ 145:Core/Src/test.c **** void Test_Color(void)
+ 146:Core/Src/test.c **** {
+ 147:Core/Src/test.c **** 	//DrawTestPage("≤‚ ‘1:¥ø…´ÃÓ≥‰≤‚ ‘");
+ 148:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,WHITE);
+ 149:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"BL Test",16,1);delay_ms(800);
+ 150:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,RED);
+ 151:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"RED ",16,1);delay_ms(800);
+ 152:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,GREEN);
+ 153:Core/Src/test.c **** 	Show_Str(20,30,BLUE,YELLOW,"GREEN ",16,1);delay_ms(800);
+ 154:Core/Src/test.c **** 	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,BLUE);
+ 155:Core/Src/test.c **** 	Show_Str(20,30,RED,YELLOW,"BLUE ",16,1);delay_ms(800);
+ 156:Core/Src/test.c **** }
+ 157:Core/Src/test.c **** 
+ 158:Core/Src/test.c **** /*****************************************************************************
+ 159:Core/Src/test.c ****  * @name       :void Test_FillRec(void)
+ 160:Core/Src/test.c ****  * @date       :2018-08-09 
+ 161:Core/Src/test.c ****  * @function   :Rectangular display and fill test
+ 162:Core/Src/test.c **** 								Display red,green,blue,yellow,pink rectangular boxes in turn,
+ 163:Core/Src/test.c **** 								1500 milliseconds later,
+ 164:Core/Src/test.c **** 								Fill the rectangle in red,green,blue,yellow and pink in turn
+ 165:Core/Src/test.c ****  * @parameters :None
+ 166:Core/Src/test.c ****  * @retvalue   :None
+ 167:Core/Src/test.c **** ******************************************************************************/
+ 168:Core/Src/test.c **** void Test_FillRec(void)
+ 169:Core/Src/test.c **** {
+ 170:Core/Src/test.c **** 	u8 i=0;
+ 171:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘3:GUIæÿ–ŒÃÓ≥‰≤‚ ‘");
+ 172:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 173:Core/Src/test.c **** 	{
+ 174:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 175:Core/Src/test.c **** 		LCD_DrawRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)+60,
+ 176:Core/Src/test.c **** 	}
+ARM GAS  /tmp/ccS4UP0l.s 			page 7
+
+
+ 177:Core/Src/test.c **** 	delay_ms(1500);	
+ 178:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 179:Core/Src/test.c **** 	{
+ 180:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 181:Core/Src/test.c **** 		LCD_DrawFillRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)
+ 182:Core/Src/test.c **** 	}
+ 183:Core/Src/test.c **** 	delay_ms(1500);
+ 184:Core/Src/test.c **** }
+ 185:Core/Src/test.c **** 
+ 186:Core/Src/test.c **** /*****************************************************************************
+ 187:Core/Src/test.c ****  * @name       :void Test_Circle(void)
+ 188:Core/Src/test.c ****  * @date       :2018-08-09 
+ 189:Core/Src/test.c ****  * @function   :circular display and fill test
+ 190:Core/Src/test.c **** 								Display red,green,blue,yellow,pink circular boxes in turn,
+ 191:Core/Src/test.c **** 								1500 milliseconds later,
+ 192:Core/Src/test.c **** 								Fill the circular in red,green,blue,yellow and pink in turn
+ 193:Core/Src/test.c ****  * @parameters :None
+ 194:Core/Src/test.c ****  * @retvalue   :None
+ 195:Core/Src/test.c **** ******************************************************************************/
+ 196:Core/Src/test.c **** void Test_Circle(void)
+ 197:Core/Src/test.c **** {
+ 198:Core/Src/test.c **** 	u8 i=0;
+ 199:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘4:GUIª≠‘≤ÃÓ≥‰≤‚ ‘");
+ 200:Core/Src/test.c **** 	for (i=0; i<5; i++)  
+ 201:Core/Src/test.c **** 		gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,0);
+ 202:Core/Src/test.c **** 	delay_ms(1500);	
+ 203:Core/Src/test.c **** 	for (i=0; i<5; i++) 
+ 204:Core/Src/test.c **** 	  	gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,1);
+ 205:Core/Src/test.c **** 	delay_ms(1500);
+ 206:Core/Src/test.c **** }
+ 207:Core/Src/test.c **** 
+ 208:Core/Src/test.c **** /*****************************************************************************
+ 209:Core/Src/test.c ****  * @name       :void English_Font_test(void)
+ 210:Core/Src/test.c ****  * @date       :2018-08-09 
+ 211:Core/Src/test.c ****  * @function   :English display test
+ 212:Core/Src/test.c ****  * @parameters :None
+ 213:Core/Src/test.c ****  * @retvalue   :None
+ 214:Core/Src/test.c **** ******************************************************************************/
+ 215:Core/Src/test.c **** void English_Font_test(void)
+ 216:Core/Src/test.c **** {
+ 217:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘6:”¢Œƒœ‘ æ≤‚ ‘");
+ 218:Core/Src/test.c **** 	Show_Str(10,30,BLUE,YELLOW,"6X12:abcdefghijklmnopqrstuvwxyz0123456789",12,0);
+ 219:Core/Src/test.c **** 	Show_Str(10,45,BLUE,YELLOW,"6X12:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",12,1);
+ 220:Core/Src/test.c **** 	Show_Str(10,60,BLUE,YELLOW,"6X12:~!@#$%^&*()_+{}:<>?/|-+.",12,0);
+ 221:Core/Src/test.c **** 	Show_Str(10,80,BLUE,YELLOW,"8X16:abcdefghijklmnopqrstuvwxyz0123456789",16,0);
+ 222:Core/Src/test.c **** 	Show_Str(10,100,BLUE,YELLOW,"8X16:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",16,1);
+ 223:Core/Src/test.c **** 	Show_Str(10,120,BLUE,YELLOW,"8X16:~!@#$%^&*()_+{}:<>?/|-+.",16,0); 
+ 224:Core/Src/test.c **** 	delay_ms(1200);
+ 225:Core/Src/test.c **** }
+ 226:Core/Src/test.c **** 
+ 227:Core/Src/test.c **** /*****************************************************************************
+ 228:Core/Src/test.c ****  * @name       :void Test_Triangle(void)
+ 229:Core/Src/test.c ****  * @date       :2018-08-09 
+ 230:Core/Src/test.c ****  * @function   :triangle display and fill test
+ 231:Core/Src/test.c **** 								Display red,green,blue,yellow,pink triangle boxes in turn,
+ 232:Core/Src/test.c **** 								1500 milliseconds later,
+ 233:Core/Src/test.c **** 								Fill the triangle in red,green,blue,yellow and pink in turn
+ARM GAS  /tmp/ccS4UP0l.s 			page 8
+
+
+ 234:Core/Src/test.c ****  * @parameters :None
+ 235:Core/Src/test.c ****  * @retvalue   :None
+ 236:Core/Src/test.c **** ******************************************************************************/
+ 237:Core/Src/test.c **** void Test_Triangle(void)
+ 238:Core/Src/test.c **** {
+ 239:Core/Src/test.c **** 	u8 i=0;
+ 240:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘5:GUI TriangleÃÓ≥‰≤‚ ‘");
+ 241:Core/Src/test.c **** 	for(i=0;i<5;i++)
+ 242:Core/Src/test.c **** 	{
+ 243:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 244:Core/Src/test.c **** 		Draw_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcdde
+ 245:Core/Src/test.c **** 	}
+ 246:Core/Src/test.c **** 	delay_ms(1500);	
+ 247:Core/Src/test.c **** 	for(i=0;i<5;i++)
+ 248:Core/Src/test.c **** 	{
+ 249:Core/Src/test.c **** 		POINT_COLOR=ColorTab[i];
+ 250:Core/Src/test.c **** 		Fill_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcdde
+ 251:Core/Src/test.c **** 	}
+ 252:Core/Src/test.c **** 	delay_ms(1500);
+ 253:Core/Src/test.c **** }
+ 254:Core/Src/test.c **** 
+ 255:Core/Src/test.c **** /*****************************************************************************
+ 256:Core/Src/test.c ****  * @name       :void Chinese_Font_test(void)
+ 257:Core/Src/test.c ****  * @date       :2018-08-09 
+ 258:Core/Src/test.c ****  * @function   :chinese display test
+ 259:Core/Src/test.c ****  * @parameters :None
+ 260:Core/Src/test.c ****  * @retvalue   :None
+ 261:Core/Src/test.c **** ******************************************************************************/
+ 262:Core/Src/test.c **** void Chinese_Font_test(void)
+ 263:Core/Src/test.c **** {	
+ 264:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘7:÷–Œƒœ‘ æ≤‚ ‘");
+ 265:Core/Src/test.c **** 	Show_Str(10,30,BLUE,YELLOW,"16X16:…Ó€⁄ª∂”≠ƒ˙",16,0);
+ 266:Core/Src/test.c **** 	Show_Str(10,50,BLUE,YELLOW,"16X16:Welcome to …Ó€⁄",16,0);
+ 267:Core/Src/test.c **** 	Show_Str(10,70,BLUE,YELLOW,"24X24:÷–Œƒ≤‚ ‘",24,1);
+ 268:Core/Src/test.c **** 	Show_Str(10,100,BLUE,YELLOW,"32X32:◊÷ÃÂ≤‚ ‘",32,1);
+ 269:Core/Src/test.c **** 	delay_ms(1200);
+ 270:Core/Src/test.c **** }
+ 271:Core/Src/test.c **** 
+ 272:Core/Src/test.c **** /*****************************************************************************
+ 273:Core/Src/test.c ****  * @name       :void Pic_test(void)
+ 274:Core/Src/test.c ****  * @date       :2018-08-09 
+ 275:Core/Src/test.c ****  * @function   :picture display test
+ 276:Core/Src/test.c ****  * @parameters :None
+ 277:Core/Src/test.c ****  * @retvalue   :None
+ 278:Core/Src/test.c **** ******************************************************************************/
+ 279:Core/Src/test.c **** void Pic_test(void)
+ 280:Core/Src/test.c **** {
+ 281:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘8:Õº∆¨œ‘ æ≤‚ ‘");
+ 282:Core/Src/test.c **** 	Gui_Drawbmp16(30,30,40,40,gImage_qq);
+ 283:Core/Src/test.c **** 	Show_Str(30+12,75,BLUE,YELLOW,"QQ",16,1);
+ 284:Core/Src/test.c **** 	Gui_Drawbmp16(90,30,40,40,gImage_qq);
+ 285:Core/Src/test.c **** 	Show_Str(90+12,75,BLUE,YELLOW,"QQ",16,1);
+ 286:Core/Src/test.c **** 	Gui_Drawbmp16(150,30,40,40,gImage_qq);
+ 287:Core/Src/test.c **** 	Show_Str(150+12,75,BLUE,YELLOW,"QQ",16,1);
+ 288:Core/Src/test.c **** 	delay_ms(1200);
+ 289:Core/Src/test.c **** }
+ 290:Core/Src/test.c **** 
+ARM GAS  /tmp/ccS4UP0l.s 			page 9
+
+
+ 291:Core/Src/test.c **** /*****************************************************************************
+ 292:Core/Src/test.c ****  * @name       :void Rotate_Test(void)
+ 293:Core/Src/test.c ****  * @date       :2018-08-09 
+ 294:Core/Src/test.c ****  * @function   :rotate test
+ 295:Core/Src/test.c ****  * @parameters :None
+ 296:Core/Src/test.c ****  * @retvalue   :None
+ 297:Core/Src/test.c **** ******************************************************************************/
+ 298:Core/Src/test.c **** void Rotate_Test(void)
+ 299:Core/Src/test.c **** {
+ 300:Core/Src/test.c **** 	u8 i=0;
+ 301:Core/Src/test.c **** 	u8 *Direction[4]={"Rotation:0","Rotation:90","Rotation:180","Rotation:270"};
+ 302:Core/Src/test.c **** 	
+ 303:Core/Src/test.c **** 	for(i=0;i<4;i++)
+ 304:Core/Src/test.c **** 	{
+ 305:Core/Src/test.c **** 		LCD_Clear(WHITE);
+ 306:Core/Src/test.c **** 		LCD_direction(i);
+ 307:Core/Src/test.c **** 		DrawTestPage("≤‚ ‘10:∆¡ƒª–˝◊™≤‚ ‘");
+ 308:Core/Src/test.c **** 		Show_Str(20,30,BLUE,YELLOW,Direction[i],16,1);
+ 309:Core/Src/test.c **** 		Gui_Drawbmp16(30,50,40,40,gImage_qq);
+ 310:Core/Src/test.c **** 		delay_ms(1000);delay_ms(1000);
+ 311:Core/Src/test.c **** 	}
+ 312:Core/Src/test.c **** 	LCD_direction(USE_HORIZONTAL);
+ 313:Core/Src/test.c **** }
+ 314:Core/Src/test.c **** 
+ 315:Core/Src/test.c **** /*****************************************************************************
+ 316:Core/Src/test.c ****  * @name       :void Test_Read(void)
+ 317:Core/Src/test.c ****  * @date       :2018-11-13 
+ 318:Core/Src/test.c ****  * @function   :read test
+ 319:Core/Src/test.c ****  * @parameters :None
+ 320:Core/Src/test.c ****  * @retvalue   :None
+ 321:Core/Src/test.c **** ******************************************************************************/
+ 322:Core/Src/test.c **** void Test_Read(void)
+ 323:Core/Src/test.c **** {
+ 324:Core/Src/test.c **** 	u16 color;
+ 325:Core/Src/test.c **** 	u8 buf[10] = {0},i;
+ 326:Core/Src/test.c **** 	u8 cbuf[35] = {0};
+ 327:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘2:∂¡ID∫Õ—’…´÷µ≤‚ ‘");
+ 328:Core/Src/test.c **** 	sprintf((char *)buf,"ID:0x%x",lcddev.id);
+ 329:Core/Src/test.c **** 	Show_Str(50,25,BLUE,YELLOW,buf,16,1);
+ 330:Core/Src/test.c **** 	for (i=0; i<7; i++) 
+ 331:Core/Src/test.c **** 	{
+ 332:Core/Src/test.c **** 		POINT_COLOR=ColornTab[i];
+ 333:Core/Src/test.c **** 		LCD_DrawFillRectangle(20-10,55+i*25-10,20+10,55+i*25+10);
+ 334:Core/Src/test.c **** 		color = LCD_ReadPoint(20,55+i*25);
+ 335:Core/Src/test.c **** 		if(POINT_COLOR==color)
+ 336:Core/Src/test.c **** 		{
+ 337:Core/Src/test.c **** 			strcpy((char*)buf, "OK");
+ 338:Core/Src/test.c **** 		}
+ 339:Core/Src/test.c **** 		else
+ 340:Core/Src/test.c **** 		{
+ 341:Core/Src/test.c **** 			strcpy((char*)buf, "ERROR");
+ 342:Core/Src/test.c **** 		}
+ 343:Core/Src/test.c **** 		sprintf((char *)cbuf,"read color:0x%04X  %s",color, buf);
+ 344:Core/Src/test.c **** 		Show_Str(20+20,55+i*25-8,POINT_COLOR,YELLOW,cbuf,16,1);
+ 345:Core/Src/test.c **** 	}
+ 346:Core/Src/test.c **** 	delay_ms(1500);
+ 347:Core/Src/test.c **** }
+ARM GAS  /tmp/ccS4UP0l.s 			page 10
+
+
+ 348:Core/Src/test.c **** 
+ 349:Core/Src/test.c **** /*****************************************************************************
+ 350:Core/Src/test.c ****  * @name       :void POINT_Test(void)
+ 351:Core/Src/test.c ****  * @date       :2018-12-29 
+ 352:Core/Src/test.c ****  * @function   :point test
+ 353:Core/Src/test.c ****  * @parameters :None
+ 354:Core/Src/test.c ****  * @retvalue   :None
+ 355:Core/Src/test.c **** ******************************************************************************/
+ 356:Core/Src/test.c **** void POINT_Test(void)
+ 357:Core/Src/test.c **** {
+ 358:Core/Src/test.c **** 	uint8_t x=lcddev.width/2,y=lcddev.height/2,r=20,t,m,i;
+ 359:Core/Src/test.c **** 
+ 360:Core/Src/test.c **** 	t = 7*r/10;
+ 361:Core/Src/test.c **** 	m =100;	//œ‘ æÀŸ∂»∫¡√Î÷µ
+ 362:Core/Src/test.c **** 	
+ 363:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘12:GUI Loading");
+ 364:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,BLACK);
+ 365:Core/Src/test.c **** 	POINT_COLOR = WHITE;
+ 366:Core/Src/test.c **** 	BACK_COLOR = BLACK;
+ 367:Core/Src/test.c **** 	Show_Str((lcddev.width-96)/2, lcddev.height/2+r+10, POINT_COLOR,BACK_COLOR,"Loading.....",16,1);
+ 368:Core/Src/test.c **** 	for(i=0;i<2;i++)
+ 369:Core/Src/test.c **** 	{
+ 370:Core/Src/test.c **** 		LCD_Draw9Point(x, y-r, WHITE); //ª≠µ⁄“ª∏ˆµ„
+ 371:Core/Src/test.c **** 		delay_ms(m);
+ 372:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y-t, WHITE); //ª≠µ⁄∂˛∏ˆµ„
+ 373:Core/Src/test.c **** 		delay_ms(m);
+ 374:Core/Src/test.c **** 		LCD_Draw9Point(x, y-r, BLACK); //…æ≥˝µ⁄“ª∏ˆµ„
+ 375:Core/Src/test.c **** 		delay_ms(m);
+ 376:Core/Src/test.c **** 		LCD_Draw9Point(x+r, y, WHITE); //ª≠µ⁄»˝∏ˆµ„
+ 377:Core/Src/test.c **** 		delay_ms(m);
+ 378:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y-t, BLACK);  //…æ≥˝µ⁄∂˛∏ˆµ„
+ 379:Core/Src/test.c **** 		delay_ms(m);
+ 380:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y+t, WHITE);  //ª≠µ⁄Àƒ∏ˆµ„
+ 381:Core/Src/test.c **** 		delay_ms(m);
+ 382:Core/Src/test.c **** 		LCD_Draw9Point(x+r, y, BLACK); //…æ≥˝µ⁄»˝∏ˆµ„
+ 383:Core/Src/test.c **** 		delay_ms(m);
+ 384:Core/Src/test.c **** 		LCD_Draw9Point(x, y+r, WHITE);  //ª≠µ⁄ŒÂ∏ˆµ„
+ 385:Core/Src/test.c **** 		delay_ms(m);
+ 386:Core/Src/test.c **** 		LCD_Draw9Point(x+t, y+t, BLACK);  //…æ≥˝µ⁄Àƒ∏ˆµ„
+ 387:Core/Src/test.c **** 		delay_ms(m);
+ 388:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y+t, WHITE);  //ª≠µ⁄¡˘∏ˆµ„
+ 389:Core/Src/test.c **** 		delay_ms(m);
+ 390:Core/Src/test.c **** 		LCD_Draw9Point(x, y+r, BLACK);  //…æ≥˝µ⁄ŒÂ∏ˆµ„
+ 391:Core/Src/test.c **** 		delay_ms(m);
+ 392:Core/Src/test.c **** 		LCD_Draw9Point(x-r, y, WHITE);  //ª≠µ⁄∆ﬂ∏ˆµ„
+ 393:Core/Src/test.c **** 		delay_ms(m);
+ 394:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y+t, BLACK);  //…æ≥˝µ⁄¡˘∏ˆµ„
+ 395:Core/Src/test.c **** 		delay_ms(m);
+ 396:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y-t, WHITE);  //ª≠µ⁄∞À∏ˆµ„
+ 397:Core/Src/test.c **** 		delay_ms(m);
+ 398:Core/Src/test.c **** 		LCD_Draw9Point(x-r, y, BLACK);  //…æ≥˝µ⁄∆ﬂ∏ˆµ„
+ 399:Core/Src/test.c **** 		delay_ms(m);
+ 400:Core/Src/test.c **** 		LCD_Draw9Point(x-t, y-t, BLACK);  //…æ≥˝µ⁄∞À∏ˆµ„
+ 401:Core/Src/test.c **** 		delay_ms(m);
+ 402:Core/Src/test.c **** 	}
+ 403:Core/Src/test.c **** 	delay_ms(1500);
+ 404:Core/Src/test.c **** }
+ARM GAS  /tmp/ccS4UP0l.s 			page 11
+
+
+ 405:Core/Src/test.c **** 
+ 406:Core/Src/test.c **** /*****************************************************************************
+ 407:Core/Src/test.c ****  * @name       :void Combo_Test(void)
+ 408:Core/Src/test.c ****  * @date       :2018-12-29 
+ 409:Core/Src/test.c ****  * @function   :combo test
+ 410:Core/Src/test.c ****  * @parameters :None
+ 411:Core/Src/test.c ****  * @retvalue   :None
+ 412:Core/Src/test.c **** ******************************************************************************/
+ 413:Core/Src/test.c **** void Combo_Test(void)
+ 414:Core/Src/test.c **** {
+ 415:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘13:GUI Combo");
+ 416:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
+ 417:Core/Src/test.c **** 	//ª≠“ª∏ˆÃı–Œ ‰»ÎøÚ
+ 418:Core/Src/test.c **** 	Draw_TextBox(50, 50, 200, 73);
+ 419:Core/Src/test.c **** 	//ª≠œ¬¿≠¡–±Ì∞¥≈•(19*19)œÒÀÿ
+ 420:Core/Src/test.c **** 	Draw_Button(179, 52, 198, 71);
+ 421:Core/Src/test.c **** 	Draw_DirectButton(179,52);
+ 422:Core/Src/test.c **** 	delay_ms(500);
+ 423:Core/Src/test.c **** 	delay_ms(500);
+ 424:Core/Src/test.c **** 	delay_ms(500);
+ 425:Core/Src/test.c **** 	SetButton(179, 52, 198, 71);
+ 426:Core/Src/test.c **** 	LCD_Fill(183, 56, 194, 67, LGRAY);
+ 427:Core/Src/test.c ****    	Draw_DirectButton(180,53);
+ 428:Core/Src/test.c **** 	delay_ms(500);
+ 429:Core/Src/test.c **** 	delay_ms(500);
+ 430:Core/Src/test.c **** 	delay_ms(500);
+ 431:Core/Src/test.c **** 	EscButton(179, 52, 198, 71);
+ 432:Core/Src/test.c **** 	LCD_Fill(183, 56, 194, 67, LGRAY);
+ 433:Core/Src/test.c **** 	Draw_DirectButton(179,52);
+ 434:Core/Src/test.c **** 	//¿≠≥ˆœ¬¿≠¡–±Ì
+ 435:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 436:Core/Src/test.c **** 	LCD_DrawRectangle(50, 74, 200, 143);
+ 437:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 142, WHITE);
+ 438:Core/Src/test.c **** 	//–¥¡–±Ì÷–µƒƒ⁄»›
+ 439:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 97, DARKBLUE); //µ⁄“ª∏ˆƒ¨»œŒ™—°÷–◊¥Ã¨
+ 440:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 441:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 442:Core/Src/test.c **** 	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+ 443:Core/Src/test.c **** 
+ 444:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 445:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 446:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 447:Core/Src/test.c **** 	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+ 448:Core/Src/test.c **** 	delay_ms(500);
+ 449:Core/Src/test.c **** 	delay_ms(500);
+ 450:Core/Src/test.c **** 	delay_ms(500);
+ 451:Core/Src/test.c **** 	//—°÷–µ⁄∂˛∏ˆ
+ 452:Core/Src/test.c **** 	LCD_Fill(51, 75, 199, 97, WHITE);	   //œ»»°œ˚µ⁄“ª∏ˆ
+ 453:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 454:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 455:Core/Src/test.c **** 	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+ 456:Core/Src/test.c **** 
+ 457:Core/Src/test.c **** 	LCD_Fill(51, 98, 199, 120, DARKBLUE);  //—°÷–µ⁄∂˛∏ˆ
+ 458:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 459:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 460:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 461:Core/Src/test.c **** 	delay_ms(500);
+ARM GAS  /tmp/ccS4UP0l.s 			page 12
+
+
+ 462:Core/Src/test.c **** 	delay_ms(500);
+ 463:Core/Src/test.c **** 	delay_ms(500);
+ 464:Core/Src/test.c **** 	//—°÷–µ⁄»˝∏ˆ
+ 465:Core/Src/test.c **** 	LCD_Fill(51, 98, 199, 120, WHITE);//œ»»°œ˚—°÷–µƒµ⁄∂˛∏ˆ
+ 466:Core/Src/test.c **** 	POINT_COLOR=BLACK;
+ 467:Core/Src/test.c **** 	BACK_COLOR=WHITE;
+ 468:Core/Src/test.c **** 	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+ 469:Core/Src/test.c **** 
+ 470:Core/Src/test.c **** 	LCD_Fill(51, 121, 199, 142, DARKBLUE);//—°÷–µ⁄»˝∏ˆ
+ 471:Core/Src/test.c **** 	POINT_COLOR=WHITE;
+ 472:Core/Src/test.c **** 	BACK_COLOR=DARKBLUE;
+ 473:Core/Src/test.c **** 	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+ 474:Core/Src/test.c **** 	delay_ms(500);
+ 475:Core/Src/test.c **** 	delay_ms(500);
+ 476:Core/Src/test.c **** 	delay_ms(500);
+ 477:Core/Src/test.c **** 	delay_ms(500);
+ 478:Core/Src/test.c **** 	//«Â≥˝
+ 479:Core/Src/test.c **** 	LCD_Fill(50, 74, 200, 143, GRAY);
+ 480:Core/Src/test.c **** 	delay_ms(1500);
+ 481:Core/Src/test.c **** }
+ 482:Core/Src/test.c **** 
+ 483:Core/Src/test.c **** /*****************************************************************************
+ 484:Core/Src/test.c ****  * @name       :void ProgresBar_Test(void)
+ 485:Core/Src/test.c ****  * @date       :2018-12-29 
+ 486:Core/Src/test.c ****  * @function   :ProgresBar test
+ 487:Core/Src/test.c ****  * @parameters :None
+ 488:Core/Src/test.c ****  * @retvalue   :None
+ 489:Core/Src/test.c **** ******************************************************************************/
+ 490:Core/Src/test.c **** void ProgresBar_Test(void)
+ 491:Core/Src/test.c **** {
+ 492:Core/Src/test.c **** 	uint8_t i,num=1;
+ 493:Core/Src/test.c **** 	u16 x1=20;
+ 494:Core/Src/test.c **** 	u16 y1=30;
+ 495:Core/Src/test.c **** 	u16 x2=150;//130
+ 496:Core/Src/test.c **** 	u16 y2=130;//100
+ 497:Core/Src/test.c **** 			
+ 498:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘14:GUI ProgresBar");
+ 499:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 500:Core/Src/test.c **** 	Draw_Button(x1, y1, x2, y2);   // œ‘ æ÷˜ÃÂ¥∞ø⁄
+ 501:Core/Src/test.c **** 	LCD_Fill(x1+3, y1+3, x2-3, y2-75, DARKBLUE);	 // œ‘ æ±ÍÃ‚¿∏ 
+ 502:Core/Src/test.c **** 	Show_Str(x1+25, y1+5, POINT_COLOR,BACK_COLOR,"ProgresBar",16,1); // ∞¥≈•…œ–¥◊÷
+ 503:Core/Src/test.c **** 	Draw_Button(x1+5, y1+70, x2-70, y2-5);  // œ‘ æµ⁄“ª∏ˆ∞¥≈•
+ 504:Core/Src/test.c **** 	Draw_Button(x1+70, y1+70, x2-5, y2-5);  // œ‘ æµ⁄∂˛∏ˆ∞¥≈•
+ 505:Core/Src/test.c **** 	POINT_COLOR=BLACK;	
+ 506:Core/Src/test.c **** 	BACK_COLOR=LGRAY;
+ 507:Core/Src/test.c **** 	Show_Str(x1+25, y1+74,POINT_COLOR,BACK_COLOR,"OK",16,1);
+ 508:Core/Src/test.c **** 	Show_Str(x1+75, y1+74, POINT_COLOR,BACK_COLOR,"Cancel",16,1);
+ 509:Core/Src/test.c **** 	Show_Str(x1+80, y1+35, POINT_COLOR,BACK_COLOR,"%",16,1);	  
+ 510:Core/Src/test.c **** 	for(i=x1+26;i<x2-5;i++)
+ 511:Core/Src/test.c **** 	{
+ 512:Core/Src/test.c **** 		LCD_Fill(x1+5, y1+53, i, y1+68, RED);
+ 513:Core/Src/test.c **** 		delay_ms(40);
+ 514:Core/Src/test.c **** 		LCD_ShowNum(x1+62, y1+35, num,2,16,0);
+ 515:Core/Src/test.c **** 		num++;
+ 516:Core/Src/test.c **** 	}
+ 517:Core/Src/test.c **** 	LCD_Fill(x1+5, y1+35, x2-5, y1+50, LGRAY);
+ 518:Core/Src/test.c **** 	Show_Str(x1+25, y1+35, BLUE,BACK_COLOR,"Success!!!",16,1);
+ARM GAS  /tmp/ccS4UP0l.s 			page 13
+
+
+ 519:Core/Src/test.c **** 	delay_ms(1500);
+ 520:Core/Src/test.c **** }
+ 521:Core/Src/test.c **** 
+ 522:Core/Src/test.c **** /*****************************************************************************
+ 523:Core/Src/test.c ****  * @name       :void BarReport_Test(void)
+ 524:Core/Src/test.c ****  * @date       :2018-12-29 
+ 525:Core/Src/test.c ****  * @function   :BarReport test
+ 526:Core/Src/test.c ****  * @parameters :None
+ 527:Core/Src/test.c ****  * @retvalue   :None
+ 528:Core/Src/test.c **** ******************************************************************************/
+ 529:Core/Src/test.c **** void BarReport_Test(void)
+ 530:Core/Src/test.c **** {
+ 531:Core/Src/test.c **** 	uint16_t i;	
+ 532:Core/Src/test.c **** 
+ 533:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘15:GUI BarReport");
+ 534:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 535:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 536:Core/Src/test.c **** 	//ª≠◊›◊¯±Í
+ 537:Core/Src/test.c **** 	LCD_DrawLine(20, 50, 20, 210);
+ 538:Core/Src/test.c **** 	LCD_DrawLine(10, 60, 20, 50);
+ 539:Core/Src/test.c **** 	LCD_DrawLine(30, 60, 20, 50);
+ 540:Core/Src/test.c **** 	//ª≠∫·◊¯±Í
+ 541:Core/Src/test.c **** 	LCD_DrawLine(20, 210, 220, 210);
+ 542:Core/Src/test.c **** 	LCD_DrawLine(210, 200, 220, 210);
+ 543:Core/Src/test.c **** 	LCD_DrawLine(210, 220, 220, 210);
+ 544:Core/Src/test.c **** 	//ª≠Ãı–Œ
+ 545:Core/Src/test.c **** 	LCD_Fill(35, 80, 55, 209,RED);
+ 546:Core/Src/test.c **** 	LCD_Fill(75, 130, 95, 209,YELLOW);
+ 547:Core/Src/test.c **** 	LCD_Fill(115, 60, 135, 209,BLUE);
+ 548:Core/Src/test.c **** 	LCD_Fill(155, 90, 175, 209,GREEN);
+ 549:Core/Src/test.c **** 	//Ãı–ŒΩ•±‰
+ 550:Core/Src/test.c **** 	delay_ms(50);
+ 551:Core/Src/test.c **** 	for(i=81;i<209;i++) //∫Ï…´ÃıΩµµÕ
+ 552:Core/Src/test.c **** 	{
+ 553:Core/Src/test.c **** 		LCD_Fill(35, 80, 55, i,WHITE);
+ 554:Core/Src/test.c **** 		delay_ms(10);
+ 555:Core/Src/test.c **** 	}
+ 556:Core/Src/test.c **** 	for(i=208;i>100;i--) //∫Ï…´Ãı…˝∏ﬂ
+ 557:Core/Src/test.c **** 	{
+ 558:Core/Src/test.c **** 		LCD_Fill(35, i, 55, 209,RED);
+ 559:Core/Src/test.c **** 		delay_ms(10);
+ 560:Core/Src/test.c **** 	}
+ 561:Core/Src/test.c **** 	for(i=129;i>80;i--) //ª∆…´Ãı…˝∏ﬂ
+ 562:Core/Src/test.c **** 	{
+ 563:Core/Src/test.c **** 		LCD_Fill(75, i, 95, 130,YELLOW);
+ 564:Core/Src/test.c **** 		delay_ms(10);
+ 565:Core/Src/test.c **** 	}
+ 566:Core/Src/test.c **** 	for(i=25;i<160;i++) //¿∂…´ÃıΩµµÕ
+ 567:Core/Src/test.c **** 	{
+ 568:Core/Src/test.c **** 		LCD_Fill(115, 24, 135, i,WHITE);
+ 569:Core/Src/test.c **** 		delay_ms(10);
+ 570:Core/Src/test.c **** 	}		
+ 571:Core/Src/test.c **** 	delay_ms(1500);
+ 572:Core/Src/test.c **** }
+ 573:Core/Src/test.c **** 
+ 574:Core/Src/test.c **** /*****************************************************************************
+ 575:Core/Src/test.c ****  * @name       :void Window_Test(void)
+ARM GAS  /tmp/ccS4UP0l.s 			page 14
+
+
+ 576:Core/Src/test.c ****  * @date       :2018-12-29 
+ 577:Core/Src/test.c ****  * @function   :Window test
+ 578:Core/Src/test.c ****  * @parameters :None
+ 579:Core/Src/test.c ****  * @retvalue   :None
+ 580:Core/Src/test.c **** ******************************************************************************/
+ 581:Core/Src/test.c **** void Window_Test(void)
+ 582:Core/Src/test.c **** {
+ 583:Core/Src/test.c **** 
+ 584:Core/Src/test.c **** 	uint16_t xstart=2,ystart=30,xend=lcddev.width*2/3,yend=lcddev.height-30;
+ 585:Core/Src/test.c **** 	uint8_t i=3;
+ 586:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘16:GUI Window");
+ 587:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
+ 588:Core/Src/test.c **** 	do
+ 589:Core/Src/test.c **** 	{
+ 590:Core/Src/test.c **** 		Draw_Window(xstart,ystart,xend,yend,"OK");
+ 591:Core/Src/test.c **** 		delay_ms(500);
+ 592:Core/Src/test.c **** 		delay_ms(500);
+ 593:Core/Src/test.c **** 		xstart+=15;ystart+=15;xend-=30;yend-=30;
+ 594:Core/Src/test.c **** 	}while(--i);
+ 595:Core/Src/test.c **** 	delay_ms(1500);
+ 596:Core/Src/test.c **** }
+ 597:Core/Src/test.c **** 
+ 598:Core/Src/test.c **** /*****************************************************************************
+ 599:Core/Src/test.c ****  * @name       :void Button_Test(void)
+ 600:Core/Src/test.c ****  * @date       :2018-12-29 
+ 601:Core/Src/test.c ****  * @function   :Button test
+ 602:Core/Src/test.c ****  * @parameters :None
+ 603:Core/Src/test.c ****  * @retvalue   :None
+ 604:Core/Src/test.c **** ******************************************************************************/
+ 605:Core/Src/test.c **** void Button_Test(void)
+ 606:Core/Src/test.c **** {		  	
+ 607:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘17:GUI Button");
+ 608:Core/Src/test.c **** 	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+ 609:Core/Src/test.c **** 	Draw_TextBox(30, 60, 170, 90);	 // œ‘ æ“ª∏ˆŒƒ◊÷ ‰»ÎøÚ
+ 610:Core/Src/test.c **** 	Draw_Button(180, 60, 235, 90);			 // œ‘ æ1∏ˆ∞¥≈•
+ 611:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 612:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 613:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 614:Core/Src/test.c **** 
+ 615:Core/Src/test.c **** 	
+ 616:Core/Src/test.c **** 	POINT_COLOR = BLUE;
+ 617:Core/Src/test.c **** 	BACK_COLOR = WHITE;
+ 618:Core/Src/test.c **** 	Show_Str(30,38,POINT_COLOR,BACK_COLOR,"News",16,1);
+ 619:Core/Src/test.c **** 	LCD_DrawLine(30,55,62,55);
+ 620:Core/Src/test.c **** 	Show_Str(118,38,POINT_COLOR,BACK_COLOR,"Pic",16,1);
+ 621:Core/Src/test.c **** 	LCD_DrawLine(118,55,150,55);
+ 622:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 623:Core/Src/test.c **** 	Show_Str(70,38,POINT_COLOR,BACK_COLOR,"Label",16,1);
+ 624:Core/Src/test.c **** 	delay_ms(500);
+ 625:Core/Src/test.c **** 	delay_ms(500);
+ 626:Core/Src/test.c **** 	delay_ms(500);
+ 627:Core/Src/test.c **** 	
+ 628:Core/Src/test.c **** 	LCD_ShowChar(35, 67, POINT_COLOR,BACK_COLOR,'C',16,1);
+ 629:Core/Src/test.c **** 	delay_ms(500);
+ 630:Core/Src/test.c **** 	LCD_ShowChar(43, 67, POINT_COLOR,BACK_COLOR,'o',16,1);
+ 631:Core/Src/test.c **** 	delay_ms(500);
+ 632:Core/Src/test.c **** 	LCD_ShowChar(51, 67, POINT_COLOR,BACK_COLOR,'r',16,1);
+ARM GAS  /tmp/ccS4UP0l.s 			page 15
+
+
+ 633:Core/Src/test.c **** 	delay_ms(500);
+ 634:Core/Src/test.c **** 	LCD_ShowChar(58, 67, POINT_COLOR,BACK_COLOR,'t',16,1);
+ 635:Core/Src/test.c **** 	delay_ms(500);
+ 636:Core/Src/test.c **** 	LCD_ShowChar(66, 67, POINT_COLOR,BACK_COLOR,'e',16,1);
+ 637:Core/Src/test.c **** 	delay_ms(500);
+ 638:Core/Src/test.c **** 	LCD_ShowChar(74, 67, POINT_COLOR,BACK_COLOR,'x',16,1);
+ 639:Core/Src/test.c **** 	delay_ms(500);
+ 640:Core/Src/test.c **** 	LCD_ShowChar(82, 67, POINT_COLOR,BACK_COLOR,'-',16,1);
+ 641:Core/Src/test.c **** 	delay_ms(500);
+ 642:Core/Src/test.c **** 	LCD_ShowChar(88, 67, POINT_COLOR,BACK_COLOR,'M',16,1);
+ 643:Core/Src/test.c **** 	delay_ms(500);
+ 644:Core/Src/test.c **** 
+ 645:Core/Src/test.c **** 
+ 646:Core/Src/test.c **** 	SetButton(180, 60, 235, 90);			 // ∞¥œ¬°∞À—À˜°±∞¥≈•
+ 647:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 648:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 649:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 650:Core/Src/test.c **** 	delay_ms(500);
+ 651:Core/Src/test.c **** 
+ 652:Core/Src/test.c **** 	EscButton(180, 60, 235, 90);			 // ∑≈ø™°∞À—À˜°±∞¥≈•
+ 653:Core/Src/test.c **** 	POINT_COLOR = BLACK;
+ 654:Core/Src/test.c **** 	BACK_COLOR = LGRAY;
+ 655:Core/Src/test.c **** 	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+ 656:Core/Src/test.c **** 	POINT_COLOR = RED;
+ 657:Core/Src/test.c **** 	BACK_COLOR = WHITE;		 
+ 658:Core/Src/test.c **** 	Show_Str(12,100,POINT_COLOR,BACK_COLOR,"The ARM Cortex-M is a group",16,1 );
+ 659:Core/Src/test.c **** 	Show_Str(12,120,POINT_COLOR,BACK_COLOR,"of 32-bit RISC ARM processor",16,1 );
+ 660:Core/Src/test.c **** 	Show_Str(12,140,POINT_COLOR,BACK_COLOR,"cores licensed by ARM Holdings.",16,1 );
+ 661:Core/Src/test.c **** 	Show_Str(12,160,POINT_COLOR,BACK_COLOR,"The cores are intended for ",16,1 );
+ 662:Core/Src/test.c **** 	Show_Str(12,180,POINT_COLOR,BACK_COLOR,"microcontroller use,and consist",16,1);
+ 663:Core/Src/test.c **** 	Show_Str(12,200,POINT_COLOR,BACK_COLOR,"of the Cortex-M0/M1/M2/M3/M4.",16,1);
+ 664:Core/Src/test.c **** 	delay_ms(500);
+ 665:Core/Src/test.c **** 	delay_ms(500);
+ 666:Core/Src/test.c **** 	delay_ms(500);
+ 667:Core/Src/test.c **** 	delay_ms(500);
+ 668:Core/Src/test.c **** 	delay_ms(500);
+ 669:Core/Src/test.c **** 	delay_ms(500);
+ 670:Core/Src/test.c **** 	delay_ms(500);
+ 671:Core/Src/test.c **** 	delay_ms(500);
+ 672:Core/Src/test.c **** 	delay_ms(500);
+ 673:Core/Src/test.c **** 	delay_ms(500);
+ 674:Core/Src/test.c **** 	delay_ms(500);
+ 675:Core/Src/test.c **** 	delay_ms(500);
+ 676:Core/Src/test.c **** }
+ 677:Core/Src/test.c **** 
+ 678:Core/Src/test.c **** /*****************************************************************************
+ 679:Core/Src/test.c ****  * @name       :void Test_Dynamic_Num(void)
+ 680:Core/Src/test.c ****  * @date       :2018-11-13 
+ 681:Core/Src/test.c ****  * @function   :Dynamic number test
+ 682:Core/Src/test.c ****  * @parameters :None
+ 683:Core/Src/test.c ****  * @retvalue   :None
+ 684:Core/Src/test.c **** ******************************************************************************/
+ 685:Core/Src/test.c **** void Test_Dynamic_Num(void)
+ 686:Core/Src/test.c **** {
+ 687:Core/Src/test.c **** 		u8 i;
+ 688:Core/Src/test.c **** 	DrawTestPage("≤‚ ‘9:∂ØÃ¨ ˝◊÷œ‘ æ");
+ 689:Core/Src/test.c **** 	POINT_COLOR=BLUE;
+ARM GAS  /tmp/ccS4UP0l.s 			page 16
+
+
+ 690:Core/Src/test.c **** 	srand(123456);
+ 691:Core/Src/test.c **** 	LCD_ShowString(15,50,16, " HCHO:           ug/m3",1);
+ 692:Core/Src/test.c **** 	LCD_ShowString(15,70,16, "  CO2:           ppm",1);
+ 693:Core/Src/test.c **** 	LCD_ShowString(15,90,16, " TVOC:           ug/m3",1);
+ 694:Core/Src/test.c **** 	LCD_ShowString(15,110,16,"PM2.5:           ug/m3",1);
+ 695:Core/Src/test.c **** 	LCD_ShowString(15,130,16," PM10:           ug/m3",1);
+ 696:Core/Src/test.c **** 	LCD_ShowString(15,150,16,"  TEP:           C",1);
+ 697:Core/Src/test.c **** 	LCD_ShowString(15,170,16,"  HUM:           %",1);
+ 698:Core/Src/test.c **** 	POINT_COLOR=RED;
+ 699:Core/Src/test.c **** 	for(i=0;i<15;i++)
+ 700:Core/Src/test.c **** 	{
+ 701:Core/Src/test.c **** 		LCD_ShowNum(100,50,rand()%10000,5,16,0);
+ 702:Core/Src/test.c **** 		LCD_ShowNum(100,70,rand()%10000,5,16),0;
+ 703:Core/Src/test.c **** 		LCD_ShowNum(100,90,rand()%10000,5,16,0);
+ 704:Core/Src/test.c **** 		LCD_ShowNum(100,110,rand()%10000,5,16,0);
+ 705:Core/Src/test.c **** 		LCD_ShowNum(100,130,rand()%10000,5,16,0);
+ 706:Core/Src/test.c **** 		LCD_ShowNum(100,150,rand()%50,5,16,0);
+ 707:Core/Src/test.c **** 		LCD_ShowNum(100,170,rand()%100,5,16,0);
+ 708:Core/Src/test.c **** 		delay_ms(500);
+ 709:Core/Src/test.c **** 	}
+ 710:Core/Src/test.c **** }
+ 711:Core/Src/test.c **** #endif
+ 712:Core/Src/test.c **** 
+ 713:Core/Src/test.c **** const u16 POINT_COLOR_TBL[CTP_MAX_TOUCH]={RED,GREEN,BLUE,BROWN,GRED}; //µÁ»›¥•√˛5µ„—’…´∂®“Â
+ 714:Core/Src/test.c **** 
+ 715:Core/Src/test.c **** /*****************************************************************************
+ 716:Core/Src/test.c ****  * @name       :void Rtp_Test(void)
+ 717:Core/Src/test.c ****  * @date       :2020-05-13 
+ 718:Core/Src/test.c ****  * @function   :Resistive touch screen test
+ 719:Core/Src/test.c ****  * @parameters :None
+ 720:Core/Src/test.c ****  * @retvalue   :None
+ 721:Core/Src/test.c **** ******************************************************************************/
+ 722:Core/Src/test.c **** void Rtp_Test(void)
+ 723:Core/Src/test.c **** {
+ 162              		.loc 1 723 1 is_stmt 1 view -0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 167              	.LCFI3:
+ 168              		.cfi_def_cfa_offset 24
+ 169              		.cfi_offset 4, -24
+ 170              		.cfi_offset 5, -20
+ 171              		.cfi_offset 6, -16
+ 172              		.cfi_offset 7, -12
+ 173              		.cfi_offset 8, -8
+ 174              		.cfi_offset 14, -4
+ 175 0004 82B0     		sub	sp, sp, #8
+ 176              	.LCFI4:
+ 177              		.cfi_def_cfa_offset 32
+ 724:Core/Src/test.c **** 	u8 key;
+ 178              		.loc 1 724 2 view .LVU21
+ 725:Core/Src/test.c **** 	u16 i=0;
+ 179              		.loc 1 725 2 view .LVU22
+ 180              	.LVL8:
+ 726:Core/Src/test.c **** 	u16 j=0;
+ 181              		.loc 1 726 2 view .LVU23
+ARM GAS  /tmp/ccS4UP0l.s 			page 17
+
+
+ 727:Core/Src/test.c **** 	u16 colorTemp=RED;
+ 182              		.loc 1 727 2 view .LVU24
+ 728:Core/Src/test.c **** 	DrawTestPage("Touch(∞¥KEY0–£◊º)      ");
+ 183              		.loc 1 728 2 view .LVU25
+ 184 0006 6148     		ldr	r0, .L18
+ 185 0008 FFF7FEFF 		bl	DrawTestPage
+ 186              	.LVL9:
+ 729:Core/Src/test.c **** 	LCD_ShowString(lcddev.width-24,0,16,"RST",1);//œ‘ æ«Â∆¡«¯”Ú
+ 187              		.loc 1 729 2 view .LVU26
+ 188              		.loc 1 729 23 is_stmt 0 view .LVU27
+ 189 000c 604C     		ldr	r4, .L18+4
+ 190 000e A088     		ldrh	r0, [r4, #4]
+ 191              		.loc 1 729 2 view .LVU28
+ 192 0010 1838     		subs	r0, r0, #24
+ 193 0012 0123     		movs	r3, #1
+ 194 0014 0093     		str	r3, [sp]
+ 195 0016 5F4B     		ldr	r3, .L18+8
+ 196 0018 1022     		movs	r2, #16
+ 197 001a 0021     		movs	r1, #0
+ 198 001c 80B2     		uxth	r0, r0
+ 199 001e FFF7FEFF 		bl	LCD_ShowString
+ 200              	.LVL10:
+ 730:Core/Src/test.c **** 	POINT_COLOR=RED;
+ 201              		.loc 1 730 2 is_stmt 1 view .LVU29
+ 202              		.loc 1 730 13 is_stmt 0 view .LVU30
+ 203 0022 4FF47846 		mov	r6, #63488
+ 204 0026 5C4B     		ldr	r3, .L18+12
+ 205 0028 1E80     		strh	r6, [r3]	@ movhi
+ 731:Core/Src/test.c **** 	LCD_Fill(lcddev.width-50,2,lcddev.width-50+22,18,RED); 	
+ 206              		.loc 1 731 2 is_stmt 1 view .LVU31
+ 207              		.loc 1 731 17 is_stmt 0 view .LVU32
+ 208 002a A388     		ldrh	r3, [r4, #4]
+ 209              		.loc 1 731 2 view .LVU33
+ 210 002c A3F11C02 		sub	r2, r3, #28
+ 211 0030 A3F13200 		sub	r0, r3, #50
+ 212 0034 0096     		str	r6, [sp]
+ 213 0036 1223     		movs	r3, #18
+ 214 0038 92B2     		uxth	r2, r2
+ 215 003a 0221     		movs	r1, #2
+ 216 003c 80B2     		uxth	r0, r0
+ 217 003e FFF7FEFF 		bl	LCD_Fill
+ 218              	.LVL11:
+ 726:Core/Src/test.c **** 	u16 colorTemp=RED;
+ 219              		.loc 1 726 6 view .LVU34
+ 220 0042 0027     		movs	r7, #0
+ 725:Core/Src/test.c **** 	u16 j=0;
+ 221              		.loc 1 725 6 view .LVU35
+ 222 0044 3C46     		mov	r4, r7
+ 223 0046 48E0     		b	.L6
+ 224              	.LVL12:
+ 225              	.L16:
+ 732:Core/Src/test.c **** 	while(1)
+ 733:Core/Src/test.c **** 	{
+ 734:Core/Src/test.c **** 	 	key=KEY_Scan(1);
+ 735:Core/Src/test.c **** 		RTP_Scan(0); 		 
+ 736:Core/Src/test.c **** 		if(tp_dev.sta&TP_PRES_DOWN)			//¥•√˛∆¡±ª∞¥œ¬
+ 737:Core/Src/test.c **** 		{	
+ARM GAS  /tmp/ccS4UP0l.s 			page 18
+
+
+ 738:Core/Src/test.c **** 		 	if(tp_dev.x[0]<lcddev.width&&tp_dev.y[0]<lcddev.height)
+ 739:Core/Src/test.c **** 			{	
+ 740:Core/Src/test.c **** 				if(tp_dev.x[0]>(lcddev.width-24)&&tp_dev.y[0]<16)
+ 741:Core/Src/test.c **** 				{
+ 742:Core/Src/test.c **** 					DrawTestPage("Touch(∞¥KEY0–£◊º)      ");//«Â≥˝
+ 226              		.loc 1 742 6 is_stmt 1 view .LVU36
+ 227 0048 5048     		ldr	r0, .L18
+ 228 004a FFF7FEFF 		bl	DrawTestPage
+ 229              	.LVL13:
+ 743:Core/Src/test.c **** 					LCD_ShowString(lcddev.width-24,0,16,"RST",1);//œ‘ æ«Â∆¡«¯”Ú
+ 230              		.loc 1 743 6 view .LVU37
+ 231              		.loc 1 743 27 is_stmt 0 view .LVU38
+ 232 004e DFF84081 		ldr	r8, .L18+4
+ 233 0052 B8F80400 		ldrh	r0, [r8, #4]
+ 234              		.loc 1 743 6 view .LVU39
+ 235 0056 1838     		subs	r0, r0, #24
+ 236 0058 0123     		movs	r3, #1
+ 237 005a 0093     		str	r3, [sp]
+ 238 005c 4D4B     		ldr	r3, .L18+8
+ 239 005e 1022     		movs	r2, #16
+ 240 0060 0021     		movs	r1, #0
+ 241 0062 80B2     		uxth	r0, r0
+ 242 0064 FFF7FEFF 		bl	LCD_ShowString
+ 243              	.LVL14:
+ 744:Core/Src/test.c **** 					POINT_COLOR=colorTemp;
+ 244              		.loc 1 744 6 is_stmt 1 view .LVU40
+ 245              		.loc 1 744 17 is_stmt 0 view .LVU41
+ 246 0068 4B4B     		ldr	r3, .L18+12
+ 247 006a 1E80     		strh	r6, [r3]	@ movhi
+ 745:Core/Src/test.c **** 					LCD_Fill(lcddev.width-50,2,lcddev.width-50+22,18,POINT_COLOR); 
+ 248              		.loc 1 745 6 is_stmt 1 view .LVU42
+ 249              		.loc 1 745 21 is_stmt 0 view .LVU43
+ 250 006c B8F80400 		ldrh	r0, [r8, #4]
+ 251              		.loc 1 745 6 view .LVU44
+ 252 0070 A0F11C02 		sub	r2, r0, #28
+ 253 0074 3238     		subs	r0, r0, #50
+ 254 0076 0096     		str	r6, [sp]
+ 255 0078 1223     		movs	r3, #18
+ 256 007a 92B2     		uxth	r2, r2
+ 257 007c 0221     		movs	r1, #2
+ 258 007e 80B2     		uxth	r0, r0
+ 259 0080 FFF7FEFF 		bl	LCD_Fill
+ 260              	.LVL15:
+ 261 0084 23E0     		b	.L8
+ 262              	.L17:
+ 746:Core/Src/test.c **** 				}
+ 747:Core/Src/test.c **** 				else if((tp_dev.x[0]>(lcddev.width-50)&&tp_dev.x[0]<(lcddev.width-50+22))&&tp_dev.y[0]<20)
+ 748:Core/Src/test.c **** 				{
+ 749:Core/Src/test.c **** 				LCD_Fill(lcddev.width-50,2,lcddev.width-50+22,18,ColorTab[j%5]); 
+ 263              		.loc 1 749 5 is_stmt 1 view .LVU45
+ 264              		.loc 1 749 64 is_stmt 0 view .LVU46
+ 265 0086 454A     		ldr	r2, .L18+16
+ 266 0088 A2FB0712 		umull	r1, r2, r2, r7
+ 267 008c 9208     		lsrs	r2, r2, #2
+ 268 008e 02EB8202 		add	r2, r2, r2, lsl #2
+ 269 0092 BE1A     		subs	r6, r7, r2
+ 270              	.LVL16:
+ARM GAS  /tmp/ccS4UP0l.s 			page 19
+
+
+ 271              		.loc 1 749 64 view .LVU47
+ 272 0094 B6B2     		uxth	r6, r6
+ 273              		.loc 1 749 5 view .LVU48
+ 274 0096 A3F11C02 		sub	r2, r3, #28
+ 275 009a A3F13200 		sub	r0, r3, #50
+ 276 009e DFF80881 		ldr	r8, .L18+28
+ 277 00a2 38F81630 		ldrh	r3, [r8, r6, lsl #1]
+ 278 00a6 0093     		str	r3, [sp]
+ 279 00a8 1223     		movs	r3, #18
+ 280 00aa 92B2     		uxth	r2, r2
+ 281 00ac 0221     		movs	r1, #2
+ 282 00ae 80B2     		uxth	r0, r0
+ 283 00b0 FFF7FEFF 		bl	LCD_Fill
+ 284              	.LVL17:
+ 750:Core/Src/test.c **** 				POINT_COLOR=ColorTab[(j++)%5];
+ 285              		.loc 1 750 5 is_stmt 1 view .LVU49
+ 286              		.loc 1 750 28 is_stmt 0 view .LVU50
+ 287 00b4 0137     		adds	r7, r7, #1
+ 288              	.LVL18:
+ 289              		.loc 1 750 28 view .LVU51
+ 290 00b6 BFB2     		uxth	r7, r7
+ 291              	.LVL19:
+ 292              		.loc 1 750 25 view .LVU52
+ 293 00b8 38F81660 		ldrh	r6, [r8, r6, lsl #1]
+ 294              		.loc 1 750 16 view .LVU53
+ 295 00bc 364B     		ldr	r3, .L18+12
+ 296 00be 1E80     		strh	r6, [r3]	@ movhi
+ 751:Core/Src/test.c **** 				colorTemp=POINT_COLOR;
+ 297              		.loc 1 751 5 is_stmt 1 view .LVU54
+ 298              	.LVL20:
+ 752:Core/Src/test.c **** 				delay_ms(10);
+ 299              		.loc 1 752 5 view .LVU55
+ 300 00c0 0A20     		movs	r0, #10
+ 301 00c2 FFF7FEFF 		bl	delay_ms
+ 302              	.LVL21:
+ 303 00c6 02E0     		b	.L8
+ 304              	.L7:
+ 753:Core/Src/test.c **** 				}
+ 754:Core/Src/test.c **** 
+ 755:Core/Src/test.c **** 				else RTP_Draw_Big_Point(tp_dev.x[0],tp_dev.y[0],POINT_COLOR);		//ª≠Õº	  			   
+ 756:Core/Src/test.c **** 			}
+ 757:Core/Src/test.c **** 		}else delay_ms(10);	//√ª”–∞¥º¸∞¥œ¬µƒ ±∫Ú 	    
+ 305              		.loc 1 757 9 view .LVU56
+ 306 00c8 0A20     		movs	r0, #10
+ 307 00ca FFF7FEFF 		bl	delay_ms
+ 308              	.LVL22:
+ 309              	.L8:
+ 758:Core/Src/test.c **** 		if(key==1)	//KEY_RIGHT∞¥œ¬,‘Ú÷¥–––£◊º≥Ã–Ú
+ 310              		.loc 1 758 3 view .LVU57
+ 311              		.loc 1 758 5 is_stmt 0 view .LVU58
+ 312 00ce 012D     		cmp	r5, #1
+ 313 00d0 30D0     		beq	.L14
+ 314              	.LVL23:
+ 315              	.L11:
+ 759:Core/Src/test.c **** 		{
+ 760:Core/Src/test.c **** 
+ 761:Core/Src/test.c **** 			LCD_Clear(WHITE);//«Â∆¡
+ARM GAS  /tmp/ccS4UP0l.s 			page 20
+
+
+ 762:Core/Src/test.c **** 		  RTP_Adjust();  //∆¡ƒª–£◊º 
+ 763:Core/Src/test.c **** 			RTP_Save_Adjdata();	 
+ 764:Core/Src/test.c **** 			DrawTestPage("Touch(∞¥KEY0–£◊º)      ");
+ 765:Core/Src/test.c **** 			LCD_ShowString(lcddev.width-24,0,16,"RST",1);//œ‘ æ«Â∆¡«¯”Ú
+ 766:Core/Src/test.c **** 			POINT_COLOR=colorTemp;
+ 767:Core/Src/test.c **** 			LCD_Fill(lcddev.width-50,2,lcddev.width-50+22,18,POINT_COLOR); 
+ 768:Core/Src/test.c **** 		}
+ 769:Core/Src/test.c **** 		i++;
+ 316              		.loc 1 769 3 is_stmt 1 view .LVU59
+ 317              		.loc 1 769 4 is_stmt 0 view .LVU60
+ 318 00d2 0134     		adds	r4, r4, #1
+ 319              	.LVL24:
+ 320              		.loc 1 769 4 view .LVU61
+ 321 00d4 A4B2     		uxth	r4, r4
+ 322              	.LVL25:
+ 770:Core/Src/test.c **** 		if(i==30)
+ 323              		.loc 1 770 3 is_stmt 1 view .LVU62
+ 324              		.loc 1 770 5 is_stmt 0 view .LVU63
+ 325 00d6 1E2C     		cmp	r4, #30
+ 326 00d8 50D0     		beq	.L15
+ 327              	.LVL26:
+ 328              	.L6:
+ 732:Core/Src/test.c **** 	{
+ 329              		.loc 1 732 2 is_stmt 1 view .LVU64
+ 734:Core/Src/test.c **** 		RTP_Scan(0); 		 
+ 330              		.loc 1 734 4 view .LVU65
+ 734:Core/Src/test.c **** 		RTP_Scan(0); 		 
+ 331              		.loc 1 734 8 is_stmt 0 view .LVU66
+ 332 00da 0120     		movs	r0, #1
+ 333 00dc FFF7FEFF 		bl	KEY_Scan
+ 334              	.LVL27:
+ 335 00e0 0546     		mov	r5, r0
+ 336              	.LVL28:
+ 735:Core/Src/test.c **** 		if(tp_dev.sta&TP_PRES_DOWN)			//¥•√˛∆¡±ª∞¥œ¬
+ 337              		.loc 1 735 3 is_stmt 1 view .LVU67
+ 338 00e2 0020     		movs	r0, #0
+ 339 00e4 FFF7FEFF 		bl	RTP_Scan
+ 340              	.LVL29:
+ 736:Core/Src/test.c **** 		{	
+ 341              		.loc 1 736 3 view .LVU68
+ 736:Core/Src/test.c **** 		{	
+ 342              		.loc 1 736 6 is_stmt 0 view .LVU69
+ 343 00e8 2D4B     		ldr	r3, .L18+20
+ 344 00ea 93F91830 		ldrsb	r3, [r3, #24]
+ 736:Core/Src/test.c **** 		{	
+ 345              		.loc 1 736 5 view .LVU70
+ 346 00ee 002B     		cmp	r3, #0
+ 347 00f0 EADA     		bge	.L7
+ 738:Core/Src/test.c **** 			{	
+ 348              		.loc 1 738 5 is_stmt 1 view .LVU71
+ 738:Core/Src/test.c **** 			{	
+ 349              		.loc 1 738 16 is_stmt 0 view .LVU72
+ 350 00f2 2B4B     		ldr	r3, .L18+20
+ 351 00f4 9888     		ldrh	r0, [r3, #4]
+ 738:Core/Src/test.c **** 			{	
+ 352              		.loc 1 738 26 view .LVU73
+ 353 00f6 264B     		ldr	r3, .L18+4
+ARM GAS  /tmp/ccS4UP0l.s 			page 21
+
+
+ 354 00f8 9B88     		ldrh	r3, [r3, #4]
+ 738:Core/Src/test.c **** 			{	
+ 355              		.loc 1 738 7 view .LVU74
+ 356 00fa 9842     		cmp	r0, r3
+ 357 00fc E7D2     		bcs	.L8
+ 738:Core/Src/test.c **** 			{	
+ 358              		.loc 1 738 42 discriminator 1 view .LVU75
+ 359 00fe 284A     		ldr	r2, .L18+20
+ 360 0100 D189     		ldrh	r1, [r2, #14]
+ 738:Core/Src/test.c **** 			{	
+ 361              		.loc 1 738 52 discriminator 1 view .LVU76
+ 362 0102 234A     		ldr	r2, .L18+4
+ 363 0104 D288     		ldrh	r2, [r2, #6]
+ 738:Core/Src/test.c **** 			{	
+ 364              		.loc 1 738 32 discriminator 1 view .LVU77
+ 365 0106 9142     		cmp	r1, r2
+ 366 0108 E1D2     		bcs	.L8
+ 740:Core/Src/test.c **** 				{
+ 367              		.loc 1 740 5 is_stmt 1 view .LVU78
+ 740:Core/Src/test.c **** 				{
+ 368              		.loc 1 740 19 is_stmt 0 view .LVU79
+ 369 010a A3F11702 		sub	r2, r3, #23
+ 740:Core/Src/test.c **** 				{
+ 370              		.loc 1 740 7 view .LVU80
+ 371 010e 8242     		cmp	r2, r0
+ 372 0110 01DC     		bgt	.L9
+ 740:Core/Src/test.c **** 				{
+ 373              		.loc 1 740 37 discriminator 1 view .LVU81
+ 374 0112 0F29     		cmp	r1, #15
+ 375 0114 98D9     		bls	.L16
+ 376              	.L9:
+ 747:Core/Src/test.c **** 				{
+ 377              		.loc 1 747 10 is_stmt 1 view .LVU82
+ 747:Core/Src/test.c **** 				{
+ 378              		.loc 1 747 25 is_stmt 0 view .LVU83
+ 379 0116 A3F13102 		sub	r2, r3, #49
+ 747:Core/Src/test.c **** 				{
+ 380              		.loc 1 747 12 view .LVU84
+ 381 011a 9042     		cmp	r0, r2
+ 382 011c 05DB     		blt	.L10
+ 747:Core/Src/test.c **** 				{
+ 383              		.loc 1 747 73 discriminator 1 view .LVU85
+ 384 011e A3F11C02 		sub	r2, r3, #28
+ 747:Core/Src/test.c **** 				{
+ 385              		.loc 1 747 43 discriminator 1 view .LVU86
+ 386 0122 9042     		cmp	r0, r2
+ 387 0124 01DA     		bge	.L10
+ 747:Core/Src/test.c **** 				{
+ 388              		.loc 1 747 78 discriminator 2 view .LVU87
+ 389 0126 1329     		cmp	r1, #19
+ 390 0128 ADD9     		bls	.L17
+ 391              	.L10:
+ 755:Core/Src/test.c **** 			}
+ 392              		.loc 1 755 10 is_stmt 1 view .LVU88
+ 393 012a 1B4B     		ldr	r3, .L18+12
+ 394 012c 1A88     		ldrh	r2, [r3]
+ 395 012e FFF7FEFF 		bl	RTP_Draw_Big_Point
+ARM GAS  /tmp/ccS4UP0l.s 			page 22
+
+
+ 396              	.LVL30:
+ 397 0132 CCE7     		b	.L8
+ 398              	.L14:
+ 761:Core/Src/test.c **** 		  RTP_Adjust();  //∆¡ƒª–£◊º 
+ 399              		.loc 1 761 4 view .LVU89
+ 400 0134 4FF6FF70 		movw	r0, #65535
+ 401 0138 FFF7FEFF 		bl	LCD_Clear
+ 402              	.LVL31:
+ 762:Core/Src/test.c **** 			RTP_Save_Adjdata();	 
+ 403              		.loc 1 762 5 view .LVU90
+ 404 013c FFF7FEFF 		bl	RTP_Adjust
+ 405              	.LVL32:
+ 763:Core/Src/test.c **** 			DrawTestPage("Touch(∞¥KEY0–£◊º)      ");
+ 406              		.loc 1 763 4 view .LVU91
+ 407 0140 FFF7FEFF 		bl	RTP_Save_Adjdata
+ 408              	.LVL33:
+ 764:Core/Src/test.c **** 			LCD_ShowString(lcddev.width-24,0,16,"RST",1);//œ‘ æ«Â∆¡«¯”Ú
+ 409              		.loc 1 764 4 view .LVU92
+ 410 0144 1148     		ldr	r0, .L18
+ 411 0146 FFF7FEFF 		bl	DrawTestPage
+ 412              	.LVL34:
+ 765:Core/Src/test.c **** 			POINT_COLOR=colorTemp;
+ 413              		.loc 1 765 4 view .LVU93
+ 765:Core/Src/test.c **** 			POINT_COLOR=colorTemp;
+ 414              		.loc 1 765 25 is_stmt 0 view .LVU94
+ 415 014a 114D     		ldr	r5, .L18+4
+ 416              	.LVL35:
+ 765:Core/Src/test.c **** 			POINT_COLOR=colorTemp;
+ 417              		.loc 1 765 25 view .LVU95
+ 418 014c A888     		ldrh	r0, [r5, #4]
+ 765:Core/Src/test.c **** 			POINT_COLOR=colorTemp;
+ 419              		.loc 1 765 4 view .LVU96
+ 420 014e 1838     		subs	r0, r0, #24
+ 421 0150 0123     		movs	r3, #1
+ 422 0152 0093     		str	r3, [sp]
+ 423 0154 0F4B     		ldr	r3, .L18+8
+ 424 0156 1022     		movs	r2, #16
+ 425 0158 0021     		movs	r1, #0
+ 426 015a 80B2     		uxth	r0, r0
+ 427 015c FFF7FEFF 		bl	LCD_ShowString
+ 428              	.LVL36:
+ 766:Core/Src/test.c **** 			LCD_Fill(lcddev.width-50,2,lcddev.width-50+22,18,POINT_COLOR); 
+ 429              		.loc 1 766 4 is_stmt 1 view .LVU97
+ 766:Core/Src/test.c **** 			LCD_Fill(lcddev.width-50,2,lcddev.width-50+22,18,POINT_COLOR); 
+ 430              		.loc 1 766 15 is_stmt 0 view .LVU98
+ 431 0160 0D4B     		ldr	r3, .L18+12
+ 432 0162 1E80     		strh	r6, [r3]	@ movhi
+ 767:Core/Src/test.c **** 		}
+ 433              		.loc 1 767 4 is_stmt 1 view .LVU99
+ 767:Core/Src/test.c **** 		}
+ 434              		.loc 1 767 19 is_stmt 0 view .LVU100
+ 435 0164 A888     		ldrh	r0, [r5, #4]
+ 767:Core/Src/test.c **** 		}
+ 436              		.loc 1 767 4 view .LVU101
+ 437 0166 A0F11C02 		sub	r2, r0, #28
+ 438 016a 3238     		subs	r0, r0, #50
+ 439 016c 0096     		str	r6, [sp]
+ARM GAS  /tmp/ccS4UP0l.s 			page 23
+
+
+ 440 016e 1223     		movs	r3, #18
+ 441 0170 92B2     		uxth	r2, r2
+ 442 0172 0221     		movs	r1, #2
+ 443 0174 80B2     		uxth	r0, r0
+ 444 0176 FFF7FEFF 		bl	LCD_Fill
+ 445              	.LVL37:
+ 446 017a AAE7     		b	.L11
+ 447              	.L15:
+ 771:Core/Src/test.c **** 		{
+ 772:Core/Src/test.c **** 			i=0;
+ 448              		.loc 1 772 4 is_stmt 1 view .LVU102
+ 449              	.LVL38:
+ 773:Core/Src/test.c **** 			LED0=!LED0;
+ 450              		.loc 1 773 4 view .LVU103
+ 451              		.loc 1 773 10 is_stmt 0 view .LVU104
+ 452 017c 094A     		ldr	r2, .L18+24
+ 453 017e 1368     		ldr	r3, [r2]
+ 454              		.loc 1 773 9 view .LVU105
+ 455 0180 B3FA83F3 		clz	r3, r3
+ 456 0184 5B09     		lsrs	r3, r3, #5
+ 457              		.loc 1 773 8 view .LVU106
+ 458 0186 1360     		str	r3, [r2]
+ 772:Core/Src/test.c **** 			LED0=!LED0;
+ 459              		.loc 1 772 5 view .LVU107
+ 460 0188 0024     		movs	r4, #0
+ 461 018a A6E7     		b	.L6
+ 462              	.L19:
+ 463              		.align	2
+ 464              	.L18:
+ 465 018c 00000000 		.word	.LC1
+ 466 0190 00000000 		.word	lcddev
+ 467 0194 18000000 		.word	.LC2
+ 468 0198 00000000 		.word	POINT_COLOR
+ 469 019c CDCCCCCC 		.word	-858993459
+ 470 01a0 00000000 		.word	tp_dev
+ 471 01a4 84024042 		.word	1111491204
+ 472 01a8 00000000 		.word	.LANCHOR0
+ 473              		.cfi_endproc
+ 474              	.LFE134:
+ 476              		.section	.rodata.Ctp_Test.str1.4,"aMS",%progbits,1
+ 477              		.align	2
+ 478              	.LC3:
+ 479 0000 B5E7C8DD 		.ascii	"\265\347\310\335Touch\262\342\312\324(\326\247\263\326"
+ 479      546F7563 
+ 479      68B2E2CA 
+ 479      D428D6A7 
+ 479      B3D6
+ 480 0012 35B5E3B4 		.ascii	"5\265\343\264\245\303\376)  \000"
+ 480      A5C3FE29 
+ 480      202000
+ 481              		.section	.text.Ctp_Test,"ax",%progbits
+ 482              		.align	1
+ 483              		.global	Ctp_Test
+ 484              		.syntax unified
+ 485              		.thumb
+ 486              		.thumb_func
+ 487              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccS4UP0l.s 			page 24
+
+
+ 489              	Ctp_Test:
+ 490              	.LFB135:
+ 774:Core/Src/test.c **** 			//break;
+ 775:Core/Src/test.c **** 		}
+ 776:Core/Src/test.c **** 	}   
+ 777:Core/Src/test.c **** }
+ 778:Core/Src/test.c **** 
+ 779:Core/Src/test.c **** /*****************************************************************************
+ 780:Core/Src/test.c ****  * @name       :void Ctp_Test(void)
+ 781:Core/Src/test.c ****  * @date       :2020-05-13 
+ 782:Core/Src/test.c ****  * @function   :Capacitive touch screen test
+ 783:Core/Src/test.c ****  * @parameters :None
+ 784:Core/Src/test.c ****  * @retvalue   :None
+ 785:Core/Src/test.c **** ******************************************************************************/
+ 786:Core/Src/test.c **** void Ctp_Test(void)
+ 787:Core/Src/test.c **** {
+ 491              		.loc 1 787 1 is_stmt 1 view -0
+ 492              		.cfi_startproc
+ 493              		@ args = 0, pretend = 0, frame = 24
+ 494              		@ frame_needed = 0, uses_anonymous_args = 0
+ 495 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 496              	.LCFI5:
+ 497              		.cfi_def_cfa_offset 20
+ 498              		.cfi_offset 4, -20
+ 499              		.cfi_offset 5, -16
+ 500              		.cfi_offset 6, -12
+ 501              		.cfi_offset 7, -8
+ 502              		.cfi_offset 14, -4
+ 503 0002 89B0     		sub	sp, sp, #36
+ 504              	.LCFI6:
+ 505              		.cfi_def_cfa_offset 56
+ 788:Core/Src/test.c **** 	u8 t=0;
+ 506              		.loc 1 788 2 view .LVU109
+ 507              	.LVL39:
+ 789:Core/Src/test.c **** 	u8 i=0,j=0;	 
+ 508              		.loc 1 789 2 view .LVU110
+ 790:Core/Src/test.c ****  	u16 lastpos[5][2];		//◊Ó∫Û“ª¥Œµƒ ˝æ› 
+ 509              		.loc 1 790 3 view .LVU111
+ 791:Core/Src/test.c **** 	DrawTestPage("µÁ»›Touch≤‚ ‘(÷ß≥÷5µ„¥•√˛)  ");
+ 510              		.loc 1 791 2 view .LVU112
+ 511 0004 5148     		ldr	r0, .L36
+ 512 0006 FFF7FEFF 		bl	DrawTestPage
+ 513              	.LVL40:
+ 792:Core/Src/test.c **** 	LCD_ShowString(lcddev.width-24,0,16,"RST",1);//œ‘ æ«Â∆¡«¯”Ú
+ 514              		.loc 1 792 2 view .LVU113
+ 515              		.loc 1 792 23 is_stmt 0 view .LVU114
+ 516 000a 514B     		ldr	r3, .L36+4
+ 517 000c 9888     		ldrh	r0, [r3, #4]
+ 518              		.loc 1 792 2 view .LVU115
+ 519 000e 1838     		subs	r0, r0, #24
+ 520 0010 0123     		movs	r3, #1
+ 521 0012 0093     		str	r3, [sp]
+ 522 0014 4F4B     		ldr	r3, .L36+8
+ 523 0016 1022     		movs	r2, #16
+ 524 0018 0021     		movs	r1, #0
+ 525 001a 80B2     		uxth	r0, r0
+ 526 001c FFF7FEFF 		bl	LCD_ShowString
+ARM GAS  /tmp/ccS4UP0l.s 			page 25
+
+
+ 527              	.LVL41:
+ 793:Core/Src/test.c **** 	POINT_COLOR=RED;//…Ë÷√ª≠± ¿∂…´ //«Â≥˝
+ 528              		.loc 1 793 2 is_stmt 1 view .LVU116
+ 529              		.loc 1 793 13 is_stmt 0 view .LVU117
+ 530 0020 4D4B     		ldr	r3, .L36+12
+ 531 0022 4FF47842 		mov	r2, #63488
+ 532 0026 1A80     		strh	r2, [r3]	@ movhi
+ 789:Core/Src/test.c ****  	u16 lastpos[5][2];		//◊Ó∫Û“ª¥Œµƒ ˝æ› 
+ 533              		.loc 1 789 9 view .LVU118
+ 534 0028 0027     		movs	r7, #0
+ 789:Core/Src/test.c ****  	u16 lastpos[5][2];		//◊Ó∫Û“ª¥Œµƒ ˝æ› 
+ 535              		.loc 1 789 5 view .LVU119
+ 536 002a 3E46     		mov	r6, r7
+ 537 002c 86E0     		b	.L21
+ 538              	.LVL42:
+ 539              	.L35:
+ 794:Core/Src/test.c **** 	while(1)
+ 795:Core/Src/test.c **** 	{
+ 796:Core/Src/test.c **** 		j++;
+ 797:Core/Src/test.c **** 		tp_dev.CPT_Scan();
+ 798:Core/Src/test.c **** 		for(t=0;t<CTP_MAX_TOUCH;t++)//◊Ó∂‡5µ„¥•√˛
+ 799:Core/Src/test.c **** 		{
+ 800:Core/Src/test.c **** 			if((tp_dev.sta)&(1<<t))//≈–∂œ «∑Ò”–µ„¥•√˛£ø
+ 801:Core/Src/test.c **** 			{
+ 802:Core/Src/test.c **** 				if(tp_dev.x[t]<lcddev.width&&tp_dev.y[t]<lcddev.height)//‘⁄LCD∑∂Œßƒ⁄
+ 803:Core/Src/test.c **** 				{
+ 804:Core/Src/test.c **** 					if(lastpos[t][0]==0XFFFF)
+ 805:Core/Src/test.c **** 					{
+ 806:Core/Src/test.c **** 						lastpos[t][0] = tp_dev.x[t];
+ 540              		.loc 1 806 7 is_stmt 1 view .LVU120
+ 541              		.loc 1 806 21 is_stmt 0 view .LVU121
+ 542 002e 08A8     		add	r0, sp, #32
+ 543 0030 00EB8400 		add	r0, r0, r4, lsl #2
+ 544 0034 20F8142C 		strh	r2, [r0, #-20]	@ movhi
+ 807:Core/Src/test.c **** 						lastpos[t][1] = tp_dev.y[t];
+ 545              		.loc 1 807 7 is_stmt 1 view .LVU122
+ 546              		.loc 1 807 21 is_stmt 0 view .LVU123
+ 547 0038 20F8123C 		strh	r3, [r0, #-18]	@ movhi
+ 548 003c 4AE0     		b	.L25
+ 549              	.L26:
+ 808:Core/Src/test.c **** 					}
+ 809:Core/Src/test.c **** 					if(tp_dev.x[t]>(lcddev.width-24)&&tp_dev.y[t]<16)
+ 810:Core/Src/test.c **** 					{
+ 811:Core/Src/test.c **** 							if(j>1) //∑¿÷πµ„ª˜“ª¥Œ£¨∂‡¥Œ«Â∆¡
+ 812:Core/Src/test.c **** 							{
+ 813:Core/Src/test.c **** 								continue;
+ 814:Core/Src/test.c **** 							}
+ 815:Core/Src/test.c **** 							DrawTestPage("µÁ»›Touch≤‚ ‘(÷ß≥÷5µ„¥•√˛)  ");
+ 816:Core/Src/test.c **** 							LCD_ShowString(lcddev.width-24,0,16,"RST",1);//œ‘ æ«Â∆¡«¯”Ú
+ 817:Core/Src/test.c **** 							POINT_COLOR=RED;//…Ë÷√ª≠± ¿∂…´ //«Â≥˝
+ 818:Core/Src/test.c **** 					}
+ 819:Core/Src/test.c **** 					else
+ 820:Core/Src/test.c **** 					{
+ 821:Core/Src/test.c **** 							LCD_DrawLine2(lastpos[t][0],lastpos[t][1],tp_dev.x[t],tp_dev.y[t],2,POINT_COLOR_TBL[t]);//ª≠
+ 550              		.loc 1 821 8 is_stmt 1 view .LVU124
+ 551 003e 4749     		ldr	r1, .L36+16
+ 552 0040 31F81510 		ldrh	r1, [r1, r5, lsl #1]
+ARM GAS  /tmp/ccS4UP0l.s 			page 26
+
+
+ 553 0044 0191     		str	r1, [sp, #4]
+ 554 0046 0221     		movs	r1, #2
+ 555 0048 0091     		str	r1, [sp]
+ 556 004a 08A9     		add	r1, sp, #32
+ 557 004c 01EB8500 		add	r0, r1, r5, lsl #2
+ 558 0050 30F8121C 		ldrh	r1, [r0, #-18]
+ 559 0054 30F8140C 		ldrh	r0, [r0, #-20]
+ 560 0058 FFF7FEFF 		bl	LCD_DrawLine2
+ 561              	.LVL43:
+ 562              	.L27:
+ 822:Core/Src/test.c **** 					}
+ 823:Core/Src/test.c **** 					lastpos[t][0]=tp_dev.x[t];
+ 563              		.loc 1 823 6 view .LVU125
+ 564              		.loc 1 823 28 is_stmt 0 view .LVU126
+ 565 005c 404B     		ldr	r3, .L36+20
+ 566 005e 03EB4502 		add	r2, r3, r5, lsl #1
+ 567 0062 9188     		ldrh	r1, [r2, #4]
+ 568              		.loc 1 823 19 view .LVU127
+ 569 0064 08AA     		add	r2, sp, #32
+ 570 0066 02EB8502 		add	r2, r2, r5, lsl #2
+ 571 006a 22F8141C 		strh	r1, [r2, #-20]	@ movhi
+ 824:Core/Src/test.c **** 					lastpos[t][1]=tp_dev.y[t];
+ 572              		.loc 1 824 6 is_stmt 1 view .LVU128
+ 573              		.loc 1 824 28 is_stmt 0 view .LVU129
+ 574 006e 0435     		adds	r5, r5, #4
+ 575 0070 03EB4505 		add	r5, r3, r5, lsl #1
+ 576 0074 EB88     		ldrh	r3, [r5, #6]
+ 577              		.loc 1 824 19 view .LVU130
+ 578 0076 22F8123C 		strh	r3, [r2, #-18]	@ movhi
+ 579 007a 06E0     		b	.L24
+ 580              	.L23:
+ 825:Core/Src/test.c **** 				}
+ 826:Core/Src/test.c **** 			}else lastpos[t][0]=0XFFFF;
+ 581              		.loc 1 826 10 is_stmt 1 view .LVU131
+ 582              		.loc 1 826 23 is_stmt 0 view .LVU132
+ 583 007c 4FF6FF72 		movw	r2, #65535
+ 584 0080 08AB     		add	r3, sp, #32
+ 585 0082 03EB8403 		add	r3, r3, r4, lsl #2
+ 586 0086 23F8142C 		strh	r2, [r3, #-20]	@ movhi
+ 587              	.L24:
+ 798:Core/Src/test.c **** 		{
+ 588              		.loc 1 798 27 is_stmt 1 discriminator 2 view .LVU133
+ 798:Core/Src/test.c **** 		{
+ 589              		.loc 1 798 28 is_stmt 0 discriminator 2 view .LVU134
+ 590 008a 0134     		adds	r4, r4, #1
+ 591              	.LVL44:
+ 798:Core/Src/test.c **** 		{
+ 592              		.loc 1 798 28 discriminator 2 view .LVU135
+ 593 008c E4B2     		uxtb	r4, r4
+ 594              	.LVL45:
+ 595              	.L22:
+ 798:Core/Src/test.c **** 		{
+ 596              		.loc 1 798 11 is_stmt 1 discriminator 1 view .LVU136
+ 798:Core/Src/test.c **** 		{
+ 597              		.loc 1 798 3 is_stmt 0 discriminator 1 view .LVU137
+ 598 008e 042C     		cmp	r4, #4
+ 599 0090 3AD8     		bhi	.L34
+ARM GAS  /tmp/ccS4UP0l.s 			page 27
+
+
+ 800:Core/Src/test.c **** 			{
+ 600              		.loc 1 800 4 is_stmt 1 view .LVU138
+ 800:Core/Src/test.c **** 			{
+ 601              		.loc 1 800 14 is_stmt 0 view .LVU139
+ 602 0092 334B     		ldr	r3, .L36+20
+ 603 0094 1B7E     		ldrb	r3, [r3, #24]	@ zero_extendqisi2
+ 800:Core/Src/test.c **** 			{
+ 604              		.loc 1 800 7 view .LVU140
+ 605 0096 2546     		mov	r5, r4
+ 606 0098 2341     		asrs	r3, r3, r4
+ 800:Core/Src/test.c **** 			{
+ 607              		.loc 1 800 6 view .LVU141
+ 608 009a 13F0010F 		tst	r3, #1
+ 609 009e EDD0     		beq	.L23
+ 802:Core/Src/test.c **** 				{
+ 610              		.loc 1 802 5 is_stmt 1 view .LVU142
+ 802:Core/Src/test.c **** 				{
+ 611              		.loc 1 802 16 is_stmt 0 view .LVU143
+ 612 00a0 2F4B     		ldr	r3, .L36+20
+ 613 00a2 03EB4403 		add	r3, r3, r4, lsl #1
+ 614 00a6 9A88     		ldrh	r2, [r3, #4]
+ 802:Core/Src/test.c **** 				{
+ 615              		.loc 1 802 26 view .LVU144
+ 616 00a8 294B     		ldr	r3, .L36+4
+ 617 00aa 9988     		ldrh	r1, [r3, #4]
+ 802:Core/Src/test.c **** 				{
+ 618              		.loc 1 802 7 view .LVU145
+ 619 00ac 8A42     		cmp	r2, r1
+ 620 00ae ECD2     		bcs	.L24
+ 802:Core/Src/test.c **** 				{
+ 621              		.loc 1 802 42 discriminator 1 view .LVU146
+ 622 00b0 231D     		adds	r3, r4, #4
+ 623 00b2 2B48     		ldr	r0, .L36+20
+ 624 00b4 00EB4303 		add	r3, r0, r3, lsl #1
+ 625 00b8 DB88     		ldrh	r3, [r3, #6]
+ 802:Core/Src/test.c **** 				{
+ 626              		.loc 1 802 52 discriminator 1 view .LVU147
+ 627 00ba 2548     		ldr	r0, .L36+4
+ 628 00bc C088     		ldrh	r0, [r0, #6]
+ 802:Core/Src/test.c **** 				{
+ 629              		.loc 1 802 32 discriminator 1 view .LVU148
+ 630 00be 8342     		cmp	r3, r0
+ 631 00c0 E3D2     		bcs	.L24
+ 804:Core/Src/test.c **** 					{
+ 632              		.loc 1 804 6 is_stmt 1 view .LVU149
+ 804:Core/Src/test.c **** 					{
+ 633              		.loc 1 804 19 is_stmt 0 view .LVU150
+ 634 00c2 08A8     		add	r0, sp, #32
+ 635 00c4 00EB8400 		add	r0, r0, r4, lsl #2
+ 636 00c8 30F814CC 		ldrh	ip, [r0, #-20]
+ 804:Core/Src/test.c **** 					{
+ 637              		.loc 1 804 8 view .LVU151
+ 638 00cc 4FF6FF70 		movw	r0, #65535
+ 639 00d0 8445     		cmp	ip, r0
+ 640 00d2 ACD0     		beq	.L35
+ 641              	.L25:
+ 809:Core/Src/test.c **** 					{
+ARM GAS  /tmp/ccS4UP0l.s 			page 28
+
+
+ 642              		.loc 1 809 6 is_stmt 1 view .LVU152
+ 809:Core/Src/test.c **** 					{
+ 643              		.loc 1 809 20 is_stmt 0 view .LVU153
+ 644 00d4 1739     		subs	r1, r1, #23
+ 809:Core/Src/test.c **** 					{
+ 645              		.loc 1 809 8 view .LVU154
+ 646 00d6 9142     		cmp	r1, r2
+ 647 00d8 B1DC     		bgt	.L26
+ 809:Core/Src/test.c **** 					{
+ 648              		.loc 1 809 38 discriminator 1 view .LVU155
+ 649 00da 0F2B     		cmp	r3, #15
+ 650 00dc AFD8     		bhi	.L26
+ 811:Core/Src/test.c **** 							{
+ 651              		.loc 1 811 8 is_stmt 1 view .LVU156
+ 811:Core/Src/test.c **** 							{
+ 652              		.loc 1 811 10 is_stmt 0 view .LVU157
+ 653 00de 012F     		cmp	r7, #1
+ 654 00e0 D3D8     		bhi	.L24
+ 815:Core/Src/test.c **** 							LCD_ShowString(lcddev.width-24,0,16,"RST",1);//œ‘ æ«Â∆¡«¯”Ú
+ 655              		.loc 1 815 8 is_stmt 1 view .LVU158
+ 656 00e2 1A48     		ldr	r0, .L36
+ 657 00e4 FFF7FEFF 		bl	DrawTestPage
+ 658              	.LVL46:
+ 816:Core/Src/test.c **** 							POINT_COLOR=RED;//…Ë÷√ª≠± ¿∂…´ //«Â≥˝
+ 659              		.loc 1 816 8 view .LVU159
+ 816:Core/Src/test.c **** 							POINT_COLOR=RED;//…Ë÷√ª≠± ¿∂…´ //«Â≥˝
+ 660              		.loc 1 816 29 is_stmt 0 view .LVU160
+ 661 00e8 194B     		ldr	r3, .L36+4
+ 662 00ea 9888     		ldrh	r0, [r3, #4]
+ 816:Core/Src/test.c **** 							POINT_COLOR=RED;//…Ë÷√ª≠± ¿∂…´ //«Â≥˝
+ 663              		.loc 1 816 8 view .LVU161
+ 664 00ec 1838     		subs	r0, r0, #24
+ 665 00ee 0123     		movs	r3, #1
+ 666 00f0 0093     		str	r3, [sp]
+ 667 00f2 184B     		ldr	r3, .L36+8
+ 668 00f4 1022     		movs	r2, #16
+ 669 00f6 0021     		movs	r1, #0
+ 670 00f8 80B2     		uxth	r0, r0
+ 671 00fa FFF7FEFF 		bl	LCD_ShowString
+ 672              	.LVL47:
+ 817:Core/Src/test.c **** 					}
+ 673              		.loc 1 817 8 is_stmt 1 view .LVU162
+ 817:Core/Src/test.c **** 					}
+ 674              		.loc 1 817 19 is_stmt 0 view .LVU163
+ 675 00fe 164B     		ldr	r3, .L36+12
+ 676 0100 4FF47842 		mov	r2, #63488
+ 677 0104 1A80     		strh	r2, [r3]	@ movhi
+ 678 0106 A9E7     		b	.L27
+ 679              	.L34:
+ 827:Core/Src/test.c **** 		}		
+ 828:Core/Src/test.c **** 		delay_ms(5);i++;
+ 680              		.loc 1 828 3 is_stmt 1 view .LVU164
+ 681 0108 0520     		movs	r0, #5
+ 682 010a FFF7FEFF 		bl	delay_ms
+ 683              	.LVL48:
+ 684              		.loc 1 828 15 view .LVU165
+ 685              		.loc 1 828 16 is_stmt 0 view .LVU166
+ARM GAS  /tmp/ccS4UP0l.s 			page 29
+
+
+ 686 010e 0136     		adds	r6, r6, #1
+ 687              	.LVL49:
+ 688              		.loc 1 828 16 view .LVU167
+ 689 0110 F6B2     		uxtb	r6, r6
+ 690              	.LVL50:
+ 829:Core/Src/test.c **** 		if(i%30==0)LED0=!LED0;
+ 691              		.loc 1 829 3 is_stmt 1 view .LVU168
+ 692              		.loc 1 829 10 is_stmt 0 view .LVU169
+ 693 0112 144B     		ldr	r3, .L36+24
+ 694 0114 A3FB0623 		umull	r2, r3, r3, r6
+ 695 0118 23F00F02 		bic	r2, r3, #15
+ 696 011c A2EB1312 		sub	r2, r2, r3, lsr #4
+ 697 0120 5300     		lsls	r3, r2, #1
+ 698 0122 F31A     		subs	r3, r6, r3
+ 699              		.loc 1 829 5 view .LVU170
+ 700 0124 13F0FF0F 		tst	r3, #255
+ 701 0128 05D1     		bne	.L29
+ 702              		.loc 1 829 14 is_stmt 1 discriminator 1 view .LVU171
+ 703              		.loc 1 829 20 is_stmt 0 discriminator 1 view .LVU172
+ 704 012a 0F4A     		ldr	r2, .L36+28
+ 705 012c 1368     		ldr	r3, [r2]
+ 706              		.loc 1 829 19 discriminator 1 view .LVU173
+ 707 012e B3FA83F3 		clz	r3, r3
+ 708 0132 5B09     		lsrs	r3, r3, #5
+ 709              		.loc 1 829 18 discriminator 1 view .LVU174
+ 710 0134 1360     		str	r3, [r2]
+ 711              	.L29:
+ 830:Core/Src/test.c **** 		if(j>4)
+ 712              		.loc 1 830 3 is_stmt 1 view .LVU175
+ 713              		.loc 1 830 5 is_stmt 0 view .LVU176
+ 714 0136 042F     		cmp	r7, #4
+ 715 0138 00D9     		bls	.L21
+ 831:Core/Src/test.c **** 		{
+ 832:Core/Src/test.c **** 			j=0;
+ 716              		.loc 1 832 5 view .LVU177
+ 717 013a 0027     		movs	r7, #0
+ 718              	.LVL51:
+ 719              	.L21:
+ 794:Core/Src/test.c **** 	{
+ 720              		.loc 1 794 2 is_stmt 1 view .LVU178
+ 796:Core/Src/test.c **** 		tp_dev.CPT_Scan();
+ 721              		.loc 1 796 3 view .LVU179
+ 796:Core/Src/test.c **** 		tp_dev.CPT_Scan();
+ 722              		.loc 1 796 4 is_stmt 0 view .LVU180
+ 723 013c 0137     		adds	r7, r7, #1
+ 724              	.LVL52:
+ 796:Core/Src/test.c **** 		tp_dev.CPT_Scan();
+ 725              		.loc 1 796 4 view .LVU181
+ 726 013e FFB2     		uxtb	r7, r7
+ 727              	.LVL53:
+ 797:Core/Src/test.c **** 		for(t=0;t<CTP_MAX_TOUCH;t++)//◊Ó∂‡5µ„¥•√˛
+ 728              		.loc 1 797 3 is_stmt 1 view .LVU182
+ 797:Core/Src/test.c **** 		for(t=0;t<CTP_MAX_TOUCH;t++)//◊Ó∂‡5µ„¥•√˛
+ 729              		.loc 1 797 9 is_stmt 0 view .LVU183
+ 730 0140 074B     		ldr	r3, .L36+20
+ 731 0142 1B68     		ldr	r3, [r3]
+ 797:Core/Src/test.c **** 		for(t=0;t<CTP_MAX_TOUCH;t++)//◊Ó∂‡5µ„¥•√˛
+ARM GAS  /tmp/ccS4UP0l.s 			page 30
+
+
+ 732              		.loc 1 797 3 view .LVU184
+ 733 0144 9847     		blx	r3
+ 734              	.LVL54:
+ 798:Core/Src/test.c **** 		{
+ 735              		.loc 1 798 3 is_stmt 1 view .LVU185
+ 798:Core/Src/test.c **** 		{
+ 736              		.loc 1 798 8 is_stmt 0 view .LVU186
+ 737 0146 0024     		movs	r4, #0
+ 798:Core/Src/test.c **** 		{
+ 738              		.loc 1 798 3 view .LVU187
+ 739 0148 A1E7     		b	.L22
+ 740              	.L37:
+ 741 014a 00BF     		.align	2
+ 742              	.L36:
+ 743 014c 00000000 		.word	.LC3
+ 744 0150 00000000 		.word	lcddev
+ 745 0154 18000000 		.word	.LC2
+ 746 0158 00000000 		.word	POINT_COLOR
+ 747 015c 00000000 		.word	.LANCHOR1
+ 748 0160 00000000 		.word	tp_dev
+ 749 0164 89888888 		.word	-2004318071
+ 750 0168 84024042 		.word	1111491204
+ 751              		.cfi_endproc
+ 752              	.LFE135:
+ 754              		.section	.rodata.Touch_Test.str1.4,"aMS",%progbits,1
+ 755              		.align	2
+ 756              	.LC4:
+ 757 0000 746F7563 		.ascii	"touch screen test\015\000"
+ 757      68207363 
+ 757      7265656E 
+ 757      20746573 
+ 757      740D00
+ 758              		.section	.text.Touch_Test,"ax",%progbits
+ 759              		.align	1
+ 760              		.global	Touch_Test
+ 761              		.syntax unified
+ 762              		.thumb
+ 763              		.thumb_func
+ 764              		.fpu fpv4-sp-d16
+ 766              	Touch_Test:
+ 767              	.LFB136:
+ 833:Core/Src/test.c **** 		}
+ 834:Core/Src/test.c **** 	}  
+ 835:Core/Src/test.c **** }
+ 836:Core/Src/test.c **** 
+ 837:Core/Src/test.c **** /*****************************************************************************
+ 838:Core/Src/test.c ****  * @name       :void Touch_Test(void)
+ 839:Core/Src/test.c ****  * @date       :2018-08-09 
+ 840:Core/Src/test.c ****  * @function   :touch test
+ 841:Core/Src/test.c ****  * @parameters :None
+ 842:Core/Src/test.c ****  * @retvalue   :None
+ 843:Core/Src/test.c **** ******************************************************************************/
+ 844:Core/Src/test.c **** void Touch_Test(void)
+ 845:Core/Src/test.c **** {
+ 768              		.loc 1 845 1 is_stmt 1 view -0
+ 769              		.cfi_startproc
+ 770              		@ Volatile: function does not return.
+ARM GAS  /tmp/ccS4UP0l.s 			page 31
+
+
+ 771              		@ args = 0, pretend = 0, frame = 0
+ 772              		@ frame_needed = 0, uses_anonymous_args = 0
+ 773 0000 08B5     		push	{r3, lr}
+ 774              	.LCFI7:
+ 775              		.cfi_def_cfa_offset 8
+ 776              		.cfi_offset 3, -8
+ 777              		.cfi_offset 14, -4
+ 846:Core/Src/test.c **** 	printf("touch screen test\r\n");
+ 778              		.loc 1 846 2 view .LVU189
+ 779 0002 0648     		ldr	r0, .L42
+ 780 0004 FFF7FEFF 		bl	puts
+ 781              	.LVL55:
+ 847:Core/Src/test.c **** //	TP_Init();
+ 848:Core/Src/test.c **** 	if(tp_dev.touchtype&0x80)
+ 782              		.loc 1 848 2 view .LVU190
+ 783              		.loc 1 848 5 is_stmt 0 view .LVU191
+ 784 0008 054B     		ldr	r3, .L42+4
+ 785 000a 93F92830 		ldrsb	r3, [r3, #40]
+ 786              		.loc 1 848 4 view .LVU192
+ 787 000e 002B     		cmp	r3, #0
+ 788 0010 01DB     		blt	.L41
+ 849:Core/Src/test.c **** 	{
+ 850:Core/Src/test.c **** 		Ctp_Test();
+ 851:Core/Src/test.c **** 	}
+ 852:Core/Src/test.c **** 	else
+ 853:Core/Src/test.c **** 	{
+ 854:Core/Src/test.c **** 		Rtp_Test();			
+ 789              		.loc 1 854 3 is_stmt 1 view .LVU193
+ 790 0012 FFF7FEFF 		bl	Rtp_Test
+ 791              	.LVL56:
+ 792              	.L41:
+ 850:Core/Src/test.c **** 	}
+ 793              		.loc 1 850 3 view .LVU194
+ 794 0016 FFF7FEFF 		bl	Ctp_Test
+ 795              	.LVL57:
+ 796              	.L43:
+ 797 001a 00BF     		.align	2
+ 798              	.L42:
+ 799 001c 00000000 		.word	.LC4
+ 800 0020 00000000 		.word	tp_dev
+ 801              		.cfi_endproc
+ 802              	.LFE136:
+ 804              		.global	POINT_COLOR_TBL
+ 805              		.global	ColornTab
+ 806              		.global	ColorTab
+ 807              		.global	gImage_qq
+ 808              		.section	.data.ColorTab,"aw"
+ 809              		.align	2
+ 810              		.set	.LANCHOR0,. + 0
+ 813              	ColorTab:
+ 814 0000 00F8     		.short	-2048
+ 815 0002 E007     		.short	2016
+ 816 0004 1F00     		.short	31
+ 817 0006 E0FF     		.short	-32
+ 818 0008 1FF8     		.short	-2017
+ 819              		.section	.data.ColornTab,"aw"
+ 820              		.align	2
+ARM GAS  /tmp/ccS4UP0l.s 			page 32
+
+
+ 823              	ColornTab:
+ 824 0000 00F8     		.short	-2048
+ 825 0002 1FF8     		.short	-2017
+ 826 0004 E007     		.short	2016
+ 827 0006 CF01     		.short	463
+ 828 0008 1F00     		.short	31
+ 829 000a 0000     		.short	0
+ 830 000c 1F84     		.short	-31713
+ 831 000e 0000     		.space	2
+ 832              		.section	.rodata.POINT_COLOR_TBL,"a"
+ 833              		.align	2
+ 834              		.set	.LANCHOR1,. + 0
+ 837              	POINT_COLOR_TBL:
+ 838 0000 00F8     		.short	-2048
+ 839 0002 E007     		.short	2016
+ 840 0004 1F00     		.short	31
+ 841 0006 40BC     		.short	-17344
+ 842 0008 E0FF     		.short	-32
+ 843              		.section	.rodata.gImage_qq,"a"
+ 844              		.align	2
+ 847              	gImage_qq:
+ 848 0000 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 848      FFFFFFFF 
+ 848      FFFFFFFF 
+ 848      FF
+ 849 000d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 849      FFFFFFFF 
+ 849      FFFFFFFF 
+ 849      FF
+ 850 001a FFFFFFFF 		.ascii	"\377\377\377\377\276\367\377\377\336\3778\306\222\214"
+ 850      BEF7FFFF 
+ 850      DEFF38C6 
+ 850      928C
+ 851 0028 8E6B6E6B 		.ascii	"\216knk\020|\226\255<\347\377\377\377\377\377\377\377"
+ 851      107C96AD 
+ 851      3CE7FFFF 
+ 851      FFFFFFFF 
+ 851      FF
+ 852 0039 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 852      FFFFFFFF 
+ 852      FFFFFFFF 
+ 852      FF
+ 853 0046 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 853      FFFFFFFF 
+ 853      FFFFFFFF 
+ 853      FF
+ 854 0053 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 854      FFFFFFFF 
+ 854      FFFFFFFF 
+ 854      FF
+ 855 0060 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 855      FFFFFFFF 
+ 855      FFFFFFFF 
+ 855      FF
+ 856 006d FF5DEF15 		.ascii	"\377]\357\025\235OclB\0122\210)F\031%\031E!\3501\216"
+ 856      9D4F636C 
+ 856      420A3288 
+ARM GAS  /tmp/ccS4UP0l.s 			page 33
+
+
+ 856      29461925 
+ 856      194521E8 
+ 857 0083 6B38C6FF 		.ascii	"k8\306\377\377\377\377\377\377\377\377\377\377\377\377"
+ 857      FFFFFFFF 
+ 857      FFFFFFFF 
+ 857      FFFFFF
+ 858 0092 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 858      FFFFFFFF 
+ 858      FFFFFFFF 
+ 858      FF
+ 859 009f FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 859      FFFFFFFF 
+ 859      FFFFFFFF 
+ 859      FF
+ 860 00ac FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 860      FFFFFFFF 
+ 860      FFFFFFFF 
+ 860      FF
+ 861 00b9 FFFFFF36 		.ascii	"\377\377\3776\245\020S\020KQS\017Kl:\3511g!%\031\344"
+ 861      A5105310 
+ 861      4B51530F 
+ 861      4B6C3AE9 
+ 861      31672125 
+ 862 00cf 10A30862 		.ascii	"\020\243\010b\000\203\010\313R\232\326\377\377\377\377"
+ 862      008308CB 
+ 862      529AD6FF 
+ 862      FFFFFF
+ 863 00de FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 863      FFFFFFFF 
+ 863      FFFFFFFF 
+ 863      FF
+ 864 00eb FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 864      FFFFFFFF 
+ 864      FFFFFFFF 
+ 864      FF
+ 865 00f8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 865      FFFFFFFF 
+ 865      FFFFFFFF 
+ 865      FF
+ 866 0105 FFFFFF3C 		.ascii	"\377\377\377<\347pc\263c\270|\365c\021CM2\352)\210!"
+ 866      E77063B3 
+ 866      63B87CF5 
+ 866      6311434D 
+ 866      32EA2988 
+ 867 011a 26190519 		.ascii	"&\031\005\031\005\031\004\021\004\021\344\020\203\000"
+ 867      05190411 
+ 867      0411E410 
+ 867      8300
+ 868 0128 A308728C 		.ascii	"\243\010r\214\377\377\377\377\377\377\377\377\377\377"
+ 868      FFFFFFFF 
+ 868      FFFFFFFF 
+ 868      FFFF
+ 869 0136 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 869      FFFFFFFF 
+ 869      FFFFFFFF 
+ 869      FF
+ 870 0143 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ARM GAS  /tmp/ccS4UP0l.s 			page 34
+
+
+ 870      FFFFFFFF 
+ 870      FFFFFFFF 
+ 870      FF
+ 871 0150 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\333\336K:\360B5lTK\2612.*\353"
+ 871      FFFFDBDE 
+ 871      4B3AF042 
+ 871      356C544B 
+ 871      B1322E2A 
+ 872 0165 21A92167 		.ascii	"!\251!g\031\005\031\004\021\004\021\004\021\004\021"
+ 872      19051904 
+ 872      11041104 
+ 872      110411
+ 873 0174 04110519 		.ascii	"\004\021\005\031\344\020B\000\257s\377\377\377\377\377"
+ 873      E4104200 
+ 873      AF73FFFF 
+ 873      FFFFFF
+ 874 0183 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 874      FFFFFFFF 
+ 874      FFFFFFFF 
+ 874      FF
+ 875 0190 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 875      FFFFFFFF 
+ 875      FFFFFFFF 
+ 875      FF
+ 876 019d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377]\357\0112L2\020K\2172O"
+ 876      FFFFFF5D 
+ 876      EF09324C 
+ 876      32104B8F 
+ 876      324F
+ 877 01af 2A2E2ACC 		.ascii	"*.*\314\031\211\031\211!G\031\005\031\004\021\004\021"
+ 877      19891989 
+ 877      21471905 
+ 877      19041104 
+ 877      11
+ 878 01c0 C410C410 		.ascii	"\304\020\304\020\004\021\004\021\004\021\344\020B\000"
+ 878      04110411 
+ 878      0411E410 
+ 878      4200
+ 879 01ce 3184FFFF 		.ascii	"1\204\377\377\377\377\377\377\377\377\377\377\377\377"
+ 879      FFFFFFFF 
+ 879      FFFFFFFF 
+ 879      FFFF
+ 880 01dc FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 880      FFFFFFFF 
+ 880      FFFFFFFF 
+ 880      FF
+ 881 01e9 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\354RG\031"
+ 881      FFFFFFFF 
+ 881      FFFFFFEC 
+ 881      524719
+ 882 01f8 4C320B2A 		.ascii	"L2\013*\354!\354!\014\"\221[\356J\006\021&\031\004\031"
+ 882      EC21EC21 
+ 882      0C22915B 
+ 882      EE4A0611 
+ 882      26190419 
+ 883 020c E410E410 		.ascii	"\344\020\344\020\247)f!\243\010\005\031\004\021\004"
+ 883      A7296621 
+ARM GAS  /tmp/ccS4UP0l.s 			page 35
+
+
+ 883      A3080519 
+ 883      041104
+ 884 021b 11E41082 		.ascii	"\021\344\020\202\000\367\275\377\377\377\377\377\377"
+ 884      00F7BDFF 
+ 884      FFFFFFFF 
+ 884      FF
+ 885 0228 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 885      FFFFFFFF 
+ 885      FFFFFFFF 
+ 885      FF
+ 886 0235 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 886      FFFFFFFF 
+ 886      FFFFFFFF 
+ 886      FF
+ 887 0242 35A58308 		.ascii	"5\245\203\010\210!\210!\211!\252!\212!kBq\214\377\377"
+ 887      88218821 
+ 887      8921AA21 
+ 887      8A216B42 
+ 887      718CFFFF 
+ 888 0256 728C8308 		.ascii	"r\214\203\010\004\021\304\010)B\373\336]\357\354Z\203"
+ 888      0411C408 
+ 888      2942FBDE 
+ 888      5DEFEC5A 
+ 888      83
+ 889 0267 08041104 		.ascii	"\010\004\021\004\021\004\021\203\010\3501\337\377\377"
+ 889      11041183 
+ 889      08E831DF 
+ 889      FFFF
+ 890 0275 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 890      FFFFFFFF 
+ 890      FFFFFFFF 
+ 890      FF
+ 891 0282 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 891      FFFFFFFF 
+ 891      FFFFFFFF 
+ 891      FF
+ 892 028f FFBEF7C7 		.ascii	"\377\276\367\3071\304\020%\031&\031G\031G\031\250)\212"
+ 892      31C41025 
+ 892      19261947 
+ 892      194719A8 
+ 892      298A
+ 893 02a1 52284A55 		.ascii	"R(JU\255\377\377\3501\243\010\005\031MkMk\377\377}\357"
+ 893      ADFFFFE8 
+ 893      31A30805 
+ 893      194D6B4D 
+ 893      6BFFFF7D 
+ 894 02b6 4521C410 		.ascii	"E!\304\020\004\021\004\021\004\021b\000v\255\377\377"
+ 894      04110411 
+ 894      04116200 
+ 894      76ADFFFF 
+ 895 02c6 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 895      FFFFFFFF 
+ 895      FFFFFFFF 
+ 895      FF
+ 896 02d3 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 896      FFFFFFFF 
+ 896      FFFFFFFF 
+ARM GAS  /tmp/ccS4UP0l.s 			page 36
+
+
+ 896      FF
+ 897 02e0 96B56200 		.ascii	"\226\265b\000\004\021\004\031\005\021\005\031\304\010"
+ 897      04110419 
+ 897      05110519 
+ 897      C408
+ 898 02ee 8B4AB6B5 		.ascii	"\213J\266\265]\357\367\275\377\377\216kb\000)B\252Z"
+ 898      5DEFF7BD 
+ 898      FFFF8E6B 
+ 898      62002942 
+ 898      AA5A
+ 899 0300 0842FFFF 		.ascii	"\010B\377\377\377\377\314R\203\010\004\021\004\021\004"
+ 899      FFFFCC52 
+ 899      83080411 
+ 899      041104
+ 900 030f 11A308AD 		.ascii	"\021\243\010\255R\377\377\377\377\377\377\377\377\377"
+ 900      52FFFFFF 
+ 900      FFFFFFFF 
+ 900      FFFF
+ 901 031d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\034\347\377\377"
+ 901      FFFFFFFF 
+ 901      FF1CE7FF 
+ 901      FF
+ 902 032a FFFFFFFF 		.ascii	"\377\377\377\377\377\377Ncb\000\004\021\004\021\004"
+ 902      FFFF4E63 
+ 902      62000411 
+ 902      041104
+ 903 0339 11E41062 		.ascii	"\021\344\020b\000\216c\377\377\377\377\377\377\377\377"
+ 903      008E63FF 
+ 903      FFFFFFFF 
+ 903      FFFFFF
+ 904 0348 CF730100 		.ascii	"\317s\001\000\363\234,c\226\265\377\377\377\377-[\203"
+ 904      F39C2C63 
+ 904      96B5FFFF 
+ 904      FFFF2D5B 
+ 904      83
+ 905 0359 00041104 		.ascii	"\000\004\021\004\021\004\021\344\020g!=\357\377\377"
+ 905      110411E4 
+ 905      1067213D 
+ 905      EFFFFF
+ 906 0368 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\370\275\267\265\236"
+ 906      FFFFFFFF 
+ 906      F8BDB7B5 
+ 906      9E
+ 907 0375 EFCB52B3 		.ascii	"\357\313R\263\224\377\377\377\377\337\377\3501\243\010"
+ 907      94FFFFFF 
+ 907      FFDFFFE8 
+ 907      31A308
+ 908 0384 04110411 		.ascii	"\004\021\004\021\004\021\004\021\243\010IB\377\367\377"
+ 908      04110411 
+ 908      A3084942 
+ 908      FFF7FF
+ 909 0393 F7FFFFFF 		.ascii	"\367\377\377\377\377jJ\001\000r\204\377\377\377\377"
+ 909      FF6A4A01 
+ 909      007284FF 
+ 909      FFFFFF
+ 910 03a2 FFF7DFEF 		.ascii	"\377\367\337\357\011:\243\010\004\021\004\021\004\021"
+ 910      093AA308 
+ARM GAS  /tmp/ccS4UP0l.s 			page 37
+
+
+ 910      04110411 
+ 910      0411
+ 911 03b0 04110511 		.ascii	"\004\021\005\021\030\276\377\377\377\377\377\377\377"
+ 911      18BEFFFF 
+ 911      FFFFFFFF 
+ 911      FF
+ 912 03bd FFFFFFF0 		.ascii	"\377\377\377\360{b\000\3501\3071A\0005\245\377\377]"
+ 912      7B6200E8 
+ 912      31C73141 
+ 912      0035A5FF 
+ 912      FF5D
+ 913 03cf EF4621C4 		.ascii	"\357F!\304\020\004\021\004\021\004\021\004\021\344\020"
+ 913      10041104 
+ 913      11041104 
+ 913      11E410
+ 914 03de A308769D 		.ascii	"\243\010v\235\377\367\377\377\267\255\243\010\243\010"
+ 914      FFF7FFFF 
+ 914      B7ADA308 
+ 914      A308
+ 915 03ec C7319EE7 		.ascii	"\3071\236\347\377\367\377\367v\245\243\010\344\020\004"
+ 915      FFF7FFF7 
+ 915      76A5A308 
+ 915      E41004
+ 916 03fb 11041104 		.ascii	"\021\004\021\004\021\005\021\005\0215\245\377\377\377"
+ 916      11051105 
+ 916      1135A5FF 
+ 916      FFFF
+ 917 0409 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\333\336\247)\203\000\304"
+ 917      FFFFFFDB 
+ 917      DEA72983 
+ 917      00C4
+ 918 0417 10C410C4 		.ascii	"\020\304\020\304\020\034\347\236\357\005\021\344\020"
+ 918      101CE79E 
+ 918      EF0511E4 
+ 918      10
+ 919 0424 04110411 		.ascii	"\004\021\004\021\004\021\004\021\004\031\304\010\345"
+ 919      04110411 
+ 919      0419C408 
+ 919      E5
+ 920 0431 10D16BD1 		.ascii	"\020\321k\321k\305\010d\000\245\010C\000+2w\235\263"
+ 920      6BC50864 
+ 920      00A50843 
+ 920      002B3277 
+ 920      9DB3
+ 921 0443 842519C4 		.ascii	"\204%\031\304\020\004\021\004\021\004\021\004\021%\031"
+ 921      10041104 
+ 921      11041104 
+ 921      112519
+ 922 0452 2609359D 		.ascii	"&\0115\235\377\377\377\377\377\377\377\377\377\377\377"
+ 922      FFFFFFFF 
+ 922      FFFFFFFF 
+ 922      FFFFFF
+ 923 0461 FFAF7362 		.ascii	"\377\257sb\000\004\031\005\031\202\000\015[\216\233"
+ 923      00041905 
+ 923      1982000D 
+ 923      5B8E9B
+ 924 0470 62100511 		.ascii	"b\020\005\021\004\021\004\021\004\031\344\020\205\000"
+ARM GAS  /tmp/ccS4UP0l.s 			page 38
+
+
+ 924      04110411 
+ 924      0419E410 
+ 924      8500
+ 925 047e 0511C439 		.ascii	"\005\021\3049\201Z@{\"\234C\254\003\244\203\233\202"
+ 925      815A407B 
+ 925      229C43AC 
+ 925      03A4839B 
+ 925      82
+ 926 048f 728249C2 		.ascii	"r\202I\302\030\244\000\305\000\344\020\004\031\004\021"
+ 926      18A400C5 
+ 926      00E41004 
+ 926      190411
+ 927 049e 05194719 		.ascii	"\005\031G\031g\021\354Z\276\377\377\377\377\377\377"
+ 927      6711EC5A 
+ 927      BEFFFFFF 
+ 927      FFFFFF
+ 928 04ad FFFFFFDF 		.ascii	"\377\377\377\337\377\333\336\304\020\344\020\004\021"
+ 928      FFDBDEC4 
+ 928      10E41004 
+ 928      11
+ 929 04ba 0511A418 		.ascii	"\005\021\244\030\001\300\203\210\344\000\005\031\004"
+ 929      01C08388 
+ 929      E4000519 
+ 929      04
+ 930 04c7 19C50844 		.ascii	"\031\305\010D!C\203#\325B\376\344\376'\377\007\377\244"
+ 930      21438323 
+ 930      D542FEE4 
+ 930      FE27FF07 
+ 930      FFA4
+ 931 04d9 FE64FE03 		.ascii	"\376d\376\003\376\243\375\342\374B\354\203\263$b\345"
+ 931      FEA3FDE2 
+ 931      FC42EC83 
+ 931      B32462E5 
+ 932 04e9 10C40804 		.ascii	"\020\304\010\004\031&\031\250\031\207!\000\220\323\274"
+ 932      192619A8 
+ 932      19872100 
+ 932      90D3BC
+ 933 04f8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\337\377\377\377\020"
+ 933      FFFFFFFF 
+ 933      DFFFFFFF 
+ 933      10
+ 934 0505 7C420005 		.ascii	"|B\000\005\031\005\021\203(\001\320D\370\243H\344\000"
+ 934      19051183 
+ 934      2801D044 
+ 934      F8A348E4 
+ 934      00
+ 935 0516 C508445A 		.ascii	"\305\010DZ\002\355\342\375\002\376f\376t\377\270\377"
+ 935      02EDE2FD 
+ 935      02FE66FE 
+ 935      74FFB8FF 
+ 936 0526 73FFE7F6 		.ascii	"s\377\347\366\246\366E\366\244\365\303\374b\374\302"
+ 936      A6F645F6 
+ 936      A4F5C3FC 
+ 936      62FCC2
+ 937 0535 FCC2FCE3 		.ascii	"\374\302\374\343\313\304I\006\021\210\031\207\001\244"
+ 937      CBC44906 
+ 937      11881987 
+ARM GAS  /tmp/ccS4UP0l.s 			page 39
+
+
+ 937      01A4
+ 938 0543 9001F8EC 		.ascii	"\220\001\370\354\232\377\377\377\377\377\377\377\377"
+ 938      9AFFFFFF 
+ 938      FFFFFFFF 
+ 938      FF
+ 939 0550 FFFFFFFF 		.ascii	"\377\377\377\377\276\367\3501\203\000\005\011\202@\001"
+ 939      BEF7E831 
+ 939      83000509 
+ 939      824001
+ 940 055f C023F885 		.ascii	"\300#\370\205\360\243H\244\000DZ\002\375#\314\302\334"
+ 940      F0A348A4 
+ 940      00445A02 
+ 940      FD23CCC2 
+ 940      DC
+ 941 0570 04FE28FE 		.ascii	"\004\376(\376H\366F\366$\366\344\365d\375\343\374b\374"
+ 941      48F646F6 
+ 941      24F6E4F5 
+ 941      64FDE3FC 
+ 941      62FC
+ 942 0582 C2FC02E4 		.ascii	"\302\374\002\344\002\334\342\374\244zH\001g\001\304"
+ 942      02DCE2FC 
+ 942      A47A4801 
+ 942      6701C4
+ 943 0591 7824F802 		.ascii	"x$\370\002\370\204\260}\347\377\377\377\377\377\377"
+ 943      F884B07D 
+ 943      E7FFFFFF 
+ 943      FFFFFF
+ 944 05a0 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\333\336%\031\243\000\3048\002"
+ 944      FFFFDBDE 
+ 944      2519A300 
+ 944      C43802
+ 945 05af E022D844 		.ascii	"\340\"\330D\370\246\370\244xc\000C!\203r\2039\202\233"
+ 945      F8A6F8A4 
+ 945      78630043 
+ 945      21837283 
+ 945      39829B
+ 946 05c2 21F561FD 		.ascii	"!\365a\375\"\375\342\374\242\374B\374B\374B\374\"\253"
+ 946      22FDE2FC 
+ 946      A2FC42FC 
+ 946      42FC42FC 
+ 946      22AB
+ 947 05d4 8341C392 		.ascii	"\203A\303\222\004R&\001%\031\244\230D\370#\370\002\370"
+ 947      04522601 
+ 947      2519A498 
+ 947      44F823F8 
+ 947      02F8
+ 948 05e6 A4D09EEF 		.ascii	"\244\320\236\357\377\377\377\377\377\377\377\377\377"
+ 948      FFFFFFFF 
+ 948      FFFFFFFF 
+ 948      FF
+ 949 05f3 FFFFFFFF 		.ascii	"\377\377\377\377\377\232\326\207)\245\000C\270\"\370"
+ 949      FF9AD687 
+ 949      29A50043 
+ 949      B822F8
+ 950 0602 23E065F8 		.ascii	"#\340e\370\350\370\007\311\203HB\000\243\000\204\000"
+ 950      E8F807C9 
+ 950      83484200 
+ARM GAS  /tmp/ccS4UP0l.s 			page 40
+
+
+ 950      A3008400 
+ 951 0612 6329A27A 		.ascii	"c)\242zb\263\242\313b\323\002\273\202\212\2039\244\000"
+ 951      62B3A2CB 
+ 951      62D302BB 
+ 951      828A8339 
+ 951      A400
+ 952 0624 E500E500 		.ascii	"\345\000\345\000\345\010\304`d\330D\370$\370#\370\002"
+ 952      E508C460 
+ 952      64D844F8 
+ 952      24F823F8 
+ 952      02
+ 953 0635 F88388DB 		.ascii	"\370\203\210\333\306\377\377\377\377\377\377\377\377"
+ 953      C6FFFFFF 
+ 953      FFFFFFFF 
+ 953      FF
+ 954 0642 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377=\347P[\0101#\350C\370"
+ 954      FFFFFFFF 
+ 954      3DE7505B 
+ 954      083123E8 
+ 954      43F8
+ 955 0654 44F065F8 		.ascii	"D\360e\370\011\371\253\371\211\321\006\211\243HB\030"
+ 955      09F9ABF9 
+ 955      89D10689 
+ 955      A3484218 
+ 956 0664 02004200 		.ascii	"\002\000B\000a\000\202\000b\000b\000\203\000\243 \304"
+ 956      61008200 
+ 956      62006200 
+ 956      8300A320 
+ 956      C4
+ 957 0675 50A58885 		.ascii	"P\245\210\205\330e\370D\370D\370#\370#\370\003\320\202"
+ 957      D865F844 
+ 957      F844F823 
+ 957      F823F803 
+ 957      D082
+ 958 0687 10C7295D 		.ascii	"\020\307)]\357\377\377\377\377\377\377\377\377\377\377"
+ 958      EFFFFFFF 
+ 958      FFFFFFFF 
+ 958      FFFFFF
+ 959 0696 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377l2\2458\002\330#\370"
+ 959      FFFFFFFF 
+ 959      6C32A538 
+ 959      02D823F8 
+ 960 06a6 65F866F8 		.ascii	"e\370f\370\247\370J\371\014\372M\372L\352\013\322\251"
+ 960      A7F84AF9 
+ 960      0CFA4DFA 
+ 960      4CEA0BD2 
+ 960      A9
+ 961 06b7 B968B147 		.ascii	"\271h\261G\251'\261\007\271\007\321\347\350\307\370"
+ 961      A927B107 
+ 961      B907D1E7 
+ 961      E8C7F8
+ 962 06c6 A7F865F8 		.ascii	"\247\370e\370e\370D\370#\370\003\370\002\320\243(\005"
+ 962      65F844F8 
+ 962      23F803F8 
+ 962      02D0A328 
+ 962      05
+ 963 06d7 09C408EC 		.ascii	"\011\304\010\354Z\377\377\377\377\377\377\377\377\377"
+ARM GAS  /tmp/ccS4UP0l.s 			page 41
+
+
+ 963      5AFFFFFF 
+ 963      FFFFFFFF 
+ 963      FFFF
+ 964 06e5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\373\336\005\031\304\000"
+ 964      FFFFFFFB 
+ 964      DE0519C4 
+ 964      00
+ 965 06f2 A741E6C0 		.ascii	"\247A\346\300\003\370\206\370\247\370\207\370\206\370"
+ 965      03F886F8 
+ 965      A7F887F8 
+ 965      86F8
+ 966 0700 C7F829F9 		.ascii	"\307\370)\371\212\371\253\371\253\371\213\371j\371)"
+ 966      8AF9ABF9 
+ 966      ABF98BF9 
+ 966      6AF929
+ 967 070f F908F9C7 		.ascii	"\371\010\371\307\370\246\370\206\370e\370d\370#\370"
+ 967      F8A6F886 
+ 967      F865F864 
+ 967      F823F8
+ 968 071e 02F006B1 		.ascii	"\002\360\006\261%)\344\000\344\020%\031%\031\024\235"
+ 968      2529E400 
+ 968      E4102519 
+ 968      2519149D 
+ 969 072e FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 969      FFFFFFFF 
+ 969      FFFFFFFF 
+ 969      FF
+ 970 073b FF96AD62 		.ascii	"\377\226\255b\000\202\0105\225\272\316\213\242D\320"
+ 970      00820835 
+ 970      95BACE8B 
+ 970      A244D0
+ 971 074a 25F887F8 		.ascii	"%\370\207\370\247\370\307\370\247\370\207\370\206\370"
+ 971      A7F8C7F8 
+ 971      A7F887F8 
+ 971      86F8
+ 972 0758 86F886F8 		.ascii	"\206\370\206\370\207\370\247\370\247\370\246\370\205"
+ 972      87F8A7F8 
+ 972      A7F8A6F8 
+ 972      85
+ 973 0765 F865F864 		.ascii	"\370e\370d\370$\360d\270\015\223\273\266\317c\203\010"
+ 973      F824F064 
+ 973      B80D93BB 
+ 973      B6CF6383 
+ 973      08
+ 974 0776 0411E410 		.ascii	"\004\021\344\020f!I:]\357\377\377\377\377\377\377\377"
+ 974      6621493A 
+ 974      5DEFFFFF 
+ 974      FFFFFFFF 
+ 974      FF
+ 975 0787 FFFFFFFF 		.ascii	"\377\377\377\377\377\323\224B\000\344\020\273\316\377"
+ 975      FFD39442 
+ 975      00E410BB 
+ 975      CEFF
+ 976 0795 FFBEE776 		.ascii	"\377\276\347v\265\314\252\007\301E\340E\370F\370f\370"
+ 976      B5CCAA07 
+ 976      C145E045 
+ 976      F846F866 
+ARM GAS  /tmp/ccS4UP0l.s 			page 42
+
+
+ 976      F8
+ 977 07a6 86F886F8 		.ascii	"\206\370\206\370\206\370\206\370e\370E\370e\370e\350"
+ 977      86F886F8 
+ 977      65F845F8 
+ 977      65F865E8 
+ 978 07b6 44D043A8 		.ascii	"D\320C\250\001\210\202\220<\327\377\357U\225\203\010"
+ 978      01888290 
+ 978      3CD7FFEF 
+ 978      55958308 
+ 979 07c6 04110411 		.ascii	"\004\021\004\021\005\031F\031\263\224"
+ 979      05194619 
+ 979      B394
+ 980 07d0 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\263"
+ 980      FFFFFFFF 
+ 980      FFFFFFFF 
+ 980      B3
+ 981 07dd 94410086 		.ascii	"\224A\000\206!]\337\377\377\377\377\377\377\337\347"
+ 981      215DDFFF 
+ 981      FFFFFFFF 
+ 981      FFDFE7
+ 982 07ec 7AC6D3B4 		.ascii	"z\306\323\264N\263*\302h\321\346\340\246\350\245\350"
+ 982      4EB32AC2 
+ 982      68D1E6E0 
+ 982      A6E8A5E8 
+ 983 07fc A5E8E6D8 		.ascii	"\245\350\346\330\210\311\006\251\"\250\002\250\000\240"
+ 983      88C906A9 
+ 983      22A802A8 
+ 983      00A0
+ 984 080a 00C800D8 		.ascii	"\000\310\000\330\367\345\377\347\370\255\304\020\344"
+ 984      F7E5FFE7 
+ 984      F8ADC410 
+ 984      E4
+ 985 0817 100411E4 		.ascii	"\020\004\021\344\020\005\021\213J\377\377\377\377\377"
+ 985      1005118B 
+ 985      4AFFFFFF 
+ 985      FFFF
+ 986 0825 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377U\245A\000\247)]\337\377"
+ 986      FFFFFF55 
+ 986      A54100A7 
+ 986      295DDFFF 
+ 987 0835 F7FFFFFF 		.ascii	"\367\377\377\377\377\377\377\377\377\377\377\377\357"
+ 987      FFFFFFFF 
+ 987      FFFFFFFF 
+ 987      EF
+ 988 0842 7DDFDBCE 		.ascii	"}\337\333\316Y\316\370\315\327\315\367\305y\316\373"
+ 988      59CEF8CD 
+ 988      D7CDF7C5 
+ 988      79CEFB
+ 989 0851 BEABA203 		.ascii	"\276\253\242\003\360E\370B\320C\350\000\360r\324\377"
+ 989      F045F842 
+ 989      D043E800 
+ 989      F072D4FF 
+ 990 0861 DF39AEE4 		.ascii	"\3379\256\344\020\344\020\004\021\344\020\005\021\207"
+ 990      10E41004 
+ 990      11E41005 
+ 990      1187
+ 991 086f 29FFFFFF 		.ascii	")\377\377\377\377\377\377\377\377\377\377\377\377Y\316"
+ARM GAS  /tmp/ccS4UP0l.s 			page 43
+
+
+ 991      FFFFFFFF 
+ 991      FFFFFFFF 
+ 991      FF59CE
+ 992 087e 83084621 		.ascii	"\203\010F!\034\327\377\367\377\377\377\377\377\377\377"
+ 992      1CD7FFF7 
+ 992      FFFFFFFF 
+ 992      FFFFFF
+ 993 088d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 993      FFFFFFFF 
+ 993      FFFFFFFF 
+ 993      FF
+ 994 089a FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\357\213\272\004\370E\370"
+ 994      FFFFFFEF 
+ 994      8BBA04F8 
+ 994      45F8
+ 995 08a8 62E044F0 		.ascii	"b\340D\360\000\370\216\333\377\337\370\245\304\020\344"
+ 995      00F88EDB 
+ 995      FFDFF8A5 
+ 995      C410E4
+ 996 08b7 10E41004 		.ascii	"\020\344\020\004\021\344\020%\031\377\377\377\377\377"
+ 996      11E41025 
+ 996      19FFFFFF 
+ 996      FFFF
+ 997 08c5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\276\367\207)\203\0109\266"
+ 997      FFFFFFBE 
+ 997      F7872983 
+ 997      0839B6
+ 998 08d4 FFF7DFF7 		.ascii	"\377\367\337\367\377\377\377\377\377\377\377\377\377"
+ 998      FFFFFFFF 
+ 998      FFFFFFFF 
+ 998      FF
+ 999 08e1 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 999      FFFFFFFF 
+ 999      FFFFFFFF 
+ 999      FF
+ 1000 08ee FFFFBEE7 		.ascii	"\377\377\276\347J\272\003\370E\370d\370D\370\000\370"
+ 1000      4ABA03F8 
+ 1000      45F864F8 
+ 1000      44F800F8 
+ 1001 08fe 6EE3FFD7 		.ascii	"n\343\377\327\364\214\203\010\004\021\344\020\344\020"
+ 1001      F48C8308 
+ 1001      0411E410 
+ 1001      E410
+ 1002 090c E4100519 		.ascii	"\344\020\005\031\377\377\377\377\377\377\377\377\377"
+ 1002      FFFFFFFF 
+ 1002      FFFFFFFF 
+ 1002      FF
+ 1003 0919 FFFFFFFF 		.ascii	"\377\377\377\377\377\357s\000\000r\204\377\357\276\357"
+ 1003      FFEF7300 
+ 1003      007284FF 
+ 1003      EFBEEF
+ 1004 0928 DFFFFFFF 		.ascii	"\337\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1004      FFFFFFFF 
+ 1004      FFFFFFFF 
+ 1004      FF
+ 1005 0935 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\337\347"
+ 1005      FFFFFFFF 
+ARM GAS  /tmp/ccS4UP0l.s 			page 44
+
+
+ 1005      FFFFFFDF 
+ 1005      E7
+ 1006 0942 8BBA03F8 		.ascii	"\213\272\003\370E\370E\370#\370\000\370\323\324\377"
+ 1006      45F845F8 
+ 1006      23F800F8 
+ 1006      D3D4FF
+ 1007 0951 D74E5B21 		.ascii	"\327N[!\000):U\245\203\010\304\020%\031\377\377\377"
+ 1007      00293A55 
+ 1007      A58308C4 
+ 1007      102519FF 
+ 1007      FFFF
+ 1008 0963 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\373\336"
+ 1008      FFFFFFFF 
+ 1008      FFFFFFFB 
+ 1008      DE
+ 1009 0970 A308E831 		.ascii	"\243\010\3501\236\337\236\347\277\357\377\377\377\377"
+ 1009      9EDF9EE7 
+ 1009      BFEFFFFF 
+ 1009      FFFF
+ 1010 097e FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1010      FFFFFFFF 
+ 1010      FFFFFFFF 
+ 1010      FF
+ 1011 098b FFFFFFFF 		.ascii	"\377\377\377\377\377\377\367Q\274\002\340\003\370\003"
+ 1011      FFFFF751 
+ 1011      BC02E003 
+ 1011      F803
+ 1012 0999 F043E0EC 		.ascii	"\360C\340\354\302~\317\374\276F!!\000\323\224\377\377"
+ 1012      C27ECFFC 
+ 1012      BE462121 
+ 1012      00D394FF 
+ 1012      FF
+ 1013 09aa 51840000 		.ascii	"Q\204\000\000\207)\377\377\377\377\377\377\377\377\377"
+ 1013      8729FFFF 
+ 1013      FFFFFFFF 
+ 1013      FFFFFF
+ 1014 09b9 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377Q\204\000\000\364\214\377"
+ 1014      FFFFFF51 
+ 1014      840000F4 
+ 1014      8CFF
+ 1015 09c7 EF9EE7BF 		.ascii	"\357\236\347\277\357\337\377\377\377\377\377\377\377"
+ 1015      EFDFFFFF 
+ 1015      FFFFFFFF 
+ 1015      FF
+ 1016 09d4 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1016      FFFFFFFF 
+ 1016      FFFFFFFF 
+ 1016      FF
+ 1017 09e1 FF3DDF55 		.ascii	"\377=\337U\275R\274r\274\267\265]\307\377\337\360k\000"
+ 1017      BD52BC72 
+ 1017      BCB7B55D 
+ 1017      C7FFDFF0 
+ 1017      6B00
+ 1018 09f3 00093ABF 		.ascii	"\000\011:\277\367\377\377\377\377\024\235U\245\377\377"
+ 1018      F7FFFFFF 
+ 1018      FF149D55 
+ 1018      A5FFFF
+ARM GAS  /tmp/ccS4UP0l.s 			page 45
+
+
+ 1019 0a02 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1019      FFFFFFFF 
+ 1019      FFFFFFFF 
+ 1019      FF
+ 1020 0a0f FFFFFFAC 		.ascii	"\377\377\377\254J\244\010\273\276\337\347~\347\276\357"
+ 1020      4AA408BB 
+ 1020      BEDFE77E 
+ 1020      E7BEEF
+ 1021 0a1e DFF7DFFF 		.ascii	"\337\367\337\377\377\377\377\377\377\377\377\377\377"
+ 1021      FFFFFFFF 
+ 1021      FFFFFFFF 
+ 1021      FF
+ 1022 0a2b FFFFFFFF 		.ascii	"\377\377\377\377\377\337\377\337\367\377\357\337\337"
+ 1022      FFDFFFDF 
+ 1022      F7FFEFDF 
+ 1022      DF
+ 1023 0a38 BFD79ED7 		.ascii	"\277\327\236\327\337\337\330\245\203\010&\021\333\326"
+ 1023      DFDFD8A5 
+ 1023      83082611 
+ 1023      DBD6
+ 1024 0a46 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1024      FFFFFFFF 
+ 1024      FFFFFFFF 
+ 1024      FF
+ 1025 0a53 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1025      FFFFFFFF 
+ 1025      FFFFFFFF 
+ 1025      FF
+ 1026 0a60 79EE8BDC 		.ascii	"y\356\213\334!1\251!=\317\277\337~\337\236\347\276\357"
+ 1026      2131A921 
+ 1026      3DCFBFDF 
+ 1026      7EDF9EE7 
+ 1026      BEEF
+ 1027 0a72 BFEFDFF7 		.ascii	"\277\357\337\367\337\367\337\367\337\367\337\367\277"
+ 1027      DFF7DFF7 
+ 1027      DFF7DFF7 
+ 1027      BF
+ 1028 0a7f EFBEEF9E 		.ascii	"\357\276\357\236\347~\337^\327^\327\337\337\232\266"
+ 1028      E77EDF5E 
+ 1028      D75ED7DF 
+ 1028      DF9AB6
+ 1029 0a8e 26194208 		.ascii	"&\031B\010\355\243\277\377\377\377\377\377\377\377\377"
+ 1029      EDA3BFFF 
+ 1029      FFFFFFFF 
+ 1029      FFFFFF
+ 1030 0a9d FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1030      FFFFFFFF 
+ 1030      FFFFFFFF 
+ 1030      FF
+ 1031 0aaa FFFFFFFF 		.ascii	"\377\377\377\377t\335\300\333\000\376B\356\002B\211"
+ 1031      74DDC0DB 
+ 1031      00FE42EE 
+ 1031      024289
+ 1032 0ab9 217BB6DF 		.ascii	"!{\266\337\337~\327~\337~\337\236\347\236\347\236\347"
+ 1032      DF7ED77E 
+ 1032      DF7EDF9E 
+ 1032      E79EE79E 
+ARM GAS  /tmp/ccS4UP0l.s 			page 46
+
+
+ 1032      E7
+ 1033 0aca 9EE79EE7 		.ascii	"\236\347\236\347~\337~\337]\327]\327\236\337\377\347"
+ 1033      7EDF7EDF 
+ 1033      5DD75DD7 
+ 1033      9EDFFFE7 
+ 1034 0ada F8A50711 		.ascii	"\370\245\007\021\343\030\002\305`\375\346\323\333\356"
+ 1034      E31802C5 
+ 1034      60FDE6D3 
+ 1034      DBEE
+ 1035 0ae8 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1035      FFFFFFFF 
+ 1035      FFFFFFFF 
+ 1035      FF
+ 1036 0af5 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\236\367\204\272\301\374"
+ 1036      FFFFFF9E 
+ 1036      F784BAC1 
+ 1036      FC
+ 1037 0b02 42FE82FE 		.ascii	"B\376\202\376\242\376\201\203E!tt^\307\337\337~\327"
+ 1037      A2FE8183 
+ 1037      45217474 
+ 1037      5EC7DFDF 
+ 1037      7ED7
+ 1038 0b14 5ED75DD7 		.ascii	"^\327]\327^\327^\327]\327]\327^\327\236\337\377\347"
+ 1038      5ED75ED7 
+ 1038      5DD75DD7 
+ 1038      5ED79EDF 
+ 1038      FFE7
+ 1039 0b26 3DC7F163 		.ascii	"=\307\361c\204\010BR&\346)\377\206\376\340\363j\303"
+ 1039      84084252 
+ 1039      26E629FF 
+ 1039      86FEE0F3 
+ 1039      6AC3
+ 1040 0b38 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1040      FFFFFFFF 
+ 1040      FFFFFFFF 
+ 1040      FF
+ 1041 0b45 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\030\336\301\322\242\375"
+ 1041      FFFFFF18 
+ 1041      DEC1D2A2 
+ 1041      FD
+ 1042 0b52 22FE42FE 		.ascii	"\"\376B\376B\376b\376\342\324AjIBSt;\246>\307\277\327"
+ 1042      42FE62FE 
+ 1042      E2D4416A 
+ 1042      49425374 
+ 1042      3BA63EC7 
+ 1043 0b68 BFD7BFD7 		.ascii	"\277\327\277\327\277\337\277\327>\307\032\246\362c\247"
+ 1043      BFDFBFD7 
+ 1043      3EC71AA6 
+ 1043      F263A7
+ 1044 0b77 29824122 		.ascii	")\202A\"\264b\376\203\376\252\376\017\377g\375c\272"
+ 1044      B462FE83 
+ 1044      FEAAFE0F 
+ 1044      FF67FD63 
+ 1044      BA
+ 1045 0b88 3CEFFFFF 		.ascii	"<\357\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1045      FFFFFFFF 
+ 1045      FFFFFFFF 
+ARM GAS  /tmp/ccS4UP0l.s 			page 47
+
+
+ 1045      FFFF
+ 1046 0b96 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\232\346\200\322!\375\302\375"
+ 1046      FFFF9AE6 
+ 1046      80D221FD 
+ 1046      C2FD
+ 1047 0ba4 E2F5C2F5 		.ascii	"\342\365\302\365\202\365\202\375b\375a\334!\233\204"
+ 1047      82F582FD 
+ 1047      62FD61DC 
+ 1047      219B84
+ 1048 0bb3 6AE96A2C 		.ascii	"j\351j,c\257c\021tnc,c\211Z\004R\201z\302\313\342\374"
+ 1048      63AF6311 
+ 1048      746E632C 
+ 1048      63895A04 
+ 1048      52817AC2 
+ 1049 0bca 62FD82FD 		.ascii	"b\375\202\375\302\375\302\375\344\375$\375b\312\034"
+ 1049      C2FDC2FD 
+ 1049      E4FD24FD 
+ 1049      62CA1C
+ 1050 0bd9 E7FFFFFF 		.ascii	"\347\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1050      FFFFFFFF 
+ 1050      FFFFFFFF 
+ 1050      FF
+ 1051 0be6 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\261\314\201\322\300"
+ 1051      FFFFFFFF 
+ 1051      B1CC81D2 
+ 1051      C0
+ 1052 0bf3 F3C1FC02 		.ascii	"\363\301\374\002\375\002\375\342\374\302\374\302\374"
+ 1052      FD02FDE2 
+ 1052      FCC2FCC2 
+ 1052      FC
+ 1053 0c00 81FC80FB 		.ascii	"\201\374\200\373\300\311\244\2015\255Y\316q\234!\201"
+ 1053      C0C9A481 
+ 1053      35AD59CE 
+ 1053      719C2181 
+ 1054 0c10 00DAA1FB 		.ascii	"\000\332\241\373\202\374\242\374\202\374\242\374\002"
+ 1054      82FCA2FC 
+ 1054      82FCA2FC 
+ 1054      02
+ 1055 0c1d FD22FDE2 		.ascii	"\375\"\375\342\374\000\374`\332\220\314\377\377\377"
+ 1055      FC00FC60 
+ 1055      DA90CCFF 
+ 1055      FFFF
+ 1056 0c2b FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ 1056      FFFFFFFF 
+ 1056      FFFFFFFF 
+ 1056      FF
+ 1057 0c38 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\377Y\336\015\304\006\313"
+ 1057      FFFFFFFF 
+ 1057      59DE0DC4 
+ 1057      06CB
+ 1058 0c46 E4D203DB 		.ascii	"\344\322\003\333\003\333\343\332\303\322\244\302\011"
+ 1058      03DBE3DA 
+ 1058      C3D2A4C2 
+ 1058      09
+ 1059 0c53 B3D2BC9E 		.ascii	"\263\322\274\236\367\377\377\377\377\377\377\373\346"
+ 1059      F7FFFFFF 
+ 1059      FFFFFFFB 
+ARM GAS  /tmp/ccS4UP0l.s 			page 48
+
+
+ 1059      E6
+ 1060 0c60 0EB4A6BA 		.ascii	"\016\264\246\272\203\322\343\342\002\353\"\353\"\343"
+ 1060      83D2E3E2 
+ 1060      02EB22EB 
+ 1060      22E3
+ 1061 0c6e 03DBE4D2 		.ascii	"\003\333\344\322j\303\266\325\377\377\377\377\377\377"
+ 1061      6AC3B6D5 
+ 1061      FFFFFFFF 
+ 1061      FFFF
+ 1062 0c7c FFFFFFFF 		.ascii	"\377\377\377\377"
+ 1063              		.text
+ 1064              	.Letext0:
+ 1065              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 1066              		.file 3 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 1067              		.file 4 "/usr/include/newlib/sys/_types.h"
+ 1068              		.file 5 "/usr/include/newlib/sys/reent.h"
+ 1069              		.file 6 "/usr/include/newlib/sys/lock.h"
+ 1070              		.file 7 "/usr/include/newlib/sys/_stdint.h"
+ 1071              		.file 8 "Drivers/CMSIS/Include/core_cm4.h"
+ 1072              		.file 9 "Core/Inc/system_stm32f4xx.h"
+ 1073              		.file 10 "Core/Inc/stm32f4xx.h"
+ 1074              		.file 11 "/usr/include/newlib/stdlib.h"
+ 1075              		.file 12 "Core/Inc/lcd.h"
+ 1076              		.file 13 "Core/Inc/pic.h"
+ 1077              		.file 14 "Core/Inc/usart.h"
+ 1078              		.file 15 "Core/Inc/touch.h"
+ 1079              		.file 16 "Core/Inc/gui.h"
+ 1080              		.file 17 "Core/Inc/delay.h"
+ 1081              		.file 18 "Core/Inc/key.h"
+ 1082              		.file 19 "Core/Inc/rtp.h"
+ 1083              		.file 20 "<built-in>"
+ARM GAS  /tmp/ccS4UP0l.s 			page 49
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 test.c
+     /tmp/ccS4UP0l.s:18     .rodata.DrawTestPage.str1.4:0000000000000000 $d
+     /tmp/ccS4UP0l.s:22     .text.DrawTestPage:0000000000000000 $t
+     /tmp/ccS4UP0l.s:30     .text.DrawTestPage:0000000000000000 DrawTestPage
+     /tmp/ccS4UP0l.s:139    .text.DrawTestPage:000000000000008c $d
+     /tmp/ccS4UP0l.s:146    .rodata.Rtp_Test.str1.4:0000000000000000 $d
+     /tmp/ccS4UP0l.s:153    .text.Rtp_Test:0000000000000000 $t
+     /tmp/ccS4UP0l.s:160    .text.Rtp_Test:0000000000000000 Rtp_Test
+     /tmp/ccS4UP0l.s:465    .text.Rtp_Test:000000000000018c $d
+     /tmp/ccS4UP0l.s:477    .rodata.Ctp_Test.str1.4:0000000000000000 $d
+     /tmp/ccS4UP0l.s:482    .text.Ctp_Test:0000000000000000 $t
+     /tmp/ccS4UP0l.s:489    .text.Ctp_Test:0000000000000000 Ctp_Test
+     /tmp/ccS4UP0l.s:743    .text.Ctp_Test:000000000000014c $d
+     /tmp/ccS4UP0l.s:755    .rodata.Touch_Test.str1.4:0000000000000000 $d
+     /tmp/ccS4UP0l.s:759    .text.Touch_Test:0000000000000000 $t
+     /tmp/ccS4UP0l.s:766    .text.Touch_Test:0000000000000000 Touch_Test
+     /tmp/ccS4UP0l.s:799    .text.Touch_Test:000000000000001c $d
+     /tmp/ccS4UP0l.s:837    .rodata.POINT_COLOR_TBL:0000000000000000 POINT_COLOR_TBL
+     /tmp/ccS4UP0l.s:823    .data.ColornTab:0000000000000000 ColornTab
+     /tmp/ccS4UP0l.s:813    .data.ColorTab:0000000000000000 ColorTab
+     /tmp/ccS4UP0l.s:847    .rodata.gImage_qq:0000000000000000 gImage_qq
+     /tmp/ccS4UP0l.s:809    .data.ColorTab:0000000000000000 $d
+     /tmp/ccS4UP0l.s:820    .data.ColornTab:0000000000000000 $d
+     /tmp/ccS4UP0l.s:833    .rodata.POINT_COLOR_TBL:0000000000000000 $d
+     /tmp/ccS4UP0l.s:844    .rodata.gImage_qq:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+LCD_Fill
+Gui_StrCenter
+POINT_COLOR
+lcddev
+LCD_ShowString
+delay_ms
+KEY_Scan
+RTP_Scan
+RTP_Draw_Big_Point
+LCD_Clear
+RTP_Adjust
+RTP_Save_Adjdata
+tp_dev
+LCD_DrawLine2
+puts

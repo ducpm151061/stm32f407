@@ -1,0 +1,1859 @@
+ARM GAS  /tmp/ccZlqxch.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"GT911.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.GT911_int_sync,"ax",%progbits
+  18              		.align	1
+  19              		.global	GT911_int_sync
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	GT911_int_sync:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Core/Src/GT911.c"
+   1:Core/Src/GT911.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/GT911.c **** //±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
+   3:Core/Src/GT911.c **** //²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
+   4:Core/Src/GT911.c **** //QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+   5:Core/Src/GT911.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/GT911.c **** //¹«Ë¾ÍøÕ¾:www.qdtft.com
+   7:Core/Src/GT911.c **** //wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
+   8:Core/Src/GT911.c **** //ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
+   9:Core/Src/GT911.c **** //¹Ì»°(´«Õæ) :+86 0755-21077707 
+  10:Core/Src/GT911.c **** //ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
+  11:Core/Src/GT911.c **** //ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
+  12:Core/Src/GT911.c **** //QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
+  13:Core/Src/GT911.c **** //¼¼Êõ½»Á÷QQÈº:778679828
+  14:Core/Src/GT911.c **** //´´½¨ÈÕÆÚ:2020/06/29
+  15:Core/Src/GT911.c **** //°æ±¾£ºV1.0
+  16:Core/Src/GT911.c **** //°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
+  17:Core/Src/GT911.c **** //Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+  18:Core/Src/GT911.c **** //All rights reserved
+  19:Core/Src/GT911.c **** /************************************************************************************
+  20:Core/Src/GT911.c **** //STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å´¥ÃþÆÁÊ¾Àý
+  21:Core/Src/GT911.c **** //     LED0                 --->            PA1
+  22:Core/Src/GT911.c **** //     KEY0                 --->            PE4
+  23:Core/Src/GT911.c **** //     24C02_IIC_SCL        --->            PB8
+  24:Core/Src/GT911.c **** //     24C02_IIC_SDA        --->            PB9
+  25:Core/Src/GT911.c **** //Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  26:Core/Src/GT911.c **** //TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
+  27:Core/Src/GT911.c **** //STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
+  28:Core/Src/GT911.c **** //=================================µçÔ´½ÓÏß=======================================//
+  29:Core/Src/GT911.c **** //     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+ARM GAS  /tmp/ccZlqxch.s 			page 2
+
+
+  30:Core/Src/GT911.c **** //      VDD           --->           DC5V/3.3V          //µçÔ´
+  31:Core/Src/GT911.c **** //      GND           --->             GND              //µçÔ´µØ
+  32:Core/Src/GT911.c **** //=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
+  33:Core/Src/GT911.c **** //     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+  34:Core/Src/GT911.c **** //      DB0           --->            PD14        -|   
+  35:Core/Src/GT911.c **** //      DB1           --->            PD15         |  
+  36:Core/Src/GT911.c **** //      DB2           --->            PD0          | 
+  37:Core/Src/GT911.c **** //      DB3           --->            PD1          | 
+  38:Core/Src/GT911.c **** //      DB4           --->            PE7          |
+  39:Core/Src/GT911.c **** //      DB5           --->            PE8          |
+  40:Core/Src/GT911.c **** //      DB6           --->            PE9          |
+  41:Core/Src/GT911.c **** //      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+  42:Core/Src/GT911.c **** //      DB8           --->            PE11         |
+  43:Core/Src/GT911.c **** //      DB9           --->            PE12         |
+  44:Core/Src/GT911.c **** //      DB10          --->            PE13         |
+  45:Core/Src/GT911.c **** //      DB11          --->            PE14         |
+  46:Core/Src/GT911.c **** //      DB12          --->            PE15         |
+  47:Core/Src/GT911.c **** //      DB13          --->            PD8          |
+  48:Core/Src/GT911.c **** //      DB14          --->            PD9          |
+  49:Core/Src/GT911.c **** //      DB15          --->            PD10        -|
+  50:Core/Src/GT911.c **** //=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
+  51:Core/Src/GT911.c **** //     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
+  52:Core/Src/GT911.c **** //      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
+  53:Core/Src/GT911.c **** //      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
+  54:Core/Src/GT911.c **** //      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
+  55:Core/Src/GT911.c **** //      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
+  56:Core/Src/GT911.c **** //      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
+  57:Core/Src/GT911.c **** //      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
+  58:Core/Src/GT911.c **** //===============================´¥ÃþÆÁ´¥½ÓÏß=====================================//
+  59:Core/Src/GT911.c **** //	   LCDÄ£¿é                    STM32Á¬½ÓÒý½Å 
+  60:Core/Src/GT911.c **** //      PEN           --->            PB1             //µçÈÝ»òµç×è´¥ÃþÆÁ´¥ÃþÖÐ¶ÏÐÅºÅ
+  61:Core/Src/GT911.c **** //      MI            --->            PB2             //µç×è´¥ÃþÆÁSPI×ÜÏß¶ÁÐÅºÅ
+  62:Core/Src/GT911.c **** //      MO            --->            PC4             //µç×è´¥ÃþÆÁSPI×ÜÏßÐ´ÐÅºÅ»òµçÈÝ´¥ÃþÆÁIIC×ÜÏßÊ
+  63:Core/Src/GT911.c **** //      TCS           --->            PC13            //µç×è´¥ÃþÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ»òµçÈÝ´¥ÃþÆÁ¸´Î»ÐÅºÅ
+  64:Core/Src/GT911.c **** //      TCK           --->            PB0             //µç×è´¥ÃþÆÁSPI×ÜÏß»òµçÈÝ´¥ÃþÆÁIIC×ÜÏßÊ±ÖÓÐÅº
+  65:Core/Src/GT911.c **** *************************************************************************************/	
+  66:Core/Src/GT911.c ****  /* @attention
+  67:Core/Src/GT911.c ****   *
+  68:Core/Src/GT911.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  69:Core/Src/GT911.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  70:Core/Src/GT911.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  71:Core/Src/GT911.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  72:Core/Src/GT911.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  73:Core/Src/GT911.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  74:Core/Src/GT911.c **** *************************************************************************************/
+  75:Core/Src/GT911.c **** #include "GT911.h"
+  76:Core/Src/GT911.c **** #include "ctpiic.h"
+  77:Core/Src/GT911.c **** #include "delay.h"
+  78:Core/Src/GT911.c **** #include "touch.h"
+  79:Core/Src/GT911.c **** #include "lcd.h"
+  80:Core/Src/GT911.c **** #include "exti.h"
+  81:Core/Src/GT911.c **** 
+  82:Core/Src/GT911.c **** extern u8 touch_flag;
+  83:Core/Src/GT911.c **** 
+  84:Core/Src/GT911.c **** /*****************************************************************************
+  85:Core/Src/GT911.c ****  * @name       :void GT911_int_sync(u16 ms)
+  86:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ARM GAS  /tmp/ccZlqxch.s 			page 3
+
+
+  87:Core/Src/GT911.c ****  * @function   :GT911 initialization synchronization
+  88:Core/Src/GT911.c ****  * @parameters :ms:Synchronization delay
+  89:Core/Src/GT911.c ****  * @retvalue   :None
+  90:Core/Src/GT911.c **** ******************************************************************************/
+  91:Core/Src/GT911.c **** void GT911_int_sync(u16 ms)
+  92:Core/Src/GT911.c **** {
+  30              		.loc 1 92 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 92 1 is_stmt 0 view .LVU1
+  35 0000 08B5     		push	{r3, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+  93:Core/Src/GT911.c **** 	INT_CTRL=0;
+  40              		.loc 1 93 2 is_stmt 1 view .LVU2
+  41              		.loc 1 93 10 is_stmt 0 view .LVU3
+  42 0002 064B     		ldr	r3, .L3
+  43 0004 0022     		movs	r2, #0
+  44 0006 1A60     		str	r2, [r3]
+  94:Core/Src/GT911.c **** 	delay_ms(ms);
+  45              		.loc 1 94 2 is_stmt 1 view .LVU4
+  46 0008 FFF7FEFF 		bl	delay_ms
+  47              	.LVL1:
+  95:Core/Src/GT911.c **** 	INT_IN();
+  48              		.loc 1 95 2 view .LVU5
+  49 000c 044B     		ldr	r3, .L3+4
+  50 000e 1A68     		ldr	r2, [r3]
+  51 0010 22F00C02 		bic	r2, r2, #12
+  52 0014 1A60     		str	r2, [r3]
+  53              		.loc 1 95 2 view .LVU6
+  54 0016 1A68     		ldr	r2, [r3]
+  55 0018 1A60     		str	r2, [r3]
+  56              		.loc 1 95 10 view .LVU7
+  96:Core/Src/GT911.c **** }	
+  57              		.loc 1 96 1 is_stmt 0 view .LVU8
+  58 001a 08BD     		pop	{r3, pc}
+  59              	.L4:
+  60              		.align	2
+  61              	.L3:
+  62 001c 84824042 		.word	1111523972
+  63 0020 00040240 		.word	1073873920
+  64              		.cfi_endproc
+  65              	.LFE130:
+  67              		.section	.text.GT911_reset_guitar,"ax",%progbits
+  68              		.align	1
+  69              		.global	GT911_reset_guitar
+  70              		.syntax unified
+  71              		.thumb
+  72              		.thumb_func
+  73              		.fpu fpv4-sp-d16
+  75              	GT911_reset_guitar:
+  76              	.LVL2:
+  77              	.LFB131:
+  97:Core/Src/GT911.c **** 
+ARM GAS  /tmp/ccZlqxch.s 			page 4
+
+
+  98:Core/Src/GT911.c **** /*****************************************************************************
+  99:Core/Src/GT911.c ****  * @name       :void GT911_reset_guitar(u8 addr)
+ 100:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 101:Core/Src/GT911.c ****  * @function   :GT911 reset
+ 102:Core/Src/GT911.c ****  * @parameters :add:IIC bus address
+ 103:Core/Src/GT911.c ****  * @retvalue   :None
+ 104:Core/Src/GT911.c **** ******************************************************************************/
+ 105:Core/Src/GT911.c **** void GT911_reset_guitar(u8 addr)
+ 106:Core/Src/GT911.c **** {
+  78              		.loc 1 106 1 is_stmt 1 view -0
+  79              		.cfi_startproc
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		.loc 1 106 1 is_stmt 0 view .LVU10
+  83 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  84              	.LCFI1:
+  85              		.cfi_def_cfa_offset 24
+  86              		.cfi_offset 3, -24
+  87              		.cfi_offset 4, -20
+  88              		.cfi_offset 5, -16
+  89              		.cfi_offset 6, -12
+  90              		.cfi_offset 7, -8
+  91              		.cfi_offset 14, -4
+  92 0002 0446     		mov	r4, r0
+ 107:Core/Src/GT911.c **** 	INT_CTRL=1;
+  93              		.loc 1 107 2 is_stmt 1 view .LVU11
+  94              		.loc 1 107 10 is_stmt 0 view .LVU12
+  95 0004 0D4F     		ldr	r7, .L7
+  96 0006 0126     		movs	r6, #1
+  97 0008 3E60     		str	r6, [r7]
+ 108:Core/Src/GT911.c **** 	RST_CTRL=1;
+  98              		.loc 1 108 2 is_stmt 1 view .LVU13
+  99              		.loc 1 108 10 is_stmt 0 view .LVU14
+ 100 000a 0D4D     		ldr	r5, .L7+4
+ 101 000c 2E60     		str	r6, [r5]
+ 109:Core/Src/GT911.c **** 	delay_ms(20);
+ 102              		.loc 1 109 2 is_stmt 1 view .LVU15
+ 103 000e 1420     		movs	r0, #20
+ 104              	.LVL3:
+ 105              		.loc 1 109 2 is_stmt 0 view .LVU16
+ 106 0010 FFF7FEFF 		bl	delay_ms
+ 107              	.LVL4:
+ 110:Core/Src/GT911.c **** 	RST_CTRL=0;
+ 108              		.loc 1 110 2 is_stmt 1 view .LVU17
+ 109              		.loc 1 110 10 is_stmt 0 view .LVU18
+ 110 0014 0023     		movs	r3, #0
+ 111 0016 2B60     		str	r3, [r5]
+ 111:Core/Src/GT911.c **** 	INT_CTRL=0;
+ 112              		.loc 1 111 2 is_stmt 1 view .LVU19
+ 113              		.loc 1 111 10 is_stmt 0 view .LVU20
+ 114 0018 3B60     		str	r3, [r7]
+ 112:Core/Src/GT911.c **** 	delay_ms(20);
+ 115              		.loc 1 112 2 is_stmt 1 view .LVU21
+ 116 001a 1420     		movs	r0, #20
+ 117 001c FFF7FEFF 		bl	delay_ms
+ 118              	.LVL5:
+ 113:Core/Src/GT911.c **** 	INT_CTRL=(addr == 0x28);
+ARM GAS  /tmp/ccZlqxch.s 			page 5
+
+
+ 119              		.loc 1 113 2 view .LVU22
+ 120              		.loc 1 113 17 is_stmt 0 view .LVU23
+ 121 0020 282C     		cmp	r4, #40
+ 122 0022 14BF     		ite	ne
+ 123 0024 0024     		movne	r4, #0
+ 124 0026 0124     		moveq	r4, #1
+ 125              		.loc 1 113 10 view .LVU24
+ 126 0028 3C60     		str	r4, [r7]
+ 114:Core/Src/GT911.c **** 	delay_ms(20);
+ 127              		.loc 1 114 2 is_stmt 1 view .LVU25
+ 128 002a 1420     		movs	r0, #20
+ 129 002c FFF7FEFF 		bl	delay_ms
+ 130              	.LVL6:
+ 115:Core/Src/GT911.c **** 	RST_CTRL=1;
+ 131              		.loc 1 115 2 view .LVU26
+ 132              		.loc 1 115 10 is_stmt 0 view .LVU27
+ 133 0030 2E60     		str	r6, [r5]
+ 116:Core/Src/GT911.c **** 	delay_ms(20);
+ 134              		.loc 1 116 2 is_stmt 1 view .LVU28
+ 135 0032 1420     		movs	r0, #20
+ 136 0034 FFF7FEFF 		bl	delay_ms
+ 137              	.LVL7:
+ 117:Core/Src/GT911.c **** }
+ 138              		.loc 1 117 1 is_stmt 0 view .LVU29
+ 139 0038 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 140              	.L8:
+ 141 003a 00BF     		.align	2
+ 142              	.L7:
+ 143 003c 84824042 		.word	1111523972
+ 144 0040 B4024142 		.word	1111556788
+ 145              		.cfi_endproc
+ 146              	.LFE131:
+ 148              		.section	.text.GT911_reset,"ax",%progbits
+ 149              		.align	1
+ 150              		.global	GT911_reset
+ 151              		.syntax unified
+ 152              		.thumb
+ 153              		.thumb_func
+ 154              		.fpu fpv4-sp-d16
+ 156              	GT911_reset:
+ 157              	.LFB132:
+ 118:Core/Src/GT911.c **** 
+ 119:Core/Src/GT911.c **** /*****************************************************************************
+ 120:Core/Src/GT911.c ****  * @name       :void GT911_reset(void)
+ 121:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 122:Core/Src/GT911.c ****  * @function   :GT911 reset
+ 123:Core/Src/GT911.c ****  * @parameters :None
+ 124:Core/Src/GT911.c ****  * @retvalue   :None
+ 125:Core/Src/GT911.c **** ******************************************************************************/
+ 126:Core/Src/GT911.c **** void GT911_reset(void)
+ 127:Core/Src/GT911.c **** {
+ 158              		.loc 1 127 1 is_stmt 1 view -0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162 0000 10B5     		push	{r4, lr}
+ 163              	.LCFI2:
+ARM GAS  /tmp/ccZlqxch.s 			page 6
+
+
+ 164              		.cfi_def_cfa_offset 8
+ 165              		.cfi_offset 4, -8
+ 166              		.cfi_offset 14, -4
+ 128:Core/Src/GT911.c **** 	RST_CTRL=0;
+ 167              		.loc 1 128 2 view .LVU31
+ 168              		.loc 1 128 10 is_stmt 0 view .LVU32
+ 169 0002 064C     		ldr	r4, .L11
+ 170 0004 0023     		movs	r3, #0
+ 171 0006 2360     		str	r3, [r4]
+ 129:Core/Src/GT911.c **** 	delay_ms(10);
+ 172              		.loc 1 129 2 is_stmt 1 view .LVU33
+ 173 0008 0A20     		movs	r0, #10
+ 174 000a FFF7FEFF 		bl	delay_ms
+ 175              	.LVL8:
+ 130:Core/Src/GT911.c **** 	RST_CTRL=1;
+ 176              		.loc 1 130 2 view .LVU34
+ 177              		.loc 1 130 10 is_stmt 0 view .LVU35
+ 178 000e 0123     		movs	r3, #1
+ 179 0010 2360     		str	r3, [r4]
+ 131:Core/Src/GT911.c **** 	delay_ms(10);
+ 180              		.loc 1 131 2 is_stmt 1 view .LVU36
+ 181 0012 0A20     		movs	r0, #10
+ 182 0014 FFF7FEFF 		bl	delay_ms
+ 183              	.LVL9:
+ 132:Core/Src/GT911.c **** }
+ 184              		.loc 1 132 1 is_stmt 0 view .LVU37
+ 185 0018 10BD     		pop	{r4, pc}
+ 186              	.L12:
+ 187 001a 00BF     		.align	2
+ 188              	.L11:
+ 189 001c B4024142 		.word	1111556788
+ 190              		.cfi_endproc
+ 191              	.LFE132:
+ 193              		.section	.text.GT911_gpio_init,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	GT911_gpio_init
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 199              		.fpu fpv4-sp-d16
+ 201              	GT911_gpio_init:
+ 202              	.LFB133:
+ 133:Core/Src/GT911.c **** 
+ 134:Core/Src/GT911.c **** /*****************************************************************************
+ 135:Core/Src/GT911.c ****  * @name       :void GT911_gpio_init(void)
+ 136:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 137:Core/Src/GT911.c ****  * @function   :GT911 IC gpio initialization
+ 138:Core/Src/GT911.c ****  * @parameters :None
+ 139:Core/Src/GT911.c ****  * @retvalue   :None
+ 140:Core/Src/GT911.c **** ******************************************************************************/
+ 141:Core/Src/GT911.c **** void GT911_gpio_init(void)
+ 142:Core/Src/GT911.c **** {
+ 203              		.loc 1 142 1 is_stmt 1 view -0
+ 204              		.cfi_startproc
+ 205              		@ args = 0, pretend = 0, frame = 8
+ 206              		@ frame_needed = 0, uses_anonymous_args = 0
+ 207 0000 30B5     		push	{r4, r5, lr}
+ARM GAS  /tmp/ccZlqxch.s 			page 7
+
+
+ 208              	.LCFI3:
+ 209              		.cfi_def_cfa_offset 12
+ 210              		.cfi_offset 4, -12
+ 211              		.cfi_offset 5, -8
+ 212              		.cfi_offset 14, -4
+ 213 0002 83B0     		sub	sp, sp, #12
+ 214              	.LCFI4:
+ 215              		.cfi_def_cfa_offset 24
+ 143:Core/Src/GT911.c ****   GPIO_InitTypeDef  GPIO_InitStructure;
+ 216              		.loc 1 143 3 view .LVU39
+ 144:Core/Src/GT911.c **** 
+ 145:Core/Src/GT911.c **** 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOC,ENABLE);//Ê¹ÄÜPORTB,CÊ±ÖÓ
+ 217              		.loc 1 145 2 view .LVU40
+ 218 0004 0121     		movs	r1, #1
+ 219 0006 0620     		movs	r0, #6
+ 220 0008 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+ 221              	.LVL10:
+ 146:Core/Src/GT911.c **** 	
+ 147:Core/Src/GT911.c **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;				 //PB1 ÊäÈë
+ 222              		.loc 1 147 2 view .LVU41
+ 223              		.loc 1 147 30 is_stmt 0 view .LVU42
+ 224 000c 0223     		movs	r3, #2
+ 225 000e 0093     		str	r3, [sp]
+ 148:Core/Src/GT911.c **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//ÊäÈëÄ£Ê½
+ 226              		.loc 1 148 2 is_stmt 1 view .LVU43
+ 227              		.loc 1 148 31 is_stmt 0 view .LVU44
+ 228 0010 0023     		movs	r3, #0
+ 229 0012 8DF80430 		strb	r3, [sp, #4]
+ 149:Core/Src/GT911.c **** 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+ 230              		.loc 1 149 2 is_stmt 1 view .LVU45
+ 231              		.loc 1 149 32 is_stmt 0 view .LVU46
+ 232 0016 8DF80630 		strb	r3, [sp, #6]
+ 150:Core/Src/GT911.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+ 233              		.loc 1 150 2 is_stmt 1 view .LVU47
+ 234              		.loc 1 150 32 is_stmt 0 view .LVU48
+ 235 001a 0323     		movs	r3, #3
+ 236 001c 8DF80530 		strb	r3, [sp, #5]
+ 151:Core/Src/GT911.c **** 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­	 
+ 237              		.loc 1 151 2 is_stmt 1 view .LVU49
+ 238              		.loc 1 151 31 is_stmt 0 view .LVU50
+ 239 0020 0125     		movs	r5, #1
+ 240 0022 8DF80750 		strb	r5, [sp, #7]
+ 152:Core/Src/GT911.c **** 	GPIO_Init(GPIOB, &GPIO_InitStructure);				  
+ 241              		.loc 1 152 2 is_stmt 1 view .LVU51
+ 242 0026 124C     		ldr	r4, .L15
+ 243 0028 6946     		mov	r1, sp
+ 244 002a 2046     		mov	r0, r4
+ 245 002c FFF7FEFF 		bl	GPIO_Init
+ 246              	.LVL11:
+ 153:Core/Src/GT911.c **** 
+ 154:Core/Src/GT911.c **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;				 //PF11 ÍÆÍìÊä³ö
+ 247              		.loc 1 154 2 view .LVU52
+ 248              		.loc 1 154 30 is_stmt 0 view .LVU53
+ 249 0030 4FF40053 		mov	r3, #8192
+ 250 0034 0093     		str	r3, [sp]
+ 155:Core/Src/GT911.c ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; 		  
+ 251              		.loc 1 155 3 is_stmt 1 view .LVU54
+ARM GAS  /tmp/ccZlqxch.s 			page 8
+
+
+ 252              		.loc 1 155 32 is_stmt 0 view .LVU55
+ 253 0036 8DF80450 		strb	r5, [sp, #4]
+ 156:Core/Src/GT911.c **** 	GPIO_Init(GPIOC, &GPIO_InitStructure);					 
+ 254              		.loc 1 156 2 is_stmt 1 view .LVU56
+ 255 003a 0E4D     		ldr	r5, .L15+4
+ 256 003c 6946     		mov	r1, sp
+ 257 003e 2846     		mov	r0, r5
+ 258 0040 FFF7FEFF 		bl	GPIO_Init
+ 259              	.LVL12:
+ 157:Core/Src/GT911.c **** #if SCAN_TYPE
+ 158:Core/Src/GT911.c **** 	Touch_EXTI_Init();
+ 159:Core/Src/GT911.c **** #endif		
+ 160:Core/Src/GT911.c **** 	CTP_IIC_Init();
+ 260              		.loc 1 160 2 view .LVU57
+ 261 0044 FFF7FEFF 		bl	CTP_IIC_Init
+ 262              	.LVL13:
+ 161:Core/Src/GT911.c **** 	RST_OUT();
+ 263              		.loc 1 161 2 view .LVU58
+ 264 0048 2B68     		ldr	r3, [r5]
+ 265 004a 23F04063 		bic	r3, r3, #201326592
+ 266 004e 2B60     		str	r3, [r5]
+ 267              		.loc 1 161 2 view .LVU59
+ 268 0050 2B68     		ldr	r3, [r5]
+ 269 0052 43F08063 		orr	r3, r3, #67108864
+ 270 0056 2B60     		str	r3, [r5]
+ 271              		.loc 1 161 11 view .LVU60
+ 162:Core/Src/GT911.c **** 	INT_OUT();
+ 272              		.loc 1 162 2 view .LVU61
+ 273 0058 2368     		ldr	r3, [r4]
+ 274 005a 23F00C03 		bic	r3, r3, #12
+ 275 005e 2360     		str	r3, [r4]
+ 276              		.loc 1 162 2 view .LVU62
+ 277 0060 2368     		ldr	r3, [r4]
+ 278 0062 43F00403 		orr	r3, r3, #4
+ 279 0066 2360     		str	r3, [r4]
+ 280              		.loc 1 162 11 view .LVU63
+ 163:Core/Src/GT911.c **** 	GT911_reset();
+ 281              		.loc 1 163 2 view .LVU64
+ 282 0068 FFF7FEFF 		bl	GT911_reset
+ 283              	.LVL14:
+ 164:Core/Src/GT911.c **** }
+ 284              		.loc 1 164 1 is_stmt 0 view .LVU65
+ 285 006c 03B0     		add	sp, sp, #12
+ 286              	.LCFI5:
+ 287              		.cfi_def_cfa_offset 12
+ 288              		@ sp needed
+ 289 006e 30BD     		pop	{r4, r5, pc}
+ 290              	.L16:
+ 291              		.align	2
+ 292              	.L15:
+ 293 0070 00040240 		.word	1073873920
+ 294 0074 00080240 		.word	1073874944
+ 295              		.cfi_endproc
+ 296              	.LFE133:
+ 298              		.section	.text.GT9XX_WriteHandle,"ax",%progbits
+ 299              		.align	1
+ 300              		.global	GT9XX_WriteHandle
+ARM GAS  /tmp/ccZlqxch.s 			page 9
+
+
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 304              		.fpu fpv4-sp-d16
+ 306              	GT9XX_WriteHandle:
+ 307              	.LVL15:
+ 308              	.LFB134:
+ 165:Core/Src/GT911.c **** 
+ 166:Core/Src/GT911.c **** /*****************************************************************************
+ 167:Core/Src/GT911.c ****  * @name       :u8 GT9XX_WriteHandle (u16 addr)
+ 168:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 169:Core/Src/GT911.c ****  * @function   :GT911 IC write handle
+ 170:Core/Src/GT911.c ****  * @parameters :addr:register address
+ 171:Core/Src/GT911.c ****  * @retvalue   :the status of writen
+ 172:Core/Src/GT911.c **** ******************************************************************************/
+ 173:Core/Src/GT911.c **** u8 GT9XX_WriteHandle (u16 addr)
+ 174:Core/Src/GT911.c **** {
+ 309              		.loc 1 174 1 is_stmt 1 view -0
+ 310              		.cfi_startproc
+ 311              		@ args = 0, pretend = 0, frame = 0
+ 312              		@ frame_needed = 0, uses_anonymous_args = 0
+ 313              		.loc 1 174 1 is_stmt 0 view .LVU67
+ 314 0000 10B5     		push	{r4, lr}
+ 315              	.LCFI6:
+ 316              		.cfi_def_cfa_offset 8
+ 317              		.cfi_offset 4, -8
+ 318              		.cfi_offset 14, -4
+ 319 0002 0446     		mov	r4, r0
+ 175:Core/Src/GT911.c **** 	u8 status;
+ 320              		.loc 1 175 2 is_stmt 1 view .LVU68
+ 176:Core/Src/GT911.c **** 
+ 177:Core/Src/GT911.c **** 	CTP_IIC_Start();
+ 321              		.loc 1 177 2 view .LVU69
+ 322 0004 FFF7FEFF 		bl	CTP_IIC_Start
+ 323              	.LVL16:
+ 178:Core/Src/GT911.c **** 	CTP_IIC_Send_Byte(GT9XX_IIC_WADDR); //Ð´Êý¾ÝÖ¸Áî
+ 324              		.loc 1 178 2 view .LVU70
+ 325 0008 BA20     		movs	r0, #186
+ 326 000a FFF7FEFF 		bl	CTP_IIC_Send_Byte
+ 327              	.LVL17:
+ 179:Core/Src/GT911.c **** 	CTP_IIC_Wait_Ack(); 
+ 328              		.loc 1 179 2 view .LVU71
+ 329 000e FFF7FEFF 		bl	CTP_IIC_Wait_Ack
+ 330              	.LVL18:
+ 180:Core/Src/GT911.c **** 	CTP_IIC_Send_Byte((u8)(addr >> 8)); //Ð´Èë16Î»µØÖ·
+ 331              		.loc 1 180 2 view .LVU72
+ 332 0012 200A     		lsrs	r0, r4, #8
+ 333 0014 FFF7FEFF 		bl	CTP_IIC_Send_Byte
+ 334              	.LVL19:
+ 181:Core/Src/GT911.c **** 	CTP_IIC_Wait_Ack(); 
+ 335              		.loc 1 181 2 view .LVU73
+ 336 0018 FFF7FEFF 		bl	CTP_IIC_Wait_Ack
+ 337              	.LVL20:
+ 182:Core/Src/GT911.c **** 	CTP_IIC_Send_Byte((u8)addr);
+ 338              		.loc 1 182 2 view .LVU74
+ 339 001c E0B2     		uxtb	r0, r4
+ 340 001e FFF7FEFF 		bl	CTP_IIC_Send_Byte
+ARM GAS  /tmp/ccZlqxch.s 			page 10
+
+
+ 341              	.LVL21:
+ 183:Core/Src/GT911.c **** 	CTP_IIC_Wait_Ack(); 
+ 342              		.loc 1 183 2 view .LVU75
+ 343 0022 FFF7FEFF 		bl	CTP_IIC_Wait_Ack
+ 344              	.LVL22:
+ 184:Core/Src/GT911.c **** 	status = SUCCESS;
+ 345              		.loc 1 184 2 view .LVU76
+ 185:Core/Src/GT911.c **** 	return status;	
+ 346              		.loc 1 185 2 view .LVU77
+ 186:Core/Src/GT911.c **** }
+ 347              		.loc 1 186 1 is_stmt 0 view .LVU78
+ 348 0026 0120     		movs	r0, #1
+ 349 0028 10BD     		pop	{r4, pc}
+ 350              		.cfi_endproc
+ 351              	.LFE134:
+ 353              		.section	.text.GT9XX_WriteData,"ax",%progbits
+ 354              		.align	1
+ 355              		.global	GT9XX_WriteData
+ 356              		.syntax unified
+ 357              		.thumb
+ 358              		.thumb_func
+ 359              		.fpu fpv4-sp-d16
+ 361              	GT9XX_WriteData:
+ 362              	.LVL23:
+ 363              	.LFB135:
+ 187:Core/Src/GT911.c **** 
+ 188:Core/Src/GT911.c **** /*****************************************************************************
+ 189:Core/Src/GT911.c ****  * @name       :u8 GT9XX_WriteData (u16 addr,u8 value)
+ 190:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 191:Core/Src/GT911.c ****  * @function   :GT911 write data to register
+ 192:Core/Src/GT911.c ****  * @parameters :addr:register address
+ 193:Core/Src/GT911.c ****                 value:the value for writen
+ 194:Core/Src/GT911.c ****  * @retvalue   :the status of writen
+ 195:Core/Src/GT911.c **** ******************************************************************************/
+ 196:Core/Src/GT911.c **** u8 GT9XX_WriteData (u16 addr,u8 value)
+ 197:Core/Src/GT911.c **** {
+ 364              		.loc 1 197 1 is_stmt 1 view -0
+ 365              		.cfi_startproc
+ 366              		@ args = 0, pretend = 0, frame = 0
+ 367              		@ frame_needed = 0, uses_anonymous_args = 0
+ 368              		.loc 1 197 1 is_stmt 0 view .LVU80
+ 369 0000 38B5     		push	{r3, r4, r5, lr}
+ 370              	.LCFI7:
+ 371              		.cfi_def_cfa_offset 16
+ 372              		.cfi_offset 3, -16
+ 373              		.cfi_offset 4, -12
+ 374              		.cfi_offset 5, -8
+ 375              		.cfi_offset 14, -4
+ 376 0002 0546     		mov	r5, r0
+ 377 0004 0C46     		mov	r4, r1
+ 198:Core/Src/GT911.c **** 	u8 status;
+ 378              		.loc 1 198 2 is_stmt 1 view .LVU81
+ 199:Core/Src/GT911.c **** 	CTP_IIC_Start();
+ 379              		.loc 1 199 2 view .LVU82
+ 380 0006 FFF7FEFF 		bl	CTP_IIC_Start
+ 381              	.LVL24:
+ 200:Core/Src/GT911.c **** 
+ARM GAS  /tmp/ccZlqxch.s 			page 11
+
+
+ 201:Core/Src/GT911.c **** 	GT9XX_WriteHandle(addr);
+ 382              		.loc 1 201 2 view .LVU83
+ 383 000a 2846     		mov	r0, r5
+ 384 000c FFF7FEFF 		bl	GT9XX_WriteHandle
+ 385              	.LVL25:
+ 202:Core/Src/GT911.c **** 	CTP_IIC_Send_Byte(value);
+ 386              		.loc 1 202 2 view .LVU84
+ 387 0010 2046     		mov	r0, r4
+ 388 0012 FFF7FEFF 		bl	CTP_IIC_Send_Byte
+ 389              	.LVL26:
+ 203:Core/Src/GT911.c **** 	CTP_IIC_Wait_Ack(); 
+ 390              		.loc 1 203 2 view .LVU85
+ 391 0016 FFF7FEFF 		bl	CTP_IIC_Wait_Ack
+ 392              	.LVL27:
+ 204:Core/Src/GT911.c **** 	CTP_IIC_Stop();	
+ 393              		.loc 1 204 2 view .LVU86
+ 394 001a FFF7FEFF 		bl	CTP_IIC_Stop
+ 395              	.LVL28:
+ 205:Core/Src/GT911.c **** 	status = SUCCESS;
+ 396              		.loc 1 205 2 view .LVU87
+ 206:Core/Src/GT911.c **** 	return status;
+ 397              		.loc 1 206 2 view .LVU88
+ 207:Core/Src/GT911.c **** }
+ 398              		.loc 1 207 1 is_stmt 0 view .LVU89
+ 399 001e 0120     		movs	r0, #1
+ 400 0020 38BD     		pop	{r3, r4, r5, pc}
+ 401              		.cfi_endproc
+ 402              	.LFE135:
+ 404              		.section	.text.GT9XX_ReadData,"ax",%progbits
+ 405              		.align	1
+ 406              		.global	GT9XX_ReadData
+ 407              		.syntax unified
+ 408              		.thumb
+ 409              		.thumb_func
+ 410              		.fpu fpv4-sp-d16
+ 412              	GT9XX_ReadData:
+ 413              	.LVL29:
+ 414              	.LFB136:
+ 208:Core/Src/GT911.c **** 
+ 209:Core/Src/GT911.c **** /*****************************************************************************
+ 210:Core/Src/GT911.c ****  * @name       :u8 GT9XX_ReadData (u16 addr, u8 cnt, u8 *value)
+ 211:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 212:Core/Src/GT911.c ****  * @function   :GT911 read data to register
+ 213:Core/Src/GT911.c ****  * @parameters :addr:register address
+ 214:Core/Src/GT911.c ****                 cnt:the number of data which is read
+ 215:Core/Src/GT911.c ****                 value:the point of read data
+ 216:Core/Src/GT911.c ****  * @retvalue   :the status of writen
+ 217:Core/Src/GT911.c **** ******************************************************************************/
+ 218:Core/Src/GT911.c **** u8 GT9XX_ReadData (u16 addr, u8 cnt, u8 *value)
+ 219:Core/Src/GT911.c **** {
+ 415              		.loc 1 219 1 is_stmt 1 view -0
+ 416              		.cfi_startproc
+ 417              		@ args = 0, pretend = 0, frame = 0
+ 418              		@ frame_needed = 0, uses_anonymous_args = 0
+ 419              		.loc 1 219 1 is_stmt 0 view .LVU91
+ 420 0000 70B5     		push	{r4, r5, r6, lr}
+ 421              	.LCFI8:
+ARM GAS  /tmp/ccZlqxch.s 			page 12
+
+
+ 422              		.cfi_def_cfa_offset 16
+ 423              		.cfi_offset 4, -16
+ 424              		.cfi_offset 5, -12
+ 425              		.cfi_offset 6, -8
+ 426              		.cfi_offset 14, -4
+ 427 0002 0446     		mov	r4, r0
+ 428 0004 0D46     		mov	r5, r1
+ 429 0006 1646     		mov	r6, r2
+ 220:Core/Src/GT911.c **** 	u8 status;
+ 430              		.loc 1 220 2 is_stmt 1 view .LVU92
+ 221:Core/Src/GT911.c **** 	u8 i;
+ 431              		.loc 1 221 2 view .LVU93
+ 222:Core/Src/GT911.c **** 
+ 223:Core/Src/GT911.c **** 	status = ERROR;
+ 432              		.loc 1 223 2 view .LVU94
+ 433              	.LVL30:
+ 224:Core/Src/GT911.c **** 	CTP_IIC_Start();
+ 434              		.loc 1 224 2 view .LVU95
+ 435 0008 FFF7FEFF 		bl	CTP_IIC_Start
+ 436              	.LVL31:
+ 225:Core/Src/GT911.c **** 	GT9XX_WriteHandle(addr);
+ 437              		.loc 1 225 2 view .LVU96
+ 438 000c 2046     		mov	r0, r4
+ 439 000e FFF7FEFF 		bl	GT9XX_WriteHandle
+ 440              	.LVL32:
+ 226:Core/Src/GT911.c **** 	CTP_IIC_Start();
+ 441              		.loc 1 226 2 view .LVU97
+ 442 0012 FFF7FEFF 		bl	CTP_IIC_Start
+ 443              	.LVL33:
+ 227:Core/Src/GT911.c **** 	delay_us(20);
+ 444              		.loc 1 227 2 view .LVU98
+ 445 0016 1420     		movs	r0, #20
+ 446 0018 FFF7FEFF 		bl	delay_us
+ 447              	.LVL34:
+ 228:Core/Src/GT911.c **** 	CTP_IIC_Send_Byte(GT9XX_IIC_RADDR);
+ 448              		.loc 1 228 2 view .LVU99
+ 449 001c BB20     		movs	r0, #187
+ 450 001e FFF7FEFF 		bl	CTP_IIC_Send_Byte
+ 451              	.LVL35:
+ 229:Core/Src/GT911.c **** 	CTP_IIC_Wait_Ack(); 
+ 452              		.loc 1 229 2 view .LVU100
+ 453 0022 FFF7FEFF 		bl	CTP_IIC_Wait_Ack
+ 454              	.LVL36:
+ 230:Core/Src/GT911.c **** 	for(i = 0 ; i < cnt; i++)
+ 455              		.loc 1 230 2 view .LVU101
+ 456              		.loc 1 230 8 is_stmt 0 view .LVU102
+ 457 0026 0024     		movs	r4, #0
+ 458              	.LVL37:
+ 459              	.L22:
+ 460              		.loc 1 230 14 is_stmt 1 discriminator 1 view .LVU103
+ 461              		.loc 1 230 2 is_stmt 0 discriminator 1 view .LVU104
+ 462 0028 AC42     		cmp	r4, r5
+ 463 002a 09D2     		bcs	.L25
+ 231:Core/Src/GT911.c **** 	{
+ 232:Core/Src/GT911.c **** 		value[i]=CTP_IIC_Read_Byte(i == (cnt - 1)?0:1);
+ 464              		.loc 1 232 3 is_stmt 1 discriminator 3 view .LVU105
+ 465              		.loc 1 232 40 is_stmt 0 discriminator 3 view .LVU106
+ARM GAS  /tmp/ccZlqxch.s 			page 13
+
+
+ 466 002c 681E     		subs	r0, r5, #1
+ 467              		.loc 1 232 12 discriminator 3 view .LVU107
+ 468 002e 201A     		subs	r0, r4, r0
+ 469 0030 18BF     		it	ne
+ 470 0032 0120     		movne	r0, #1
+ 471 0034 FFF7FEFF 		bl	CTP_IIC_Read_Byte
+ 472              	.LVL38:
+ 473              		.loc 1 232 11 discriminator 3 view .LVU108
+ 474 0038 3055     		strb	r0, [r6, r4]
+ 230:Core/Src/GT911.c **** 	for(i = 0 ; i < cnt; i++)
+ 475              		.loc 1 230 23 is_stmt 1 discriminator 3 view .LVU109
+ 230:Core/Src/GT911.c **** 	for(i = 0 ; i < cnt; i++)
+ 476              		.loc 1 230 24 is_stmt 0 discriminator 3 view .LVU110
+ 477 003a 0134     		adds	r4, r4, #1
+ 478              	.LVL39:
+ 230:Core/Src/GT911.c **** 	for(i = 0 ; i < cnt; i++)
+ 479              		.loc 1 230 24 discriminator 3 view .LVU111
+ 480 003c E4B2     		uxtb	r4, r4
+ 481              	.LVL40:
+ 230:Core/Src/GT911.c **** 	for(i = 0 ; i < cnt; i++)
+ 482              		.loc 1 230 24 discriminator 3 view .LVU112
+ 483 003e F3E7     		b	.L22
+ 484              	.L25:
+ 233:Core/Src/GT911.c **** 	}					
+ 234:Core/Src/GT911.c **** 	CTP_IIC_Stop();
+ 485              		.loc 1 234 2 is_stmt 1 view .LVU113
+ 486 0040 FFF7FEFF 		bl	CTP_IIC_Stop
+ 487              	.LVL41:
+ 235:Core/Src/GT911.c **** 	status = SUCCESS;
+ 488              		.loc 1 235 2 view .LVU114
+ 236:Core/Src/GT911.c **** 	return (status);	
+ 489              		.loc 1 236 2 view .LVU115
+ 237:Core/Src/GT911.c **** }
+ 490              		.loc 1 237 1 is_stmt 0 view .LVU116
+ 491 0044 0120     		movs	r0, #1
+ 492 0046 70BD     		pop	{r4, r5, r6, pc}
+ 493              		.loc 1 237 1 view .LVU117
+ 494              		.cfi_endproc
+ 495              	.LFE136:
+ 497              		.section	.text.GT911_Init,"ax",%progbits
+ 498              		.align	1
+ 499              		.global	GT911_Init
+ 500              		.syntax unified
+ 501              		.thumb
+ 502              		.thumb_func
+ 503              		.fpu fpv4-sp-d16
+ 505              	GT911_Init:
+ 506              	.LFB137:
+ 238:Core/Src/GT911.c **** 
+ 239:Core/Src/GT911.c **** /*****************************************************************************
+ 240:Core/Src/GT911.c ****  * @name       :u8 GT911_Init(void)
+ 241:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 242:Core/Src/GT911.c ****  * @function   :GT911 IC initialization
+ 243:Core/Src/GT911.c ****  * @parameters :None
+ 244:Core/Src/GT911.c ****  * @retvalue   :the status of initialization
+ 245:Core/Src/GT911.c **** ******************************************************************************/
+ 246:Core/Src/GT911.c **** u8 GT911_Init(void)
+ARM GAS  /tmp/ccZlqxch.s 			page 14
+
+
+ 247:Core/Src/GT911.c **** {
+ 507              		.loc 1 247 1 is_stmt 1 view -0
+ 508              		.cfi_startproc
+ 509              		@ args = 0, pretend = 0, frame = 8
+ 510              		@ frame_needed = 0, uses_anonymous_args = 0
+ 511 0000 00B5     		push	{lr}
+ 512              	.LCFI9:
+ 513              		.cfi_def_cfa_offset 4
+ 514              		.cfi_offset 14, -4
+ 515 0002 83B0     		sub	sp, sp, #12
+ 516              	.LCFI10:
+ 517              		.cfi_def_cfa_offset 16
+ 248:Core/Src/GT911.c **** 	u8 touchIC_ID[4];	
+ 518              		.loc 1 248 2 view .LVU119
+ 249:Core/Src/GT911.c **** 	GT911_gpio_init();
+ 519              		.loc 1 249 2 view .LVU120
+ 520 0004 FFF7FEFF 		bl	GT911_gpio_init
+ 521              	.LVL42:
+ 250:Core/Src/GT911.c **** //	GT9xx_Eint_Init();
+ 251:Core/Src/GT911.c **** 	GT911_reset_guitar(GT9XX_IIC_WADDR);
+ 522              		.loc 1 251 2 view .LVU121
+ 523 0008 BA20     		movs	r0, #186
+ 524 000a FFF7FEFF 		bl	GT911_reset_guitar
+ 525              	.LVL43:
+ 252:Core/Src/GT911.c **** 	GT911_int_sync(50);
+ 526              		.loc 1 252 2 view .LVU122
+ 527 000e 3220     		movs	r0, #50
+ 528 0010 FFF7FEFF 		bl	GT911_int_sync
+ 529              	.LVL44:
+ 253:Core/Src/GT911.c **** 	GT9XX_ReadData (GT9XX_ID_ADDR,4,touchIC_ID);
+ 530              		.loc 1 253 2 view .LVU123
+ 531 0014 01AA     		add	r2, sp, #4
+ 532 0016 0421     		movs	r1, #4
+ 533 0018 48F24010 		movw	r0, #33088
+ 534 001c FFF7FEFF 		bl	GT9XX_ReadData
+ 535              	.LVL45:
+ 254:Core/Src/GT911.c **** 	if( touchIC_ID[0] == '9' )
+ 536              		.loc 1 254 2 view .LVU124
+ 537              		.loc 1 254 16 is_stmt 0 view .LVU125
+ 538 0020 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 539              		.loc 1 254 4 view .LVU126
+ 540 0024 392B     		cmp	r3, #57
+ 541 0026 03D0     		beq	.L30
+ 255:Core/Src/GT911.c **** 	{
+ 256:Core/Src/GT911.c **** //		printf("Touch ID: %s \r\n",touchIC_ID);
+ 257:Core/Src/GT911.c **** 		//GT9xx_send_config();
+ 258:Core/Src/GT911.c **** 		return 1;
+ 259:Core/Src/GT911.c **** 	}
+ 260:Core/Src/GT911.c **** 	else
+ 261:Core/Src/GT911.c **** 	{
+ 262:Core/Src/GT911.c **** 		//printf("Touch Error\r\n");
+ 263:Core/Src/GT911.c **** 		return 0;
+ 542              		.loc 1 263 10 view .LVU127
+ 543 0028 0020     		movs	r0, #0
+ 544              	.L27:
+ 264:Core/Src/GT911.c **** 	}
+ 265:Core/Src/GT911.c **** }
+ARM GAS  /tmp/ccZlqxch.s 			page 15
+
+
+ 545              		.loc 1 265 1 view .LVU128
+ 546 002a 03B0     		add	sp, sp, #12
+ 547              	.LCFI11:
+ 548              		.cfi_remember_state
+ 549              		.cfi_def_cfa_offset 4
+ 550              		@ sp needed
+ 551 002c 5DF804FB 		ldr	pc, [sp], #4
+ 552              	.L30:
+ 553              	.LCFI12:
+ 554              		.cfi_restore_state
+ 258:Core/Src/GT911.c **** 	}
+ 555              		.loc 1 258 10 view .LVU129
+ 556 0030 0120     		movs	r0, #1
+ 557 0032 FAE7     		b	.L27
+ 558              		.cfi_endproc
+ 559              	.LFE137:
+ 561              		.section	.text.Touch_Get_Count,"ax",%progbits
+ 562              		.align	1
+ 563              		.global	Touch_Get_Count
+ 564              		.syntax unified
+ 565              		.thumb
+ 566              		.thumb_func
+ 567              		.fpu fpv4-sp-d16
+ 569              	Touch_Get_Count:
+ 570              	.LFB138:
+ 266:Core/Src/GT911.c **** 
+ 267:Core/Src/GT911.c **** /*****************************************************************************
+ 268:Core/Src/GT911.c ****  * @name       :u8 Touch_Get_Count(void)
+ 269:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 270:Core/Src/GT911.c ****  * @function   :get the count of read data
+ 271:Core/Src/GT911.c ****  * @parameters :None
+ 272:Core/Src/GT911.c ****  * @retvalue   :the count of read data
+ 273:Core/Src/GT911.c **** ******************************************************************************/
+ 274:Core/Src/GT911.c **** u8 Touch_Get_Count(void)
+ 275:Core/Src/GT911.c **** {
+ 571              		.loc 1 275 1 is_stmt 1 view -0
+ 572              		.cfi_startproc
+ 573              		@ args = 0, pretend = 0, frame = 8
+ 574              		@ frame_needed = 0, uses_anonymous_args = 0
+ 575 0000 00B5     		push	{lr}
+ 576              	.LCFI13:
+ 577              		.cfi_def_cfa_offset 4
+ 578              		.cfi_offset 14, -4
+ 579 0002 83B0     		sub	sp, sp, #12
+ 580              	.LCFI14:
+ 581              		.cfi_def_cfa_offset 16
+ 276:Core/Src/GT911.c **** 	u8 count[1] = {0};
+ 582              		.loc 1 276 2 view .LVU131
+ 583              		.loc 1 276 5 is_stmt 0 view .LVU132
+ 584 0004 0023     		movs	r3, #0
+ 585 0006 8DF80430 		strb	r3, [sp, #4]
+ 277:Core/Src/GT911.c **** 	GT9XX_ReadData (GT9XX_READ_ADDR,1,count);	//read touch data
+ 586              		.loc 1 277 2 is_stmt 1 view .LVU133
+ 587 000a 01AA     		add	r2, sp, #4
+ 588 000c 0121     		movs	r1, #1
+ 589 000e 48F24E10 		movw	r0, #33102
+ 590 0012 FFF7FEFF 		bl	GT9XX_ReadData
+ARM GAS  /tmp/ccZlqxch.s 			page 16
+
+
+ 591              	.LVL46:
+ 278:Core/Src/GT911.c **** 	return (count[0]&0x0f);
+ 592              		.loc 1 278 2 view .LVU134
+ 593              		.loc 1 278 15 is_stmt 0 view .LVU135
+ 594 0016 9DF80400 		ldrb	r0, [sp, #4]	@ zero_extendqisi2
+ 279:Core/Src/GT911.c **** }
+ 595              		.loc 1 279 1 view .LVU136
+ 596 001a 00F00F00 		and	r0, r0, #15
+ 597 001e 03B0     		add	sp, sp, #12
+ 598              	.LCFI15:
+ 599              		.cfi_def_cfa_offset 4
+ 600              		@ sp needed
+ 601 0020 5DF804FB 		ldr	pc, [sp], #4
+ 602              		.cfi_endproc
+ 603              	.LFE138:
+ 605              		.section	.text.GT911_Scan,"ax",%progbits
+ 606              		.align	1
+ 607              		.global	GT911_Scan
+ 608              		.syntax unified
+ 609              		.thumb
+ 610              		.thumb_func
+ 611              		.fpu fpv4-sp-d16
+ 613              	GT911_Scan:
+ 614              	.LFB139:
+ 280:Core/Src/GT911.c **** 
+ 281:Core/Src/GT911.c **** const u16 TPX[] = {0x8150,0x8158,0x8160,0x8168,0x8170}; //µçÈÝÆÁ´¥ÃþµãÊý¾ÝµØÖ·£¨1~5£©
+ 282:Core/Src/GT911.c **** 
+ 283:Core/Src/GT911.c **** /*****************************************************************************
+ 284:Core/Src/GT911.c ****  * @name       :u8 GT911_Scan(void)
+ 285:Core/Src/GT911.c ****  * @date       :2019-06-20 
+ 286:Core/Src/GT911.c ****  * @function   :Query GT911 trigger status
+ 287:Core/Src/GT911.c ****  * @parameters :None
+ 288:Core/Src/GT911.c ****  * @retvalue   :the status of GT911 trigger
+ 289:Core/Src/GT911.c **** ******************************************************************************/
+ 290:Core/Src/GT911.c **** u8 GT911_Scan(void)
+ 291:Core/Src/GT911.c **** {
+ 615              		.loc 1 291 1 is_stmt 1 view -0
+ 616              		.cfi_startproc
+ 617              		@ args = 0, pretend = 0, frame = 48
+ 618              		@ frame_needed = 0, uses_anonymous_args = 0
+ 619 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 620              	.LCFI16:
+ 621              		.cfi_def_cfa_offset 24
+ 622              		.cfi_offset 4, -24
+ 623              		.cfi_offset 5, -20
+ 624              		.cfi_offset 6, -16
+ 625              		.cfi_offset 7, -12
+ 626              		.cfi_offset 8, -8
+ 627              		.cfi_offset 14, -4
+ 628 0004 8CB0     		sub	sp, sp, #48
+ 629              	.LCFI17:
+ 630              		.cfi_def_cfa_offset 72
+ 292:Core/Src/GT911.c **** 	u8 buf[42];
+ 631              		.loc 1 292 2 view .LVU138
+ 293:Core/Src/GT911.c **** 	u8 i=0;
+ 632              		.loc 1 293 2 view .LVU139
+ 633              	.LVL47:
+ARM GAS  /tmp/ccZlqxch.s 			page 17
+
+
+ 294:Core/Src/GT911.c **** 	u8 res=0;
+ 634              		.loc 1 294 2 view .LVU140
+ 295:Core/Src/GT911.c **** 	u8 temp;
+ 635              		.loc 1 295 2 view .LVU141
+ 296:Core/Src/GT911.c **** 	u8 tempsta;
+ 636              		.loc 1 296 2 view .LVU142
+ 297:Core/Src/GT911.c **** #if SCAN_TYPE
+ 298:Core/Src/GT911.c **** 	if(touch_flag)
+ 299:Core/Src/GT911.c **** #else	
+ 300:Core/Src/GT911.c ****  	static u8 t=0;//¿ØÖÆ²éÑ¯¼ä¸ô,´Ó¶ø½µµÍCPUÕ¼ÓÃÂÊ   
+ 637              		.loc 1 300 3 view .LVU143
+ 301:Core/Src/GT911.c **** 	t++;
+ 638              		.loc 1 301 2 view .LVU144
+ 639              		.loc 1 301 3 is_stmt 0 view .LVU145
+ 640 0006 B84B     		ldr	r3, .L68
+ 641 0008 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 642 000a 0132     		adds	r2, r2, #1
+ 643 000c D2B2     		uxtb	r2, r2
+ 644 000e 1A70     		strb	r2, [r3]
+ 302:Core/Src/GT911.c **** 	if((t%10)==0||t<10)//¿ÕÏÐÊ±,Ã¿½øÈë10´ÎCTP_Scanº¯Êý²Å¼ì²â1´Î,´Ó¶ø½ÚÊ¡CPUÊ¹ÓÃÂÊ
+ 645              		.loc 1 302 2 is_stmt 1 view .LVU146
+ 646              		.loc 1 302 11 is_stmt 0 view .LVU147
+ 647 0010 B64B     		ldr	r3, .L68+4
+ 648 0012 A3FB0213 		umull	r1, r3, r3, r2
+ 649 0016 DB08     		lsrs	r3, r3, #3
+ 650 0018 03EB8303 		add	r3, r3, r3, lsl #2
+ 651 001c 5900     		lsls	r1, r3, #1
+ 652 001e 511A     		subs	r1, r2, r1
+ 653              		.loc 1 302 4 view .LVU148
+ 654 0020 11F0FF0F 		tst	r1, #255
+ 655 0024 02D0     		beq	.L34
+ 656              		.loc 1 302 14 discriminator 1 view .LVU149
+ 657 0026 092A     		cmp	r2, #9
+ 658 0028 00F23881 		bhi	.L58
+ 659              	.L34:
+ 303:Core/Src/GT911.c **** #endif
+ 304:Core/Src/GT911.c **** 	{ 
+ 305:Core/Src/GT911.c **** 		GT9XX_ReadData(GT9XX_READ_ADDR, 42, buf);
+ 660              		.loc 1 305 3 is_stmt 1 view .LVU150
+ 661 002c 01AA     		add	r2, sp, #4
+ 662 002e 2A21     		movs	r1, #42
+ 663 0030 48F24E10 		movw	r0, #33102
+ 664 0034 FFF7FEFF 		bl	GT9XX_ReadData
+ 665              	.LVL48:
+ 306:Core/Src/GT911.c **** 		if((buf[0]&0X80)&&((buf[0]&0XF)<6))
+ 666              		.loc 1 306 3 view .LVU151
+ 667              		.loc 1 306 10 is_stmt 0 view .LVU152
+ 668 0038 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 669              		.loc 1 306 6 view .LVU153
+ 670 003c 9DF90420 		ldrsb	r2, [sp, #4]
+ 671              		.loc 1 306 5 view .LVU154
+ 672 0040 002A     		cmp	r2, #0
+ 673 0042 09DB     		blt	.L61
+ 674              	.L36:
+ 675              	.LVL49:
+ 307:Core/Src/GT911.c **** 		{	
+ 308:Core/Src/GT911.c **** 			temp=0;	
+ARM GAS  /tmp/ccZlqxch.s 			page 18
+
+
+ 309:Core/Src/GT911.c **** 			GT9XX_WriteData(GT9XX_READ_ADDR,temp);
+ 310:Core/Src/GT911.c **** 		}		
+ 311:Core/Src/GT911.c **** 		if((buf[0]&0XF)&&((buf[0]&0XF)<6))
+ 676              		.loc 1 311 3 is_stmt 1 view .LVU155
+ 677              		.loc 1 311 10 is_stmt 0 view .LVU156
+ 678 0044 9DF80440 		ldrb	r4, [sp, #4]	@ zero_extendqisi2
+ 679              		.loc 1 311 5 view .LVU157
+ 680 0048 14F00F00 		ands	r0, r4, #15
+ 681 004c 00F02781 		beq	.L35
+ 682              		.loc 1 311 18 discriminator 1 view .LVU158
+ 683 0050 0528     		cmp	r0, #5
+ 684 0052 33D9     		bls	.L59
+ 294:Core/Src/GT911.c **** 	u8 temp;
+ 685              		.loc 1 294 5 view .LVU159
+ 686 0054 0020     		movs	r0, #0
+ 687 0056 22E1     		b	.L35
+ 688              	.LVL50:
+ 689              	.L61:
+ 306:Core/Src/GT911.c **** 		if((buf[0]&0X80)&&((buf[0]&0XF)<6))
+ 690              		.loc 1 306 19 discriminator 1 view .LVU160
+ 691 0058 03F00F03 		and	r3, r3, #15
+ 692 005c 052B     		cmp	r3, #5
+ 693 005e F1D8     		bhi	.L36
+ 308:Core/Src/GT911.c **** 			GT9XX_WriteData(GT9XX_READ_ADDR,temp);
+ 694              		.loc 1 308 4 is_stmt 1 view .LVU161
+ 695              	.LVL51:
+ 309:Core/Src/GT911.c **** 		}		
+ 696              		.loc 1 309 4 view .LVU162
+ 697 0060 0021     		movs	r1, #0
+ 698 0062 48F24E10 		movw	r0, #33102
+ 699 0066 FFF7FEFF 		bl	GT9XX_WriteData
+ 700              	.LVL52:
+ 701 006a EBE7     		b	.L36
+ 702              	.LVL53:
+ 703              	.L39:
+ 312:Core/Src/GT911.c **** 		{
+ 313:Core/Src/GT911.c **** 			for(i=0;i<(buf[0]&0XF);i++)
+ 314:Core/Src/GT911.c **** 			{
+ 315:Core/Src/GT911.c **** 				switch(buf[1+i*8])
+ 316:Core/Src/GT911.c **** 				{
+ 317:Core/Src/GT911.c **** 					case 4:
+ 318:Core/Src/GT911.c **** 					{
+ 319:Core/Src/GT911.c **** 						temp |= 1<<4;
+ 704              		.loc 1 319 7 view .LVU163
+ 705              		.loc 1 319 12 is_stmt 0 view .LVU164
+ 706 006c 41F01001 		orr	r1, r1, #16
+ 707              	.LVL54:
+ 320:Core/Src/GT911.c **** 						break;
+ 708              		.loc 1 320 7 is_stmt 1 view .LVU165
+ 709              	.L38:
+ 313:Core/Src/GT911.c **** 			{
+ 710              		.loc 1 313 27 discriminator 2 view .LVU166
+ 313:Core/Src/GT911.c **** 			{
+ 711              		.loc 1 313 28 is_stmt 0 discriminator 2 view .LVU167
+ 712 0070 0133     		adds	r3, r3, #1
+ 713              	.LVL55:
+ 313:Core/Src/GT911.c **** 			{
+ARM GAS  /tmp/ccZlqxch.s 			page 19
+
+
+ 714              		.loc 1 313 28 discriminator 2 view .LVU168
+ 715 0072 DBB2     		uxtb	r3, r3
+ 716              	.LVL56:
+ 717              	.L37:
+ 313:Core/Src/GT911.c **** 			{
+ 718              		.loc 1 313 12 is_stmt 1 discriminator 1 view .LVU169
+ 313:Core/Src/GT911.c **** 			{
+ 719              		.loc 1 313 4 is_stmt 0 discriminator 1 view .LVU170
+ 720 0074 8342     		cmp	r3, r0
+ 721 0076 24D2     		bcs	.L62
+ 315:Core/Src/GT911.c **** 				{
+ 722              		.loc 1 315 5 is_stmt 1 view .LVU171
+ 315:Core/Src/GT911.c **** 				{
+ 723              		.loc 1 315 19 is_stmt 0 view .LVU172
+ 724 0078 DA00     		lsls	r2, r3, #3
+ 315:Core/Src/GT911.c **** 				{
+ 725              		.loc 1 315 17 view .LVU173
+ 726 007a 0132     		adds	r2, r2, #1
+ 315:Core/Src/GT911.c **** 				{
+ 727              		.loc 1 315 15 view .LVU174
+ 728 007c 0CAD     		add	r5, sp, #48
+ 729 007e 2A44     		add	r2, r2, r5
+ 730 0080 12F82C2C 		ldrb	r2, [r2, #-44]	@ zero_extendqisi2
+ 731 0084 042A     		cmp	r2, #4
+ 732 0086 F3D8     		bhi	.L38
+ 733 0088 01A5     		adr	r5, .L40
+ 734 008a 55F822F0 		ldr	pc, [r5, r2, lsl #2]
+ 735 008e 00BF     		.p2align 2
+ 736              	.L40:
+ 737 0090 B7000000 		.word	.L44+1
+ 738 0094 B1000000 		.word	.L43+1
+ 739 0098 AB000000 		.word	.L42+1
+ 740 009c A5000000 		.word	.L41+1
+ 741 00a0 6D000000 		.word	.L39+1
+ 742              		.p2align 1
+ 743              	.L41:
+ 321:Core/Src/GT911.c **** 					}
+ 322:Core/Src/GT911.c **** 					case 3:
+ 323:Core/Src/GT911.c **** 					{
+ 324:Core/Src/GT911.c **** 						temp |= 1<<3;
+ 744              		.loc 1 324 7 is_stmt 1 view .LVU175
+ 745              		.loc 1 324 12 is_stmt 0 view .LVU176
+ 746 00a4 41F00801 		orr	r1, r1, #8
+ 747              	.LVL57:
+ 325:Core/Src/GT911.c **** 						break;
+ 748              		.loc 1 325 7 is_stmt 1 view .LVU177
+ 749 00a8 E2E7     		b	.L38
+ 750              	.L42:
+ 326:Core/Src/GT911.c **** 					}
+ 327:Core/Src/GT911.c **** 					case 2:
+ 328:Core/Src/GT911.c **** 					{
+ 329:Core/Src/GT911.c **** 						temp |= 1<<2;
+ 751              		.loc 1 329 7 view .LVU178
+ 752              		.loc 1 329 12 is_stmt 0 view .LVU179
+ 753 00aa 41F00401 		orr	r1, r1, #4
+ 754              	.LVL58:
+ 330:Core/Src/GT911.c **** 						break;
+ARM GAS  /tmp/ccZlqxch.s 			page 20
+
+
+ 755              		.loc 1 330 7 is_stmt 1 view .LVU180
+ 756 00ae DFE7     		b	.L38
+ 757              	.L43:
+ 331:Core/Src/GT911.c **** 					}
+ 332:Core/Src/GT911.c **** 					case 1:
+ 333:Core/Src/GT911.c **** 					{
+ 334:Core/Src/GT911.c **** 						temp |= 1<<1;
+ 758              		.loc 1 334 7 view .LVU181
+ 759              		.loc 1 334 12 is_stmt 0 view .LVU182
+ 760 00b0 41F00201 		orr	r1, r1, #2
+ 761              	.LVL59:
+ 335:Core/Src/GT911.c **** 						break;
+ 762              		.loc 1 335 7 is_stmt 1 view .LVU183
+ 763 00b4 DCE7     		b	.L38
+ 764              	.L44:
+ 336:Core/Src/GT911.c **** 					}
+ 337:Core/Src/GT911.c **** 					case 0:
+ 338:Core/Src/GT911.c **** 					{	
+ 339:Core/Src/GT911.c **** 						temp |= 1<<0;
+ 765              		.loc 1 339 7 view .LVU184
+ 766              		.loc 1 339 12 is_stmt 0 view .LVU185
+ 767 00b6 41F00101 		orr	r1, r1, #1
+ 768              	.LVL60:
+ 340:Core/Src/GT911.c **** 						break;
+ 769              		.loc 1 340 7 is_stmt 1 view .LVU186
+ 770 00ba D9E7     		b	.L38
+ 771              	.LVL61:
+ 772              	.L59:
+ 773              		.loc 1 340 7 is_stmt 0 view .LVU187
+ 774 00bc 0021     		movs	r1, #0
+ 313:Core/Src/GT911.c **** 			{
+ 775              		.loc 1 313 9 view .LVU188
+ 776 00be 0B46     		mov	r3, r1
+ 777 00c0 D8E7     		b	.L37
+ 778              	.LVL62:
+ 779              	.L62:
+ 341:Core/Src/GT911.c **** 					}
+ 342:Core/Src/GT911.c **** 					default:
+ 343:Core/Src/GT911.c **** 					break;				
+ 344:Core/Src/GT911.c **** 				}
+ 345:Core/Src/GT911.c **** 			}
+ 346:Core/Src/GT911.c **** //			temp=0XFF<<(buf[0]&0XF);		//½«µãµÄ¸öÊý×ª»»Îª1µÄÎ»Êý,Æ¥Åätp_dev.sta¶¨Òå 
+ 347:Core/Src/GT911.c **** 			tempsta=tp_dev.sta;			//±£´æµ±Ç°µÄtp_dev.staÖµ
+ 780              		.loc 1 347 4 is_stmt 1 view .LVU189
+ 781              		.loc 1 347 11 is_stmt 0 view .LVU190
+ 782 00c2 8B4B     		ldr	r3, .L68+8
+ 783              	.LVL63:
+ 784              		.loc 1 347 11 view .LVU191
+ 785 00c4 1E7E     		ldrb	r6, [r3, #24]	@ zero_extendqisi2
+ 786              	.LVL64:
+ 348:Core/Src/GT911.c **** 			tp_dev.sta=temp|TP_PRES_DOWN|TP_CATH_PRES; 
+ 787              		.loc 1 348 4 is_stmt 1 view .LVU192
+ 788              		.loc 1 348 14 is_stmt 0 view .LVU193
+ 789 00c6 41F0C001 		orr	r1, r1, #192
+ 790              	.LVL65:
+ 791              		.loc 1 348 14 view .LVU194
+ 792 00ca 1976     		strb	r1, [r3, #24]
+ARM GAS  /tmp/ccZlqxch.s 			page 21
+
+
+ 349:Core/Src/GT911.c **** 			tp_dev.x[4]=tp_dev.x[0];	//±£´æ´¥µã0µÄÊý¾Ý
+ 793              		.loc 1 349 4 is_stmt 1 view .LVU195
+ 794              		.loc 1 349 24 is_stmt 0 view .LVU196
+ 795 00cc 9A88     		ldrh	r2, [r3, #4]
+ 796              		.loc 1 349 15 view .LVU197
+ 797 00ce 9A81     		strh	r2, [r3, #12]	@ movhi
+ 350:Core/Src/GT911.c **** 			tp_dev.y[4]=tp_dev.y[0];
+ 798              		.loc 1 350 4 is_stmt 1 view .LVU198
+ 799              		.loc 1 350 24 is_stmt 0 view .LVU199
+ 800 00d0 DA89     		ldrh	r2, [r3, #14]
+ 801              		.loc 1 350 15 view .LVU200
+ 802 00d2 DA82     		strh	r2, [r3, #22]	@ movhi
+ 351:Core/Src/GT911.c **** 			for(i=0;i<CTP_MAX_TOUCH;i++)
+ 803              		.loc 1 351 4 is_stmt 1 view .LVU201
+ 804              	.LVL66:
+ 805              		.loc 1 351 9 is_stmt 0 view .LVU202
+ 806 00d4 0023     		movs	r3, #0
+ 807              		.loc 1 351 4 view .LVU203
+ 808 00d6 5AE0     		b	.L46
+ 809              	.LVL67:
+ 810              	.L48:
+ 352:Core/Src/GT911.c **** 			{
+ 353:Core/Src/GT911.c **** 				if(tp_dev.sta&(1<<i))	//´¥ÃþÓÐÐ§?
+ 354:Core/Src/GT911.c **** 				{
+ 355:Core/Src/GT911.c **** 					//GT9XX_ReadData(TPX[i],4,buf);	//¶ÁÈ¡XY×ø±êÖµ
+ 356:Core/Src/GT911.c **** 					if(lcddev.dir==0)
+ 357:Core/Src/GT911.c **** 					{
+ 358:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[3+i*8]<<8)+buf[2+i*8];
+ 359:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 360:Core/Src/GT911.c **** 					}
+ 361:Core/Src/GT911.c **** 					else if(lcddev.dir==1)
+ 811              		.loc 1 361 11 is_stmt 1 view .LVU204
+ 812              		.loc 1 361 13 is_stmt 0 view .LVU205
+ 813 00d8 0128     		cmp	r0, #1
+ 814 00da 2DD0     		beq	.L63
+ 362:Core/Src/GT911.c **** 					{
+ 363:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[3+i*8]<<8)+buf[2+i*8]);
+ 364:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 365:Core/Src/GT911.c **** 					}
+ 366:Core/Src/GT911.c **** 					else if(lcddev.dir==2)
+ 815              		.loc 1 366 11 is_stmt 1 view .LVU206
+ 816              		.loc 1 366 13 is_stmt 0 view .LVU207
+ 817 00dc 0228     		cmp	r0, #2
+ 818 00de 00F08480 		beq	.L64
+ 367:Core/Src/GT911.c **** 					{
+ 368:Core/Src/GT911.c **** 						tp_dev.x[i]=lcddev.width-(((u16)buf[3+i*8]<<8)+buf[2+i*8]);
+ 369:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 370:Core/Src/GT911.c **** 					}
+ 371:Core/Src/GT911.c **** 					else if(lcddev.dir==3)
+ 819              		.loc 1 371 11 is_stmt 1 view .LVU208
+ 820              		.loc 1 371 13 is_stmt 0 view .LVU209
+ 821 00e2 0328     		cmp	r0, #3
+ 822 00e4 51D1     		bne	.L47
+ 372:Core/Src/GT911.c **** 					{
+ 373:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[3+i*8]<<8)+buf[2+i*8];
+ 823              		.loc 1 373 7 is_stmt 1 view .LVU210
+ 824              		.loc 1 373 32 is_stmt 0 view .LVU211
+ARM GAS  /tmp/ccZlqxch.s 			page 22
+
+
+ 825 00e6 D800     		lsls	r0, r3, #3
+ 826              		.loc 1 373 30 view .LVU212
+ 827 00e8 C51C     		adds	r5, r0, #3
+ 828              		.loc 1 373 28 view .LVU213
+ 829 00ea 0CAF     		add	r7, sp, #48
+ 830 00ec 3D44     		add	r5, r5, r7
+ 831 00ee 15F82C7C 		ldrb	r7, [r5, #-44]	@ zero_extendqisi2
+ 832              		.loc 1 373 45 view .LVU214
+ 833 00f2 851C     		adds	r5, r0, #2
+ 834              		.loc 1 373 43 view .LVU215
+ 835 00f4 0DF1300C 		add	ip, sp, #48
+ 836 00f8 6544     		add	r5, r5, ip
+ 837 00fa 15F82CCC 		ldrb	ip, [r5, #-44]	@ zero_extendqisi2
+ 838              		.loc 1 373 39 view .LVU216
+ 839 00fe 0CEB072C 		add	ip, ip, r7, lsl #8
+ 840              		.loc 1 373 18 view .LVU217
+ 841 0102 7B4D     		ldr	r5, .L68+8
+ 842 0104 1F1D     		adds	r7, r3, #4
+ 843 0106 05EB4707 		add	r7, r5, r7, lsl #1
+ 844 010a A7F806C0 		strh	ip, [r7, #6]	@ movhi
+ 374:Core/Src/GT911.c **** 						tp_dev.x[i]=lcddev.width-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);						
+ 845              		.loc 1 374 7 is_stmt 1 view .LVU218
+ 846              		.loc 1 374 25 is_stmt 0 view .LVU219
+ 847 010e 794F     		ldr	r7, .L68+12
+ 848 0110 BF88     		ldrh	r7, [r7, #4]
+ 849              		.loc 1 374 44 view .LVU220
+ 850 0112 00F1050C 		add	ip, r0, #5
+ 851              		.loc 1 374 42 view .LVU221
+ 852 0116 0DF1300E 		add	lr, sp, #48
+ 853 011a F444     		add	ip, ip, lr
+ 854 011c 1CF82CCC 		ldrb	ip, [ip, #-44]	@ zero_extendqisi2
+ 855              		.loc 1 374 59 view .LVU222
+ 856 0120 0430     		adds	r0, r0, #4
+ 857              		.loc 1 374 57 view .LVU223
+ 858 0122 7044     		add	r0, r0, lr
+ 859 0124 10F82C0C 		ldrb	r0, [r0, #-44]	@ zero_extendqisi2
+ 860              		.loc 1 374 53 view .LVU224
+ 861 0128 00EB0C20 		add	r0, r0, ip, lsl #8
+ 862 012c 80B2     		uxth	r0, r0
+ 863              		.loc 1 374 31 view .LVU225
+ 864 012e 381A     		subs	r0, r7, r0
+ 865              		.loc 1 374 18 view .LVU226
+ 866 0130 05EB4302 		add	r2, r5, r3, lsl #1
+ 867 0134 9080     		strh	r0, [r2, #4]	@ movhi
+ 868 0136 28E0     		b	.L47
+ 869              	.L63:
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 870              		.loc 1 363 7 is_stmt 1 view .LVU227
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 871              		.loc 1 363 25 is_stmt 0 view .LVU228
+ 872 0138 6E48     		ldr	r0, .L68+12
+ 873 013a C788     		ldrh	r7, [r0, #6]
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 874              		.loc 1 363 47 view .LVU229
+ 875 013c D800     		lsls	r0, r3, #3
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 876              		.loc 1 363 45 view .LVU230
+ARM GAS  /tmp/ccZlqxch.s 			page 23
+
+
+ 877 013e C51C     		adds	r5, r0, #3
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 878              		.loc 1 363 43 view .LVU231
+ 879 0140 0DF1300C 		add	ip, sp, #48
+ 880 0144 6544     		add	r5, r5, ip
+ 881 0146 15F82CEC 		ldrb	lr, [r5, #-44]	@ zero_extendqisi2
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 882              		.loc 1 363 60 view .LVU232
+ 883 014a 00F1020C 		add	ip, r0, #2
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 884              		.loc 1 363 58 view .LVU233
+ 885 014e 0CAD     		add	r5, sp, #48
+ 886 0150 AC44     		add	ip, ip, r5
+ 887 0152 1CF82C5C 		ldrb	r5, [ip, #-44]	@ zero_extendqisi2
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 888              		.loc 1 363 54 view .LVU234
+ 889 0156 05EB0E25 		add	r5, r5, lr, lsl #8
+ 890 015a ADB2     		uxth	r5, r5
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 891              		.loc 1 363 32 view .LVU235
+ 892 015c 7D1B     		subs	r5, r7, r5
+ 363:Core/Src/GT911.c **** 						tp_dev.x[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 893              		.loc 1 363 18 view .LVU236
+ 894 015e 644F     		ldr	r7, .L68+8
+ 895 0160 03F1040C 		add	ip, r3, #4
+ 896 0164 07EB4C0C 		add	ip, r7, ip, lsl #1
+ 897 0168 ACF80650 		strh	r5, [ip, #6]	@ movhi
+ 364:Core/Src/GT911.c **** 					}
+ 898              		.loc 1 364 7 is_stmt 1 view .LVU237
+ 364:Core/Src/GT911.c **** 					}
+ 899              		.loc 1 364 30 is_stmt 0 view .LVU238
+ 900 016c 451D     		adds	r5, r0, #5
+ 364:Core/Src/GT911.c **** 					}
+ 901              		.loc 1 364 28 view .LVU239
+ 902 016e 0DF1300C 		add	ip, sp, #48
+ 903 0172 6544     		add	r5, r5, ip
+ 904 0174 15F82C5C 		ldrb	r5, [r5, #-44]	@ zero_extendqisi2
+ 364:Core/Src/GT911.c **** 					}
+ 905              		.loc 1 364 45 view .LVU240
+ 906 0178 0430     		adds	r0, r0, #4
+ 364:Core/Src/GT911.c **** 					}
+ 907              		.loc 1 364 43 view .LVU241
+ 908 017a 6044     		add	r0, r0, ip
+ 909 017c 10F82C0C 		ldrb	r0, [r0, #-44]	@ zero_extendqisi2
+ 364:Core/Src/GT911.c **** 					}
+ 910              		.loc 1 364 39 view .LVU242
+ 911 0180 00EB0520 		add	r0, r0, r5, lsl #8
+ 364:Core/Src/GT911.c **** 					}
+ 912              		.loc 1 364 18 view .LVU243
+ 913 0184 07EB4302 		add	r2, r7, r3, lsl #1
+ 914 0188 9080     		strh	r0, [r2, #4]	@ movhi
+ 915              	.L47:
+ 351:Core/Src/GT911.c **** 			{
+ 916              		.loc 1 351 28 is_stmt 1 discriminator 2 view .LVU244
+ 351:Core/Src/GT911.c **** 			{
+ 917              		.loc 1 351 29 is_stmt 0 discriminator 2 view .LVU245
+ 918 018a 0133     		adds	r3, r3, #1
+ARM GAS  /tmp/ccZlqxch.s 			page 24
+
+
+ 919              	.LVL68:
+ 351:Core/Src/GT911.c **** 			{
+ 920              		.loc 1 351 29 discriminator 2 view .LVU246
+ 921 018c DBB2     		uxtb	r3, r3
+ 922              	.LVL69:
+ 923              	.L46:
+ 351:Core/Src/GT911.c **** 			{
+ 924              		.loc 1 351 12 is_stmt 1 discriminator 1 view .LVU247
+ 351:Core/Src/GT911.c **** 			{
+ 925              		.loc 1 351 4 is_stmt 0 discriminator 1 view .LVU248
+ 926 018e 042B     		cmp	r3, #4
+ 927 0190 5BD8     		bhi	.L65
+ 353:Core/Src/GT911.c **** 				{
+ 928              		.loc 1 353 5 is_stmt 1 view .LVU249
+ 353:Core/Src/GT911.c **** 				{
+ 929              		.loc 1 353 8 is_stmt 0 view .LVU250
+ 930 0192 1A46     		mov	r2, r3
+ 931 0194 41FA03F0 		asr	r0, r1, r3
+ 353:Core/Src/GT911.c **** 				{
+ 932              		.loc 1 353 7 view .LVU251
+ 933 0198 10F0010F 		tst	r0, #1
+ 934 019c F5D0     		beq	.L47
+ 356:Core/Src/GT911.c **** 					{
+ 935              		.loc 1 356 6 is_stmt 1 view .LVU252
+ 356:Core/Src/GT911.c **** 					{
+ 936              		.loc 1 356 15 is_stmt 0 view .LVU253
+ 937 019e 5548     		ldr	r0, .L68+12
+ 938 01a0 807A     		ldrb	r0, [r0, #10]	@ zero_extendqisi2
+ 356:Core/Src/GT911.c **** 					{
+ 939              		.loc 1 356 8 view .LVU254
+ 940 01a2 0028     		cmp	r0, #0
+ 941 01a4 98D1     		bne	.L48
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 942              		.loc 1 358 7 is_stmt 1 view .LVU255
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 943              		.loc 1 358 32 is_stmt 0 view .LVU256
+ 944 01a6 D800     		lsls	r0, r3, #3
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 945              		.loc 1 358 30 view .LVU257
+ 946 01a8 C51C     		adds	r5, r0, #3
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 947              		.loc 1 358 28 view .LVU258
+ 948 01aa 0CAF     		add	r7, sp, #48
+ 949 01ac 3D44     		add	r5, r5, r7
+ 950 01ae 15F82CCC 		ldrb	ip, [r5, #-44]	@ zero_extendqisi2
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 951              		.loc 1 358 45 view .LVU259
+ 952 01b2 851C     		adds	r5, r0, #2
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 953              		.loc 1 358 43 view .LVU260
+ 954 01b4 3D44     		add	r5, r5, r7
+ 955 01b6 15F82C7C 		ldrb	r7, [r5, #-44]	@ zero_extendqisi2
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 956              		.loc 1 358 39 view .LVU261
+ 957 01ba 07EB0C27 		add	r7, r7, ip, lsl #8
+ 358:Core/Src/GT911.c **** 						tp_dev.y[i]=((u16)buf[5+i*8]<<8)+buf[4+i*8];
+ 958              		.loc 1 358 18 view .LVU262
+ARM GAS  /tmp/ccZlqxch.s 			page 25
+
+
+ 959 01be 4C4D     		ldr	r5, .L68+8
+ 960 01c0 05EB430C 		add	ip, r5, r3, lsl #1
+ 961 01c4 ACF80470 		strh	r7, [ip, #4]	@ movhi
+ 359:Core/Src/GT911.c **** 					}
+ 962              		.loc 1 359 7 is_stmt 1 view .LVU263
+ 359:Core/Src/GT911.c **** 					}
+ 963              		.loc 1 359 30 is_stmt 0 view .LVU264
+ 964 01c8 471D     		adds	r7, r0, #5
+ 359:Core/Src/GT911.c **** 					}
+ 965              		.loc 1 359 28 view .LVU265
+ 966 01ca 0DF1300C 		add	ip, sp, #48
+ 967 01ce 6744     		add	r7, r7, ip
+ 968 01d0 17F82C7C 		ldrb	r7, [r7, #-44]	@ zero_extendqisi2
+ 359:Core/Src/GT911.c **** 					}
+ 969              		.loc 1 359 45 view .LVU266
+ 970 01d4 0430     		adds	r0, r0, #4
+ 359:Core/Src/GT911.c **** 					}
+ 971              		.loc 1 359 43 view .LVU267
+ 972 01d6 6044     		add	r0, r0, ip
+ 973 01d8 10F82C0C 		ldrb	r0, [r0, #-44]	@ zero_extendqisi2
+ 359:Core/Src/GT911.c **** 					}
+ 974              		.loc 1 359 39 view .LVU268
+ 975 01dc 00EB0720 		add	r0, r0, r7, lsl #8
+ 359:Core/Src/GT911.c **** 					}
+ 976              		.loc 1 359 18 view .LVU269
+ 977 01e0 0432     		adds	r2, r2, #4
+ 978 01e2 05EB4205 		add	r5, r5, r2, lsl #1
+ 979 01e6 E880     		strh	r0, [r5, #6]	@ movhi
+ 980 01e8 CFE7     		b	.L47
+ 981              	.L64:
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 982              		.loc 1 368 7 is_stmt 1 view .LVU270
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 983              		.loc 1 368 25 is_stmt 0 view .LVU271
+ 984 01ea DFF808E1 		ldr	lr, .L68+12
+ 985 01ee BEF80470 		ldrh	r7, [lr, #4]
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 986              		.loc 1 368 46 view .LVU272
+ 987 01f2 D800     		lsls	r0, r3, #3
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 988              		.loc 1 368 44 view .LVU273
+ 989 01f4 C51C     		adds	r5, r0, #3
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 990              		.loc 1 368 42 view .LVU274
+ 991 01f6 0DF1300C 		add	ip, sp, #48
+ 992 01fa 6544     		add	r5, r5, ip
+ 993 01fc 15F82C8C 		ldrb	r8, [r5, #-44]	@ zero_extendqisi2
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 994              		.loc 1 368 59 view .LVU275
+ 995 0200 00F1020C 		add	ip, r0, #2
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 996              		.loc 1 368 57 view .LVU276
+ 997 0204 0CAD     		add	r5, sp, #48
+ 998 0206 AC44     		add	ip, ip, r5
+ 999 0208 1CF82C5C 		ldrb	r5, [ip, #-44]	@ zero_extendqisi2
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 1000              		.loc 1 368 53 view .LVU277
+ARM GAS  /tmp/ccZlqxch.s 			page 26
+
+
+ 1001 020c 05EB0825 		add	r5, r5, r8, lsl #8
+ 1002 0210 ADB2     		uxth	r5, r5
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 1003              		.loc 1 368 31 view .LVU278
+ 1004 0212 7D1B     		subs	r5, r7, r5
+ 368:Core/Src/GT911.c **** 						tp_dev.y[i]=lcddev.height-(((u16)buf[5+i*8]<<8)+buf[4+i*8]);
+ 1005              		.loc 1 368 18 view .LVU279
+ 1006 0214 364F     		ldr	r7, .L68+8
+ 1007 0216 07EB430C 		add	ip, r7, r3, lsl #1
+ 1008 021a ACF80450 		strh	r5, [ip, #4]	@ movhi
+ 369:Core/Src/GT911.c **** 					}
+ 1009              		.loc 1 369 7 is_stmt 1 view .LVU280
+ 369:Core/Src/GT911.c **** 					}
+ 1010              		.loc 1 369 25 is_stmt 0 view .LVU281
+ 1011 021e BEF80650 		ldrh	r5, [lr, #6]
+ 369:Core/Src/GT911.c **** 					}
+ 1012              		.loc 1 369 45 view .LVU282
+ 1013 0222 00F1050C 		add	ip, r0, #5
+ 369:Core/Src/GT911.c **** 					}
+ 1014              		.loc 1 369 43 view .LVU283
+ 1015 0226 0DF1300E 		add	lr, sp, #48
+ 1016 022a F444     		add	ip, ip, lr
+ 1017 022c 1CF82CCC 		ldrb	ip, [ip, #-44]	@ zero_extendqisi2
+ 369:Core/Src/GT911.c **** 					}
+ 1018              		.loc 1 369 60 view .LVU284
+ 1019 0230 0430     		adds	r0, r0, #4
+ 369:Core/Src/GT911.c **** 					}
+ 1020              		.loc 1 369 58 view .LVU285
+ 1021 0232 7044     		add	r0, r0, lr
+ 1022 0234 10F82C0C 		ldrb	r0, [r0, #-44]	@ zero_extendqisi2
+ 369:Core/Src/GT911.c **** 					}
+ 1023              		.loc 1 369 54 view .LVU286
+ 1024 0238 00EB0C20 		add	r0, r0, ip, lsl #8
+ 1025 023c 80B2     		uxth	r0, r0
+ 369:Core/Src/GT911.c **** 					}
+ 1026              		.loc 1 369 32 view .LVU287
+ 1027 023e 281A     		subs	r0, r5, r0
+ 369:Core/Src/GT911.c **** 					}
+ 1028              		.loc 1 369 18 view .LVU288
+ 1029 0240 0432     		adds	r2, r2, #4
+ 1030 0242 07EB4207 		add	r7, r7, r2, lsl #1
+ 1031 0246 F880     		strh	r0, [r7, #6]	@ movhi
+ 1032 0248 9FE7     		b	.L47
+ 1033              	.L65:
+ 375:Core/Src/GT911.c **** 					}  
+ 376:Core/Src/GT911.c **** 					//printf("x[%d]:%d,y[%d]:%d\r\n",i,tp_dev.x[i],i,tp_dev.y[i]);
+ 377:Core/Src/GT911.c **** 				}
+ 378:Core/Src/GT911.c **** 			} 
+ 379:Core/Src/GT911.c **** 			res=1;
+ 1034              		.loc 1 379 4 is_stmt 1 view .LVU289
+ 1035              	.LVL70:
+ 380:Core/Src/GT911.c **** 			if(tp_dev.x[0]>lcddev.width||tp_dev.y[0]>lcddev.height)//·Ç·¨Êý¾Ý(×ø±ê³¬³öÁË)
+ 1036              		.loc 1 380 4 view .LVU290
+ 1037              		.loc 1 380 15 is_stmt 0 view .LVU291
+ 1038 024a 294B     		ldr	r3, .L68+8
+ 1039              	.LVL71:
+ 1040              		.loc 1 380 15 view .LVU292
+ARM GAS  /tmp/ccZlqxch.s 			page 27
+
+
+ 1041 024c 9A88     		ldrh	r2, [r3, #4]
+ 1042              		.loc 1 380 25 view .LVU293
+ 1043 024e 294B     		ldr	r3, .L68+12
+ 1044 0250 9B88     		ldrh	r3, [r3, #4]
+ 1045              		.loc 1 380 6 view .LVU294
+ 1046 0252 9A42     		cmp	r2, r3
+ 1047 0254 05D8     		bhi	.L52
+ 1048              		.loc 1 380 41 discriminator 1 view .LVU295
+ 1049 0256 264B     		ldr	r3, .L68+8
+ 1050 0258 DA89     		ldrh	r2, [r3, #14]
+ 1051              		.loc 1 380 51 discriminator 1 view .LVU296
+ 1052 025a 264B     		ldr	r3, .L68+12
+ 1053 025c DB88     		ldrh	r3, [r3, #6]
+ 1054              		.loc 1 380 31 discriminator 1 view .LVU297
+ 1055 025e 9A42     		cmp	r2, r3
+ 1056 0260 17D9     		bls	.L53
+ 1057              	.L52:
+ 381:Core/Src/GT911.c **** 			{ 
+ 382:Core/Src/GT911.c **** 				if((buf[0]&0XF)>1)		//ÓÐÆäËûµãÓÐÊý¾Ý,Ôò¸´µÚ¶þ¸ö´¥µãµÄÊý¾Ýµ½µÚÒ»¸ö´¥µã.
+ 1058              		.loc 1 382 5 is_stmt 1 view .LVU298
+ 1059              		.loc 1 382 7 is_stmt 0 view .LVU299
+ 1060 0262 14F00E0F 		tst	r4, #14
+ 1061 0266 09D0     		beq	.L54
+ 383:Core/Src/GT911.c **** 				{
+ 384:Core/Src/GT911.c **** 					tp_dev.x[0]=tp_dev.x[1];
+ 1062              		.loc 1 384 6 is_stmt 1 view .LVU300
+ 1063              		.loc 1 384 26 is_stmt 0 view .LVU301
+ 1064 0268 214B     		ldr	r3, .L68+8
+ 1065 026a DA88     		ldrh	r2, [r3, #6]
+ 1066              		.loc 1 384 17 view .LVU302
+ 1067 026c 9A80     		strh	r2, [r3, #4]	@ movhi
+ 385:Core/Src/GT911.c **** 					tp_dev.y[0]=tp_dev.y[1];
+ 1068              		.loc 1 385 6 is_stmt 1 view .LVU303
+ 1069              		.loc 1 385 26 is_stmt 0 view .LVU304
+ 1070 026e 1A8A     		ldrh	r2, [r3, #16]
+ 1071              		.loc 1 385 17 view .LVU305
+ 1072 0270 DA81     		strh	r2, [r3, #14]	@ movhi
+ 386:Core/Src/GT911.c **** 					#if !SCAN_TYPE
+ 387:Core/Src/GT911.c **** 					t=0;				//´¥·¢Ò»´Î,Ôò»á×îÉÙÁ¬Ðø¼à²â10´Î,´Ó¶øÌá¸ßÃüÖÐÂÊ
+ 1073              		.loc 1 387 6 is_stmt 1 view .LVU306
+ 1074              		.loc 1 387 7 is_stmt 0 view .LVU307
+ 1075 0272 1D4B     		ldr	r3, .L68
+ 1076 0274 0022     		movs	r2, #0
+ 1077 0276 1A70     		strb	r2, [r3]
+ 379:Core/Src/GT911.c **** 			if(tp_dev.x[0]>lcddev.width||tp_dev.y[0]>lcddev.height)//·Ç·¨Êý¾Ý(×ø±ê³¬³öÁË)
+ 1078              		.loc 1 379 7 view .LVU308
+ 1079 0278 0120     		movs	r0, #1
+ 1080 027a 10E0     		b	.L35
+ 1081              	.L54:
+ 388:Core/Src/GT911.c **** 					#endif
+ 389:Core/Src/GT911.c **** 				}else					//·Ç·¨Êý¾Ý,ÔòºöÂÔ´Ë´ÎÊý¾Ý(»¹Ô­Ô­À´µÄ)  
+ 390:Core/Src/GT911.c **** 				{
+ 391:Core/Src/GT911.c **** 					tp_dev.x[0]=tp_dev.x[4];
+ 1082              		.loc 1 391 6 is_stmt 1 view .LVU309
+ 1083              		.loc 1 391 26 is_stmt 0 view .LVU310
+ 1084 027c 1C4B     		ldr	r3, .L68+8
+ 1085 027e 9A89     		ldrh	r2, [r3, #12]
+ARM GAS  /tmp/ccZlqxch.s 			page 28
+
+
+ 1086              		.loc 1 391 17 view .LVU311
+ 1087 0280 9A80     		strh	r2, [r3, #4]	@ movhi
+ 392:Core/Src/GT911.c **** 					tp_dev.y[0]=tp_dev.y[4];
+ 1088              		.loc 1 392 6 is_stmt 1 view .LVU312
+ 1089              		.loc 1 392 26 is_stmt 0 view .LVU313
+ 1090 0282 DA8A     		ldrh	r2, [r3, #22]
+ 1091              		.loc 1 392 17 view .LVU314
+ 1092 0284 DA81     		strh	r2, [r3, #14]	@ movhi
+ 393:Core/Src/GT911.c **** 					buf[0]=0X80;		
+ 1093              		.loc 1 393 6 is_stmt 1 view .LVU315
+ 1094              		.loc 1 393 12 is_stmt 0 view .LVU316
+ 1095 0286 8022     		movs	r2, #128
+ 1096 0288 8DF80420 		strb	r2, [sp, #4]
+ 394:Core/Src/GT911.c **** 					tp_dev.sta=tempsta;	//»Ö¸´tp_dev.sta
+ 1097              		.loc 1 394 6 is_stmt 1 view .LVU317
+ 1098              		.loc 1 394 16 is_stmt 0 view .LVU318
+ 1099 028c 1E76     		strb	r6, [r3, #24]
+ 379:Core/Src/GT911.c **** 			if(tp_dev.x[0]>lcddev.width||tp_dev.y[0]>lcddev.height)//·Ç·¨Êý¾Ý(×ø±ê³¬³öÁË)
+ 1100              		.loc 1 379 7 view .LVU319
+ 1101 028e 0120     		movs	r0, #1
+ 1102 0290 05E0     		b	.L35
+ 1103              	.L53:
+ 395:Core/Src/GT911.c **** 				}
+ 396:Core/Src/GT911.c **** 			}
+ 397:Core/Src/GT911.c **** 			#if !SCAN_TYPE
+ 398:Core/Src/GT911.c **** 			else t=0;					//´¥·¢Ò»´Î,Ôò»á×îÉÙÁ¬Ðø¼à²â10´Î,´Ó¶øÌá¸ßÃüÖÐÂÊ
+ 1104              		.loc 1 398 9 is_stmt 1 view .LVU320
+ 1105              		.loc 1 398 10 is_stmt 0 view .LVU321
+ 1106 0292 154B     		ldr	r3, .L68
+ 1107 0294 0022     		movs	r2, #0
+ 1108 0296 1A70     		strb	r2, [r3]
+ 379:Core/Src/GT911.c **** 			if(tp_dev.x[0]>lcddev.width||tp_dev.y[0]>lcddev.height)//·Ç·¨Êý¾Ý(×ø±ê³¬³öÁË)
+ 1109              		.loc 1 379 7 view .LVU322
+ 1110 0298 0120     		movs	r0, #1
+ 1111 029a 00E0     		b	.L35
+ 1112              	.LVL72:
+ 1113              	.L58:
+ 294:Core/Src/GT911.c **** 	u8 temp;
+ 1114              		.loc 1 294 5 view .LVU323
+ 1115 029c 0020     		movs	r0, #0
+ 1116              	.LVL73:
+ 1117              	.L35:
+ 399:Core/Src/GT911.c **** 			#endif
+ 400:Core/Src/GT911.c **** 		}
+ 401:Core/Src/GT911.c **** 	}
+ 402:Core/Src/GT911.c **** 	if((buf[0]&0X8F)==0X80)//ÎÞ´¥Ãþµã°´ÏÂ
+ 1118              		.loc 1 402 2 is_stmt 1 view .LVU324
+ 1119              		.loc 1 402 9 is_stmt 0 view .LVU325
+ 1120 029e 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 1121              		.loc 1 402 4 view .LVU326
+ 1122 02a2 03F08F03 		and	r3, r3, #143
+ 1123 02a6 802B     		cmp	r3, #128
+ 1124 02a8 09D0     		beq	.L66
+ 1125              	.L55:
+ 403:Core/Src/GT911.c **** 	{ 
+ 404:Core/Src/GT911.c **** 	#if SCAN_TYPE
+ 405:Core/Src/GT911.c **** 	touch_flag=0;
+ARM GAS  /tmp/ccZlqxch.s 			page 29
+
+
+ 406:Core/Src/GT911.c **** 	#endif
+ 407:Core/Src/GT911.c **** 		if(tp_dev.sta&TP_PRES_DOWN)	//Ö®Ç°ÊÇ±»°´ÏÂµÄ
+ 408:Core/Src/GT911.c **** 		{
+ 409:Core/Src/GT911.c **** 			tp_dev.sta&=~(1<<7);	//±ê¼Ç°´¼üËÉ¿ª
+ 410:Core/Src/GT911.c **** 		}else						//Ö®Ç°¾ÍÃ»ÓÐ±»°´ÏÂ
+ 411:Core/Src/GT911.c **** 		{ 
+ 412:Core/Src/GT911.c **** 			tp_dev.x[0]=0xffff;
+ 413:Core/Src/GT911.c **** 			tp_dev.y[0]=0xffff;
+ 414:Core/Src/GT911.c **** 			tp_dev.sta&=0XE0;	//Çå³ýµãÓÐÐ§±ê¼Ç	
+ 415:Core/Src/GT911.c **** 		}	
+ 416:Core/Src/GT911.c **** 	}
+ 417:Core/Src/GT911.c **** #if !SCAN_TYPE
+ 418:Core/Src/GT911.c **** 	if(t>240)t=10;//ÖØÐÂ´Ó10¿ªÊ¼¼ÆÊý
+ 1126              		.loc 1 418 2 is_stmt 1 view .LVU327
+ 1127              		.loc 1 418 6 is_stmt 0 view .LVU328
+ 1128 02aa 0F4B     		ldr	r3, .L68
+ 1129 02ac 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1130              		.loc 1 418 4 view .LVU329
+ 1131 02ae F02B     		cmp	r3, #240
+ 1132 02b0 02D9     		bls	.L57
+ 1133              		.loc 1 418 11 is_stmt 1 discriminator 1 view .LVU330
+ 1134              		.loc 1 418 12 is_stmt 0 discriminator 1 view .LVU331
+ 1135 02b2 0D4B     		ldr	r3, .L68
+ 1136 02b4 0A22     		movs	r2, #10
+ 1137 02b6 1A70     		strb	r2, [r3]
+ 1138              	.L57:
+ 419:Core/Src/GT911.c **** #endif
+ 420:Core/Src/GT911.c **** 	return res;
+ 1139              		.loc 1 420 2 is_stmt 1 view .LVU332
+ 421:Core/Src/GT911.c **** }
+ 1140              		.loc 1 421 1 is_stmt 0 view .LVU333
+ 1141 02b8 0CB0     		add	sp, sp, #48
+ 1142              	.LCFI18:
+ 1143              		.cfi_remember_state
+ 1144              		.cfi_def_cfa_offset 24
+ 1145              		@ sp needed
+ 1146 02ba BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1147              	.L66:
+ 1148              	.LCFI19:
+ 1149              		.cfi_restore_state
+ 407:Core/Src/GT911.c **** 		{
+ 1150              		.loc 1 407 3 is_stmt 1 view .LVU334
+ 407:Core/Src/GT911.c **** 		{
+ 1151              		.loc 1 407 12 is_stmt 0 view .LVU335
+ 1152 02be 0C4A     		ldr	r2, .L68+8
+ 1153 02c0 137E     		ldrb	r3, [r2, #24]	@ zero_extendqisi2
+ 407:Core/Src/GT911.c **** 		{
+ 1154              		.loc 1 407 6 view .LVU336
+ 1155 02c2 92F91820 		ldrsb	r2, [r2, #24]
+ 407:Core/Src/GT911.c **** 		{
+ 1156              		.loc 1 407 5 view .LVU337
+ 1157 02c6 002A     		cmp	r2, #0
+ 1158 02c8 08DB     		blt	.L67
+ 412:Core/Src/GT911.c **** 			tp_dev.y[0]=0xffff;
+ 1159              		.loc 1 412 4 is_stmt 1 view .LVU338
+ 412:Core/Src/GT911.c **** 			tp_dev.y[0]=0xffff;
+ 1160              		.loc 1 412 15 is_stmt 0 view .LVU339
+ARM GAS  /tmp/ccZlqxch.s 			page 30
+
+
+ 1161 02ca 094A     		ldr	r2, .L68+8
+ 1162 02cc 4FF6FF71 		movw	r1, #65535
+ 1163 02d0 9180     		strh	r1, [r2, #4]	@ movhi
+ 413:Core/Src/GT911.c **** 			tp_dev.sta&=0XE0;	//Çå³ýµãÓÐÐ§±ê¼Ç	
+ 1164              		.loc 1 413 4 is_stmt 1 view .LVU340
+ 413:Core/Src/GT911.c **** 			tp_dev.sta&=0XE0;	//Çå³ýµãÓÐÐ§±ê¼Ç	
+ 1165              		.loc 1 413 15 is_stmt 0 view .LVU341
+ 1166 02d2 D181     		strh	r1, [r2, #14]	@ movhi
+ 414:Core/Src/GT911.c **** 		}	
+ 1167              		.loc 1 414 4 is_stmt 1 view .LVU342
+ 414:Core/Src/GT911.c **** 		}	
+ 1168              		.loc 1 414 14 is_stmt 0 view .LVU343
+ 1169 02d4 23F01F03 		bic	r3, r3, #31
+ 1170 02d8 1376     		strb	r3, [r2, #24]
+ 1171 02da E6E7     		b	.L55
+ 1172              	.L67:
+ 409:Core/Src/GT911.c **** 		}else						//Ö®Ç°¾ÍÃ»ÓÐ±»°´ÏÂ
+ 1173              		.loc 1 409 4 is_stmt 1 view .LVU344
+ 409:Core/Src/GT911.c **** 		}else						//Ö®Ç°¾ÍÃ»ÓÐ±»°´ÏÂ
+ 1174              		.loc 1 409 14 is_stmt 0 view .LVU345
+ 1175 02dc 03F07F03 		and	r3, r3, #127
+ 1176 02e0 034A     		ldr	r2, .L68+8
+ 1177 02e2 1376     		strb	r3, [r2, #24]
+ 1178 02e4 E1E7     		b	.L55
+ 1179              	.L69:
+ 1180 02e6 00BF     		.align	2
+ 1181              	.L68:
+ 1182 02e8 00000000 		.word	.LANCHOR0
+ 1183 02ec CDCCCCCC 		.word	-858993459
+ 1184 02f0 00000000 		.word	tp_dev
+ 1185 02f4 00000000 		.word	lcddev
+ 1186              		.cfi_endproc
+ 1187              	.LFE139:
+ 1189              		.global	TPX
+ 1190              		.section	.bss.t.9932,"aw",%nobits
+ 1191              		.set	.LANCHOR0,. + 0
+ 1194              	t.9932:
+ 1195 0000 00       		.space	1
+ 1196              		.section	.rodata.TPX,"a"
+ 1197              		.align	2
+ 1200              	TPX:
+ 1201 0000 5081     		.short	-32432
+ 1202 0002 5881     		.short	-32424
+ 1203 0004 6081     		.short	-32416
+ 1204 0006 6881     		.short	-32408
+ 1205 0008 7081     		.short	-32400
+ 1206              		.text
+ 1207              	.Letext0:
+ 1208              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 1209              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 1210              		.file 4 "Core/Inc/system_stm32f4xx.h"
+ 1211              		.file 5 "Core/Inc/stm32f4xx.h"
+ 1212              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_gpio.h"
+ 1213              		.file 7 "Core/Inc/touch.h"
+ 1214              		.file 8 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 1215              		.file 9 "/usr/include/newlib/sys/_types.h"
+ 1216              		.file 10 "/usr/include/newlib/sys/reent.h"
+ARM GAS  /tmp/ccZlqxch.s 			page 31
+
+
+ 1217              		.file 11 "/usr/include/newlib/sys/lock.h"
+ 1218              		.file 12 "/usr/include/newlib/stdlib.h"
+ 1219              		.file 13 "Core/Inc/lcd.h"
+ 1220              		.file 14 "Core/Inc/ctpiic.h"
+ 1221              		.file 15 "Core/Inc/delay.h"
+ 1222              		.file 16 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  /tmp/ccZlqxch.s 			page 32
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 GT911.c
+     /tmp/ccZlqxch.s:18     .text.GT911_int_sync:0000000000000000 $t
+     /tmp/ccZlqxch.s:26     .text.GT911_int_sync:0000000000000000 GT911_int_sync
+     /tmp/ccZlqxch.s:62     .text.GT911_int_sync:000000000000001c $d
+     /tmp/ccZlqxch.s:68     .text.GT911_reset_guitar:0000000000000000 $t
+     /tmp/ccZlqxch.s:75     .text.GT911_reset_guitar:0000000000000000 GT911_reset_guitar
+     /tmp/ccZlqxch.s:143    .text.GT911_reset_guitar:000000000000003c $d
+     /tmp/ccZlqxch.s:149    .text.GT911_reset:0000000000000000 $t
+     /tmp/ccZlqxch.s:156    .text.GT911_reset:0000000000000000 GT911_reset
+     /tmp/ccZlqxch.s:189    .text.GT911_reset:000000000000001c $d
+     /tmp/ccZlqxch.s:194    .text.GT911_gpio_init:0000000000000000 $t
+     /tmp/ccZlqxch.s:201    .text.GT911_gpio_init:0000000000000000 GT911_gpio_init
+     /tmp/ccZlqxch.s:293    .text.GT911_gpio_init:0000000000000070 $d
+     /tmp/ccZlqxch.s:299    .text.GT9XX_WriteHandle:0000000000000000 $t
+     /tmp/ccZlqxch.s:306    .text.GT9XX_WriteHandle:0000000000000000 GT9XX_WriteHandle
+     /tmp/ccZlqxch.s:354    .text.GT9XX_WriteData:0000000000000000 $t
+     /tmp/ccZlqxch.s:361    .text.GT9XX_WriteData:0000000000000000 GT9XX_WriteData
+     /tmp/ccZlqxch.s:405    .text.GT9XX_ReadData:0000000000000000 $t
+     /tmp/ccZlqxch.s:412    .text.GT9XX_ReadData:0000000000000000 GT9XX_ReadData
+     /tmp/ccZlqxch.s:498    .text.GT911_Init:0000000000000000 $t
+     /tmp/ccZlqxch.s:505    .text.GT911_Init:0000000000000000 GT911_Init
+     /tmp/ccZlqxch.s:562    .text.Touch_Get_Count:0000000000000000 $t
+     /tmp/ccZlqxch.s:569    .text.Touch_Get_Count:0000000000000000 Touch_Get_Count
+     /tmp/ccZlqxch.s:606    .text.GT911_Scan:0000000000000000 $t
+     /tmp/ccZlqxch.s:613    .text.GT911_Scan:0000000000000000 GT911_Scan
+     /tmp/ccZlqxch.s:737    .text.GT911_Scan:0000000000000090 $d
+     /tmp/ccZlqxch.s:742    .text.GT911_Scan:00000000000000a4 $t
+     /tmp/ccZlqxch.s:1182   .text.GT911_Scan:00000000000002e8 $d
+     /tmp/ccZlqxch.s:1200   .rodata.TPX:0000000000000000 TPX
+     /tmp/ccZlqxch.s:1194   .bss.t.9932:0000000000000000 t.9932
+     /tmp/ccZlqxch.s:1195   .bss.t.9932:0000000000000000 $d
+     /tmp/ccZlqxch.s:1197   .rodata.TPX:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+delay_ms
+RCC_AHB1PeriphClockCmd
+GPIO_Init
+CTP_IIC_Init
+CTP_IIC_Start
+CTP_IIC_Send_Byte
+CTP_IIC_Wait_Ack
+CTP_IIC_Stop
+delay_us
+CTP_IIC_Read_Byte
+tp_dev
+lcddev

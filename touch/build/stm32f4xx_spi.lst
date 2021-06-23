@@ -1,0 +1,3055 @@
+ARM GAS  /tmp/ccTr0q0X.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"stm32f4xx_spi.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.SPI_I2S_DeInit,"ax",%progbits
+  18              		.align	1
+  19              		.global	SPI_I2S_DeInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	SPI_I2S_DeInit:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c"
+   1:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+   2:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   ******************************************************************************
+   3:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @file    stm32f4xx_spi.c
+   4:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @author  MCD Application Team
+   5:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @version V1.4.0
+   6:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @date    04-August-2014
+   7:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief   This file provides firmware functions to manage the following 
+   8:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          functionalities of the Serial peripheral interface (SPI):
+   9:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *           + Initialization and Configuration
+  10:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *           + Data transfers functions
+  11:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *           + Hardware CRC Calculation
+  12:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *           + DMA transfers management
+  13:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *           + Interrupts and flags management 
+  14:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *           
+  15:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @verbatim
+  16:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+  17:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===================================================================
+  18:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   ##### How to use this driver #####
+  19:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===================================================================
+  20:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..]
+  21:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Enable peripheral clock using the following functions 
+  22:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE) for SPI1
+  23:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE) for SPI2
+  24:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI3
+  25:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI4
+  26:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI5
+  27:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI6.
+  28:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+  29:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Enable SCK, MOSI, MISO and NSS GPIO clocks using RCC_AHB1PeriphClockCmd()
+ARM GAS  /tmp/ccTr0q0X.s 			page 2
+
+
+  30:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        function. In I2S mode, if an external clock source is used then the I2S 
+  31:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        CKIN pin GPIO clock should also be enabled.
+  32:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+  33:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Peripherals alternate function: 
+  34:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Connect the pin to the desired peripherals' Alternate Function (AF) 
+  35:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             using GPIO_PinAFConfig() function
+  36:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Configure the desired pin in alternate function by: 
+  37:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             GPIO_InitStruct->GPIO_Mode = GPIO_Mode_AF
+  38:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Select the type, pull-up/pull-down and output speed via GPIO_PuPd, 
+  39:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             GPIO_OType and GPIO_Speed members
+  40:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Call GPIO_Init() function In I2S mode, if an external clock source is 
+  41:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             used then the I2S CKIN pin should be also configured in Alternate 
+  42:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             function Push-pull pull-up mode. 
+  43:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****           
+  44:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Program the Polarity, Phase, First Data, Baud Rate Prescaler, Slave 
+  45:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        Management, Peripheral Mode and CRC Polynomial values using the SPI_Init()
+  46:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        function.
+  47:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        In I2S mode, program the Mode, Standard, Data Format, MCLK Output, Audio 
+  48:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        frequency and Polarity using I2S_Init() function. For I2S mode, make sure 
+  49:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        that either:
+  50:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) I2S PLL is configured using the functions 
+  51:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             RCC_I2SCLKConfig(RCC_I2S2CLKSource_PLLI2S), RCC_PLLI2SCmd(ENABLE) and 
+  52:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             RCC_GetFlagStatus(RCC_FLAG_PLLI2SRDY); or 
+  53:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) External clock source is configured using the function 
+  54:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             RCC_I2SCLKConfig(RCC_I2S2CLKSource_Ext) and after setting correctly 
+  55:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             the define constant I2S_EXTERNAL_CLOCK_VAL in the stm32f4xx_conf.h file. 
+  56:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+  57:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Enable the NVIC and the corresponding interrupt using the function 
+  58:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        SPI_ITConfig() if you need to use interrupt mode. 
+  59:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+  60:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) When using the DMA mode 
+  61:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Configure the DMA using DMA_Init() function
+  62:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Active the needed channel Request using SPI_I2S_DMACmd() function
+  63:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    
+  64:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Enable the SPI using the SPI_Cmd() function or enable the I2S using
+  65:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        I2S_Cmd().
+  66:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    
+  67:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Enable the DMA using the DMA_Cmd() function when using DMA mode. 
+  68:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+  69:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Optionally, you can enable/configure the following parameters without
+  70:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        re-initialization (i.e there is no need to call again SPI_Init() function):
+  71:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) When bidirectional mode (SPI_Direction_1Line_Rx or SPI_Direction_1Line_Tx)
+  72:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             is programmed as Data direction parameter using the SPI_Init() function
+  73:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             it can be possible to switch between SPI_Direction_Tx or SPI_Direction_Rx
+  74:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             using the SPI_BiDirectionalLineConfig() function.
+  75:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) When SPI_NSS_Soft is selected as Slave Select Management parameter 
+  76:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             using the SPI_Init() function it can be possible to manage the 
+  77:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             NSS internal signal using the SPI_NSSInternalSoftwareConfig() function.
+  78:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Reconfigure the data size using the SPI_DataSizeConfig() function  
+  79:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (++) Enable or disable the SS output using the SPI_SSOutputCmd() function  
+  80:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             
+  81:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     (#) To use the CRC Hardware calculation feature refer to the Peripheral 
+  82:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****         CRC hardware Calculation subsection.
+  83:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****      
+  84:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+  85:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] It is possible to use SPI in I2S full duplex mode, in this case, each SPI 
+  86:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       peripheral is able to manage sending and receiving data simultaneously
+ARM GAS  /tmp/ccTr0q0X.s 			page 3
+
+
+  87:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       using two data lines. Each SPI peripheral has an extended block called I2Sxext
+  88:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       (ie. I2S2ext for SPI2 and I2S3ext for SPI3).
+  89:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       The extension block is not a full SPI IP, it is used only as I2S slave to
+  90:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       implement full duplex mode. The extension block uses the same clock sources
+  91:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       as its master.          
+  92:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       To configure I2S full duplex you have to:
+  93:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****               
+  94:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       (#) Configure SPIx in I2S mode (I2S_Init() function) as described above. 
+  95:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****              
+  96:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       (#) Call the I2S_FullDuplexConfig() function using the same strucutre passed to  
+  97:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****           I2S_Init() function.
+  98:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****               
+  99:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       (#) Call I2S_Cmd() for SPIx then for its extended block.
+ 100:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             
+ 101:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       (#) To configure interrupts or DMA requests and to get/clear flag status, 
+ 102:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****           use I2Sxext instance for the extension block.
+ 103:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                
+ 104:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] Functions that can be called with I2Sxext instances are: I2S_Cmd(), 
+ 105:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       I2S_FullDuplexConfig(), SPI_I2S_ReceiveData(), SPI_I2S_SendData(), 
+ 106:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       SPI_I2S_DMACmd(), SPI_I2S_ITConfig(), SPI_I2S_GetFlagStatus(), 
+ 107:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       SPI_I2S_ClearFlag(), SPI_I2S_GetITStatus() and SPI_I2S_ClearITPendingBit().
+ 108:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                    
+ 109:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       Example: To use SPI3 in Full duplex mode (SPI3 is Master Tx, I2S3ext is Slave Rx):
+ 110:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****               
+ 111:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);   
+ 112:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       I2S_StructInit(&I2SInitStruct);
+ 113:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       I2SInitStruct.Mode = I2S_Mode_MasterTx;     
+ 114:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       I2S_Init(SPI3, &I2SInitStruct);
+ 115:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       I2S_FullDuplexConfig(SPI3ext, &I2SInitStruct)
+ 116:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       I2S_Cmd(SPI3, ENABLE);
+ 117:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       I2S_Cmd(SPI3ext, ENABLE);
+ 118:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       ...
+ 119:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       while (SPI_I2S_GetFlagStatus(SPI2, SPI_FLAG_TXE) == RESET)
+ 120:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       {}
+ 121:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       SPI_I2S_SendData(SPI3, txdata[i]);
+ 122:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       ...  
+ 123:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       while (SPI_I2S_GetFlagStatus(I2S3ext, SPI_FLAG_RXNE) == RESET)
+ 124:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       {}
+ 125:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       rxdata[i] = SPI_I2S_ReceiveData(I2S3ext);
+ 126:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       ...          
+ 127:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                 
+ 128:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..]       
+ 129:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) In I2S mode: if an external clock is used as source clock for the I2S,  
+ 130:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        then the define I2S_EXTERNAL_CLOCK_VAL in file stm32f4xx_conf.h should 
+ 131:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        be enabled and set to the value of the source clock frequency (in Hz).
+ 132:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    
+ 133:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) In SPI mode: To use the SPI TI mode, call the function SPI_TIModeCmd() 
+ 134:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        just after calling the function SPI_Init().
+ 135:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 136:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @endverbatim  
+ 137:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *                                  
+ 138:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   ******************************************************************************
+ 139:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @attention
+ 140:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *
+ 141:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+ 142:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *
+ 143:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+ARM GAS  /tmp/ccTr0q0X.s 			page 4
+
+
+ 144:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * You may not use this file except in compliance with the License.
+ 145:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * You may obtain a copy of the License at:
+ 146:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *
+ 147:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
+ 148:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *
+ 149:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * Unless required by applicable law or agreed to in writing, software 
+ 150:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
+ 151:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ 152:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * See the License for the specific language governing permissions and
+ 153:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * limitations under the License.
+ 154:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   ******************************************************************************  
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */ 
+ 157:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 158:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* Includes ------------------------------------------------------------------*/
+ 159:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #include "stm32f4xx_spi.h"
+ 160:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #include "stm32f4xx_rcc.h"
+ 161:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 162:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+ 163:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+ 164:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 165:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 166:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @defgroup SPI 
+ 167:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief SPI driver modules
+ 168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+ 169:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */ 
+ 170:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* Private typedef -----------------------------------------------------------*/
+ 172:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* Private define ------------------------------------------------------------*/
+ 173:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 174:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* SPI registers Masks */
+ 175:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #define CR1_CLEAR_MASK            ((uint16_t)0x3040)
+ 176:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #define I2SCFGR_CLEAR_MASK        ((uint16_t)0xF040)
+ 177:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 178:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* RCC PLLs masks */
+ 179:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #define PLLCFGR_PPLR_MASK         ((uint32_t)0x70000000)
+ 180:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #define PLLCFGR_PPLN_MASK         ((uint32_t)0x00007FC0)
+ 181:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 182:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #define SPI_CR2_FRF               ((uint16_t)0x0010)
+ 183:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #define SPI_SR_TIFRFE             ((uint16_t)0x0100)
+ 184:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 185:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* Private macro -------------------------------------------------------------*/
+ 186:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* Private variables ---------------------------------------------------------*/
+ 187:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* Private function prototypes -----------------------------------------------*/
+ 188:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /* Private functions ---------------------------------------------------------*/
+ 189:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 190:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @defgroup SPI_Private_Functions
+ 191:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+ 192:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 193:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 194:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @defgroup SPI_Group1 Initialization and Configuration functions
+ 195:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *  @brief   Initialization and Configuration functions 
+ 196:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *
+ 197:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @verbatim   
+ 198:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================
+ 199:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****              ##### Initialization and Configuration functions ##### 
+ 200:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================  
+ARM GAS  /tmp/ccTr0q0X.s 			page 5
+
+
+ 201:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] This section provides a set of functions allowing to initialize the SPI 
+ 202:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       Direction, SPI Mode, SPI Data Size, SPI Polarity, SPI Phase, SPI NSS 
+ 203:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       Management, SPI Baud Rate Prescaler, SPI First Bit and SPI CRC Polynomial.
+ 204:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 205:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] The SPI_Init() function follows the SPI configuration procedures for Master 
+ 206:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       mode and Slave mode (details for these procedures are available in reference 
+ 207:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       manual (RM0090)).
+ 208:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 209:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @endverbatim
+ 210:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+ 211:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 212:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 213:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 214:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  De-initialize the SPIx peripheral registers to their default reset values.
+ 215:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+ 216:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode.   
+ 217:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         
+ 218:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   The extended I2S blocks (ie. I2S2ext and I2S3ext blocks) are de-initialized
+ 219:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         when the relative I2S peripheral is de-initialized (the extended block's clock
+ 220:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         is managed by the I2S peripheral clock).
+ 221:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *             
+ 222:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 223:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 224:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_I2S_DeInit(SPI_TypeDef* SPIx)
+ 225:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+  30              		.loc 1 225 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 225 1 is_stmt 0 view .LVU1
+  35 0000 08B5     		push	{r3, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+ 226:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 227:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+  40              		.loc 1 227 3 is_stmt 1 view .LVU2
+ 228:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 229:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (SPIx == SPI1)
+  41              		.loc 1 229 3 view .LVU3
+  42              		.loc 1 229 6 is_stmt 0 view .LVU4
+  43 0002 2A4B     		ldr	r3, .L15
+  44 0004 9842     		cmp	r0, r3
+  45 0006 0FD0     		beq	.L9
+ 230:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 231:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable SPI1 reset state */
+ 232:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, ENABLE);
+ 233:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI1 from reset state */
+ 234:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, DISABLE);
+ 235:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 236:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else if (SPIx == SPI2)
+  46              		.loc 1 236 8 is_stmt 1 view .LVU5
+  47              		.loc 1 236 11 is_stmt 0 view .LVU6
+  48 0008 294B     		ldr	r3, .L15+4
+  49 000a 9842     		cmp	r0, r3
+  50 000c 17D0     		beq	.L10
+ARM GAS  /tmp/ccTr0q0X.s 			page 6
+
+
+ 237:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 238:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable SPI2 reset state */
+ 239:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, ENABLE);
+ 240:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI2 from reset state */
+ 241:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
+ 242:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 243:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else if (SPIx == SPI3)
+  51              		.loc 1 243 8 is_stmt 1 view .LVU7
+  52              		.loc 1 243 11 is_stmt 0 view .LVU8
+  53 000e 294B     		ldr	r3, .L15+8
+  54 0010 9842     		cmp	r0, r3
+  55 0012 1FD0     		beq	.L11
+ 244:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 245:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable SPI3 reset state */
+ 246:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
+ 247:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI3 from reset state */
+ 248:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
+ 249:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 250:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else if (SPIx == SPI4)
+  56              		.loc 1 250 8 is_stmt 1 view .LVU9
+  57              		.loc 1 250 11 is_stmt 0 view .LVU10
+  58 0014 284B     		ldr	r3, .L15+12
+  59 0016 9842     		cmp	r0, r3
+  60 0018 27D0     		beq	.L12
+ 251:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 252:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable SPI4 reset state */
+ 253:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI4, ENABLE);
+ 254:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI4 from reset state */
+ 255:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI4, DISABLE);
+ 256:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 257:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else if (SPIx == SPI5)
+  61              		.loc 1 257 8 is_stmt 1 view .LVU11
+  62              		.loc 1 257 11 is_stmt 0 view .LVU12
+  63 001a 284B     		ldr	r3, .L15+16
+  64 001c 9842     		cmp	r0, r3
+  65 001e 2FD0     		beq	.L13
+ 258:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 259:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable SPI5 reset state */
+ 260:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI5, ENABLE);
+ 261:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI5 from reset state */
+ 262:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI5, DISABLE);
+ 263:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 264:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else 
+ 265:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 266:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     if (SPIx == SPI6)
+  66              		.loc 1 266 5 is_stmt 1 view .LVU13
+  67              		.loc 1 266 8 is_stmt 0 view .LVU14
+  68 0020 274B     		ldr	r3, .L15+20
+  69 0022 9842     		cmp	r0, r3
+  70 0024 37D0     		beq	.L14
+  71              	.LVL1:
+  72              	.L1:
+ 267:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 268:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* Enable SPI6 reset state */
+ 269:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI6, ENABLE);
+ 270:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* Release SPI6 from reset state */
+ 271:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI6, DISABLE);
+ARM GAS  /tmp/ccTr0q0X.s 			page 7
+
+
+ 272:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 273:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 274:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+  73              		.loc 1 274 1 view .LVU15
+  74 0026 08BD     		pop	{r3, pc}
+  75              	.LVL2:
+  76              	.L9:
+ 232:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI1 from reset state */
+  77              		.loc 1 232 5 is_stmt 1 view .LVU16
+  78 0028 0121     		movs	r1, #1
+  79 002a 4FF48050 		mov	r0, #4096
+  80              	.LVL3:
+ 232:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI1 from reset state */
+  81              		.loc 1 232 5 is_stmt 0 view .LVU17
+  82 002e FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  83              	.LVL4:
+ 234:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+  84              		.loc 1 234 5 is_stmt 1 view .LVU18
+  85 0032 0021     		movs	r1, #0
+  86 0034 4FF48050 		mov	r0, #4096
+  87 0038 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  88              	.LVL5:
+  89 003c F3E7     		b	.L1
+  90              	.LVL6:
+  91              	.L10:
+ 239:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI2 from reset state */
+  92              		.loc 1 239 5 view .LVU19
+  93 003e 0121     		movs	r1, #1
+  94 0040 4FF48040 		mov	r0, #16384
+  95              	.LVL7:
+ 239:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI2 from reset state */
+  96              		.loc 1 239 5 is_stmt 0 view .LVU20
+  97 0044 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  98              	.LVL8:
+ 241:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+  99              		.loc 1 241 5 is_stmt 1 view .LVU21
+ 100 0048 0021     		movs	r1, #0
+ 101 004a 4FF48040 		mov	r0, #16384
+ 102 004e FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 103              	.LVL9:
+ 104 0052 E8E7     		b	.L1
+ 105              	.LVL10:
+ 106              	.L11:
+ 246:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI3 from reset state */
+ 107              		.loc 1 246 5 view .LVU22
+ 108 0054 0121     		movs	r1, #1
+ 109 0056 4FF40040 		mov	r0, #32768
+ 110              	.LVL11:
+ 246:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI3 from reset state */
+ 111              		.loc 1 246 5 is_stmt 0 view .LVU23
+ 112 005a FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 113              	.LVL12:
+ 248:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 114              		.loc 1 248 5 is_stmt 1 view .LVU24
+ 115 005e 0021     		movs	r1, #0
+ 116 0060 4FF40040 		mov	r0, #32768
+ 117 0064 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ARM GAS  /tmp/ccTr0q0X.s 			page 8
+
+
+ 118              	.LVL13:
+ 119 0068 DDE7     		b	.L1
+ 120              	.LVL14:
+ 121              	.L12:
+ 253:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI4 from reset state */
+ 122              		.loc 1 253 5 view .LVU25
+ 123 006a 0121     		movs	r1, #1
+ 124 006c 4FF40050 		mov	r0, #8192
+ 125              	.LVL15:
+ 253:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI4 from reset state */
+ 126              		.loc 1 253 5 is_stmt 0 view .LVU26
+ 127 0070 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 128              	.LVL16:
+ 255:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 129              		.loc 1 255 5 is_stmt 1 view .LVU27
+ 130 0074 0021     		movs	r1, #0
+ 131 0076 4FF40050 		mov	r0, #8192
+ 132 007a FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 133              	.LVL17:
+ 134 007e D2E7     		b	.L1
+ 135              	.LVL18:
+ 136              	.L13:
+ 260:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI5 from reset state */
+ 137              		.loc 1 260 5 view .LVU28
+ 138 0080 0121     		movs	r1, #1
+ 139 0082 4FF48010 		mov	r0, #1048576
+ 140              	.LVL19:
+ 260:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Release SPI5 from reset state */
+ 141              		.loc 1 260 5 is_stmt 0 view .LVU29
+ 142 0086 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 143              	.LVL20:
+ 262:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 144              		.loc 1 262 5 is_stmt 1 view .LVU30
+ 145 008a 0021     		movs	r1, #0
+ 146 008c 4FF48010 		mov	r0, #1048576
+ 147 0090 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 148              	.LVL21:
+ 149 0094 C7E7     		b	.L1
+ 150              	.LVL22:
+ 151              	.L14:
+ 269:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* Release SPI6 from reset state */
+ 152              		.loc 1 269 7 view .LVU31
+ 153 0096 0121     		movs	r1, #1
+ 154 0098 4FF40010 		mov	r0, #2097152
+ 155              	.LVL23:
+ 269:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* Release SPI6 from reset state */
+ 156              		.loc 1 269 7 is_stmt 0 view .LVU32
+ 157 009c FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 158              	.LVL24:
+ 271:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 159              		.loc 1 271 7 is_stmt 1 view .LVU33
+ 160 00a0 0021     		movs	r1, #0
+ 161 00a2 4FF40010 		mov	r0, #2097152
+ 162 00a6 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 163              	.LVL25:
+ 164              		.loc 1 274 1 is_stmt 0 view .LVU34
+ 165 00aa BCE7     		b	.L1
+ARM GAS  /tmp/ccTr0q0X.s 			page 9
+
+
+ 166              	.L16:
+ 167              		.align	2
+ 168              	.L15:
+ 169 00ac 00300140 		.word	1073819648
+ 170 00b0 00380040 		.word	1073756160
+ 171 00b4 003C0040 		.word	1073757184
+ 172 00b8 00340140 		.word	1073820672
+ 173 00bc 00500140 		.word	1073827840
+ 174 00c0 00540140 		.word	1073828864
+ 175              		.cfi_endproc
+ 176              	.LFE130:
+ 178              		.section	.text.SPI_Init,"ax",%progbits
+ 179              		.align	1
+ 180              		.global	SPI_Init
+ 181              		.syntax unified
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.fpu fpv4-sp-d16
+ 186              	SPI_Init:
+ 187              	.LVL26:
+ 188              	.LFB131:
+ 275:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 276:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 277:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Initializes the SPIx peripheral according to the specified 
+ 278:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         parameters in the SPI_InitStruct.
+ 279:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 280:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_InitStruct: pointer to a SPI_InitTypeDef structure that
+ 281:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         contains the configuration information for the specified SPI peripheral.
+ 282:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 283:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 284:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_Init(SPI_TypeDef* SPIx, SPI_InitTypeDef* SPI_InitStruct)
+ 285:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 189              		.loc 1 285 1 is_stmt 1 view -0
+ 190              		.cfi_startproc
+ 191              		@ args = 0, pretend = 0, frame = 0
+ 192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 193              		.loc 1 285 1 is_stmt 0 view .LVU36
+ 194 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 195              	.LCFI1:
+ 196              		.cfi_def_cfa_offset 24
+ 197              		.cfi_offset 4, -24
+ 198              		.cfi_offset 5, -20
+ 199              		.cfi_offset 6, -16
+ 200              		.cfi_offset 7, -12
+ 201              		.cfi_offset 8, -8
+ 202              		.cfi_offset 14, -4
+ 286:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint16_t tmpreg = 0;
+ 203              		.loc 1 286 3 is_stmt 1 view .LVU37
+ 204              	.LVL27:
+ 287:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 288:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* check the parameters */
+ 289:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 205              		.loc 1 289 3 view .LVU38
+ 290:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 291:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the SPI parameters */
+ 292:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_DIRECTION_MODE(SPI_InitStruct->SPI_Direction));
+ 206              		.loc 1 292 3 view .LVU39
+ARM GAS  /tmp/ccTr0q0X.s 			page 10
+
+
+ 293:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_MODE(SPI_InitStruct->SPI_Mode));
+ 207              		.loc 1 293 3 view .LVU40
+ 294:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_DATASIZE(SPI_InitStruct->SPI_DataSize));
+ 208              		.loc 1 294 3 view .LVU41
+ 295:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_CPOL(SPI_InitStruct->SPI_CPOL));
+ 209              		.loc 1 295 3 view .LVU42
+ 296:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_CPHA(SPI_InitStruct->SPI_CPHA));
+ 210              		.loc 1 296 3 view .LVU43
+ 297:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_NSS(SPI_InitStruct->SPI_NSS));
+ 211              		.loc 1 297 3 view .LVU44
+ 298:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_InitStruct->SPI_BaudRatePrescaler));
+ 212              		.loc 1 298 3 view .LVU45
+ 299:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_FIRST_BIT(SPI_InitStruct->SPI_FirstBit));
+ 213              		.loc 1 299 3 view .LVU46
+ 300:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_CRC_POLYNOMIAL(SPI_InitStruct->SPI_CRCPolynomial));
+ 214              		.loc 1 300 3 view .LVU47
+ 301:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 302:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /*---------------------------- SPIx CR1 Configuration ------------------------*/
+ 303:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the SPIx CR1 value */
+ 304:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   tmpreg = SPIx->CR1;
+ 215              		.loc 1 304 3 view .LVU48
+ 216              		.loc 1 304 10 is_stmt 0 view .LVU49
+ 217 0004 0388     		ldrh	r3, [r0]
+ 218              	.LVL28:
+ 305:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Clear BIDIMode, BIDIOE, RxONLY, SSM, SSI, LSBFirst, BR, MSTR, CPOL and CPHA bits */
+ 306:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   tmpreg &= CR1_CLEAR_MASK;
+ 219              		.loc 1 306 3 is_stmt 1 view .LVU50
+ 220              		.loc 1 306 10 is_stmt 0 view .LVU51
+ 221 0006 03F44152 		and	r2, r3, #12352
+ 222              	.LVL29:
+ 307:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Configure SPIx: direction, NSS management, first transmitted bit, BaudRate prescaler
+ 308:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****      master/salve mode, CPOL and CPHA */
+ 309:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set BIDImode, BIDIOE and RxONLY bits according to SPI_Direction value */
+ 310:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set SSM, SSI and MSTR bits according to SPI_Mode and SPI_NSS values */
+ 311:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set LSBFirst bit according to SPI_FirstBit value */
+ 312:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set BR bits according to SPI_BaudRatePrescaler value */
+ 313:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set CPOL bit according to SPI_CPOL value */
+ 314:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set CPHA bit according to SPI_CPHA value */
+ 315:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 223              		.loc 1 315 3 is_stmt 1 view .LVU52
+ 224              		.loc 1 315 48 is_stmt 0 view .LVU53
+ 225 000a B1F800E0 		ldrh	lr, [r1]
+ 226              		.loc 1 315 80 view .LVU54
+ 227 000e B1F80280 		ldrh	r8, [r1, #2]
+ 316:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   SPI_InitStruct->SPI_DataSize | SPI_InitStruct->SPI_CPOL |  
+ 228              		.loc 1 316 33 view .LVU55
+ 229 0012 B1F804C0 		ldrh	ip, [r1, #4]
+ 230              		.loc 1 316 64 view .LVU56
+ 231 0016 CF88     		ldrh	r7, [r1, #6]
+ 317:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   SPI_InitStruct->SPI_CPHA | SPI_InitStruct->SPI_NSS |  
+ 232              		.loc 1 317 33 view .LVU57
+ 233 0018 0E89     		ldrh	r6, [r1, #8]
+ 234              		.loc 1 317 60 view .LVU58
+ 235 001a 4D89     		ldrh	r5, [r1, #10]
+ 318:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   SPI_InitStruct->SPI_BaudRatePrescaler | SPI_InitStruct->SPI_FirstBit);
+ 236              		.loc 1 318 33 view .LVU59
+ 237 001c 8C89     		ldrh	r4, [r1, #12]
+ARM GAS  /tmp/ccTr0q0X.s 			page 11
+
+
+ 238              		.loc 1 318 73 view .LVU60
+ 239 001e CB89     		ldrh	r3, [r1, #14]
+ 315:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   SPI_InitStruct->SPI_DataSize | SPI_InitStruct->SPI_CPOL |  
+ 240              		.loc 1 315 13 view .LVU61
+ 241 0020 4EEA080E 		orr	lr, lr, r8
+ 242 0024 4CEA0E0C 		orr	ip, ip, lr
+ 243 0028 47EA0C07 		orr	r7, r7, ip
+ 244 002c 3E43     		orrs	r6, r6, r7
+ 245 002e 3543     		orrs	r5, r5, r6
+ 246 0030 2C43     		orrs	r4, r4, r5
+ 247 0032 2343     		orrs	r3, r3, r4
+ 315:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   SPI_InitStruct->SPI_DataSize | SPI_InitStruct->SPI_CPOL |  
+ 248              		.loc 1 315 10 view .LVU62
+ 249 0034 1343     		orrs	r3, r3, r2
+ 250              	.LVL30:
+ 319:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Write to SPIx CR1 */
+ 320:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->CR1 = tmpreg;
+ 251              		.loc 1 320 3 is_stmt 1 view .LVU63
+ 252              		.loc 1 320 13 is_stmt 0 view .LVU64
+ 253 0036 0380     		strh	r3, [r0]	@ movhi
+ 321:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 322:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Activate the SPI mode (Reset I2SMOD bit in I2SCFGR register) */
+ 323:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->I2SCFGR &= (uint16_t)~((uint16_t)SPI_I2SCFGR_I2SMOD);
+ 254              		.loc 1 323 3 is_stmt 1 view .LVU65
+ 255              		.loc 1 323 17 is_stmt 0 view .LVU66
+ 256 0038 838B     		ldrh	r3, [r0, #28]
+ 257              	.LVL31:
+ 258              		.loc 1 323 17 view .LVU67
+ 259 003a 9BB2     		uxth	r3, r3
+ 260 003c 23F40063 		bic	r3, r3, #2048
+ 261 0040 9BB2     		uxth	r3, r3
+ 262 0042 8383     		strh	r3, [r0, #28]	@ movhi
+ 263              	.LVL32:
+ 324:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /*---------------------------- SPIx CRCPOLY Configuration --------------------*/
+ 325:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Write to SPIx CRCPOLY */
+ 326:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->CRCPR = SPI_InitStruct->SPI_CRCPolynomial;
+ 264              		.loc 1 326 3 is_stmt 1 view .LVU68
+ 265              		.loc 1 326 31 is_stmt 0 view .LVU69
+ 266 0044 0B8A     		ldrh	r3, [r1, #16]
+ 267              		.loc 1 326 15 view .LVU70
+ 268 0046 0382     		strh	r3, [r0, #16]	@ movhi
+ 327:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 269              		.loc 1 327 1 view .LVU71
+ 270 0048 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 271              		.cfi_endproc
+ 272              	.LFE131:
+ 274              		.section	.text.I2S_Init,"ax",%progbits
+ 275              		.align	1
+ 276              		.global	I2S_Init
+ 277              		.syntax unified
+ 278              		.thumb
+ 279              		.thumb_func
+ 280              		.fpu fpv4-sp-d16
+ 282              	I2S_Init:
+ 283              	.LVL33:
+ 284              	.LFB132:
+ 328:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ARM GAS  /tmp/ccTr0q0X.s 			page 12
+
+
+ 329:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 330:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Initializes the SPIx peripheral according to the specified 
+ 331:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         parameters in the I2S_InitStruct.
+ 332:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be  2 or 3 to select the SPI peripheral (configured in I2S mode).
+ 333:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  I2S_InitStruct: pointer to an I2S_InitTypeDef structure that
+ 334:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         contains the configuration information for the specified SPI peripheral
+ 335:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         configured in I2S mode.
+ 336:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *           
+ 337:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   The function calculates the optimal prescaler needed to obtain the most 
+ 338:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         accurate audio frequency (depending on the I2S clock source, the PLL values 
+ 339:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         and the product configuration). But in case the prescaler value is greater 
+ 340:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         than 511, the default value (0x02) will be configured instead.    
+ 341:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * 
+ 342:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   if an external clock is used as source clock for the I2S, then the define
+ 343:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         I2S_EXTERNAL_CLOCK_VAL in file stm32f4xx_conf.h should be enabled and set
+ 344:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         to the value of the the source clock frequency (in Hz).
+ 345:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *  
+ 346:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 347:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 348:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void I2S_Init(SPI_TypeDef* SPIx, I2S_InitTypeDef* I2S_InitStruct)
+ 349:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 285              		.loc 1 349 1 is_stmt 1 view -0
+ 286              		.cfi_startproc
+ 287              		@ args = 0, pretend = 0, frame = 0
+ 288              		@ frame_needed = 0, uses_anonymous_args = 0
+ 289              		@ link register save eliminated.
+ 290              		.loc 1 349 1 is_stmt 0 view .LVU73
+ 291 0000 F0B4     		push	{r4, r5, r6, r7}
+ 292              	.LCFI2:
+ 293              		.cfi_def_cfa_offset 16
+ 294              		.cfi_offset 4, -16
+ 295              		.cfi_offset 5, -12
+ 296              		.cfi_offset 6, -8
+ 297              		.cfi_offset 7, -4
+ 350:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint16_t tmpreg = 0, i2sdiv = 2, i2sodd = 0, packetlength = 1;
+ 298              		.loc 1 350 3 is_stmt 1 view .LVU74
+ 299              	.LVL34:
+ 351:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint32_t tmp = 0, i2sclk = 0;
+ 300              		.loc 1 351 3 view .LVU75
+ 352:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #ifndef I2S_EXTERNAL_CLOCK_VAL
+ 353:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint32_t pllm = 0, plln = 0, pllr = 0;
+ 301              		.loc 1 353 3 view .LVU76
+ 354:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** #endif /* I2S_EXTERNAL_CLOCK_VAL */
+ 355:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 356:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the I2S parameters */
+ 357:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_23_PERIPH(SPIx));
+ 302              		.loc 1 357 3 view .LVU77
+ 358:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_MODE(I2S_InitStruct->I2S_Mode));
+ 303              		.loc 1 358 3 view .LVU78
+ 359:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_STANDARD(I2S_InitStruct->I2S_Standard));
+ 304              		.loc 1 359 3 view .LVU79
+ 360:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_DATA_FORMAT(I2S_InitStruct->I2S_DataFormat));
+ 305              		.loc 1 360 3 view .LVU80
+ 361:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_MCLK_OUTPUT(I2S_InitStruct->I2S_MCLKOutput));
+ 306              		.loc 1 361 3 view .LVU81
+ 362:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_AUDIO_FREQ(I2S_InitStruct->I2S_AudioFreq));
+ 307              		.loc 1 362 3 view .LVU82
+ARM GAS  /tmp/ccTr0q0X.s 			page 13
+
+
+ 363:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_CPOL(I2S_InitStruct->I2S_CPOL));  
+ 308              		.loc 1 363 3 view .LVU83
+ 364:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 365:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /*----------------------- SPIx I2SCFGR & I2SPR Configuration -----------------*/
+ 366:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Clear I2SMOD, I2SE, I2SCFG, PCMSYNC, I2SSTD, CKPOL, DATLEN and CHLEN bits */
+ 367:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->I2SCFGR &= I2SCFGR_CLEAR_MASK; 
+ 309              		.loc 1 367 3 view .LVU84
+ 310              		.loc 1 367 17 is_stmt 0 view .LVU85
+ 311 0002 838B     		ldrh	r3, [r0, #28]
+ 312 0004 9BB2     		uxth	r3, r3
+ 313 0006 23F47B63 		bic	r3, r3, #4016
+ 314 000a 23F00F03 		bic	r3, r3, #15
+ 315 000e 9BB2     		uxth	r3, r3
+ 316 0010 8383     		strh	r3, [r0, #28]	@ movhi
+ 368:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->I2SPR = 0x0002;
+ 317              		.loc 1 368 3 is_stmt 1 view .LVU86
+ 318              		.loc 1 368 15 is_stmt 0 view .LVU87
+ 319 0012 0223     		movs	r3, #2
+ 320 0014 0384     		strh	r3, [r0, #32]	@ movhi
+ 369:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 370:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the I2SCFGR register value */
+ 371:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   tmpreg = SPIx->I2SCFGR;
+ 321              		.loc 1 371 3 is_stmt 1 view .LVU88
+ 322              		.loc 1 371 10 is_stmt 0 view .LVU89
+ 323 0016 828B     		ldrh	r2, [r0, #28]
+ 324 0018 92B2     		uxth	r2, r2
+ 325              	.LVL35:
+ 372:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 373:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* If the default value has to be written, reinitialize i2sdiv and i2sodd*/
+ 374:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if(I2S_InitStruct->I2S_AudioFreq == I2S_AudioFreq_Default)
+ 326              		.loc 1 374 3 is_stmt 1 view .LVU90
+ 327              		.loc 1 374 20 is_stmt 0 view .LVU91
+ 328 001a 8B68     		ldr	r3, [r1, #8]
+ 329              		.loc 1 374 5 view .LVU92
+ 330 001c 022B     		cmp	r3, #2
+ 331 001e 68D0     		beq	.L28
+ 375:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 376:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sodd = (uint16_t)0;
+ 377:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sdiv = (uint16_t)2;   
+ 378:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 379:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* If the requested audio frequency is not the default, compute the prescaler */
+ 380:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 381:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 382:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Check the frame length (For the Prescaler computing) *******************/
+ 383:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     if(I2S_InitStruct->I2S_DataFormat == I2S_DataFormat_16b)
+ 332              		.loc 1 383 5 is_stmt 1 view .LVU93
+ 333              		.loc 1 383 22 is_stmt 0 view .LVU94
+ 334 0020 8B88     		ldrh	r3, [r1, #4]
+ 335              		.loc 1 383 7 view .LVU95
+ 336 0022 002B     		cmp	r3, #0
+ 337 0024 51D1     		bne	.L29
+ 384:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 385:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* Packet length is 16 bits */
+ 386:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       packetlength = 1;
+ 338              		.loc 1 386 20 view .LVU96
+ 339 0026 0127     		movs	r7, #1
+ 340              	.L21:
+ARM GAS  /tmp/ccTr0q0X.s 			page 14
+
+
+ 341              	.LVL36:
+ 387:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 388:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     else
+ 389:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 390:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* Packet length is 32 bits */
+ 391:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       packetlength = 2;
+ 392:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 393:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 394:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Get I2S source Clock frequency  ****************************************/
+ 395:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       
+ 396:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* If an external I2S clock has to be used, this define should be set  
+ 397:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        in the project configuration or in the stm32f4xx_conf.h file */
+ 398:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   #ifdef I2S_EXTERNAL_CLOCK_VAL     
+ 399:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Set external clock as I2S clock source */
+ 400:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     if ((RCC->CFGR & RCC_CFGR_I2SSRC) == 0)
+ 401:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 402:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       RCC->CFGR |= (uint32_t)RCC_CFGR_I2SSRC;
+ 403:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 404:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+ 405:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Set the I2S clock to the external clock  value */
+ 406:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sclk = I2S_EXTERNAL_CLOCK_VAL;
+ 407:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 408:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   #else /* There is no define for External I2S clock source */
+ 409:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Set PLLI2S as I2S clock source */
+ 410:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     if ((RCC->CFGR & RCC_CFGR_I2SSRC) != 0)
+ 342              		.loc 1 410 5 is_stmt 1 view .LVU97
+ 343              		.loc 1 410 13 is_stmt 0 view .LVU98
+ 344 0028 334B     		ldr	r3, .L33
+ 345 002a 9B68     		ldr	r3, [r3, #8]
+ 346              		.loc 1 410 8 view .LVU99
+ 347 002c 13F4000F 		tst	r3, #8388608
+ 348 0030 04D0     		beq	.L22
+ 411:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 412:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       RCC->CFGR &= ~(uint32_t)RCC_CFGR_I2SSRC;
+ 349              		.loc 1 412 7 is_stmt 1 view .LVU100
+ 350              		.loc 1 412 17 is_stmt 0 view .LVU101
+ 351 0032 314C     		ldr	r4, .L33
+ 352 0034 A368     		ldr	r3, [r4, #8]
+ 353 0036 23F40003 		bic	r3, r3, #8388608
+ 354 003a A360     		str	r3, [r4, #8]
+ 355              	.L22:
+ 413:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }    
+ 414:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+ 415:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Get the PLLI2SN value */
+ 416:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     plln = (uint32_t)(((RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SN) >> 6) & \
+ 356              		.loc 1 416 5 is_stmt 1 view .LVU102
+ 357              		.loc 1 416 28 is_stmt 0 view .LVU103
+ 358 003c 2E4D     		ldr	r5, .L33
+ 359 003e D5F88440 		ldr	r4, [r5, #132]
+ 360              		.loc 1 416 10 view .LVU104
+ 361 0042 C4F38814 		ubfx	r4, r4, #6, #9
+ 362              	.LVL37:
+ 417:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                       (RCC_PLLI2SCFGR_PLLI2SN >> 6));
+ 418:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+ 419:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Get the PLLI2SR value */
+ 420:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     pllr = (uint32_t)(((RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SR) >> 28) & \
+ 363              		.loc 1 420 5 is_stmt 1 view .LVU105
+ARM GAS  /tmp/ccTr0q0X.s 			page 15
+
+
+ 364              		.loc 1 420 28 is_stmt 0 view .LVU106
+ 365 0046 D5F88430 		ldr	r3, [r5, #132]
+ 366              		.loc 1 420 10 view .LVU107
+ 367 004a C3F30273 		ubfx	r3, r3, #28, #3
+ 368              	.LVL38:
+ 421:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                       (RCC_PLLI2SCFGR_PLLI2SR >> 28));
+ 422:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+ 423:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Get the PLLM value */
+ 424:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     pllm = (uint32_t)(RCC->PLLCFGR & RCC_PLLCFGR_PLLM);
+ 369              		.loc 1 424 5 is_stmt 1 view .LVU108
+ 370              		.loc 1 424 26 is_stmt 0 view .LVU109
+ 371 004e 6E68     		ldr	r6, [r5, #4]
+ 372              		.loc 1 424 10 view .LVU110
+ 373 0050 06F03F06 		and	r6, r6, #63
+ 374              	.LVL39:
+ 425:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 426:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     if((RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) == RCC_PLLCFGR_PLLSRC_HSE)
+ 375              		.loc 1 426 5 is_stmt 1 view .LVU111
+ 376              		.loc 1 426 12 is_stmt 0 view .LVU112
+ 377 0054 6D68     		ldr	r5, [r5, #4]
+ 378              		.loc 1 426 7 view .LVU113
+ 379 0056 15F4800F 		tst	r5, #4194304
+ 380 005a 38D0     		beq	.L23
+ 427:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 428:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* Get the I2S source clock value */
+ 429:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       i2sclk = (uint32_t)(((HSE_VALUE / pllm) * plln) / pllr);
+ 381              		.loc 1 429 7 is_stmt 1 view .LVU114
+ 382              		.loc 1 429 39 is_stmt 0 view .LVU115
+ 383 005c 274D     		ldr	r5, .L33+4
+ 384 005e B5FBF6F6 		udiv	r6, r5, r6
+ 385              	.LVL40:
+ 386              		.loc 1 429 47 view .LVU116
+ 387 0062 04FB06F4 		mul	r4, r4, r6
+ 388              	.LVL41:
+ 389              		.loc 1 429 14 view .LVU117
+ 390 0066 B4FBF3F3 		udiv	r3, r4, r3
+ 391              	.LVL42:
+ 392              	.L24:
+ 430:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 431:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     else
+ 432:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     { /* Get the I2S source clock value */
+ 433:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       i2sclk = (uint32_t)(((HSI_VALUE / pllm) * plln) / pllr);
+ 434:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 435:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   #endif /* I2S_EXTERNAL_CLOCK_VAL */
+ 436:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+ 437:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Compute the Real divider depending on the MCLK output state, with a floating point */
+ 438:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     if(I2S_InitStruct->I2S_MCLKOutput == I2S_MCLKOutput_Enable)
+ 393              		.loc 1 438 5 is_stmt 1 view .LVU118
+ 394              		.loc 1 438 22 is_stmt 0 view .LVU119
+ 395 006a CC88     		ldrh	r4, [r1, #6]
+ 396              		.loc 1 438 7 view .LVU120
+ 397 006c B4F5007F 		cmp	r4, #512
+ 398 0070 35D0     		beq	.L32
+ 439:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 440:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* MCLK output is enabled */
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       tmp = (uint16_t)(((((i2sclk / 256) * 10) / I2S_InitStruct->I2S_AudioFreq)) + 5);
+ 442:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ARM GAS  /tmp/ccTr0q0X.s 			page 16
+
+
+ 443:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     else
+ 444:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 445:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       /* MCLK output is disabled */
+ 446:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       tmp = (uint16_t)(((((i2sclk / (32 * packetlength)) *10 ) / I2S_InitStruct->I2S_AudioFreq)) + 
+ 399              		.loc 1 446 7 is_stmt 1 view .LVU121
+ 400              		.loc 1 446 41 is_stmt 0 view .LVU122
+ 401 0072 7F01     		lsls	r7, r7, #5
+ 402              	.LVL43:
+ 403              		.loc 1 446 35 view .LVU123
+ 404 0074 B3FBF7F3 		udiv	r3, r3, r7
+ 405              	.LVL44:
+ 406              		.loc 1 446 58 view .LVU124
+ 407 0078 03EB8303 		add	r3, r3, r3, lsl #2
+ 408 007c 5B00     		lsls	r3, r3, #1
+ 409              		.loc 1 446 80 view .LVU125
+ 410 007e 8C68     		ldr	r4, [r1, #8]
+ 411              		.loc 1 446 64 view .LVU126
+ 412 0080 B3FBF4F3 		udiv	r3, r3, r4
+ 413              		.loc 1 446 13 view .LVU127
+ 414 0084 0533     		adds	r3, r3, #5
+ 415 0086 9BB2     		uxth	r3, r3
+ 416              	.LVL45:
+ 417              	.L26:
+ 447:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 448:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+ 449:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Remove the flatting point */
+ 450:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     tmp = tmp / 10;  
+ 418              		.loc 1 450 5 is_stmt 1 view .LVU128
+ 419              		.loc 1 450 9 is_stmt 0 view .LVU129
+ 420 0088 1D4C     		ldr	r4, .L33+8
+ 421 008a A4FB0343 		umull	r4, r3, r4, r3
+ 422              	.LVL46:
+ 451:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       
+ 452:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Check the parity of the divider */
+ 453:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sodd = (uint16_t)(tmp & (uint16_t)0x0001);
+ 423              		.loc 1 453 5 is_stmt 1 view .LVU130
+ 424              		.loc 1 453 12 is_stmt 0 view .LVU131
+ 425 008e C3F3C004 		ubfx	r4, r3, #3, #1
+ 426              	.LVL47:
+ 454:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    
+ 455:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Compute the i2sdiv prescaler */
+ 456:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sdiv = (uint16_t)((tmp - i2sodd) / 2);
+ 427              		.loc 1 456 5 is_stmt 1 view .LVU132
+ 428              		.loc 1 456 30 is_stmt 0 view .LVU133
+ 429 0092 C4EBD303 		rsb	r3, r4, r3, lsr #3
+ 430              	.LVL48:
+ 431              		.loc 1 456 12 view .LVU134
+ 432 0096 C3F34F03 		ubfx	r3, r3, #1, #16
+ 433              	.LVL49:
+ 457:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    
+ 458:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Get the Mask for the Odd bit (SPI_I2SPR[8]) register */
+ 459:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sodd = (uint16_t) (i2sodd << 8);
+ 434              		.loc 1 459 5 is_stmt 1 view .LVU135
+ 435              		.loc 1 459 12 is_stmt 0 view .LVU136
+ 436 009a 2502     		lsls	r5, r4, #8
+ 437              	.LVL50:
+ 438              	.L20:
+ARM GAS  /tmp/ccTr0q0X.s 			page 17
+
+
+ 460:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 461:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 462:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Test if the divider is 1 or 0 or greater than 0xFF */
+ 463:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if ((i2sdiv < 2) || (i2sdiv > 0xFF))
+ 439              		.loc 1 463 3 is_stmt 1 view .LVU137
+ 440              		.loc 1 463 20 is_stmt 0 view .LVU138
+ 441 009c 9C1E     		subs	r4, r3, #2
+ 442 009e A4B2     		uxth	r4, r4
+ 443              		.loc 1 463 6 view .LVU139
+ 444 00a0 FD2C     		cmp	r4, #253
+ 445 00a2 01D9     		bls	.L27
+ 464:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 465:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Set the default values */
+ 466:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sdiv = 2;
+ 467:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sodd = 0;
+ 446              		.loc 1 467 12 view .LVU140
+ 447 00a4 0025     		movs	r5, #0
+ 448              	.LVL51:
+ 466:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sodd = 0;
+ 449              		.loc 1 466 12 view .LVU141
+ 450 00a6 0223     		movs	r3, #2
+ 451              	.LVL52:
+ 452              	.L27:
+ 468:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 469:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 470:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Write to SPIx I2SPR register the computed value */
+ 471:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->I2SPR = (uint16_t)((uint16_t)i2sdiv | (uint16_t)(i2sodd | (uint16_t)I2S_InitStruct->I2S_MCL
+ 453              		.loc 1 471 3 is_stmt 1 view .LVU142
+ 454              		.loc 1 471 91 is_stmt 0 view .LVU143
+ 455 00a8 CC88     		ldrh	r4, [r1, #6]
+ 456              		.loc 1 471 47 view .LVU144
+ 457 00aa 2C43     		orrs	r4, r4, r5
+ 458              		.loc 1 471 17 view .LVU145
+ 459 00ac 2343     		orrs	r3, r3, r4
+ 460              	.LVL53:
+ 461              		.loc 1 471 15 view .LVU146
+ 462 00ae 0384     		strh	r3, [r0, #32]	@ movhi
+ 472:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  
+ 473:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Configure the I2S with the SPI_InitStruct values */
+ 474:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   tmpreg |= (uint16_t)((uint16_t)SPI_I2SCFGR_I2SMOD | (uint16_t)(I2S_InitStruct->I2S_Mode | \
+ 463              		.loc 1 474 3 is_stmt 1 view .LVU147
+ 464              		.loc 1 474 80 is_stmt 0 view .LVU148
+ 465 00b0 0B88     		ldrh	r3, [r1]
+ 475:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 466              		.loc 1 475 44 view .LVU149
+ 467 00b2 4C88     		ldrh	r4, [r1, #2]
+ 468              		.loc 1 475 86 view .LVU150
+ 469 00b4 8D88     		ldrh	r5, [r1, #4]
+ 470              	.LVL54:
+ 476:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)I2S_InitStruct->I2S_CPOL))));
+ 471              		.loc 1 476 43 view .LVU151
+ 472 00b6 8989     		ldrh	r1, [r1, #12]
+ 473              	.LVL55:
+ 475:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 474              		.loc 1 475 61 view .LVU152
+ 475 00b8 2943     		orrs	r1, r1, r5
+ 475:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ARM GAS  /tmp/ccTr0q0X.s 			page 18
+
+
+ 476              		.loc 1 475 19 view .LVU153
+ 477 00ba 2143     		orrs	r1, r1, r4
+ 474:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 478              		.loc 1 474 55 view .LVU154
+ 479 00bc 0B43     		orrs	r3, r3, r1
+ 474:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 480              		.loc 1 474 10 view .LVU155
+ 481 00be 1A43     		orrs	r2, r2, r3
+ 482              	.LVL56:
+ 474:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 483              		.loc 1 474 10 view .LVU156
+ 484 00c0 42F40062 		orr	r2, r2, #2048
+ 485              	.LVL57:
+ 477:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  
+ 478:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Write to SPIx I2SCFGR */  
+ 479:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->I2SCFGR = tmpreg;
+ 486              		.loc 1 479 3 is_stmt 1 view .LVU157
+ 487              		.loc 1 479 17 is_stmt 0 view .LVU158
+ 488 00c4 8283     		strh	r2, [r0, #28]	@ movhi
+ 480:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 489              		.loc 1 480 1 view .LVU159
+ 490 00c6 F0BC     		pop	{r4, r5, r6, r7}
+ 491              	.LCFI3:
+ 492              		.cfi_remember_state
+ 493              		.cfi_restore 7
+ 494              		.cfi_restore 6
+ 495              		.cfi_restore 5
+ 496              		.cfi_restore 4
+ 497              		.cfi_def_cfa_offset 0
+ 498 00c8 7047     		bx	lr
+ 499              	.LVL58:
+ 500              	.L29:
+ 501              	.LCFI4:
+ 502              		.cfi_restore_state
+ 391:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 503              		.loc 1 391 20 view .LVU160
+ 504 00ca 0227     		movs	r7, #2
+ 505 00cc ACE7     		b	.L21
+ 506              	.LVL59:
+ 507              	.L23:
+ 433:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 508              		.loc 1 433 7 is_stmt 1 view .LVU161
+ 433:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 509              		.loc 1 433 39 is_stmt 0 view .LVU162
+ 510 00ce 0D4D     		ldr	r5, .L33+12
+ 511 00d0 B5FBF6F6 		udiv	r6, r5, r6
+ 512              	.LVL60:
+ 433:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 513              		.loc 1 433 47 view .LVU163
+ 514 00d4 04FB06F4 		mul	r4, r4, r6
+ 515              	.LVL61:
+ 433:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 516              		.loc 1 433 14 view .LVU164
+ 517 00d8 B4FBF3F3 		udiv	r3, r4, r3
+ 518              	.LVL62:
+ 433:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 519              		.loc 1 433 14 view .LVU165
+ARM GAS  /tmp/ccTr0q0X.s 			page 19
+
+
+ 520 00dc C5E7     		b	.L24
+ 521              	.L32:
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 522              		.loc 1 441 7 is_stmt 1 view .LVU166
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 523              		.loc 1 441 35 is_stmt 0 view .LVU167
+ 524 00de 1B0A     		lsrs	r3, r3, #8
+ 525              	.LVL63:
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 526              		.loc 1 441 42 view .LVU168
+ 527 00e0 03EB8303 		add	r3, r3, r3, lsl #2
+ 528 00e4 5B00     		lsls	r3, r3, #1
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 529              		.loc 1 441 64 view .LVU169
+ 530 00e6 8C68     		ldr	r4, [r1, #8]
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 531              		.loc 1 441 48 view .LVU170
+ 532 00e8 B3FBF4F3 		udiv	r3, r3, r4
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 533              		.loc 1 441 13 view .LVU171
+ 534 00ec 0533     		adds	r3, r3, #5
+ 535 00ee 9BB2     		uxth	r3, r3
+ 536              	.LVL64:
+ 441:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 537              		.loc 1 441 13 view .LVU172
+ 538 00f0 CAE7     		b	.L26
+ 539              	.LVL65:
+ 540              	.L28:
+ 376:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     i2sdiv = (uint16_t)2;   
+ 541              		.loc 1 376 12 view .LVU173
+ 542 00f2 0025     		movs	r5, #0
+ 377:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 543              		.loc 1 377 12 view .LVU174
+ 544 00f4 0223     		movs	r3, #2
+ 545 00f6 D1E7     		b	.L20
+ 546              	.L34:
+ 547              		.align	2
+ 548              	.L33:
+ 549 00f8 00380240 		.word	1073887232
+ 550 00fc 00127A00 		.word	8000000
+ 551 0100 CDCCCCCC 		.word	-858993459
+ 552 0104 0024F400 		.word	16000000
+ 553              		.cfi_endproc
+ 554              	.LFE132:
+ 556              		.section	.text.SPI_StructInit,"ax",%progbits
+ 557              		.align	1
+ 558              		.global	SPI_StructInit
+ 559              		.syntax unified
+ 560              		.thumb
+ 561              		.thumb_func
+ 562              		.fpu fpv4-sp-d16
+ 564              	SPI_StructInit:
+ 565              	.LVL66:
+ 566              	.LFB133:
+ 481:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 482:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 483:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Fills each SPI_InitStruct member with its default value.
+ARM GAS  /tmp/ccTr0q0X.s 			page 20
+
+
+ 484:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_InitStruct: pointer to a SPI_InitTypeDef structure which will be initialized.
+ 485:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 486:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 487:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_StructInit(SPI_InitTypeDef* SPI_InitStruct)
+ 488:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 567              		.loc 1 488 1 is_stmt 1 view -0
+ 568              		.cfi_startproc
+ 569              		@ args = 0, pretend = 0, frame = 0
+ 570              		@ frame_needed = 0, uses_anonymous_args = 0
+ 571              		@ link register save eliminated.
+ 489:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /*--------------- Reset SPI init structure parameters values -----------------*/
+ 490:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the SPI_Direction member */
+ 491:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+ 572              		.loc 1 491 3 view .LVU176
+ 573              		.loc 1 491 33 is_stmt 0 view .LVU177
+ 574 0000 0023     		movs	r3, #0
+ 575 0002 0380     		strh	r3, [r0]	@ movhi
+ 492:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* initialize the SPI_Mode member */
+ 493:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_Mode = SPI_Mode_Slave;
+ 576              		.loc 1 493 3 is_stmt 1 view .LVU178
+ 577              		.loc 1 493 28 is_stmt 0 view .LVU179
+ 578 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 494:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* initialize the SPI_DataSize member */
+ 495:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_DataSize = SPI_DataSize_8b;
+ 579              		.loc 1 495 3 is_stmt 1 view .LVU180
+ 580              		.loc 1 495 32 is_stmt 0 view .LVU181
+ 581 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 496:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the SPI_CPOL member */
+ 497:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_CPOL = SPI_CPOL_Low;
+ 582              		.loc 1 497 3 is_stmt 1 view .LVU182
+ 583              		.loc 1 497 28 is_stmt 0 view .LVU183
+ 584 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 498:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the SPI_CPHA member */
+ 499:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_CPHA = SPI_CPHA_1Edge;
+ 585              		.loc 1 499 3 is_stmt 1 view .LVU184
+ 586              		.loc 1 499 28 is_stmt 0 view .LVU185
+ 587 000a 0381     		strh	r3, [r0, #8]	@ movhi
+ 500:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the SPI_NSS member */
+ 501:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_NSS = SPI_NSS_Hard;
+ 588              		.loc 1 501 3 is_stmt 1 view .LVU186
+ 589              		.loc 1 501 27 is_stmt 0 view .LVU187
+ 590 000c 4381     		strh	r3, [r0, #10]	@ movhi
+ 502:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the SPI_BaudRatePrescaler member */
+ 503:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
+ 591              		.loc 1 503 3 is_stmt 1 view .LVU188
+ 592              		.loc 1 503 41 is_stmt 0 view .LVU189
+ 593 000e 8381     		strh	r3, [r0, #12]	@ movhi
+ 504:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the SPI_FirstBit member */
+ 505:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_FirstBit = SPI_FirstBit_MSB;
+ 594              		.loc 1 505 3 is_stmt 1 view .LVU190
+ 595              		.loc 1 505 32 is_stmt 0 view .LVU191
+ 596 0010 C381     		strh	r3, [r0, #14]	@ movhi
+ 506:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the SPI_CRCPolynomial member */
+ 507:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPI_InitStruct->SPI_CRCPolynomial = 7;
+ 597              		.loc 1 507 3 is_stmt 1 view .LVU192
+ 598              		.loc 1 507 37 is_stmt 0 view .LVU193
+ 599 0012 0723     		movs	r3, #7
+ARM GAS  /tmp/ccTr0q0X.s 			page 21
+
+
+ 600 0014 0382     		strh	r3, [r0, #16]	@ movhi
+ 508:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 601              		.loc 1 508 1 view .LVU194
+ 602 0016 7047     		bx	lr
+ 603              		.cfi_endproc
+ 604              	.LFE133:
+ 606              		.section	.text.I2S_StructInit,"ax",%progbits
+ 607              		.align	1
+ 608              		.global	I2S_StructInit
+ 609              		.syntax unified
+ 610              		.thumb
+ 611              		.thumb_func
+ 612              		.fpu fpv4-sp-d16
+ 614              	I2S_StructInit:
+ 615              	.LVL67:
+ 616              	.LFB134:
+ 509:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 510:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 511:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Fills each I2S_InitStruct member with its default value.
+ 512:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  I2S_InitStruct: pointer to a I2S_InitTypeDef structure which will be initialized.
+ 513:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 514:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 515:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void I2S_StructInit(I2S_InitTypeDef* I2S_InitStruct)
+ 516:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 617              		.loc 1 516 1 is_stmt 1 view -0
+ 618              		.cfi_startproc
+ 619              		@ args = 0, pretend = 0, frame = 0
+ 620              		@ frame_needed = 0, uses_anonymous_args = 0
+ 621              		@ link register save eliminated.
+ 517:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /*--------------- Reset I2S init structure parameters values -----------------*/
+ 518:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the I2S_Mode member */
+ 519:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2S_InitStruct->I2S_Mode = I2S_Mode_SlaveTx;
+ 622              		.loc 1 519 3 view .LVU196
+ 623              		.loc 1 519 28 is_stmt 0 view .LVU197
+ 624 0000 0023     		movs	r3, #0
+ 625 0002 0380     		strh	r3, [r0]	@ movhi
+ 520:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 521:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the I2S_Standard member */
+ 522:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2S_InitStruct->I2S_Standard = I2S_Standard_Phillips;
+ 626              		.loc 1 522 3 is_stmt 1 view .LVU198
+ 627              		.loc 1 522 32 is_stmt 0 view .LVU199
+ 628 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 523:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 524:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the I2S_DataFormat member */
+ 525:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2S_InitStruct->I2S_DataFormat = I2S_DataFormat_16b;
+ 629              		.loc 1 525 3 is_stmt 1 view .LVU200
+ 630              		.loc 1 525 34 is_stmt 0 view .LVU201
+ 631 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 526:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 527:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the I2S_MCLKOutput member */
+ 528:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2S_InitStruct->I2S_MCLKOutput = I2S_MCLKOutput_Disable;
+ 632              		.loc 1 528 3 is_stmt 1 view .LVU202
+ 633              		.loc 1 528 34 is_stmt 0 view .LVU203
+ 634 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 529:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 530:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the I2S_AudioFreq member */
+ 531:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2S_InitStruct->I2S_AudioFreq = I2S_AudioFreq_Default;
+ARM GAS  /tmp/ccTr0q0X.s 			page 22
+
+
+ 635              		.loc 1 531 3 is_stmt 1 view .LVU204
+ 636              		.loc 1 531 33 is_stmt 0 view .LVU205
+ 637 000a 0222     		movs	r2, #2
+ 638 000c 8260     		str	r2, [r0, #8]
+ 532:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 533:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Initialize the I2S_CPOL member */
+ 534:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2S_InitStruct->I2S_CPOL = I2S_CPOL_Low;
+ 639              		.loc 1 534 3 is_stmt 1 view .LVU206
+ 640              		.loc 1 534 28 is_stmt 0 view .LVU207
+ 641 000e 8381     		strh	r3, [r0, #12]	@ movhi
+ 535:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 642              		.loc 1 535 1 view .LVU208
+ 643 0010 7047     		bx	lr
+ 644              		.cfi_endproc
+ 645              	.LFE134:
+ 647              		.section	.text.SPI_Cmd,"ax",%progbits
+ 648              		.align	1
+ 649              		.global	SPI_Cmd
+ 650              		.syntax unified
+ 651              		.thumb
+ 652              		.thumb_func
+ 653              		.fpu fpv4-sp-d16
+ 655              	SPI_Cmd:
+ 656              	.LVL68:
+ 657              	.LFB135:
+ 536:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 537:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 538:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Enables or disables the specified SPI peripheral.
+ 539:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 540:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  NewState: new state of the SPIx peripheral. 
+ 541:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 542:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 543:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 544:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 545:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 658              		.loc 1 545 1 is_stmt 1 view -0
+ 659              		.cfi_startproc
+ 660              		@ args = 0, pretend = 0, frame = 0
+ 661              		@ frame_needed = 0, uses_anonymous_args = 0
+ 662              		@ link register save eliminated.
+ 546:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 547:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 663              		.loc 1 547 3 view .LVU210
+ 548:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 664              		.loc 1 548 3 view .LVU211
+ 549:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (NewState != DISABLE)
+ 665              		.loc 1 549 3 view .LVU212
+ 666              		.loc 1 549 6 is_stmt 0 view .LVU213
+ 667 0000 29B1     		cbz	r1, .L38
+ 550:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 551:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable the selected SPI peripheral */
+ 552:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 |= SPI_CR1_SPE;
+ 668              		.loc 1 552 5 is_stmt 1 view .LVU214
+ 669              		.loc 1 552 15 is_stmt 0 view .LVU215
+ 670 0002 0388     		ldrh	r3, [r0]
+ 671 0004 9BB2     		uxth	r3, r3
+ 672 0006 43F04003 		orr	r3, r3, #64
+ARM GAS  /tmp/ccTr0q0X.s 			page 23
+
+
+ 673 000a 0380     		strh	r3, [r0]	@ movhi
+ 674 000c 7047     		bx	lr
+ 675              	.L38:
+ 553:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 554:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 555:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 556:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Disable the selected SPI peripheral */
+ 557:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 &= (uint16_t)~((uint16_t)SPI_CR1_SPE);
+ 676              		.loc 1 557 5 is_stmt 1 view .LVU216
+ 677              		.loc 1 557 15 is_stmt 0 view .LVU217
+ 678 000e 0388     		ldrh	r3, [r0]
+ 679 0010 9BB2     		uxth	r3, r3
+ 680 0012 23F04003 		bic	r3, r3, #64
+ 681 0016 9BB2     		uxth	r3, r3
+ 682 0018 0380     		strh	r3, [r0]	@ movhi
+ 558:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 559:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 683              		.loc 1 559 1 view .LVU218
+ 684 001a 7047     		bx	lr
+ 685              		.cfi_endproc
+ 686              	.LFE135:
+ 688              		.section	.text.I2S_Cmd,"ax",%progbits
+ 689              		.align	1
+ 690              		.global	I2S_Cmd
+ 691              		.syntax unified
+ 692              		.thumb
+ 693              		.thumb_func
+ 694              		.fpu fpv4-sp-d16
+ 696              	I2S_Cmd:
+ 697              	.LVL69:
+ 698              	.LFB136:
+ 560:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 561:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 562:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Enables or disables the specified SPI peripheral (in I2S mode).
+ 563:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 2 or 3 to select the SPI peripheral (or I2Sxext 
+ 564:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         for full duplex mode).
+ 565:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  NewState: new state of the SPIx peripheral. 
+ 566:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 567:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 568:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 569:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 570:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 699              		.loc 1 570 1 is_stmt 1 view -0
+ 700              		.cfi_startproc
+ 701              		@ args = 0, pretend = 0, frame = 0
+ 702              		@ frame_needed = 0, uses_anonymous_args = 0
+ 703              		@ link register save eliminated.
+ 571:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 572:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_23_PERIPH_EXT(SPIx));
+ 704              		.loc 1 572 3 view .LVU220
+ 573:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 705              		.loc 1 573 3 view .LVU221
+ 574:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 575:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (NewState != DISABLE)
+ 706              		.loc 1 575 3 view .LVU222
+ 707              		.loc 1 575 6 is_stmt 0 view .LVU223
+ 708 0000 29B1     		cbz	r1, .L41
+ARM GAS  /tmp/ccTr0q0X.s 			page 24
+
+
+ 576:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 577:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable the selected SPI peripheral (in I2S mode) */
+ 578:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->I2SCFGR |= SPI_I2SCFGR_I2SE;
+ 709              		.loc 1 578 5 is_stmt 1 view .LVU224
+ 710              		.loc 1 578 19 is_stmt 0 view .LVU225
+ 711 0002 838B     		ldrh	r3, [r0, #28]
+ 712 0004 9BB2     		uxth	r3, r3
+ 713 0006 43F48063 		orr	r3, r3, #1024
+ 714 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 715 000c 7047     		bx	lr
+ 716              	.L41:
+ 579:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 580:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 581:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 582:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Disable the selected SPI peripheral in I2S mode */
+ 583:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->I2SCFGR &= (uint16_t)~((uint16_t)SPI_I2SCFGR_I2SE);
+ 717              		.loc 1 583 5 is_stmt 1 view .LVU226
+ 718              		.loc 1 583 19 is_stmt 0 view .LVU227
+ 719 000e 838B     		ldrh	r3, [r0, #28]
+ 720 0010 9BB2     		uxth	r3, r3
+ 721 0012 23F48063 		bic	r3, r3, #1024
+ 722 0016 9BB2     		uxth	r3, r3
+ 723 0018 8383     		strh	r3, [r0, #28]	@ movhi
+ 584:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 585:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 724              		.loc 1 585 1 view .LVU228
+ 725 001a 7047     		bx	lr
+ 726              		.cfi_endproc
+ 727              	.LFE136:
+ 729              		.section	.text.SPI_DataSizeConfig,"ax",%progbits
+ 730              		.align	1
+ 731              		.global	SPI_DataSizeConfig
+ 732              		.syntax unified
+ 733              		.thumb
+ 734              		.thumb_func
+ 735              		.fpu fpv4-sp-d16
+ 737              	SPI_DataSizeConfig:
+ 738              	.LVL70:
+ 739              	.LFB137:
+ 586:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 587:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 588:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Configures the data size for the selected SPI.
+ 589:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 590:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_DataSize: specifies the SPI data size.
+ 591:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be one of the following values:
+ 592:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_DataSize_16b: Set data frame format to 16bit
+ 593:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_DataSize_8b: Set data frame format to 8bit
+ 594:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 595:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 596:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_DataSizeConfig(SPI_TypeDef* SPIx, uint16_t SPI_DataSize)
+ 597:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 740              		.loc 1 597 1 is_stmt 1 view -0
+ 741              		.cfi_startproc
+ 742              		@ args = 0, pretend = 0, frame = 0
+ 743              		@ frame_needed = 0, uses_anonymous_args = 0
+ 744              		@ link register save eliminated.
+ 598:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ARM GAS  /tmp/ccTr0q0X.s 			page 25
+
+
+ 599:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 745              		.loc 1 599 3 view .LVU230
+ 600:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_DATASIZE(SPI_DataSize));
+ 746              		.loc 1 600 3 view .LVU231
+ 601:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Clear DFF bit */
+ 602:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->CR1 &= (uint16_t)~SPI_DataSize_16b;
+ 747              		.loc 1 602 3 view .LVU232
+ 748              		.loc 1 602 13 is_stmt 0 view .LVU233
+ 749 0000 0388     		ldrh	r3, [r0]
+ 750 0002 9BB2     		uxth	r3, r3
+ 751 0004 23F40063 		bic	r3, r3, #2048
+ 752 0008 9BB2     		uxth	r3, r3
+ 753 000a 0380     		strh	r3, [r0]	@ movhi
+ 603:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set new DFF bit value */
+ 604:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->CR1 |= SPI_DataSize;
+ 754              		.loc 1 604 3 is_stmt 1 view .LVU234
+ 755              		.loc 1 604 13 is_stmt 0 view .LVU235
+ 756 000c 0388     		ldrh	r3, [r0]
+ 757 000e 9BB2     		uxth	r3, r3
+ 758 0010 0B43     		orrs	r3, r3, r1
+ 759 0012 0380     		strh	r3, [r0]	@ movhi
+ 605:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 760              		.loc 1 605 1 view .LVU236
+ 761 0014 7047     		bx	lr
+ 762              		.cfi_endproc
+ 763              	.LFE137:
+ 765              		.section	.text.SPI_BiDirectionalLineConfig,"ax",%progbits
+ 766              		.align	1
+ 767              		.global	SPI_BiDirectionalLineConfig
+ 768              		.syntax unified
+ 769              		.thumb
+ 770              		.thumb_func
+ 771              		.fpu fpv4-sp-d16
+ 773              	SPI_BiDirectionalLineConfig:
+ 774              	.LVL71:
+ 775              	.LFB138:
+ 606:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 607:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 608:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Selects the data transfer direction in bidirectional mode for the specified SPI.
+ 609:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 610:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_Direction: specifies the data transfer direction in bidirectional mode. 
+ 611:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be one of the following values:
+ 612:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_Direction_Tx: Selects Tx transmission direction
+ 613:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_Direction_Rx: Selects Rx receive direction
+ 614:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 615:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 616:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_BiDirectionalLineConfig(SPI_TypeDef* SPIx, uint16_t SPI_Direction)
+ 617:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 776              		.loc 1 617 1 is_stmt 1 view -0
+ 777              		.cfi_startproc
+ 778              		@ args = 0, pretend = 0, frame = 0
+ 779              		@ frame_needed = 0, uses_anonymous_args = 0
+ 780              		@ link register save eliminated.
+ 618:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 619:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 781              		.loc 1 619 3 view .LVU238
+ 620:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_DIRECTION(SPI_Direction));
+ARM GAS  /tmp/ccTr0q0X.s 			page 26
+
+
+ 782              		.loc 1 620 3 view .LVU239
+ 621:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (SPI_Direction == SPI_Direction_Tx)
+ 783              		.loc 1 621 3 view .LVU240
+ 784              		.loc 1 621 6 is_stmt 0 view .LVU241
+ 785 0000 B1F5804F 		cmp	r1, #16384
+ 786 0004 06D0     		beq	.L47
+ 622:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 623:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Set the Tx only mode */
+ 624:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 |= SPI_Direction_Tx;
+ 625:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 626:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 627:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 628:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Set the Rx only mode */
+ 629:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 &= SPI_Direction_Rx;
+ 787              		.loc 1 629 5 is_stmt 1 view .LVU242
+ 788              		.loc 1 629 15 is_stmt 0 view .LVU243
+ 789 0006 0388     		ldrh	r3, [r0]
+ 790 0008 9BB2     		uxth	r3, r3
+ 791 000a 23F48043 		bic	r3, r3, #16384
+ 792 000e 9BB2     		uxth	r3, r3
+ 793 0010 0380     		strh	r3, [r0]	@ movhi
+ 630:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 631:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 794              		.loc 1 631 1 view .LVU244
+ 795 0012 7047     		bx	lr
+ 796              	.L47:
+ 624:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 797              		.loc 1 624 5 is_stmt 1 view .LVU245
+ 624:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 798              		.loc 1 624 15 is_stmt 0 view .LVU246
+ 799 0014 0388     		ldrh	r3, [r0]
+ 800 0016 9BB2     		uxth	r3, r3
+ 801 0018 43F48043 		orr	r3, r3, #16384
+ 802 001c 0380     		strh	r3, [r0]	@ movhi
+ 803 001e 7047     		bx	lr
+ 804              		.cfi_endproc
+ 805              	.LFE138:
+ 807              		.section	.text.SPI_NSSInternalSoftwareConfig,"ax",%progbits
+ 808              		.align	1
+ 809              		.global	SPI_NSSInternalSoftwareConfig
+ 810              		.syntax unified
+ 811              		.thumb
+ 812              		.thumb_func
+ 813              		.fpu fpv4-sp-d16
+ 815              	SPI_NSSInternalSoftwareConfig:
+ 816              	.LVL72:
+ 817              	.LFB139:
+ 632:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 633:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 634:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Configures internally by software the NSS pin for the selected SPI.
+ 635:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 636:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_NSSInternalSoft: specifies the SPI NSS internal state.
+ 637:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be one of the following values:
+ 638:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_NSSInternalSoft_Set: Set NSS pin internally
+ 639:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_NSSInternalSoft_Reset: Reset NSS pin internally
+ 640:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 641:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ARM GAS  /tmp/ccTr0q0X.s 			page 27
+
+
+ 642:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_NSSInternalSoftwareConfig(SPI_TypeDef* SPIx, uint16_t SPI_NSSInternalSoft)
+ 643:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 818              		.loc 1 643 1 is_stmt 1 view -0
+ 819              		.cfi_startproc
+ 820              		@ args = 0, pretend = 0, frame = 0
+ 821              		@ frame_needed = 0, uses_anonymous_args = 0
+ 822              		@ link register save eliminated.
+ 644:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 645:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 823              		.loc 1 645 3 view .LVU248
+ 646:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_NSS_INTERNAL(SPI_NSSInternalSoft));
+ 824              		.loc 1 646 3 view .LVU249
+ 647:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (SPI_NSSInternalSoft != SPI_NSSInternalSoft_Reset)
+ 825              		.loc 1 647 3 view .LVU250
+ 826              		.loc 1 647 6 is_stmt 0 view .LVU251
+ 827 0000 4FF6FF63 		movw	r3, #65279
+ 828 0004 9942     		cmp	r1, r3
+ 829 0006 05D0     		beq	.L49
+ 648:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 649:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Set NSS pin internally by software */
+ 650:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 |= SPI_NSSInternalSoft_Set;
+ 830              		.loc 1 650 5 is_stmt 1 view .LVU252
+ 831              		.loc 1 650 15 is_stmt 0 view .LVU253
+ 832 0008 0388     		ldrh	r3, [r0]
+ 833 000a 9BB2     		uxth	r3, r3
+ 834 000c 43F48073 		orr	r3, r3, #256
+ 835 0010 0380     		strh	r3, [r0]	@ movhi
+ 836 0012 7047     		bx	lr
+ 837              	.L49:
+ 651:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 652:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 653:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 654:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Reset NSS pin internally by software */
+ 655:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 &= SPI_NSSInternalSoft_Reset;
+ 838              		.loc 1 655 5 is_stmt 1 view .LVU254
+ 839              		.loc 1 655 15 is_stmt 0 view .LVU255
+ 840 0014 0388     		ldrh	r3, [r0]
+ 841 0016 9BB2     		uxth	r3, r3
+ 842 0018 23F48073 		bic	r3, r3, #256
+ 843 001c 9BB2     		uxth	r3, r3
+ 844 001e 0380     		strh	r3, [r0]	@ movhi
+ 656:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 657:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 845              		.loc 1 657 1 view .LVU256
+ 846 0020 7047     		bx	lr
+ 847              		.cfi_endproc
+ 848              	.LFE139:
+ 850              		.section	.text.SPI_SSOutputCmd,"ax",%progbits
+ 851              		.align	1
+ 852              		.global	SPI_SSOutputCmd
+ 853              		.syntax unified
+ 854              		.thumb
+ 855              		.thumb_func
+ 856              		.fpu fpv4-sp-d16
+ 858              	SPI_SSOutputCmd:
+ 859              	.LVL73:
+ 860              	.LFB140:
+ARM GAS  /tmp/ccTr0q0X.s 			page 28
+
+
+ 658:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 659:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 660:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Enables or disables the SS output for the selected SPI.
+ 661:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 662:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  NewState: new state of the SPIx SS output. 
+ 663:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 664:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 665:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 666:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_SSOutputCmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 667:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 861              		.loc 1 667 1 is_stmt 1 view -0
+ 862              		.cfi_startproc
+ 863              		@ args = 0, pretend = 0, frame = 0
+ 864              		@ frame_needed = 0, uses_anonymous_args = 0
+ 865              		@ link register save eliminated.
+ 668:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 669:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 866              		.loc 1 669 3 view .LVU258
+ 670:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 867              		.loc 1 670 3 view .LVU259
+ 671:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (NewState != DISABLE)
+ 868              		.loc 1 671 3 view .LVU260
+ 869              		.loc 1 671 6 is_stmt 0 view .LVU261
+ 870 0000 29B1     		cbz	r1, .L52
+ 672:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 673:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable the selected SPI SS output */
+ 674:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 |= (uint16_t)SPI_CR2_SSOE;
+ 871              		.loc 1 674 5 is_stmt 1 view .LVU262
+ 872              		.loc 1 674 15 is_stmt 0 view .LVU263
+ 873 0002 8388     		ldrh	r3, [r0, #4]
+ 874 0004 9BB2     		uxth	r3, r3
+ 875 0006 43F00403 		orr	r3, r3, #4
+ 876 000a 8380     		strh	r3, [r0, #4]	@ movhi
+ 877 000c 7047     		bx	lr
+ 878              	.L52:
+ 675:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 676:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 677:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 678:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Disable the selected SPI SS output */
+ 679:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 &= (uint16_t)~((uint16_t)SPI_CR2_SSOE);
+ 879              		.loc 1 679 5 is_stmt 1 view .LVU264
+ 880              		.loc 1 679 15 is_stmt 0 view .LVU265
+ 881 000e 8388     		ldrh	r3, [r0, #4]
+ 882 0010 9BB2     		uxth	r3, r3
+ 883 0012 23F00403 		bic	r3, r3, #4
+ 884 0016 9BB2     		uxth	r3, r3
+ 885 0018 8380     		strh	r3, [r0, #4]	@ movhi
+ 680:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 681:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 886              		.loc 1 681 1 view .LVU266
+ 887 001a 7047     		bx	lr
+ 888              		.cfi_endproc
+ 889              	.LFE140:
+ 891              		.section	.text.SPI_TIModeCmd,"ax",%progbits
+ 892              		.align	1
+ 893              		.global	SPI_TIModeCmd
+ 894              		.syntax unified
+ARM GAS  /tmp/ccTr0q0X.s 			page 29
+
+
+ 895              		.thumb
+ 896              		.thumb_func
+ 897              		.fpu fpv4-sp-d16
+ 899              	SPI_TIModeCmd:
+ 900              	.LVL74:
+ 901              	.LFB141:
+ 682:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 683:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 684:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Enables or disables the SPIx/I2Sx DMA interface.
+ 685:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *   
+ 686:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   This function can be called only after the SPI_Init() function has 
+ 687:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         been called. 
+ 688:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   When TI mode is selected, the control bits SSM, SSI, CPOL and CPHA 
+ 689:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         are not taken into consideration and are configured by hardware
+ 690:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         respectively to the TI mode requirements.  
+ 691:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * 
+ 692:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 
+ 693:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  NewState: new state of the selected SPI TI communication mode.
+ 694:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 695:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 696:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 697:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_TIModeCmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 698:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 902              		.loc 1 698 1 is_stmt 1 view -0
+ 903              		.cfi_startproc
+ 904              		@ args = 0, pretend = 0, frame = 0
+ 905              		@ frame_needed = 0, uses_anonymous_args = 0
+ 906              		@ link register save eliminated.
+ 699:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 700:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 907              		.loc 1 700 3 view .LVU268
+ 701:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 908              		.loc 1 701 3 view .LVU269
+ 702:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 703:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (NewState != DISABLE)
+ 909              		.loc 1 703 3 view .LVU270
+ 910              		.loc 1 703 6 is_stmt 0 view .LVU271
+ 911 0000 29B1     		cbz	r1, .L55
+ 704:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 705:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable the TI mode for the selected SPI peripheral */
+ 706:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 |= SPI_CR2_FRF;
+ 912              		.loc 1 706 5 is_stmt 1 view .LVU272
+ 913              		.loc 1 706 15 is_stmt 0 view .LVU273
+ 914 0002 8388     		ldrh	r3, [r0, #4]
+ 915 0004 9BB2     		uxth	r3, r3
+ 916 0006 43F01003 		orr	r3, r3, #16
+ 917 000a 8380     		strh	r3, [r0, #4]	@ movhi
+ 918 000c 7047     		bx	lr
+ 919              	.L55:
+ 707:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 708:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 709:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 710:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Disable the TI mode for the selected SPI peripheral */
+ 711:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 &= (uint16_t)~SPI_CR2_FRF;
+ 920              		.loc 1 711 5 is_stmt 1 view .LVU274
+ 921              		.loc 1 711 15 is_stmt 0 view .LVU275
+ 922 000e 8388     		ldrh	r3, [r0, #4]
+ARM GAS  /tmp/ccTr0q0X.s 			page 30
+
+
+ 923 0010 9BB2     		uxth	r3, r3
+ 924 0012 23F01003 		bic	r3, r3, #16
+ 925 0016 9BB2     		uxth	r3, r3
+ 926 0018 8380     		strh	r3, [r0, #4]	@ movhi
+ 712:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 713:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 927              		.loc 1 713 1 view .LVU276
+ 928 001a 7047     		bx	lr
+ 929              		.cfi_endproc
+ 930              	.LFE141:
+ 932              		.section	.text.I2S_FullDuplexConfig,"ax",%progbits
+ 933              		.align	1
+ 934              		.global	I2S_FullDuplexConfig
+ 935              		.syntax unified
+ 936              		.thumb
+ 937              		.thumb_func
+ 938              		.fpu fpv4-sp-d16
+ 940              	I2S_FullDuplexConfig:
+ 941              	.LVL75:
+ 942              	.LFB142:
+ 714:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 715:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 716:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Configures the full duplex mode for the I2Sx peripheral using its
+ 717:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         extension I2Sxext according to the specified parameters in the 
+ 718:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         I2S_InitStruct.
+ 719:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  I2Sxext: where x can be  2 or 3 to select the I2S peripheral extension block.
+ 720:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  I2S_InitStruct: pointer to an I2S_InitTypeDef structure that
+ 721:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         contains the configuration information for the specified I2S peripheral
+ 722:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         extension.
+ 723:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * 
+ 724:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   The structure pointed by I2S_InitStruct parameter should be the same
+ 725:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         used for the master I2S peripheral. In this case, if the master is 
+ 726:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         configured as transmitter, the slave will be receiver and vice versa.
+ 727:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         Or you can force a different mode by modifying the field I2S_Mode to the
+ 728:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         value I2S_SlaveRx or I2S_SlaveTx indepedently of the master configuration.    
+ 729:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         
+ 730:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   The I2S full duplex extension can be configured in slave mode only.    
+ 731:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *  
+ 732:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 733:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 734:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void I2S_FullDuplexConfig(SPI_TypeDef* I2Sxext, I2S_InitTypeDef* I2S_InitStruct)
+ 735:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 943              		.loc 1 735 1 is_stmt 1 view -0
+ 944              		.cfi_startproc
+ 945              		@ args = 0, pretend = 0, frame = 0
+ 946              		@ frame_needed = 0, uses_anonymous_args = 0
+ 947              		@ link register save eliminated.
+ 948              		.loc 1 735 1 is_stmt 0 view .LVU278
+ 949 0000 30B4     		push	{r4, r5}
+ 950              	.LCFI5:
+ 951              		.cfi_def_cfa_offset 8
+ 952              		.cfi_offset 4, -8
+ 953              		.cfi_offset 5, -4
+ 736:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint16_t tmpreg = 0, tmp = 0;
+ 954              		.loc 1 736 3 is_stmt 1 view .LVU279
+ 955              	.LVL76:
+ 737:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ARM GAS  /tmp/ccTr0q0X.s 			page 31
+
+
+ 738:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the I2S parameters */
+ 739:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_EXT_PERIPH(I2Sxext));
+ 956              		.loc 1 739 3 view .LVU280
+ 740:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_MODE(I2S_InitStruct->I2S_Mode));
+ 957              		.loc 1 740 3 view .LVU281
+ 741:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_STANDARD(I2S_InitStruct->I2S_Standard));
+ 958              		.loc 1 741 3 view .LVU282
+ 742:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_DATA_FORMAT(I2S_InitStruct->I2S_DataFormat));
+ 959              		.loc 1 742 3 view .LVU283
+ 743:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_I2S_CPOL(I2S_InitStruct->I2S_CPOL));  
+ 960              		.loc 1 743 3 view .LVU284
+ 744:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 745:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /*----------------------- SPIx I2SCFGR & I2SPR Configuration -----------------*/
+ 746:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Clear I2SMOD, I2SE, I2SCFG, PCMSYNC, I2SSTD, CKPOL, DATLEN and CHLEN bits */
+ 747:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2Sxext->I2SCFGR &= I2SCFGR_CLEAR_MASK; 
+ 961              		.loc 1 747 3 view .LVU285
+ 962              		.loc 1 747 20 is_stmt 0 view .LVU286
+ 963 0002 838B     		ldrh	r3, [r0, #28]
+ 964 0004 9BB2     		uxth	r3, r3
+ 965 0006 23F47B63 		bic	r3, r3, #4016
+ 966 000a 23F00F03 		bic	r3, r3, #15
+ 967 000e 9BB2     		uxth	r3, r3
+ 968 0010 8383     		strh	r3, [r0, #28]	@ movhi
+ 748:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2Sxext->I2SPR = 0x0002;
+ 969              		.loc 1 748 3 is_stmt 1 view .LVU287
+ 970              		.loc 1 748 18 is_stmt 0 view .LVU288
+ 971 0012 0223     		movs	r3, #2
+ 972 0014 0384     		strh	r3, [r0, #32]	@ movhi
+ 749:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 750:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the I2SCFGR register value */
+ 751:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   tmpreg = I2Sxext->I2SCFGR;
+ 973              		.loc 1 751 3 is_stmt 1 view .LVU289
+ 974              		.loc 1 751 10 is_stmt 0 view .LVU290
+ 975 0016 838B     		ldrh	r3, [r0, #28]
+ 976 0018 9AB2     		uxth	r2, r3
+ 977              	.LVL77:
+ 752:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 753:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the mode to be configured for the extended I2S */
+ 754:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if ((I2S_InitStruct->I2S_Mode == I2S_Mode_MasterTx) || (I2S_InitStruct->I2S_Mode == I2S_Mode_Slav
+ 978              		.loc 1 754 3 is_stmt 1 view .LVU291
+ 979              		.loc 1 754 22 is_stmt 0 view .LVU292
+ 980 001a 0B88     		ldrh	r3, [r1]
+ 981              		.loc 1 754 6 view .LVU293
+ 982 001c B3F5007F 		cmp	r3, #512
+ 983 0020 03D0     		beq	.L59
+ 984              		.loc 1 754 55 discriminator 1 view .LVU294
+ 985 0022 83B9     		cbnz	r3, .L60
+ 755:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 756:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     tmp = I2S_Mode_SlaveRx;
+ 986              		.loc 1 756 9 view .LVU295
+ 987 0024 4FF48075 		mov	r5, #256
+ 988 0028 01E0     		b	.L58
+ 989              	.L59:
+ 990 002a 4FF48075 		mov	r5, #256
+ 991              	.L58:
+ 992              	.LVL78:
+ 757:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ARM GAS  /tmp/ccTr0q0X.s 			page 32
+
+
+ 758:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 759:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 760:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     if ((I2S_InitStruct->I2S_Mode == I2S_Mode_MasterRx) || (I2S_InitStruct->I2S_Mode == I2S_Mode_Sl
+ 761:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     {
+ 762:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       tmp = I2S_Mode_SlaveTx;
+ 763:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ 764:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 765:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 766:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  
+ 767:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Configure the I2S with the SPI_InitStruct values */
+ 768:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   tmpreg |= (uint16_t)((uint16_t)SPI_I2SCFGR_I2SMOD | (uint16_t)(tmp | \
+ 993              		.loc 1 768 3 is_stmt 1 view .LVU296
+ 769:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 994              		.loc 1 769 44 is_stmt 0 view .LVU297
+ 995 002e 4B88     		ldrh	r3, [r1, #2]
+ 996              		.loc 1 769 86 view .LVU298
+ 997 0030 8C88     		ldrh	r4, [r1, #4]
+ 770:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)I2S_InitStruct->I2S_CPOL))));
+ 998              		.loc 1 770 43 view .LVU299
+ 999 0032 8989     		ldrh	r1, [r1, #12]
+ 1000              	.LVL79:
+ 769:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 1001              		.loc 1 769 61 view .LVU300
+ 1002 0034 2143     		orrs	r1, r1, r4
+ 769:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 1003              		.loc 1 769 19 view .LVU301
+ 1004 0036 0B43     		orrs	r3, r3, r1
+ 768:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 1005              		.loc 1 768 55 view .LVU302
+ 1006 0038 2B43     		orrs	r3, r3, r5
+ 768:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 1007              		.loc 1 768 10 view .LVU303
+ 1008 003a 1343     		orrs	r3, r3, r2
+ 1009 003c 43F40063 		orr	r3, r3, #2048
+ 1010              	.LVL80:
+ 771:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  
+ 772:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Write to SPIx I2SCFGR */  
+ 773:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   I2Sxext->I2SCFGR = tmpreg;
+ 1011              		.loc 1 773 3 is_stmt 1 view .LVU304
+ 1012              		.loc 1 773 20 is_stmt 0 view .LVU305
+ 1013 0040 8383     		strh	r3, [r0, #28]	@ movhi
+ 774:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1014              		.loc 1 774 1 view .LVU306
+ 1015 0042 30BC     		pop	{r4, r5}
+ 1016              	.LCFI6:
+ 1017              		.cfi_remember_state
+ 1018              		.cfi_restore 5
+ 1019              		.cfi_restore 4
+ 1020              		.cfi_def_cfa_offset 0
+ 1021              	.LVL81:
+ 1022              		.loc 1 774 1 view .LVU307
+ 1023 0044 7047     		bx	lr
+ 1024              	.LVL82:
+ 1025              	.L60:
+ 1026              	.LCFI7:
+ 1027              		.cfi_restore_state
+ 762:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     }
+ARM GAS  /tmp/ccTr0q0X.s 			page 33
+
+
+ 1028              		.loc 1 762 11 view .LVU308
+ 1029 0046 0025     		movs	r5, #0
+ 1030 0048 F1E7     		b	.L58
+ 1031              		.cfi_endproc
+ 1032              	.LFE142:
+ 1034              		.section	.text.SPI_I2S_ReceiveData,"ax",%progbits
+ 1035              		.align	1
+ 1036              		.global	SPI_I2S_ReceiveData
+ 1037              		.syntax unified
+ 1038              		.thumb
+ 1039              		.thumb_func
+ 1040              		.fpu fpv4-sp-d16
+ 1042              	SPI_I2S_ReceiveData:
+ 1043              	.LVL83:
+ 1044              	.LFB143:
+ 775:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 776:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 777:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @}
+ 778:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 779:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 780:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @defgroup SPI_Group2 Data transfers functions
+ 781:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *  @brief   Data transfers functions
+ 782:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *
+ 783:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @verbatim   
+ 784:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================
+ 785:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                       ##### Data transfers functions #####
+ 786:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================  
+ 787:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 788:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] This section provides a set of functions allowing to manage the SPI data 
+ 789:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       transfers. In reception, data are received and then stored into an internal 
+ 790:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       Rx buffer while. In transmission, data are first stored into an internal Tx 
+ 791:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       buffer before being transmitted.
+ 792:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 793:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] The read access of the SPI_DR register can be done using the SPI_I2S_ReceiveData()
+ 794:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       function and returns the Rx buffered value. Whereas a write access to the SPI_DR 
+ 795:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       can be done using SPI_I2S_SendData() function and stores the written data into 
+ 796:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       Tx buffer.
+ 797:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 798:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @endverbatim
+ 799:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+ 800:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 801:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 802:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 803:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Returns the most recent received data by the SPIx/I2Sx peripheral. 
+ 804:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+ 805:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
+ 806:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval The value of the received data.
+ 807:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 808:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx)
+ 809:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1045              		.loc 1 809 1 is_stmt 1 view -0
+ 1046              		.cfi_startproc
+ 1047              		@ args = 0, pretend = 0, frame = 0
+ 1048              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1049              		@ link register save eliminated.
+ 810:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 811:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ARM GAS  /tmp/ccTr0q0X.s 			page 34
+
+
+ 1050              		.loc 1 811 3 view .LVU310
+ 812:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 813:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Return the data in the DR register */
+ 814:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   return SPIx->DR;
+ 1051              		.loc 1 814 3 view .LVU311
+ 1052              		.loc 1 814 14 is_stmt 0 view .LVU312
+ 1053 0000 8089     		ldrh	r0, [r0, #12]
+ 1054              	.LVL84:
+ 815:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1055              		.loc 1 815 1 view .LVU313
+ 1056 0002 80B2     		uxth	r0, r0
+ 1057 0004 7047     		bx	lr
+ 1058              		.cfi_endproc
+ 1059              	.LFE143:
+ 1061              		.section	.text.SPI_I2S_SendData,"ax",%progbits
+ 1062              		.align	1
+ 1063              		.global	SPI_I2S_SendData
+ 1064              		.syntax unified
+ 1065              		.thumb
+ 1066              		.thumb_func
+ 1067              		.fpu fpv4-sp-d16
+ 1069              	SPI_I2S_SendData:
+ 1070              	.LVL85:
+ 1071              	.LFB144:
+ 816:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 817:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 818:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Transmits a Data through the SPIx/I2Sx peripheral.
+ 819:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+ 820:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode.     
+ 821:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  Data: Data to be transmitted.
+ 822:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 823:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 824:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
+ 825:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1072              		.loc 1 825 1 is_stmt 1 view -0
+ 1073              		.cfi_startproc
+ 1074              		@ args = 0, pretend = 0, frame = 0
+ 1075              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1076              		@ link register save eliminated.
+ 826:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 827:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ 1077              		.loc 1 827 3 view .LVU315
+ 828:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 829:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Write in the DR register the data to be sent */
+ 830:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->DR = Data;
+ 1078              		.loc 1 830 3 view .LVU316
+ 1079              		.loc 1 830 12 is_stmt 0 view .LVU317
+ 1080 0000 8181     		strh	r1, [r0, #12]	@ movhi
+ 831:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1081              		.loc 1 831 1 view .LVU318
+ 1082 0002 7047     		bx	lr
+ 1083              		.cfi_endproc
+ 1084              	.LFE144:
+ 1086              		.section	.text.SPI_CalculateCRC,"ax",%progbits
+ 1087              		.align	1
+ 1088              		.global	SPI_CalculateCRC
+ 1089              		.syntax unified
+ARM GAS  /tmp/ccTr0q0X.s 			page 35
+
+
+ 1090              		.thumb
+ 1091              		.thumb_func
+ 1092              		.fpu fpv4-sp-d16
+ 1094              	SPI_CalculateCRC:
+ 1095              	.LVL86:
+ 1096              	.LFB145:
+ 832:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 833:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 834:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @}
+ 835:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 836:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 837:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @defgroup SPI_Group3 Hardware CRC Calculation functions
+ 838:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *  @brief   Hardware CRC Calculation functions
+ 839:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *
+ 840:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @verbatim   
+ 841:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================
+ 842:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                  ##### Hardware CRC Calculation functions #####
+ 843:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================  
+ 844:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 845:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] This section provides a set of functions allowing to manage the SPI CRC hardware 
+ 846:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       calculation
+ 847:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 848:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] SPI communication using CRC is possible through the following procedure:
+ 849:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Program the Data direction, Polarity, Phase, First Data, Baud Rate Prescaler, 
+ 850:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        Slave Management, Peripheral Mode and CRC Polynomial values using the SPI_Init()
+ 851:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        function.
+ 852:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Enable the CRC calculation using the SPI_CalculateCRC() function.
+ 853:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Enable the SPI using the SPI_Cmd() function
+ 854:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) Before writing the last data to the TX buffer, set the CRCNext bit using the 
+ 855:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        SPI_TransmitCRC() function to indicate that after transmission of the last 
+ 856:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        data, the CRC should be transmitted.
+ 857:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) After transmitting the last data, the SPI transmits the CRC. The SPI_CR1_CRCNEXT
+ 858:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****         bit is reset. The CRC is also received and compared against the SPI_RXCRCR 
+ 859:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****         value. 
+ 860:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****         If the value does not match, the SPI_FLAG_CRCERR flag is set and an interrupt
+ 861:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****         can be generated when the SPI_I2S_IT_ERR interrupt is enabled.
+ 862:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 863:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..]
+ 864:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) It is advised not to read the calculated CRC values during the communication.
+ 865:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 866:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) When the SPI is in slave mode, be careful to enable CRC calculation only 
+ 867:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        when the clock is stable, that is, when the clock is in the steady state. 
+ 868:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        If not, a wrong CRC calculation may be done. In fact, the CRC is sensitive 
+ 869:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        to the SCK slave input clock as soon as CRCEN is set, and this, whatever 
+ 870:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        the value of the SPE bit.
+ 871:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 872:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) With high bitrate frequencies, be careful when transmitting the CRC.
+ 873:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        As the number of used CPU cycles has to be as low as possible in the CRC 
+ 874:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        transfer phase, it is forbidden to call software functions in the CRC 
+ 875:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        transmission sequence to avoid errors in the last data and CRC reception. 
+ 876:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        In fact, CRCNEXT bit has to be written before the end of the transmission/reception 
+ 877:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        of the last data.
+ 878:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 879:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) For high bit rate frequencies, it is advised to use the DMA mode to avoid the
+ 880:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        degradation of the SPI speed performance due to CPU accesses impacting the 
+ 881:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        SPI bandwidth.
+ 882:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ARM GAS  /tmp/ccTr0q0X.s 			page 36
+
+
+ 883:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) When the STM32F4xx is configured as slave and the NSS hardware mode is 
+ 884:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        used, the NSS pin needs to be kept low between the data phase and the CRC 
+ 885:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        phase.
+ 886:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 887:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) When the SPI is configured in slave mode with the CRC feature enabled, CRC
+ 888:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        calculation takes place even if a high level is applied on the NSS pin. 
+ 889:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        This may happen for example in case of a multi-slave environment where the 
+ 890:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        communication master addresses slaves alternately.
+ 891:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 892:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) Between a slave de-selection (high level on NSS) and a new slave selection 
+ 893:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (low level on NSS), the CRC value should be cleared on both master and slave
+ 894:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        sides in order to resynchronize the master and slave for their respective 
+ 895:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        CRC calculation.
+ 896:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 897:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (@) To clear the CRC, follow the procedure below:
+ 898:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (#@) Disable SPI using the SPI_Cmd() function
+ 899:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (#@) Disable the CRC calculation using the SPI_CalculateCRC() function.
+ 900:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (#@) Enable the CRC calculation using the SPI_CalculateCRC() function.
+ 901:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (#@) Enable SPI using the SPI_Cmd() function.
+ 902:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 903:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @endverbatim
+ 904:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+ 905:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 906:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 907:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 908:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Enables or disables the CRC value calculation of the transferred bytes.
+ 909:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 910:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  NewState: new state of the SPIx CRC value calculation.
+ 911:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 912:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 913:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 914:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_CalculateCRC(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 915:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1097              		.loc 1 915 1 is_stmt 1 view -0
+ 1098              		.cfi_startproc
+ 1099              		@ args = 0, pretend = 0, frame = 0
+ 1100              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1101              		@ link register save eliminated.
+ 916:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 917:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 1102              		.loc 1 917 3 view .LVU320
+ 918:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 1103              		.loc 1 918 3 view .LVU321
+ 919:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (NewState != DISABLE)
+ 1104              		.loc 1 919 3 view .LVU322
+ 1105              		.loc 1 919 6 is_stmt 0 view .LVU323
+ 1106 0000 29B1     		cbz	r1, .L65
+ 920:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 921:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable the selected SPI CRC calculation */
+ 922:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 |= SPI_CR1_CRCEN;
+ 1107              		.loc 1 922 5 is_stmt 1 view .LVU324
+ 1108              		.loc 1 922 15 is_stmt 0 view .LVU325
+ 1109 0002 0388     		ldrh	r3, [r0]
+ 1110 0004 9BB2     		uxth	r3, r3
+ 1111 0006 43F40053 		orr	r3, r3, #8192
+ 1112 000a 0380     		strh	r3, [r0]	@ movhi
+ 1113 000c 7047     		bx	lr
+ARM GAS  /tmp/ccTr0q0X.s 			page 37
+
+
+ 1114              	.L65:
+ 923:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 924:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ 925:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 926:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Disable the selected SPI CRC calculation */
+ 927:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR1 &= (uint16_t)~((uint16_t)SPI_CR1_CRCEN);
+ 1115              		.loc 1 927 5 is_stmt 1 view .LVU326
+ 1116              		.loc 1 927 15 is_stmt 0 view .LVU327
+ 1117 000e 0388     		ldrh	r3, [r0]
+ 1118 0010 9BB2     		uxth	r3, r3
+ 1119 0012 23F40053 		bic	r3, r3, #8192
+ 1120 0016 9BB2     		uxth	r3, r3
+ 1121 0018 0380     		strh	r3, [r0]	@ movhi
+ 928:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 929:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1122              		.loc 1 929 1 view .LVU328
+ 1123 001a 7047     		bx	lr
+ 1124              		.cfi_endproc
+ 1125              	.LFE145:
+ 1127              		.section	.text.SPI_TransmitCRC,"ax",%progbits
+ 1128              		.align	1
+ 1129              		.global	SPI_TransmitCRC
+ 1130              		.syntax unified
+ 1131              		.thumb
+ 1132              		.thumb_func
+ 1133              		.fpu fpv4-sp-d16
+ 1135              	SPI_TransmitCRC:
+ 1136              	.LVL87:
+ 1137              	.LFB146:
+ 930:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 931:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 932:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Transmit the SPIx CRC value.
+ 933:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 934:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+ 935:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 936:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_TransmitCRC(SPI_TypeDef* SPIx)
+ 937:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1138              		.loc 1 937 1 is_stmt 1 view -0
+ 1139              		.cfi_startproc
+ 1140              		@ args = 0, pretend = 0, frame = 0
+ 1141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1142              		@ link register save eliminated.
+ 938:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 939:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 1143              		.loc 1 939 3 view .LVU330
+ 940:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 941:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Enable the selected SPI CRC transmission */
+ 942:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->CR1 |= SPI_CR1_CRCNEXT;
+ 1144              		.loc 1 942 3 view .LVU331
+ 1145              		.loc 1 942 13 is_stmt 0 view .LVU332
+ 1146 0000 0388     		ldrh	r3, [r0]
+ 1147 0002 9BB2     		uxth	r3, r3
+ 1148 0004 43F48053 		orr	r3, r3, #4096
+ 1149 0008 0380     		strh	r3, [r0]	@ movhi
+ 943:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1150              		.loc 1 943 1 view .LVU333
+ 1151 000a 7047     		bx	lr
+ARM GAS  /tmp/ccTr0q0X.s 			page 38
+
+
+ 1152              		.cfi_endproc
+ 1153              	.LFE146:
+ 1155              		.section	.text.SPI_GetCRC,"ax",%progbits
+ 1156              		.align	1
+ 1157              		.global	SPI_GetCRC
+ 1158              		.syntax unified
+ 1159              		.thumb
+ 1160              		.thumb_func
+ 1161              		.fpu fpv4-sp-d16
+ 1163              	SPI_GetCRC:
+ 1164              	.LVL88:
+ 1165              	.LFB147:
+ 944:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 945:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 946:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Returns the transmit or the receive CRC register value for the specified SPI.
+ 947:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 948:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_CRC: specifies the CRC register to be read.
+ 949:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be one of the following values:
+ 950:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_CRC_Tx: Selects Tx CRC register
+ 951:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_CRC_Rx: Selects Rx CRC register
+ 952:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval The selected CRC register value..
+ 953:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 954:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** uint16_t SPI_GetCRC(SPI_TypeDef* SPIx, uint8_t SPI_CRC)
+ 955:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1166              		.loc 1 955 1 is_stmt 1 view -0
+ 1167              		.cfi_startproc
+ 1168              		@ args = 0, pretend = 0, frame = 0
+ 1169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1170              		@ link register save eliminated.
+ 956:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint16_t crcreg = 0;
+ 1171              		.loc 1 956 3 view .LVU335
+ 957:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 958:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 1172              		.loc 1 958 3 view .LVU336
+ 959:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_CRC(SPI_CRC));
+ 1173              		.loc 1 959 3 view .LVU337
+ 960:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (SPI_CRC != SPI_CRC_Rx)
+ 1174              		.loc 1 960 3 view .LVU338
+ 1175              		.loc 1 960 6 is_stmt 0 view .LVU339
+ 1176 0000 0129     		cmp	r1, #1
+ 1177 0002 02D0     		beq	.L69
+ 961:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 962:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Get the Tx CRC register */
+ 963:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     crcreg = SPIx->TXCRCR;
+ 1178              		.loc 1 963 5 is_stmt 1 view .LVU340
+ 1179              		.loc 1 963 12 is_stmt 0 view .LVU341
+ 1180 0004 008B     		ldrh	r0, [r0, #24]
+ 1181              	.LVL89:
+ 1182              		.loc 1 963 12 view .LVU342
+ 1183 0006 80B2     		uxth	r0, r0
+ 1184              	.LVL90:
+ 1185              		.loc 1 963 12 view .LVU343
+ 1186 0008 7047     		bx	lr
+ 1187              	.LVL91:
+ 1188              	.L69:
+ 964:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 965:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+ARM GAS  /tmp/ccTr0q0X.s 			page 39
+
+
+ 966:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+ 967:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Get the Rx CRC register */
+ 968:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     crcreg = SPIx->RXCRCR;
+ 1189              		.loc 1 968 5 is_stmt 1 view .LVU344
+ 1190              		.loc 1 968 12 is_stmt 0 view .LVU345
+ 1191 000a 808A     		ldrh	r0, [r0, #20]
+ 1192              	.LVL92:
+ 1193              		.loc 1 968 12 view .LVU346
+ 1194 000c 80B2     		uxth	r0, r0
+ 1195              	.LVL93:
+ 969:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 970:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Return the selected CRC register */
+ 971:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   return crcreg;
+ 1196              		.loc 1 971 3 is_stmt 1 view .LVU347
+ 972:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1197              		.loc 1 972 1 is_stmt 0 view .LVU348
+ 1198 000e 7047     		bx	lr
+ 1199              		.cfi_endproc
+ 1200              	.LFE147:
+ 1202              		.section	.text.SPI_GetCRCPolynomial,"ax",%progbits
+ 1203              		.align	1
+ 1204              		.global	SPI_GetCRCPolynomial
+ 1205              		.syntax unified
+ 1206              		.thumb
+ 1207              		.thumb_func
+ 1208              		.fpu fpv4-sp-d16
+ 1210              	SPI_GetCRCPolynomial:
+ 1211              	.LVL94:
+ 1212              	.LFB148:
+ 973:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 974:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 975:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Returns the CRC Polynomial register value for the specified SPI.
+ 976:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: where x can be 1, 2, 3, 4, 5 or 6 to select the SPI peripheral.
+ 977:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval The CRC Polynomial register value.
+ 978:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 979:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** uint16_t SPI_GetCRCPolynomial(SPI_TypeDef* SPIx)
+ 980:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1213              		.loc 1 980 1 is_stmt 1 view -0
+ 1214              		.cfi_startproc
+ 1215              		@ args = 0, pretend = 0, frame = 0
+ 1216              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1217              		@ link register save eliminated.
+ 981:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+ 982:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 1218              		.loc 1 982 3 view .LVU350
+ 983:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+ 984:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Return the CRC polynomial register */
+ 985:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   return SPIx->CRCPR;
+ 1219              		.loc 1 985 3 view .LVU351
+ 1220              		.loc 1 985 14 is_stmt 0 view .LVU352
+ 1221 0000 008A     		ldrh	r0, [r0, #16]
+ 1222              	.LVL95:
+ 986:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1223              		.loc 1 986 1 view .LVU353
+ 1224 0002 80B2     		uxth	r0, r0
+ 1225 0004 7047     		bx	lr
+ 1226              		.cfi_endproc
+ARM GAS  /tmp/ccTr0q0X.s 			page 40
+
+
+ 1227              	.LFE148:
+ 1229              		.section	.text.SPI_I2S_DMACmd,"ax",%progbits
+ 1230              		.align	1
+ 1231              		.global	SPI_I2S_DMACmd
+ 1232              		.syntax unified
+ 1233              		.thumb
+ 1234              		.thumb_func
+ 1235              		.fpu fpv4-sp-d16
+ 1237              	SPI_I2S_DMACmd:
+ 1238              	.LVL96:
+ 1239              	.LFB149:
+ 987:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 988:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+ 989:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @}
+ 990:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+ 991:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ 992:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @defgroup SPI_Group4 DMA transfers management functions
+ 993:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *  @brief   DMA transfers management functions
+ 994:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *
+ 995:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @verbatim   
+ 996:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================
+ 997:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****                    ##### DMA transfers management functions #####
+ 998:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================  
+ 999:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1000:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @endverbatim
+1001:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+1002:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1003:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1004:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+1005:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Enables or disables the SPIx/I2Sx DMA interface.
+1006:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+1007:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
+1008:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_I2S_DMAReq: specifies the SPI DMA transfer request to be enabled or disabled. 
+1009:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be any combination of the following values:
+1010:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_DMAReq_Tx: Tx buffer DMA transfer request
+1011:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_DMAReq_Rx: Rx buffer DMA transfer request
+1012:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  NewState: new state of the selected SPI DMA transfer request.
+1013:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be: ENABLE or DISABLE.
+1014:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+1015:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1016:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState)
+1017:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1240              		.loc 1 1017 1 is_stmt 1 view -0
+ 1241              		.cfi_startproc
+ 1242              		@ args = 0, pretend = 0, frame = 0
+ 1243              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1244              		@ link register save eliminated.
+1018:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+1019:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ 1245              		.loc 1 1019 3 view .LVU355
+1020:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 1246              		.loc 1 1020 3 view .LVU356
+1021:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_I2S_DMAREQ(SPI_I2S_DMAReq));
+ 1247              		.loc 1 1021 3 view .LVU357
+1022:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1023:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (NewState != DISABLE)
+ 1248              		.loc 1 1023 3 view .LVU358
+ARM GAS  /tmp/ccTr0q0X.s 			page 41
+
+
+ 1249              		.loc 1 1023 6 is_stmt 0 view .LVU359
+ 1250 0000 22B1     		cbz	r2, .L73
+1024:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1025:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable the selected SPI DMA requests */
+1026:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 |= SPI_I2S_DMAReq;
+ 1251              		.loc 1 1026 5 is_stmt 1 view .LVU360
+ 1252              		.loc 1 1026 15 is_stmt 0 view .LVU361
+ 1253 0002 8388     		ldrh	r3, [r0, #4]
+ 1254 0004 9BB2     		uxth	r3, r3
+ 1255 0006 1943     		orrs	r1, r1, r3
+ 1256              	.LVL97:
+ 1257              		.loc 1 1026 15 view .LVU362
+ 1258 0008 8180     		strh	r1, [r0, #4]	@ movhi
+ 1259 000a 7047     		bx	lr
+ 1260              	.LVL98:
+ 1261              	.L73:
+1027:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1028:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+1029:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1030:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Disable the selected SPI DMA requests */
+1031:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 &= (uint16_t)~SPI_I2S_DMAReq;
+ 1262              		.loc 1 1031 5 is_stmt 1 view .LVU363
+ 1263              		.loc 1 1031 15 is_stmt 0 view .LVU364
+ 1264 000c 8388     		ldrh	r3, [r0, #4]
+ 1265              		.loc 1 1031 18 view .LVU365
+ 1266 000e C943     		mvns	r1, r1
+ 1267              	.LVL99:
+ 1268              		.loc 1 1031 18 view .LVU366
+ 1269 0010 89B2     		uxth	r1, r1
+ 1270              		.loc 1 1031 15 view .LVU367
+ 1271 0012 1940     		ands	r1, r1, r3
+ 1272 0014 8180     		strh	r1, [r0, #4]	@ movhi
+1032:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1033:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1273              		.loc 1 1033 1 view .LVU368
+ 1274 0016 7047     		bx	lr
+ 1275              		.cfi_endproc
+ 1276              	.LFE149:
+ 1278              		.section	.text.SPI_I2S_ITConfig,"ax",%progbits
+ 1279              		.align	1
+ 1280              		.global	SPI_I2S_ITConfig
+ 1281              		.syntax unified
+ 1282              		.thumb
+ 1283              		.thumb_func
+ 1284              		.fpu fpv4-sp-d16
+ 1286              	SPI_I2S_ITConfig:
+ 1287              	.LVL100:
+ 1288              	.LFB150:
+1034:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1035:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+1036:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @}
+1037:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1038:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1039:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /** @defgroup SPI_Group5 Interrupts and flags management functions
+1040:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *  @brief   Interrupts and flags management functions
+1041:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *
+1042:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @verbatim   
+ARM GAS  /tmp/ccTr0q0X.s 			page 42
+
+
+1043:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================
+1044:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             ##### Interrupts and flags management functions #####
+1045:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ===============================================================================  
+1046:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  
+1047:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] This section provides a set of functions allowing to configure the SPI Interrupts 
+1048:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       sources and check or clear the flags or pending bits status.
+1049:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       The user should identify which mode will be used in his application to manage 
+1050:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       the communication: Polling mode, Interrupt mode or DMA mode. 
+1051:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+1052:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *** Polling Mode ***
+1053:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ====================
+1054:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** [..] In Polling Mode, the SPI/I2S communication can be managed by 9 flags:
+1055:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) SPI_I2S_FLAG_TXE : to indicate the status of the transmit buffer register
+1056:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) SPI_I2S_FLAG_RXNE : to indicate the status of the receive buffer register
+1057:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) SPI_I2S_FLAG_BSY : to indicate the state of the communication layer of the SPI.
+1058:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) SPI_FLAG_CRCERR : to indicate if a CRC Calculation error occur              
+1059:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) SPI_FLAG_MODF : to indicate if a Mode Fault error occur
+1060:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) SPI_I2S_FLAG_OVR : to indicate if an Overrun error occur
+1061:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) I2S_FLAG_TIFRFE: to indicate a Frame Format error occurs.
+1062:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) I2S_FLAG_UDR: to indicate an Underrun error occurs.
+1063:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (#) I2S_FLAG_CHSIDE: to indicate Channel Side.
+1064:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1065:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   (@) Do not use the BSY flag to handle each data transmission or reception. It is
+1066:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       better to use the TXE and RXNE flags instead.
+1067:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1068:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] In this Mode it is advised to use the following functions:
+1069:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) FlagStatus SPI_I2S_GetFlagStatus(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG);
+1070:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) void SPI_I2S_ClearFlag(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG);
+1071:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1072:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *** Interrupt Mode ***
+1073:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ======================
+1074:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] In Interrupt Mode, the SPI communication can be managed by 3 interrupt sources
+1075:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****       and 7 pending bits: 
+1076:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) Pending Bits:
+1077:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_I2S_IT_TXE : to indicate the status of the transmit buffer register
+1078:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_I2S_IT_RXNE : to indicate the status of the receive buffer register
+1079:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_IT_CRCERR : to indicate if a CRC Calculation error occur (available in SPI mode onl
+1080:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_IT_MODF : to indicate if a Mode Fault error occur (available in SPI mode only)
+1081:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_I2S_IT_OVR : to indicate if an Overrun error occur
+1082:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) I2S_IT_UDR : to indicate an Underrun Error occurs (available in I2S mode only).
+1083:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) I2S_FLAG_TIFRFE : to indicate a Frame Format error occurs (available in TI mode only).
+1084:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1085:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) Interrupt Source:
+1086:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_I2S_IT_TXE: specifies the interrupt source for the Tx buffer empty 
+1087:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             interrupt.  
+1088:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_I2S_IT_RXNE : specifies the interrupt source for the Rx buffer not 
+1089:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****             empty interrupt.
+1090:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        (##) SPI_I2S_IT_ERR : specifies the interrupt source for the errors interrupt.
+1091:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1092:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] In this Mode it is advised to use the following functions:
+1093:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) void SPI_I2S_ITConfig(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT, FunctionalState NewState);
+1094:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) ITStatus SPI_I2S_GetITStatus(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT);
+1095:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) void SPI_I2S_ClearITPendingBit(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT);
+1096:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1097:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  *** DMA Mode ***
+1098:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  ================
+1099:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] In DMA Mode, the SPI communication can be managed by 2 DMA Channel requests:
+ARM GAS  /tmp/ccTr0q0X.s 			page 43
+
+
+1100:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) SPI_I2S_DMAReq_Tx: specifies the Tx buffer DMA transfer request
+1101:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (#) SPI_I2S_DMAReq_Rx: specifies the Rx buffer DMA transfer request
+1102:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1103:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****  [..] In this Mode it is advised to use the following function:
+1104:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****    (+) void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState 
+1105:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****        NewState);
+1106:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1107:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** @endverbatim
+1108:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @{
+1109:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1110:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1111:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+1112:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Enables or disables the specified SPI/I2S interrupts.
+1113:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+1114:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
+1115:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI interrupt source to be enabled or disabled. 
+1116:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be one of the following values:
+1117:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_IT_TXE: Tx buffer empty interrupt mask
+1118:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_IT_RXNE: Rx buffer not empty interrupt mask
+1119:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_IT_ERR: Error interrupt mask
+1120:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  NewState: new state of the specified SPI interrupt.
+1121:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be: ENABLE or DISABLE.
+1122:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+1123:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1124:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_I2S_ITConfig(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT, FunctionalState NewState)
+1125:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1289              		.loc 1 1125 1 is_stmt 1 view -0
+ 1290              		.cfi_startproc
+ 1291              		@ args = 0, pretend = 0, frame = 0
+ 1292              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1293              		@ link register save eliminated.
+1126:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint16_t itpos = 0, itmask = 0 ;
+ 1294              		.loc 1 1126 3 view .LVU370
+1127:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+1128:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+1129:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ 1295              		.loc 1 1129 3 view .LVU371
+1130:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 1296              		.loc 1 1130 3 view .LVU372
+1131:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_I2S_CONFIG_IT(SPI_I2S_IT));
+ 1297              		.loc 1 1131 3 view .LVU373
+1132:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1133:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the SPI IT index */
+1134:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   itpos = SPI_I2S_IT >> 4;
+ 1298              		.loc 1 1134 3 view .LVU374
+ 1299              		.loc 1 1134 9 is_stmt 0 view .LVU375
+ 1300 0000 0B09     		lsrs	r3, r1, #4
+ 1301              	.LVL101:
+1135:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1136:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set the IT mask */
+1137:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   itmask = (uint16_t)1 << (uint16_t)itpos;
+ 1302              		.loc 1 1137 3 is_stmt 1 view .LVU376
+ 1303              		.loc 1 1137 24 is_stmt 0 view .LVU377
+ 1304 0002 0121     		movs	r1, #1
+ 1305              	.LVL102:
+ 1306              		.loc 1 1137 24 view .LVU378
+ 1307 0004 9940     		lsls	r1, r1, r3
+ARM GAS  /tmp/ccTr0q0X.s 			page 44
+
+
+ 1308              		.loc 1 1137 10 view .LVU379
+ 1309 0006 89B2     		uxth	r1, r1
+ 1310              	.LVL103:
+1138:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1139:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (NewState != DISABLE)
+ 1311              		.loc 1 1139 3 is_stmt 1 view .LVU380
+ 1312              		.loc 1 1139 6 is_stmt 0 view .LVU381
+ 1313 0008 22B1     		cbz	r2, .L76
+1140:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1141:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Enable the selected SPI interrupt */
+1142:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 |= itmask;
+ 1314              		.loc 1 1142 5 is_stmt 1 view .LVU382
+ 1315              		.loc 1 1142 15 is_stmt 0 view .LVU383
+ 1316 000a 8388     		ldrh	r3, [r0, #4]
+ 1317              	.LVL104:
+ 1318              		.loc 1 1142 15 view .LVU384
+ 1319 000c 9BB2     		uxth	r3, r3
+ 1320 000e 1943     		orrs	r1, r1, r3
+ 1321              	.LVL105:
+ 1322              		.loc 1 1142 15 view .LVU385
+ 1323 0010 8180     		strh	r1, [r0, #4]	@ movhi
+ 1324 0012 7047     		bx	lr
+ 1325              	.LVL106:
+ 1326              	.L76:
+1143:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1144:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+1145:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1146:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* Disable the selected SPI interrupt */
+1147:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     SPIx->CR2 &= (uint16_t)~itmask;
+ 1327              		.loc 1 1147 5 is_stmt 1 view .LVU386
+ 1328              		.loc 1 1147 15 is_stmt 0 view .LVU387
+ 1329 0014 8388     		ldrh	r3, [r0, #4]
+ 1330              	.LVL107:
+ 1331              		.loc 1 1147 18 view .LVU388
+ 1332 0016 C943     		mvns	r1, r1
+ 1333              	.LVL108:
+ 1334              		.loc 1 1147 18 view .LVU389
+ 1335 0018 89B2     		uxth	r1, r1
+ 1336              	.LVL109:
+ 1337              		.loc 1 1147 15 view .LVU390
+ 1338 001a 1940     		ands	r1, r1, r3
+ 1339 001c 8180     		strh	r1, [r0, #4]	@ movhi
+1148:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1149:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1340              		.loc 1 1149 1 view .LVU391
+ 1341 001e 7047     		bx	lr
+ 1342              		.cfi_endproc
+ 1343              	.LFE150:
+ 1345              		.section	.text.SPI_I2S_GetFlagStatus,"ax",%progbits
+ 1346              		.align	1
+ 1347              		.global	SPI_I2S_GetFlagStatus
+ 1348              		.syntax unified
+ 1349              		.thumb
+ 1350              		.thumb_func
+ 1351              		.fpu fpv4-sp-d16
+ 1353              	SPI_I2S_GetFlagStatus:
+ 1354              	.LVL110:
+ARM GAS  /tmp/ccTr0q0X.s 			page 45
+
+
+ 1355              	.LFB151:
+1150:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1151:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+1152:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Checks whether the specified SPIx/I2Sx flag is set or not.
+1153:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+1154:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
+1155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_I2S_FLAG: specifies the SPI flag to check. 
+1156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be one of the following values:
+1157:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_FLAG_TXE: Transmit buffer empty flag.
+1158:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_FLAG_RXNE: Receive buffer not empty flag.
+1159:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_FLAG_BSY: Busy flag.
+1160:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_FLAG_OVR: Overrun flag.
+1161:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_FLAG_MODF: Mode Fault flag.
+1162:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_FLAG_CRCERR: CRC Error flag.
+1163:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_FLAG_TIFRFE: Format Error.
+1164:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg I2S_FLAG_UDR: Underrun Error flag.
+1165:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg I2S_FLAG_CHSIDE: Channel Side flag.  
+1166:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval The new state of SPI_I2S_FLAG (SET or RESET).
+1167:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** FlagStatus SPI_I2S_GetFlagStatus(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG)
+1169:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1356              		.loc 1 1169 1 is_stmt 1 view -0
+ 1357              		.cfi_startproc
+ 1358              		@ args = 0, pretend = 0, frame = 0
+ 1359              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1360              		@ link register save eliminated.
+1170:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   FlagStatus bitstatus = RESET;
+ 1361              		.loc 1 1170 3 view .LVU393
+1171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+1172:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ 1362              		.loc 1 1172 3 view .LVU394
+1173:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_I2S_GET_FLAG(SPI_I2S_FLAG));
+ 1363              		.loc 1 1173 3 view .LVU395
+1174:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   
+1175:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the status of the specified SPI flag */
+1176:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if ((SPIx->SR & SPI_I2S_FLAG) != (uint16_t)RESET)
+ 1364              		.loc 1 1176 3 view .LVU396
+ 1365              		.loc 1 1176 12 is_stmt 0 view .LVU397
+ 1366 0000 0389     		ldrh	r3, [r0, #8]
+ 1367              		.loc 1 1176 6 view .LVU398
+ 1368 0002 1942     		tst	r1, r3
+ 1369 0004 01D0     		beq	.L80
+1177:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1178:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* SPI_I2S_FLAG is set */
+1179:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     bitstatus = SET;
+ 1370              		.loc 1 1179 15 view .LVU399
+ 1371 0006 0120     		movs	r0, #1
+ 1372              	.LVL111:
+ 1373              		.loc 1 1179 15 view .LVU400
+ 1374 0008 7047     		bx	lr
+ 1375              	.LVL112:
+ 1376              	.L80:
+1180:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1181:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+1182:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1183:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* SPI_I2S_FLAG is reset */
+1184:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     bitstatus = RESET;
+ARM GAS  /tmp/ccTr0q0X.s 			page 46
+
+
+ 1377              		.loc 1 1184 15 view .LVU401
+ 1378 000a 0020     		movs	r0, #0
+ 1379              	.LVL113:
+1185:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1186:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Return the SPI_I2S_FLAG status */
+1187:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   return  bitstatus;
+ 1380              		.loc 1 1187 3 is_stmt 1 view .LVU402
+1188:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1381              		.loc 1 1188 1 is_stmt 0 view .LVU403
+ 1382 000c 7047     		bx	lr
+ 1383              		.cfi_endproc
+ 1384              	.LFE151:
+ 1386              		.section	.text.SPI_I2S_ClearFlag,"ax",%progbits
+ 1387              		.align	1
+ 1388              		.global	SPI_I2S_ClearFlag
+ 1389              		.syntax unified
+ 1390              		.thumb
+ 1391              		.thumb_func
+ 1392              		.fpu fpv4-sp-d16
+ 1394              	SPI_I2S_ClearFlag:
+ 1395              	.LVL114:
+ 1396              	.LFB152:
+1189:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1190:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+1191:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Clears the SPIx CRC Error (CRCERR) flag.
+1192:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+1193:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
+1194:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_I2S_FLAG: specifies the SPI flag to clear. 
+1195:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This function clears only CRCERR flag.
+1196:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_FLAG_CRCERR: CRC Error flag.  
+1197:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *  
+1198:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   OVR (OverRun error) flag is cleared by software sequence: a read 
+1199:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          operation to SPI_DR register (SPI_I2S_ReceiveData()) followed by a read 
+1200:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          operation to SPI_SR register (SPI_I2S_GetFlagStatus()).
+1201:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   UDR (UnderRun error) flag is cleared by a read operation to 
+1202:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          SPI_SR register (SPI_I2S_GetFlagStatus()).   
+1203:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   MODF (Mode Fault) flag is cleared by software sequence: a read/write 
+1204:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          operation to SPI_SR register (SPI_I2S_GetFlagStatus()) followed by a 
+1205:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          write operation to SPI_CR1 register (SPI_Cmd() to enable the SPI).
+1206:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *  
+1207:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+1208:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1209:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_I2S_ClearFlag(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG)
+1210:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1397              		.loc 1 1210 1 is_stmt 1 view -0
+ 1398              		.cfi_startproc
+ 1399              		@ args = 0, pretend = 0, frame = 0
+ 1400              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1401              		@ link register save eliminated.
+1211:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+1212:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ 1402              		.loc 1 1212 3 view .LVU405
+1213:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_I2S_CLEAR_FLAG(SPI_I2S_FLAG));
+ 1403              		.loc 1 1213 3 view .LVU406
+1214:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     
+1215:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Clear the selected SPI CRC Error (CRCERR) flag */
+1216:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->SR = (uint16_t)~SPI_I2S_FLAG;
+ARM GAS  /tmp/ccTr0q0X.s 			page 47
+
+
+ 1404              		.loc 1 1216 3 view .LVU407
+ 1405              		.loc 1 1216 14 is_stmt 0 view .LVU408
+ 1406 0000 C943     		mvns	r1, r1
+ 1407              	.LVL115:
+ 1408              		.loc 1 1216 14 view .LVU409
+ 1409 0002 89B2     		uxth	r1, r1
+ 1410              		.loc 1 1216 12 view .LVU410
+ 1411 0004 0181     		strh	r1, [r0, #8]	@ movhi
+1217:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1412              		.loc 1 1217 1 view .LVU411
+ 1413 0006 7047     		bx	lr
+ 1414              		.cfi_endproc
+ 1415              	.LFE152:
+ 1417              		.section	.text.SPI_I2S_GetITStatus,"ax",%progbits
+ 1418              		.align	1
+ 1419              		.global	SPI_I2S_GetITStatus
+ 1420              		.syntax unified
+ 1421              		.thumb
+ 1422              		.thumb_func
+ 1423              		.fpu fpv4-sp-d16
+ 1425              	SPI_I2S_GetITStatus:
+ 1426              	.LVL116:
+ 1427              	.LFB153:
+1218:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1219:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+1220:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Checks whether the specified SPIx/I2Sx interrupt has occurred or not.
+1221:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+1222:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode.  
+1223:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI interrupt source to check. 
+1224:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          This parameter can be one of the following values:
+1225:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_IT_TXE: Transmit buffer empty interrupt.
+1226:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_IT_RXNE: Receive buffer not empty interrupt.
+1227:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_IT_OVR: Overrun interrupt.
+1228:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_IT_MODF: Mode Fault interrupt.
+1229:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_IT_CRCERR: CRC Error interrupt.
+1230:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg I2S_IT_UDR: Underrun interrupt.  
+1231:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_I2S_IT_TIFRFE: Format Error interrupt.  
+1232:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval The new state of SPI_I2S_IT (SET or RESET).
+1233:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1234:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** ITStatus SPI_I2S_GetITStatus(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT)
+1235:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1428              		.loc 1 1235 1 is_stmt 1 view -0
+ 1429              		.cfi_startproc
+ 1430              		@ args = 0, pretend = 0, frame = 0
+ 1431              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1432              		@ link register save eliminated.
+1236:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   ITStatus bitstatus = RESET;
+ 1433              		.loc 1 1236 3 view .LVU413
+1237:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint16_t itpos = 0, itmask = 0, enablestatus = 0;
+ 1434              		.loc 1 1237 3 view .LVU414
+1238:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1239:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+1240:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ 1435              		.loc 1 1240 3 view .LVU415
+1241:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_I2S_GET_IT(SPI_I2S_IT));
+ 1436              		.loc 1 1241 3 view .LVU416
+1242:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+ARM GAS  /tmp/ccTr0q0X.s 			page 48
+
+
+1243:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the SPI_I2S_IT index */
+1244:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   itpos = 0x01 << (SPI_I2S_IT & 0x0F);
+ 1437              		.loc 1 1244 3 view .LVU417
+ 1438              		.loc 1 1244 31 is_stmt 0 view .LVU418
+ 1439 0000 01F00F02 		and	r2, r1, #15
+ 1440              		.loc 1 1244 16 view .LVU419
+ 1441 0004 0123     		movs	r3, #1
+ 1442 0006 03FA02F2 		lsl	r2, r3, r2
+ 1443              	.LVL117:
+1245:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1246:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the SPI_I2S_IT IT mask */
+1247:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   itmask = SPI_I2S_IT >> 4;
+ 1444              		.loc 1 1247 3 is_stmt 1 view .LVU420
+ 1445              		.loc 1 1247 10 is_stmt 0 view .LVU421
+ 1446 000a 0909     		lsrs	r1, r1, #4
+ 1447              	.LVL118:
+1248:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1249:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Set the IT mask */
+1250:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   itmask = 0x01 << itmask;
+ 1448              		.loc 1 1250 3 is_stmt 1 view .LVU422
+ 1449              		.loc 1 1250 17 is_stmt 0 view .LVU423
+ 1450 000c 03FA01F1 		lsl	r1, r3, r1
+ 1451              	.LVL119:
+1251:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1252:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the SPI_I2S_IT enable bit status */
+1253:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   enablestatus = (SPIx->CR2 & itmask) ;
+ 1452              		.loc 1 1253 3 is_stmt 1 view .LVU424
+ 1453              		.loc 1 1253 23 is_stmt 0 view .LVU425
+ 1454 0010 8388     		ldrh	r3, [r0, #4]
+ 1455 0012 9BB2     		uxth	r3, r3
+ 1456              		.loc 1 1253 16 view .LVU426
+ 1457 0014 1940     		ands	r1, r1, r3
+ 1458              	.LVL120:
+1254:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1255:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the status of the specified SPI interrupt */
+1256:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   if (((SPIx->SR & itpos) != (uint16_t)RESET) && enablestatus)
+ 1459              		.loc 1 1256 3 is_stmt 1 view .LVU427
+ 1460              		.loc 1 1256 13 is_stmt 0 view .LVU428
+ 1461 0016 0389     		ldrh	r3, [r0, #8]
+ 1462 0018 9BB2     		uxth	r3, r3
+ 1463              		.loc 1 1256 6 view .LVU429
+ 1464 001a 1A42     		tst	r2, r3
+ 1465 001c 02D0     		beq	.L84
+ 1466              		.loc 1 1256 47 discriminator 1 view .LVU430
+ 1467 001e 19B9     		cbnz	r1, .L85
+1257:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1258:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* SPI_I2S_IT is set */
+1259:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     bitstatus = SET;
+1260:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1261:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   else
+1262:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   {
+1263:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     /* SPI_I2S_IT is reset */
+1264:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****     bitstatus = RESET;
+ 1468              		.loc 1 1264 15 view .LVU431
+ 1469 0020 0020     		movs	r0, #0
+ 1470              	.LVL121:
+ 1471              		.loc 1 1264 15 view .LVU432
+ARM GAS  /tmp/ccTr0q0X.s 			page 49
+
+
+ 1472 0022 7047     		bx	lr
+ 1473              	.LVL122:
+ 1474              	.L84:
+ 1475              		.loc 1 1264 15 view .LVU433
+ 1476 0024 0020     		movs	r0, #0
+ 1477              	.LVL123:
+ 1478              		.loc 1 1264 15 view .LVU434
+ 1479 0026 7047     		bx	lr
+ 1480              	.LVL124:
+ 1481              	.L85:
+1259:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+ 1482              		.loc 1 1259 15 view .LVU435
+ 1483 0028 0120     		movs	r0, #1
+ 1484              	.LVL125:
+1265:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   }
+1266:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Return the SPI_I2S_IT status */
+1267:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   return bitstatus;
+ 1485              		.loc 1 1267 3 is_stmt 1 view .LVU436
+1268:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1486              		.loc 1 1268 1 is_stmt 0 view .LVU437
+ 1487 002a 7047     		bx	lr
+ 1488              		.cfi_endproc
+ 1489              	.LFE153:
+ 1491              		.section	.text.SPI_I2S_ClearITPendingBit,"ax",%progbits
+ 1492              		.align	1
+ 1493              		.global	SPI_I2S_ClearITPendingBit
+ 1494              		.syntax unified
+ 1495              		.thumb
+ 1496              		.thumb_func
+ 1497              		.fpu fpv4-sp-d16
+ 1499              	SPI_I2S_ClearITPendingBit:
+ 1500              	.LVL126:
+ 1501              	.LFB154:
+1269:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1270:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** /**
+1271:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @brief  Clears the SPIx CRC Error (CRCERR) interrupt pending bit.
+1272:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2, 3, 4, 5 or 6 
+1273:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode.  
+1274:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI interrupt pending bit to clear.
+1275:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *         This function clears only CRCERR interrupt pending bit.   
+1276:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *            @arg SPI_IT_CRCERR: CRC Error interrupt.
+1277:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *   
+1278:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   OVR (OverRun Error) interrupt pending bit is cleared by software 
+1279:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          sequence: a read operation to SPI_DR register (SPI_I2S_ReceiveData()) 
+1280:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          followed by a read operation to SPI_SR register (SPI_I2S_GetITStatus()).
+1281:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   UDR (UnderRun Error) interrupt pending bit is cleared by a read 
+1282:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          operation to SPI_SR register (SPI_I2S_GetITStatus()).   
+1283:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @note   MODF (Mode Fault) interrupt pending bit is cleared by software sequence:
+1284:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          a read/write operation to SPI_SR register (SPI_I2S_GetITStatus()) 
+1285:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          followed by a write operation to SPI_CR1 register (SPI_Cmd() to enable 
+1286:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   *          the SPI).
+1287:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   * @retval None
+1288:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   */
+1289:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** void SPI_I2S_ClearITPendingBit(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT)
+1290:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** {
+ 1502              		.loc 1 1290 1 is_stmt 1 view -0
+ 1503              		.cfi_startproc
+ARM GAS  /tmp/ccTr0q0X.s 			page 50
+
+
+ 1504              		@ args = 0, pretend = 0, frame = 0
+ 1505              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1506              		@ link register save eliminated.
+1291:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   uint16_t itpos = 0;
+ 1507              		.loc 1 1291 3 view .LVU439
+1292:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Check the parameters */
+1293:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+ 1508              		.loc 1 1293 3 view .LVU440
+1294:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   assert_param(IS_SPI_I2S_CLEAR_IT(SPI_I2S_IT));
+ 1509              		.loc 1 1294 3 view .LVU441
+1295:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1296:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Get the SPI_I2S IT index */
+1297:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   itpos = 0x01 << (SPI_I2S_IT & 0x0F);
+ 1510              		.loc 1 1297 3 view .LVU442
+ 1511              		.loc 1 1297 31 is_stmt 0 view .LVU443
+ 1512 0000 01F00F01 		and	r1, r1, #15
+ 1513              	.LVL127:
+ 1514              		.loc 1 1297 16 view .LVU444
+ 1515 0004 0123     		movs	r3, #1
+ 1516 0006 8B40     		lsls	r3, r3, r1
+ 1517              		.loc 1 1297 9 view .LVU445
+ 1518 0008 9BB2     		uxth	r3, r3
+ 1519              	.LVL128:
+1298:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** 
+1299:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   /* Clear the selected SPI CRC Error (CRCERR) interrupt pending bit */
+1300:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c ****   SPIx->SR = (uint16_t)~itpos;
+ 1520              		.loc 1 1300 3 is_stmt 1 view .LVU446
+ 1521              		.loc 1 1300 14 is_stmt 0 view .LVU447
+ 1522 000a DB43     		mvns	r3, r3
+ 1523              	.LVL129:
+ 1524              		.loc 1 1300 14 view .LVU448
+ 1525 000c 9BB2     		uxth	r3, r3
+ 1526              	.LVL130:
+ 1527              		.loc 1 1300 12 view .LVU449
+ 1528 000e 0381     		strh	r3, [r0, #8]	@ movhi
+1301:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_spi.c **** }
+ 1529              		.loc 1 1301 1 view .LVU450
+ 1530 0010 7047     		bx	lr
+ 1531              		.cfi_endproc
+ 1532              	.LFE154:
+ 1534              		.text
+ 1535              	.Letext0:
+ 1536              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 1537              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 1538              		.file 4 "Core/Inc/system_stm32f4xx.h"
+ 1539              		.file 5 "Core/Inc/stm32f4xx.h"
+ 1540              		.file 6 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_spi.h"
+ 1541              		.file 7 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  /tmp/ccTr0q0X.s 			page 51
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32f4xx_spi.c
+     /tmp/ccTr0q0X.s:18     .text.SPI_I2S_DeInit:0000000000000000 $t
+     /tmp/ccTr0q0X.s:26     .text.SPI_I2S_DeInit:0000000000000000 SPI_I2S_DeInit
+     /tmp/ccTr0q0X.s:169    .text.SPI_I2S_DeInit:00000000000000ac $d
+     /tmp/ccTr0q0X.s:179    .text.SPI_Init:0000000000000000 $t
+     /tmp/ccTr0q0X.s:186    .text.SPI_Init:0000000000000000 SPI_Init
+     /tmp/ccTr0q0X.s:275    .text.I2S_Init:0000000000000000 $t
+     /tmp/ccTr0q0X.s:282    .text.I2S_Init:0000000000000000 I2S_Init
+     /tmp/ccTr0q0X.s:549    .text.I2S_Init:00000000000000f8 $d
+     /tmp/ccTr0q0X.s:557    .text.SPI_StructInit:0000000000000000 $t
+     /tmp/ccTr0q0X.s:564    .text.SPI_StructInit:0000000000000000 SPI_StructInit
+     /tmp/ccTr0q0X.s:607    .text.I2S_StructInit:0000000000000000 $t
+     /tmp/ccTr0q0X.s:614    .text.I2S_StructInit:0000000000000000 I2S_StructInit
+     /tmp/ccTr0q0X.s:648    .text.SPI_Cmd:0000000000000000 $t
+     /tmp/ccTr0q0X.s:655    .text.SPI_Cmd:0000000000000000 SPI_Cmd
+     /tmp/ccTr0q0X.s:689    .text.I2S_Cmd:0000000000000000 $t
+     /tmp/ccTr0q0X.s:696    .text.I2S_Cmd:0000000000000000 I2S_Cmd
+     /tmp/ccTr0q0X.s:730    .text.SPI_DataSizeConfig:0000000000000000 $t
+     /tmp/ccTr0q0X.s:737    .text.SPI_DataSizeConfig:0000000000000000 SPI_DataSizeConfig
+     /tmp/ccTr0q0X.s:766    .text.SPI_BiDirectionalLineConfig:0000000000000000 $t
+     /tmp/ccTr0q0X.s:773    .text.SPI_BiDirectionalLineConfig:0000000000000000 SPI_BiDirectionalLineConfig
+     /tmp/ccTr0q0X.s:808    .text.SPI_NSSInternalSoftwareConfig:0000000000000000 $t
+     /tmp/ccTr0q0X.s:815    .text.SPI_NSSInternalSoftwareConfig:0000000000000000 SPI_NSSInternalSoftwareConfig
+     /tmp/ccTr0q0X.s:851    .text.SPI_SSOutputCmd:0000000000000000 $t
+     /tmp/ccTr0q0X.s:858    .text.SPI_SSOutputCmd:0000000000000000 SPI_SSOutputCmd
+     /tmp/ccTr0q0X.s:892    .text.SPI_TIModeCmd:0000000000000000 $t
+     /tmp/ccTr0q0X.s:899    .text.SPI_TIModeCmd:0000000000000000 SPI_TIModeCmd
+     /tmp/ccTr0q0X.s:933    .text.I2S_FullDuplexConfig:0000000000000000 $t
+     /tmp/ccTr0q0X.s:940    .text.I2S_FullDuplexConfig:0000000000000000 I2S_FullDuplexConfig
+     /tmp/ccTr0q0X.s:1035   .text.SPI_I2S_ReceiveData:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1042   .text.SPI_I2S_ReceiveData:0000000000000000 SPI_I2S_ReceiveData
+     /tmp/ccTr0q0X.s:1062   .text.SPI_I2S_SendData:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1069   .text.SPI_I2S_SendData:0000000000000000 SPI_I2S_SendData
+     /tmp/ccTr0q0X.s:1087   .text.SPI_CalculateCRC:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1094   .text.SPI_CalculateCRC:0000000000000000 SPI_CalculateCRC
+     /tmp/ccTr0q0X.s:1128   .text.SPI_TransmitCRC:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1135   .text.SPI_TransmitCRC:0000000000000000 SPI_TransmitCRC
+     /tmp/ccTr0q0X.s:1156   .text.SPI_GetCRC:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1163   .text.SPI_GetCRC:0000000000000000 SPI_GetCRC
+     /tmp/ccTr0q0X.s:1203   .text.SPI_GetCRCPolynomial:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1210   .text.SPI_GetCRCPolynomial:0000000000000000 SPI_GetCRCPolynomial
+     /tmp/ccTr0q0X.s:1230   .text.SPI_I2S_DMACmd:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1237   .text.SPI_I2S_DMACmd:0000000000000000 SPI_I2S_DMACmd
+     /tmp/ccTr0q0X.s:1279   .text.SPI_I2S_ITConfig:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1286   .text.SPI_I2S_ITConfig:0000000000000000 SPI_I2S_ITConfig
+     /tmp/ccTr0q0X.s:1346   .text.SPI_I2S_GetFlagStatus:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1353   .text.SPI_I2S_GetFlagStatus:0000000000000000 SPI_I2S_GetFlagStatus
+     /tmp/ccTr0q0X.s:1387   .text.SPI_I2S_ClearFlag:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1394   .text.SPI_I2S_ClearFlag:0000000000000000 SPI_I2S_ClearFlag
+     /tmp/ccTr0q0X.s:1418   .text.SPI_I2S_GetITStatus:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1425   .text.SPI_I2S_GetITStatus:0000000000000000 SPI_I2S_GetITStatus
+     /tmp/ccTr0q0X.s:1492   .text.SPI_I2S_ClearITPendingBit:0000000000000000 $t
+     /tmp/ccTr0q0X.s:1499   .text.SPI_I2S_ClearITPendingBit:0000000000000000 SPI_I2S_ClearITPendingBit
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphResetCmd
+ARM GAS  /tmp/ccTr0q0X.s 			page 52
+
+
+RCC_APB1PeriphResetCmd

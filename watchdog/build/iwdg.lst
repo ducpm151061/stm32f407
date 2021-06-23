@@ -1,0 +1,187 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cconioym.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"iwdg.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.IWDG_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	IWDG_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	IWDG_Init:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Core/Src/iwdg.c"
+   1:Core/Src/iwdg.c **** //////////////////////////////////////////////////////////////////////////////////	 
+   2:Core/Src/iwdg.c **** //本程序只供学习使用，未经作者许可，不得用于其它商业用途
+   3:Core/Src/iwdg.c **** //测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
+   4:Core/Src/iwdg.c **** //QDtech-TFT液晶驱动 for STM32 FSMC
+   5:Core/Src/iwdg.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/iwdg.c **** //公司网站:www.qdtft.com
+   7:Core/Src/iwdg.c **** //wiki技术资料网站：http://www.lcdwiki.com
+   8:Core/Src/iwdg.c **** //我司提供技术支持，任何技术问题欢迎随时交流学习
+   9:Core/Src/iwdg.c **** //固话(传真) :+86 0755-21077707 
+  10:Core/Src/iwdg.c **** //手机: (销售)18823372746 （技术)15989313508
+  11:Core/Src/iwdg.c **** //邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
+  12:Core/Src/iwdg.c **** //QQ:(售前咨询)3002706772 (技术支持)3002778157
+  13:Core/Src/iwdg.c **** //技术交流QQ群:778679828
+  14:Core/Src/iwdg.c **** //创建日期:2020/06/29
+  15:Core/Src/iwdg.c **** //版本：V1.0
+  16:Core/Src/iwdg.c **** //版权所有，盗版必究。
+  17:Core/Src/iwdg.c **** //Copyright(C) 深圳市全动电子技术有限公司 2018-2028
+  18:Core/Src/iwdg.c **** //All rights reserved
+  19:Core/Src/iwdg.c **** /************************************************************************************
+  20:Core/Src/iwdg.c **** //STM32F407VxT6最小系统开发板独立看门狗示例
+  21:Core/Src/iwdg.c **** //LED0   --->   PA1
+  22:Core/Src/iwdg.c **** //LED1   --->   PC5
+  23:Core/Src/iwdg.c **** //KEY0   --->   PE4
+  24:Core/Src/iwdg.c **** //KEY_UP --->   PA0
+  25:Core/Src/iwdg.c **** *************************************************************************************/	
+  26:Core/Src/iwdg.c ****  /* @attention
+  27:Core/Src/iwdg.c ****   *
+  28:Core/Src/iwdg.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  29:Core/Src/iwdg.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cconioym.s 			page 2
+
+
+  30:Core/Src/iwdg.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  31:Core/Src/iwdg.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  32:Core/Src/iwdg.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  33:Core/Src/iwdg.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  34:Core/Src/iwdg.c **** *************************************************************************************/
+  35:Core/Src/iwdg.c **** #include "iwdg.h"
+  36:Core/Src/iwdg.c **** 
+  37:Core/Src/iwdg.c **** /*****************************************************************************
+  38:Core/Src/iwdg.c ****  * @name       :void IWDG_Init(u8 prer,u16 rlr)
+  39:Core/Src/iwdg.c ****  * @date       :2020-05-08 
+  40:Core/Src/iwdg.c ****  * @function   :Initialize independent watchdog
+  41:Core/Src/iwdg.c ****  * @parameters :prer:Prer: frequency division:0~7(only the lower 3 bits are valid!)
+  42:Core/Src/iwdg.c **** 								rlr:auto reload load value,0~0xfff(The lower 11 bits are valid)
+  43:Core/Src/iwdg.c **** 								Time calculation (approximate):tout=((4*2^prer)*rlr)/32(ms)
+  44:Core/Src/iwdg.c ****  * @retvalue   :None
+  45:Core/Src/iwdg.c **** ******************************************************************************/	
+  46:Core/Src/iwdg.c **** void IWDG_Init(u8 prer,u16 rlr)
+  47:Core/Src/iwdg.c **** {
+  30              		.loc 1 47 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 47 1 is_stmt 0 view .LVU1
+  35 0000 38B5     		push	{r3, r4, r5, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 3, -16
+  39              		.cfi_offset 4, -12
+  40              		.cfi_offset 5, -8
+  41              		.cfi_offset 14, -4
+  42 0002 0546     		mov	r5, r0
+  43 0004 0C46     		mov	r4, r1
+  48:Core/Src/iwdg.c **** 	IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable); //使能对IWDG->PR IWDG->RLR的写	
+  44              		.loc 1 48 2 is_stmt 1 view .LVU2
+  45 0006 45F25550 		movw	r0, #21845
+  46              	.LVL1:
+  47              		.loc 1 48 2 is_stmt 0 view .LVU3
+  48 000a FFF7FEFF 		bl	IWDG_WriteAccessCmd
+  49              	.LVL2:
+  49:Core/Src/iwdg.c **** 	IWDG_SetPrescaler(prer); //设置IWDG分频系数,分频因子=4*2^prer.但最大值只能是256!
+  50              		.loc 1 49 2 is_stmt 1 view .LVU4
+  51 000e 2846     		mov	r0, r5
+  52 0010 FFF7FEFF 		bl	IWDG_SetPrescaler
+  53              	.LVL3:
+  50:Core/Src/iwdg.c **** 	IWDG_SetReload(rlr);   //设置IWDG装载值
+  54              		.loc 1 50 2 view .LVU5
+  55 0014 2046     		mov	r0, r4
+  56 0016 FFF7FEFF 		bl	IWDG_SetReload
+  57              	.LVL4:
+  51:Core/Src/iwdg.c **** 	IWDG_ReloadCounter(); //reload
+  58              		.loc 1 51 2 view .LVU6
+  59 001a FFF7FEFF 		bl	IWDG_ReloadCounter
+  60              	.LVL5:
+  52:Core/Src/iwdg.c **** 	IWDG_Enable();       //使能看门狗
+  61              		.loc 1 52 2 view .LVU7
+  62 001e FFF7FEFF 		bl	IWDG_Enable
+  63              	.LVL6:
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cconioym.s 			page 3
+
+
+  53:Core/Src/iwdg.c **** }
+  64              		.loc 1 53 1 is_stmt 0 view .LVU8
+  65 0022 38BD     		pop	{r3, r4, r5, pc}
+  66              		.cfi_endproc
+  67              	.LFE130:
+  69              		.section	.text.IWDG_Feed,"ax",%progbits
+  70              		.align	1
+  71              		.global	IWDG_Feed
+  72              		.syntax unified
+  73              		.thumb
+  74              		.thumb_func
+  75              		.fpu fpv4-sp-d16
+  77              	IWDG_Feed:
+  78              	.LFB131:
+  54:Core/Src/iwdg.c **** 
+  55:Core/Src/iwdg.c **** /*****************************************************************************
+  56:Core/Src/iwdg.c ****  * @name       :void IWDG_Feed(void)
+  57:Core/Src/iwdg.c ****  * @date       :2020-05-08 
+  58:Core/Src/iwdg.c ****  * @function   :Feeding independent watchdog
+  59:Core/Src/iwdg.c ****  * @parameters :None
+  60:Core/Src/iwdg.c ****  * @retvalue   :None
+  61:Core/Src/iwdg.c **** ******************************************************************************/	 
+  62:Core/Src/iwdg.c **** void IWDG_Feed(void)
+  63:Core/Src/iwdg.c **** {
+  79              		.loc 1 63 1 is_stmt 1 view -0
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83 0000 08B5     		push	{r3, lr}
+  84              	.LCFI1:
+  85              		.cfi_def_cfa_offset 8
+  86              		.cfi_offset 3, -8
+  87              		.cfi_offset 14, -4
+  64:Core/Src/iwdg.c **** 	IWDG_ReloadCounter();//reload
+  88              		.loc 1 64 2 view .LVU10
+  89 0002 FFF7FEFF 		bl	IWDG_ReloadCounter
+  90              	.LVL7:
+  65:Core/Src/iwdg.c **** }
+  91              		.loc 1 65 1 is_stmt 0 view .LVU11
+  92 0006 08BD     		pop	{r3, pc}
+  93              		.cfi_endproc
+  94              	.LFE131:
+  96              		.text
+  97              	.Letext0:
+  98              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+  99              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 100              		.file 4 "Core/Inc/stm32f4xx.h"
+ 101              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_iwdg.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\cconioym.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 iwdg.c
+C:\Users\savao\AppData\Local\Temp\cconioym.s:18     .text.IWDG_Init:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cconioym.s:26     .text.IWDG_Init:00000000 IWDG_Init
+C:\Users\savao\AppData\Local\Temp\cconioym.s:70     .text.IWDG_Feed:00000000 $t
+C:\Users\savao\AppData\Local\Temp\cconioym.s:77     .text.IWDG_Feed:00000000 IWDG_Feed
+
+UNDEFINED SYMBOLS
+IWDG_WriteAccessCmd
+IWDG_SetPrescaler
+IWDG_SetReload
+IWDG_ReloadCounter
+IWDG_Enable

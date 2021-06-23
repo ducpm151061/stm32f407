@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "gui.h": "c",
+        "sys.h": "c",
+        "24c02.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

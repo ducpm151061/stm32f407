@@ -1,0 +1,346 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 64756320 		.ascii	"duc duc\000"
+  20      64756300 
+  21              		.align	2
+  22              	.LC1:
+  23 0008 2E2E2E2E 		.ascii	"...........\000"
+  23      2E2E2E2E 
+  23      2E2E2E00 
+  24              		.section	.text.main,"ax",%progbits
+  25              		.align	1
+  26              		.global	main
+  27              		.arch armv7e-m
+  28              		.syntax unified
+  29              		.thumb
+  30              		.thumb_func
+  31              		.fpu fpv4-sp-d16
+  33              	main:
+  34              	.LFB133:
+  35              		.file 1 "Core/Src/main.c"
+   1:Core/Src/main.c **** //////////////////////////////////////////////////////////////////////////////////
+   2:Core/Src/main.c **** //本程序只供学习使用，未经作者许可，不得用于其它商业用途
+   3:Core/Src/main.c **** //测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
+   4:Core/Src/main.c **** //QDtech-TFT液晶驱动 for STM32 FSMC
+   5:Core/Src/main.c **** //Chan@ShenZhen QDtech co.,LTD
+   6:Core/Src/main.c **** //公司网站:www.qdtft.com
+   7:Core/Src/main.c **** //wiki技术资料网站：http://www.lcdwiki.com
+   8:Core/Src/main.c **** //我司提供技术支持，任何技术问题欢迎随时交流学习
+   9:Core/Src/main.c **** //固话(传真) :+86 0755-21077707
+  10:Core/Src/main.c **** //手机: (销售)18823372746 （技术)15989313508
+  11:Core/Src/main.c **** //邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
+  12:Core/Src/main.c **** //QQ:(售前咨询)3002706772 (技术支持)3002778157
+  13:Core/Src/main.c **** //技术交流QQ群:778679828
+  14:Core/Src/main.c **** //创建日期:2020/06/29
+  15:Core/Src/main.c **** //版本：V1.0
+  16:Core/Src/main.c **** //版权所有，盗版必究。
+  17:Core/Src/main.c **** //Copyright(C) 深圳市全动电子技术有限公司 2018-2028
+  18:Core/Src/main.c **** //All rights reserved
+  19:Core/Src/main.c **** /************************************************************************************
+  20:Core/Src/main.c **** //STM32F407VxT6最小系统开发板IIC示例
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s 			page 2
+
+
+  21:Core/Src/main.c **** //     LED0           --->            PA1
+  22:Core/Src/main.c **** //     KEY0           --->            PE4
+  23:Core/Src/main.c **** //     KEY_UP         --->            PA0
+  24:Core/Src/main.c **** //     IIC_SCL        --->            PB8
+  25:Core/Src/main.c **** //     IIC_SDA        --->            PB9
+  26:Core/Src/main.c **** //支持ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+  27:Core/Src/main.c **** //TFT LCD可以直接插入STM32F407VxT6最小系统开发板TFTLCD插槽或者通过排线接入TFTLCD插座
+  28:Core/Src/main.c **** //STM32连接引脚是指TFTLCD插槽或者插座引脚内部连接的STM32引脚
+  29:Core/Src/main.c **** //=================================电源接线=======================================//
+  30:Core/Src/main.c **** //     LCD模块                    STM32连接引脚
+  31:Core/Src/main.c **** //      VDD           --->           DC5V/3.3V          //电源
+  32:Core/Src/main.c **** //      GND           --->             GND              //电源地
+  33:Core/Src/main.c **** //=============================液晶屏数据线接线===================================//
+  34:Core/Src/main.c **** //     LCD模块                    STM32连接引脚
+  35:Core/Src/main.c **** //      DB0           --->            PD14        -|   
+  36:Core/Src/main.c **** //      DB1           --->            PD15         |  
+  37:Core/Src/main.c **** //      DB2           --->            PD0          | 
+  38:Core/Src/main.c **** //      DB3           --->            PD1          | 
+  39:Core/Src/main.c **** //      DB4           --->            PE7          |
+  40:Core/Src/main.c **** //      DB5           --->            PE8          |
+  41:Core/Src/main.c **** //      DB6           --->            PE9          |
+  42:Core/Src/main.c **** //      DB7           --->            PE10         |===>液晶屏16位并口数据信号
+  43:Core/Src/main.c **** //      DB8           --->            PE11         |
+  44:Core/Src/main.c **** //      DB9           --->            PE12         |
+  45:Core/Src/main.c **** //      DB10          --->            PE13         |
+  46:Core/Src/main.c **** //      DB11          --->            PE14         |
+  47:Core/Src/main.c **** //      DB12          --->            PE15         |
+  48:Core/Src/main.c **** //      DB13          --->            PD8          |
+  49:Core/Src/main.c **** //      DB14          --->            PD9          |
+  50:Core/Src/main.c **** //      DB15          --->            PD10        -|
+  51:Core/Src/main.c **** //=============================液晶屏控制线接线===================================//
+  52:Core/Src/main.c **** //     LCD模块 				            STM32连接引脚 
+  53:Core/Src/main.c **** //      WR            --->            PD5             //液晶屏写数据控制信号
+  54:Core/Src/main.c **** //      RD            --->            PD4             //液晶屏读数据控制信号
+  55:Core/Src/main.c **** //      RS            --->            PD11            //液晶屏数据/命令控制信号
+  56:Core/Src/main.c **** //      RST           --->          复位引脚（默认）  //液晶屏复位控制信号（也可选择PD13）
+  57:Core/Src/main.c **** //      CS            --->            PD7             //液晶屏片选控制信号
+  58:Core/Src/main.c **** //      BL            --->            PB15            //液晶屏背光控制信号
+  59:Core/Src/main.c **** *************************************************************************************/
+  60:Core/Src/main.c **** /* @attention
+  61:Core/Src/main.c ****   *
+  62:Core/Src/main.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  63:Core/Src/main.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  64:Core/Src/main.c ****   * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
+  65:Core/Src/main.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  66:Core/Src/main.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  67:Core/Src/main.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  68:Core/Src/main.c **** *************************************************************************************/
+  69:Core/Src/main.c **** #include "delay.h"
+  70:Core/Src/main.c **** #include "sys.h"
+  71:Core/Src/main.c **** #include "lcd.h"
+  72:Core/Src/main.c **** #include "gui.h"
+  73:Core/Src/main.c **** #include "test.h"
+  74:Core/Src/main.c **** #include "usart.h"
+  75:Core/Src/main.c **** #include "led.h"
+  76:Core/Src/main.c **** #include "key.h"
+  77:Core/Src/main.c **** #include "24c02.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s 			page 3
+
+
+  78:Core/Src/main.c **** #include "i2c_lcd.h"
+  79:Core/Src/main.c **** int main(void)
+  80:Core/Src/main.c **** {
+  36              		.loc 1 80 1 view -0
+  37              		.cfi_startproc
+  38              		@ args = 0, pretend = 0, frame = 0
+  39              		@ frame_needed = 0, uses_anonymous_args = 0
+  40 0000 10B5     		push	{r4, lr}
+  41              	.LCFI0:
+  42              		.cfi_def_cfa_offset 8
+  43              		.cfi_offset 4, -8
+  44              		.cfi_offset 14, -4
+  45 0002 0024     		movs	r4, #0
+  81:Core/Src/main.c **** 	u8 i;
+  46              		.loc 1 81 2 view .LVU1
+  82:Core/Src/main.c **** 	u8 key_value;
+  47              		.loc 1 82 2 view .LVU2
+  83:Core/Src/main.c **** 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置系统中断优先级分组2
+  48              		.loc 1 83 2 view .LVU3
+  49 0004 4FF4A060 		mov	r0, #1280
+  50 0008 FFF7FEFF 		bl	NVIC_PriorityGroupConfig
+  51              	.LVL0:
+  84:Core/Src/main.c **** 	delay_init(168);								//初始化延时函数
+  52              		.loc 1 84 2 view .LVU4
+  53 000c A820     		movs	r0, #168
+  54 000e FFF7FEFF 		bl	delay_init
+  55              	.LVL1:
+  85:Core/Src/main.c **** 	USART1_Init(115200);							//串口1初始化
+  56              		.loc 1 85 2 view .LVU5
+  57 0012 4FF4E130 		mov	r0, #115200
+  58 0016 FFF7FEFF 		bl	USART1_Init
+  59              	.LVL2:
+  86:Core/Src/main.c **** 	LED_Init();										//初始化LED
+  60              		.loc 1 86 2 view .LVU6
+  61 001a FFF7FEFF 		bl	LED_Init
+  62              	.LVL3:
+  87:Core/Src/main.c **** 	LCD_Init();										//液晶屏初始化
+  63              		.loc 1 87 2 view .LVU7
+  64 001e FFF7FEFF 		bl	LCD_Init
+  65              	.LVL4:
+  88:Core/Src/main.c **** 	KEY_Init();										//按键初始化
+  66              		.loc 1 88 2 view .LVU8
+  67 0022 FFF7FEFF 		bl	KEY_Init
+  68              	.LVL5:
+  89:Core/Src/main.c **** 	// AT24C02_Init();									//初始化IIC
+  90:Core/Src/main.c **** 	// IIC_24C02_test();								//IIC test
+  91:Core/Src/main.c **** 													//循环测试
+  92:Core/Src/main.c **** 	I2C_LCD_Init();
+  69              		.loc 1 92 2 view .LVU9
+  70 0026 FFF7FEFF 		bl	I2C_LCD_Init
+  71              	.LVL6:
+  93:Core/Src/main.c **** 	I2C_LCD_Clear();
+  72              		.loc 1 93 2 view .LVU10
+  73 002a FFF7FEFF 		bl	I2C_LCD_Clear
+  74              	.LVL7:
+  94:Core/Src/main.c **** 	I2C_LCD_BackLight(1);
+  75              		.loc 1 94 2 view .LVU11
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s 			page 4
+
+
+  76 002e 0120     		movs	r0, #1
+  77 0030 FFF7FEFF 		bl	I2C_LCD_BackLight
+  78              	.LVL8:
+  95:Core/Src/main.c **** 	I2C_LCD_Puts("duc duc");
+  79              		.loc 1 95 2 view .LVU12
+  80 0034 1748     		ldr	r0, .L9
+  81 0036 FFF7FEFF 		bl	I2C_LCD_Puts
+  82              	.LVL9:
+  96:Core/Src/main.c **** 	I2C_LCD_NewLine();
+  83              		.loc 1 96 2 view .LVU13
+  84 003a FFF7FEFF 		bl	I2C_LCD_NewLine
+  85              	.LVL10:
+  97:Core/Src/main.c **** 	I2C_LCD_Puts("...........");
+  86              		.loc 1 97 2 view .LVU14
+  87 003e 1648     		ldr	r0, .L9+4
+  88 0040 FFF7FEFF 		bl	I2C_LCD_Puts
+  89              	.LVL11:
+  90 0044 19E0     		b	.L5
+  91              	.LVL12:
+  92              	.L8:
+  98:Core/Src/main.c **** 	while (1)
+  99:Core/Src/main.c **** 	{
+ 100:Core/Src/main.c **** 		key_value = KEY_Scan(0);
+ 101:Core/Src/main.c **** 		if (key_value == KEY_UP_PRES) //KEY_UP按下
+ 102:Core/Src/main.c **** 		{
+ 103:Core/Src/main.c **** 			Show_24C02_Write(); //写入24C02
+  93              		.loc 1 103 4 view .LVU15
+  94 0046 FFF7FEFF 		bl	Show_24C02_Write
+  95              	.LVL13:
+  96              	.L3:
+ 104:Core/Src/main.c **** 		}
+ 105:Core/Src/main.c **** 		else if (key_value == KEY0_PRES) //KEY0按下
+ 106:Core/Src/main.c **** 		{
+ 107:Core/Src/main.c **** 			Show_24C02_Read(); //读取24C02
+ 108:Core/Src/main.c **** 		}
+ 109:Core/Src/main.c **** 		if (i % 20 == 0)
+  97              		.loc 1 109 3 view .LVU16
+  98              		.loc 1 109 14 is_stmt 0 view .LVU17
+  99 004a 144B     		ldr	r3, .L9+8
+ 100 004c A3FB0423 		umull	r2, r3, r3, r4
+ 101 0050 1B09     		lsrs	r3, r3, #4
+ 102 0052 03EB8303 		add	r3, r3, r3, lsl #2
+ 103 0056 A4EB8303 		sub	r3, r4, r3, lsl #2
+ 104              		.loc 1 109 6 view .LVU18
+ 105 005a 13F0FF03 		ands	r3, r3, #255
+ 106 005e 16D1     		bne	.L6
+ 110:Core/Src/main.c **** 		{
+ 111:Core/Src/main.c **** 			LED0 = !LED0;
+ 107              		.loc 1 111 4 is_stmt 1 view .LVU19
+ 108              		.loc 1 111 12 is_stmt 0 view .LVU20
+ 109 0060 0F49     		ldr	r1, .L9+12
+ 110 0062 D1F88422 		ldr	r2, [r1, #644]
+ 111              		.loc 1 111 11 view .LVU21
+ 112 0066 B2FA82F2 		clz	r2, r2
+ 113 006a 5209     		lsrs	r2, r2, #5
+ 114              		.loc 1 111 9 view .LVU22
+ 115 006c C1F88422 		str	r2, [r1, #644]
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s 			page 5
+
+
+ 112:Core/Src/main.c **** 			i = 0;
+ 116              		.loc 1 112 4 is_stmt 1 view .LVU23
+ 117              	.LVL14:
+ 118              	.L4:
+ 113:Core/Src/main.c **** 		}
+ 114:Core/Src/main.c **** 		i++;
+ 119              		.loc 1 114 3 view .LVU24
+ 120              		.loc 1 114 4 is_stmt 0 view .LVU25
+ 121 0070 0133     		adds	r3, r3, #1
+ 122              	.LVL15:
+ 123              		.loc 1 114 4 view .LVU26
+ 124 0072 DCB2     		uxtb	r4, r3
+ 125              	.LVL16:
+ 115:Core/Src/main.c **** 		delay_ms(10); //延时100ms
+ 126              		.loc 1 115 3 is_stmt 1 view .LVU27
+ 127 0074 0A20     		movs	r0, #10
+ 128 0076 FFF7FEFF 		bl	delay_ms
+ 129              	.LVL17:
+  98:Core/Src/main.c **** 	{
+ 130              		.loc 1 98 8 view .LVU28
+ 131              	.L5:
+  98:Core/Src/main.c **** 	{
+ 132              		.loc 1 98 2 view .LVU29
+ 100:Core/Src/main.c **** 		if (key_value == KEY_UP_PRES) //KEY_UP按下
+ 133              		.loc 1 100 3 view .LVU30
+ 100:Core/Src/main.c **** 		if (key_value == KEY_UP_PRES) //KEY_UP按下
+ 134              		.loc 1 100 15 is_stmt 0 view .LVU31
+ 135 007a 0020     		movs	r0, #0
+ 136 007c FFF7FEFF 		bl	KEY_Scan
+ 137              	.LVL18:
+ 101:Core/Src/main.c **** 		{
+ 138              		.loc 1 101 3 is_stmt 1 view .LVU32
+ 101:Core/Src/main.c **** 		{
+ 139              		.loc 1 101 6 is_stmt 0 view .LVU33
+ 140 0080 0228     		cmp	r0, #2
+ 141 0082 E0D0     		beq	.L8
+ 105:Core/Src/main.c **** 		{
+ 142              		.loc 1 105 8 is_stmt 1 view .LVU34
+ 105:Core/Src/main.c **** 		{
+ 143              		.loc 1 105 11 is_stmt 0 view .LVU35
+ 144 0084 0128     		cmp	r0, #1
+ 145 0086 E0D1     		bne	.L3
+ 107:Core/Src/main.c **** 		}
+ 146              		.loc 1 107 4 is_stmt 1 view .LVU36
+ 147 0088 FFF7FEFF 		bl	Show_24C02_Read
+ 148              	.LVL19:
+ 107:Core/Src/main.c **** 		}
+ 149              		.loc 1 107 4 is_stmt 0 view .LVU37
+ 150 008c DDE7     		b	.L3
+ 151              	.L6:
+ 152 008e 2346     		mov	r3, r4
+ 153 0090 EEE7     		b	.L4
+ 154              	.L10:
+ 155 0092 00BF     		.align	2
+ 156              	.L9:
+ 157 0094 00000000 		.word	.LC0
+ 158 0098 08000000 		.word	.LC1
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s 			page 6
+
+
+ 159 009c CDCCCCCC 		.word	-858993459
+ 160 00a0 00004042 		.word	1111490560
+ 161              		.cfi_endproc
+ 162              	.LFE133:
+ 164              		.text
+ 165              	.Letext0:
+ 166              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 167              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 168              		.file 4 "Drivers/STM32F4xx_FWLIB/inc/misc.h"
+ 169              		.file 5 "Core/Inc/delay.h"
+ 170              		.file 6 "Core/Inc/usart.h"
+ 171              		.file 7 "Core/Inc/led.h"
+ 172              		.file 8 "Core/Inc/lcd.h"
+ 173              		.file 9 "Core/Inc/key.h"
+ 174              		.file 10 "Core/Inc/i2c_lcd.h"
+ 175              		.file 11 "Core/Inc/test.h"
+ 176              		.file 12 "Core/Inc/stm32f4xx.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s:18     .rodata.main.str1.4:00000000 $d
+C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s:25     .text.main:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s:33     .text.main:00000000 main
+C:\Users\savao\AppData\Local\Temp\ccXhOLs7.s:157    .text.main:00000094 $d
+
+UNDEFINED SYMBOLS
+NVIC_PriorityGroupConfig
+delay_init
+USART1_Init
+LED_Init
+LCD_Init
+KEY_Init
+I2C_LCD_Init
+I2C_LCD_Clear
+I2C_LCD_BackLight
+I2C_LCD_Puts
+I2C_LCD_NewLine
+Show_24C02_Write
+delay_ms
+KEY_Scan
+Show_24C02_Read

@@ -1,0 +1,658 @@
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"stm32f4xx_wwdg.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.WWDG_DeInit,"ax",%progbits
+  18              		.align	1
+  19              		.global	WWDG_DeInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	WWDG_DeInit:
+  27              	.LFB130:
+  28              		.file 1 "Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c"
+   1:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+   2:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   ******************************************************************************
+   3:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @file    stm32f4xx_wwdg.c
+   4:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @author  MCD Application Team
+   5:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @version V1.4.0
+   6:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @date    04-August-2014
+   7:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief   This file provides firmware functions to manage the following 
+   8:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *          functionalities of the Window watchdog (WWDG) peripheral:           
+   9:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *           + Prescaler, Refresh window and Counter configuration
+  10:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *           + WWDG activation
+  11:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *           + Interrupts and flags management
+  12:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *             
+  13:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  @verbatim    
+  14:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================
+  15:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                            ##### WWDG features #####
+  16:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================
+  17:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****     [..]                                      
+  18:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         Once enabled the WWDG generates a system reset on expiry of a programmed
+  19:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         time period, unless the program refreshes the counter (downcounter) 
+  20:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         before to reach 0x3F value (i.e. a reset is generated when the counter
+  21:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         value rolls over from 0x40 to 0x3F). 
+  22:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         An MCU reset is also generated if the counter value is refreshed
+  23:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         before the counter has reached the refresh window value. This 
+  24:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         implies that the counter must be refreshed in a limited window.
+  25:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****               
+  26:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         Once enabled the WWDG cannot be disabled except by a system reset.
+  27:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           
+  28:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         WWDGRST flag in RCC_CSR register can be used to inform when a WWDG
+  29:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         reset occurs.
+  30:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****              
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 2
+
+
+  31:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         The WWDG counter input clock is derived from the APB clock divided 
+  32:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         by a programmable prescaler.
+  33:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                 
+  34:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         WWDG counter clock = PCLK1 / Prescaler
+  35:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         WWDG timeout = (WWDG counter clock) * (counter value)
+  36:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                        
+  37:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****         Min-max timeout value @42 MHz(PCLK1): ~97.5 us / ~49.9 ms
+  38:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                              
+  39:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                       ##### How to use this driver #####
+  40:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================
+  41:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****     [..]
+  42:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****       (#) Enable WWDG clock using RCC_APB1PeriphClockCmd(RCC_APB1Periph_WWDG, ENABLE) function
+  43:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****               
+  44:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****       (#) Configure the WWDG prescaler using WWDG_SetPrescaler() function
+  45:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                              
+  46:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****       (#) Configure the WWDG refresh window using WWDG_SetWindowValue() function
+  47:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****               
+  48:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****       (#) Set the WWDG counter value and start it using WWDG_Enable() function.
+  49:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           When the WWDG is enabled the counter value should be configured to 
+  50:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           a value greater than 0x40 to prevent generating an immediate reset.     
+  51:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****               
+  52:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****       (#) Optionally you can enable the Early wakeup interrupt which is 
+  53:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           generated when the counter reach 0x40.
+  54:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           Once enabled this interrupt cannot be disabled except by a system reset.
+  55:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                   
+  56:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****       (#) Then the application program must refresh the WWDG counter at regular
+  57:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           intervals during normal operation to prevent an MCU reset, using
+  58:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           WWDG_SetCounter() function. This operation must occur only when
+  59:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           the counter value is lower than the refresh window value, 
+  60:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****           programmed using WWDG_SetWindowValue().         
+  61:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   
+  62:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****     @endverbatim
+  63:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   ******************************************************************************
+  64:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @attention
+  65:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *
+  66:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+  67:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *
+  68:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  69:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * You may not use this file except in compliance with the License.
+  70:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * You may obtain a copy of the License at:
+  71:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *
+  72:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
+  73:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *
+  74:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * Unless required by applicable law or agreed to in writing, software 
+  75:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
+  76:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  77:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * See the License for the specific language governing permissions and
+  78:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * limitations under the License.
+  79:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *
+  80:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   ******************************************************************************
+  81:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+  82:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+  83:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Includes ------------------------------------------------------------------*/
+  84:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #include "stm32f4xx_wwdg.h"
+  85:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #include "stm32f4xx_rcc.h"
+  86:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+  87:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 3
+
+
+  88:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @{
+  89:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+  90:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+  91:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /** @defgroup WWDG 
+  92:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief WWDG driver modules
+  93:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @{
+  94:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+  95:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+  96:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Private typedef -----------------------------------------------------------*/
+  97:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Private define ------------------------------------------------------------*/
+  98:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+  99:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* ----------- WWDG registers bit address in the alias region ----------- */
+ 100:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #define WWDG_OFFSET       (WWDG_BASE - PERIPH_BASE)
+ 101:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Alias word address of EWI bit */
+ 102:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #define CFR_OFFSET        (WWDG_OFFSET + 0x04)
+ 103:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #define EWI_BitNumber     0x09
+ 104:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #define CFR_EWI_BB        (PERIPH_BB_BASE + (CFR_OFFSET * 32) + (EWI_BitNumber * 4))
+ 105:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 106:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* --------------------- WWDG registers bit mask ------------------------ */
+ 107:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* CFR register bit mask */
+ 108:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #define CFR_WDGTB_MASK    ((uint32_t)0xFFFFFE7F)
+ 109:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #define CFR_W_MASK        ((uint32_t)0xFFFFFF80)
+ 110:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** #define BIT_MASK          ((uint8_t)0x7F)
+ 111:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 112:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Private macro -------------------------------------------------------------*/
+ 113:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Private variables ---------------------------------------------------------*/
+ 114:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Private function prototypes -----------------------------------------------*/
+ 115:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /* Private functions ---------------------------------------------------------*/
+ 116:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 117:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /** @defgroup WWDG_Private_Functions
+ 118:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @{
+ 119:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 120:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 121:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /** @defgroup WWDG_Group1 Prescaler, Refresh window and Counter configuration functions
+ 122:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  *  @brief   Prescaler, Refresh window and Counter configuration functions 
+ 123:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  *
+ 124:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** @verbatim   
+ 125:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================
+ 126:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****     ##### Prescaler, Refresh window and Counter configuration functions #####
+ 127:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================  
+ 128:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 129:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** @endverbatim
+ 130:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @{
+ 131:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 132:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 133:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 134:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Deinitializes the WWDG peripheral registers to their default reset values.
+ 135:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  None
+ 136:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval None
+ 137:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 138:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** void WWDG_DeInit(void)
+ 139:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+  29              		.loc 1 139 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 4
+
+
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+ 140:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   RCC_APB1PeriphResetCmd(RCC_APB1Periph_WWDG, ENABLE);
+  38              		.loc 1 140 3 view .LVU1
+  39 0002 0121     		movs	r1, #1
+  40 0004 4FF40060 		mov	r0, #2048
+  41 0008 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  42              	.LVL0:
+ 141:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   RCC_APB1PeriphResetCmd(RCC_APB1Periph_WWDG, DISABLE);
+  43              		.loc 1 141 3 view .LVU2
+  44 000c 0021     		movs	r1, #0
+  45 000e 4FF40060 		mov	r0, #2048
+  46 0012 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  47              	.LVL1:
+ 142:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+  48              		.loc 1 142 1 is_stmt 0 view .LVU3
+  49 0016 08BD     		pop	{r3, pc}
+  50              		.cfi_endproc
+  51              	.LFE130:
+  53              		.section	.text.WWDG_SetPrescaler,"ax",%progbits
+  54              		.align	1
+  55              		.global	WWDG_SetPrescaler
+  56              		.syntax unified
+  57              		.thumb
+  58              		.thumb_func
+  59              		.fpu fpv4-sp-d16
+  61              	WWDG_SetPrescaler:
+  62              	.LVL2:
+  63              	.LFB131:
+ 143:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 144:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 145:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Sets the WWDG Prescaler.
+ 146:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  WWDG_Prescaler: specifies the WWDG Prescaler.
+ 147:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *   This parameter can be one of the following values:
+ 148:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *     @arg WWDG_Prescaler_1: WWDG counter clock = (PCLK1/4096)/1
+ 149:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *     @arg WWDG_Prescaler_2: WWDG counter clock = (PCLK1/4096)/2
+ 150:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *     @arg WWDG_Prescaler_4: WWDG counter clock = (PCLK1/4096)/4
+ 151:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *     @arg WWDG_Prescaler_8: WWDG counter clock = (PCLK1/4096)/8
+ 152:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval None
+ 153:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 154:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** void WWDG_SetPrescaler(uint32_t WWDG_Prescaler)
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+  64              		.loc 1 155 1 is_stmt 1 view -0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   uint32_t tmpreg = 0;
+  69              		.loc 1 156 3 view .LVU5
+ 157:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Check the parameters */
+ 158:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   assert_param(IS_WWDG_PRESCALER(WWDG_Prescaler));
+  70              		.loc 1 158 3 view .LVU6
+ 159:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Clear WDGTB[1:0] bits */
+ 160:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   tmpreg = WWDG->CFR & CFR_WDGTB_MASK;
+  71              		.loc 1 160 3 view .LVU7
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 5
+
+
+  72              		.loc 1 160 16 is_stmt 0 view .LVU8
+  73 0000 034A     		ldr	r2, .L4
+  74 0002 5368     		ldr	r3, [r2, #4]
+  75              		.loc 1 160 10 view .LVU9
+  76 0004 23F4C073 		bic	r3, r3, #384
+  77              	.LVL3:
+ 161:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Set WDGTB[1:0] bits according to WWDG_Prescaler value */
+ 162:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   tmpreg |= WWDG_Prescaler;
+  78              		.loc 1 162 3 is_stmt 1 view .LVU10
+  79              		.loc 1 162 10 is_stmt 0 view .LVU11
+  80 0008 0343     		orrs	r3, r3, r0
+  81              	.LVL4:
+ 163:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Store the new value */
+ 164:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   WWDG->CFR = tmpreg;
+  82              		.loc 1 164 3 is_stmt 1 view .LVU12
+  83              		.loc 1 164 13 is_stmt 0 view .LVU13
+  84 000a 5360     		str	r3, [r2, #4]
+ 165:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+  85              		.loc 1 165 1 view .LVU14
+  86 000c 7047     		bx	lr
+  87              	.L5:
+  88 000e 00BF     		.align	2
+  89              	.L4:
+  90 0010 002C0040 		.word	1073753088
+  91              		.cfi_endproc
+  92              	.LFE131:
+  94              		.section	.text.WWDG_SetWindowValue,"ax",%progbits
+  95              		.align	1
+  96              		.global	WWDG_SetWindowValue
+  97              		.syntax unified
+  98              		.thumb
+  99              		.thumb_func
+ 100              		.fpu fpv4-sp-d16
+ 102              	WWDG_SetWindowValue:
+ 103              	.LVL5:
+ 104              	.LFB132:
+ 166:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 167:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Sets the WWDG window value.
+ 169:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  WindowValue: specifies the window value to be compared to the downcounter.
+ 170:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *   This parameter value must be lower than 0x80.
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval None
+ 172:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 173:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** void WWDG_SetWindowValue(uint8_t WindowValue)
+ 174:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+ 105              		.loc 1 174 1 is_stmt 1 view -0
+ 106              		.cfi_startproc
+ 107              		@ args = 0, pretend = 0, frame = 8
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              		@ link register save eliminated.
+ 110              		.loc 1 174 1 is_stmt 0 view .LVU16
+ 111 0000 82B0     		sub	sp, sp, #8
+ 112              	.LCFI1:
+ 113              		.cfi_def_cfa_offset 8
+ 175:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   __IO uint32_t tmpreg = 0;
+ 114              		.loc 1 175 3 is_stmt 1 view .LVU17
+ 115              		.loc 1 175 17 is_stmt 0 view .LVU18
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 6
+
+
+ 116 0002 0023     		movs	r3, #0
+ 117 0004 0193     		str	r3, [sp, #4]
+ 176:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 177:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Check the parameters */
+ 178:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   assert_param(IS_WWDG_WINDOW_VALUE(WindowValue));
+ 118              		.loc 1 178 3 is_stmt 1 view .LVU19
+ 179:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Clear W[6:0] bits */
+ 180:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 181:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   tmpreg = WWDG->CFR & CFR_W_MASK;
+ 119              		.loc 1 181 3 view .LVU20
+ 120              		.loc 1 181 16 is_stmt 0 view .LVU21
+ 121 0006 074A     		ldr	r2, .L8
+ 122 0008 5368     		ldr	r3, [r2, #4]
+ 123              		.loc 1 181 22 view .LVU22
+ 124 000a 23F07F03 		bic	r3, r3, #127
+ 125              		.loc 1 181 10 view .LVU23
+ 126 000e 0193     		str	r3, [sp, #4]
+ 182:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 183:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Set W[6:0] bits according to WindowValue value */
+ 184:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   tmpreg |= WindowValue & (uint32_t) BIT_MASK;
+ 127              		.loc 1 184 3 is_stmt 1 view .LVU24
+ 128              		.loc 1 184 25 is_stmt 0 view .LVU25
+ 129 0010 00F07F00 		and	r0, r0, #127
+ 130              	.LVL6:
+ 131              		.loc 1 184 10 view .LVU26
+ 132 0014 019B     		ldr	r3, [sp, #4]
+ 133 0016 1843     		orrs	r0, r0, r3
+ 134 0018 0190     		str	r0, [sp, #4]
+ 185:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 186:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Store the new value */
+ 187:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   WWDG->CFR = tmpreg;
+ 135              		.loc 1 187 3 is_stmt 1 view .LVU27
+ 136              		.loc 1 187 13 is_stmt 0 view .LVU28
+ 137 001a 019B     		ldr	r3, [sp, #4]
+ 138 001c 5360     		str	r3, [r2, #4]
+ 188:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+ 139              		.loc 1 188 1 view .LVU29
+ 140 001e 02B0     		add	sp, sp, #8
+ 141              	.LCFI2:
+ 142              		.cfi_def_cfa_offset 0
+ 143              		@ sp needed
+ 144 0020 7047     		bx	lr
+ 145              	.L9:
+ 146 0022 00BF     		.align	2
+ 147              	.L8:
+ 148 0024 002C0040 		.word	1073753088
+ 149              		.cfi_endproc
+ 150              	.LFE132:
+ 152              		.section	.text.WWDG_EnableIT,"ax",%progbits
+ 153              		.align	1
+ 154              		.global	WWDG_EnableIT
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 158              		.fpu fpv4-sp-d16
+ 160              	WWDG_EnableIT:
+ 161              	.LFB133:
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 7
+
+
+ 189:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 190:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 191:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Enables the WWDG Early Wakeup interrupt(EWI).
+ 192:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @note   Once enabled this interrupt cannot be disabled except by a system reset.
+ 193:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  None
+ 194:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval None
+ 195:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 196:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** void WWDG_EnableIT(void)
+ 197:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+ 162              		.loc 1 197 1 is_stmt 1 view -0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166              		@ link register save eliminated.
+ 198:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *(__IO uint32_t *) CFR_EWI_BB = (uint32_t)ENABLE;
+ 167              		.loc 1 198 3 view .LVU31
+ 168              		.loc 1 198 33 is_stmt 0 view .LVU32
+ 169 0000 024B     		ldr	r3, .L11
+ 170 0002 0122     		movs	r2, #1
+ 171 0004 C3F8A420 		str	r2, [r3, #164]
+ 199:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+ 172              		.loc 1 199 1 view .LVU33
+ 173 0008 7047     		bx	lr
+ 174              	.L12:
+ 175 000a 00BF     		.align	2
+ 176              	.L11:
+ 177 000c 00800542 		.word	1107656704
+ 178              		.cfi_endproc
+ 179              	.LFE133:
+ 181              		.section	.text.WWDG_SetCounter,"ax",%progbits
+ 182              		.align	1
+ 183              		.global	WWDG_SetCounter
+ 184              		.syntax unified
+ 185              		.thumb
+ 186              		.thumb_func
+ 187              		.fpu fpv4-sp-d16
+ 189              	WWDG_SetCounter:
+ 190              	.LVL7:
+ 191              	.LFB134:
+ 200:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 201:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 202:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Sets the WWDG counter value.
+ 203:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  Counter: specifies the watchdog counter value.
+ 204:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *   This parameter must be a number between 0x40 and 0x7F (to prevent generating
+ 205:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *   an immediate reset) 
+ 206:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval None
+ 207:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 208:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** void WWDG_SetCounter(uint8_t Counter)
+ 209:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+ 192              		.loc 1 209 1 is_stmt 1 view -0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196              		@ link register save eliminated.
+ 210:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Check the parameters */
+ 211:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   assert_param(IS_WWDG_COUNTER(Counter));
+ 197              		.loc 1 211 3 view .LVU35
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 8
+
+
+ 212:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Write to T[6:0] bits to configure the counter value, no need to do
+ 213:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****      a read-modify-write; writing a 0 to WDGA bit does nothing */
+ 214:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   WWDG->CR = Counter & BIT_MASK;
+ 198              		.loc 1 214 3 view .LVU36
+ 199              		.loc 1 214 22 is_stmt 0 view .LVU37
+ 200 0000 00F07F00 		and	r0, r0, #127
+ 201              	.LVL8:
+ 202              		.loc 1 214 12 view .LVU38
+ 203 0004 014B     		ldr	r3, .L14
+ 204 0006 1860     		str	r0, [r3]
+ 215:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+ 205              		.loc 1 215 1 view .LVU39
+ 206 0008 7047     		bx	lr
+ 207              	.L15:
+ 208 000a 00BF     		.align	2
+ 209              	.L14:
+ 210 000c 002C0040 		.word	1073753088
+ 211              		.cfi_endproc
+ 212              	.LFE134:
+ 214              		.section	.text.WWDG_Enable,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	WWDG_Enable
+ 217              		.syntax unified
+ 218              		.thumb
+ 219              		.thumb_func
+ 220              		.fpu fpv4-sp-d16
+ 222              	WWDG_Enable:
+ 223              	.LVL9:
+ 224              	.LFB135:
+ 216:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 217:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @}
+ 218:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 219:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 220:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /** @defgroup WWDG_Group2 WWDG activation functions
+ 221:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  *  @brief   WWDG activation functions 
+ 222:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  *
+ 223:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** @verbatim   
+ 224:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================
+ 225:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****                     ##### WWDG activation function #####
+ 226:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================  
+ 227:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 228:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** @endverbatim
+ 229:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @{
+ 230:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 231:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 232:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 233:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Enables WWDG and load the counter value.                  
+ 234:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  Counter: specifies the watchdog counter value.
+ 235:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *   This parameter must be a number between 0x40 and 0x7F (to prevent generating
+ 236:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   *   an immediate reset)
+ 237:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval None
+ 238:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 239:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** void WWDG_Enable(uint8_t Counter)
+ 240:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+ 225              		.loc 1 240 1 is_stmt 1 view -0
+ 226              		.cfi_startproc
+ 227              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 9
+
+
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229              		@ link register save eliminated.
+ 241:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   /* Check the parameters */
+ 242:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   assert_param(IS_WWDG_COUNTER(Counter));
+ 230              		.loc 1 242 3 view .LVU41
+ 243:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   WWDG->CR = WWDG_CR_WDGA | Counter;
+ 231              		.loc 1 243 3 view .LVU42
+ 232              		.loc 1 243 27 is_stmt 0 view .LVU43
+ 233 0000 40F08000 		orr	r0, r0, #128
+ 234              	.LVL10:
+ 235              		.loc 1 243 12 view .LVU44
+ 236 0004 014B     		ldr	r3, .L17
+ 237 0006 1860     		str	r0, [r3]
+ 244:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+ 238              		.loc 1 244 1 view .LVU45
+ 239 0008 7047     		bx	lr
+ 240              	.L18:
+ 241 000a 00BF     		.align	2
+ 242              	.L17:
+ 243 000c 002C0040 		.word	1073753088
+ 244              		.cfi_endproc
+ 245              	.LFE135:
+ 247              		.section	.text.WWDG_GetFlagStatus,"ax",%progbits
+ 248              		.align	1
+ 249              		.global	WWDG_GetFlagStatus
+ 250              		.syntax unified
+ 251              		.thumb
+ 252              		.thumb_func
+ 253              		.fpu fpv4-sp-d16
+ 255              	WWDG_GetFlagStatus:
+ 256              	.LFB136:
+ 245:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 246:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @}
+ 247:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 248:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 249:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /** @defgroup WWDG_Group3 Interrupts and flags management functions
+ 250:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  *  @brief   Interrupts and flags management functions 
+ 251:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  *
+ 252:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** @verbatim   
+ 253:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================
+ 254:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****             ##### Interrupts and flags management functions #####
+ 255:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****  ===============================================================================  
+ 256:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 257:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** @endverbatim
+ 258:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @{
+ 259:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 260:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 261:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 262:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Checks whether the Early Wakeup interrupt flag is set or not.
+ 263:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  None
+ 264:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval The new state of the Early Wakeup interrupt flag (SET or RESET)
+ 265:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 266:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** FlagStatus WWDG_GetFlagStatus(void)
+ 267:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+ 257              		.loc 1 267 1 is_stmt 1 view -0
+ 258              		.cfi_startproc
+ 259              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 10
+
+
+ 260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261              		@ link register save eliminated.
+ 268:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   FlagStatus bitstatus = RESET;
+ 262              		.loc 1 268 3 view .LVU47
+ 263              	.LVL11:
+ 269:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****     
+ 270:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   if ((WWDG->SR) != (uint32_t)RESET)
+ 264              		.loc 1 270 3 view .LVU48
+ 265              		.loc 1 270 12 is_stmt 0 view .LVU49
+ 266 0000 034B     		ldr	r3, .L22
+ 267 0002 9B68     		ldr	r3, [r3, #8]
+ 268              		.loc 1 270 6 view .LVU50
+ 269 0004 0BB1     		cbz	r3, .L21
+ 271:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   {
+ 272:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****     bitstatus = SET;
+ 270              		.loc 1 272 15 view .LVU51
+ 271 0006 0120     		movs	r0, #1
+ 272 0008 7047     		bx	lr
+ 273              	.L21:
+ 273:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   }
+ 274:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   else
+ 275:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   {
+ 276:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****     bitstatus = RESET;
+ 274              		.loc 1 276 15 view .LVU52
+ 275 000a 0020     		movs	r0, #0
+ 276              	.LVL12:
+ 277:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   }
+ 278:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   return bitstatus;
+ 277              		.loc 1 278 3 is_stmt 1 view .LVU53
+ 279:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+ 278              		.loc 1 279 1 is_stmt 0 view .LVU54
+ 279 000c 7047     		bx	lr
+ 280              	.L23:
+ 281 000e 00BF     		.align	2
+ 282              	.L22:
+ 283 0010 002C0040 		.word	1073753088
+ 284              		.cfi_endproc
+ 285              	.LFE136:
+ 287              		.section	.text.WWDG_ClearFlag,"ax",%progbits
+ 288              		.align	1
+ 289              		.global	WWDG_ClearFlag
+ 290              		.syntax unified
+ 291              		.thumb
+ 292              		.thumb_func
+ 293              		.fpu fpv4-sp-d16
+ 295              	WWDG_ClearFlag:
+ 296              	.LFB137:
+ 280:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** 
+ 281:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** /**
+ 282:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @brief  Clears Early Wakeup interrupt flag.
+ 283:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @param  None
+ 284:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   * @retval None
+ 285:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   */
+ 286:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** void WWDG_ClearFlag(void)
+ 287:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** {
+ 297              		.loc 1 287 1 is_stmt 1 view -0
+ 298              		.cfi_startproc
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 11
+
+
+ 299              		@ args = 0, pretend = 0, frame = 0
+ 300              		@ frame_needed = 0, uses_anonymous_args = 0
+ 301              		@ link register save eliminated.
+ 288:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c ****   WWDG->SR = (uint32_t)RESET;
+ 302              		.loc 1 288 3 view .LVU56
+ 303              		.loc 1 288 12 is_stmt 0 view .LVU57
+ 304 0000 014B     		ldr	r3, .L25
+ 305 0002 0022     		movs	r2, #0
+ 306 0004 9A60     		str	r2, [r3, #8]
+ 289:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_wwdg.c **** }
+ 307              		.loc 1 289 1 view .LVU58
+ 308 0006 7047     		bx	lr
+ 309              	.L26:
+ 310              		.align	2
+ 311              	.L25:
+ 312 0008 002C0040 		.word	1073753088
+ 313              		.cfi_endproc
+ 314              	.LFE137:
+ 316              		.text
+ 317              	.Letext0:
+ 318              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 319              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 320              		.file 4 "Core/Inc/stm32f4xx.h"
+ 321              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_rcc.h"
+ARM GAS  C:\Users\savao\AppData\Local\Temp\ccGBoost.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_wwdg.c
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:18     .text.WWDG_DeInit:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:26     .text.WWDG_DeInit:00000000 WWDG_DeInit
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:54     .text.WWDG_SetPrescaler:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:61     .text.WWDG_SetPrescaler:00000000 WWDG_SetPrescaler
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:90     .text.WWDG_SetPrescaler:00000010 $d
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:95     .text.WWDG_SetWindowValue:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:102    .text.WWDG_SetWindowValue:00000000 WWDG_SetWindowValue
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:148    .text.WWDG_SetWindowValue:00000024 $d
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:153    .text.WWDG_EnableIT:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:160    .text.WWDG_EnableIT:00000000 WWDG_EnableIT
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:177    .text.WWDG_EnableIT:0000000c $d
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:182    .text.WWDG_SetCounter:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:189    .text.WWDG_SetCounter:00000000 WWDG_SetCounter
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:210    .text.WWDG_SetCounter:0000000c $d
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:215    .text.WWDG_Enable:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:222    .text.WWDG_Enable:00000000 WWDG_Enable
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:243    .text.WWDG_Enable:0000000c $d
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:248    .text.WWDG_GetFlagStatus:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:255    .text.WWDG_GetFlagStatus:00000000 WWDG_GetFlagStatus
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:283    .text.WWDG_GetFlagStatus:00000010 $d
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:288    .text.WWDG_ClearFlag:00000000 $t
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:295    .text.WWDG_ClearFlag:00000000 WWDG_ClearFlag
+C:\Users\savao\AppData\Local\Temp\ccGBoost.s:312    .text.WWDG_ClearFlag:00000008 $d
+
+UNDEFINED SYMBOLS
+RCC_APB1PeriphResetCmd
