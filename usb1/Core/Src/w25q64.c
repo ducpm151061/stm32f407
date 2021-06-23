@@ -1,23 +1,23 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+//////////////////////////////////////////////////////////////////////////////////
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Í¾
+//ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½STM32F407VGT6,STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æµ168MHZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8MHZ
+//QDtech-TFTÒºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for STM32 FSMC
 //Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+//ï¿½ï¿½Ë¾ï¿½ï¿½Õ¾:www.qdtft.com
+//wikiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½http://www.lcdwiki.com
+//ï¿½ï¿½Ë¾ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ÎºÎ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â»¶Ó­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ñ§Ï°
+//ï¿½Ì»ï¿½(ï¿½ï¿½ï¿½ï¿½) :+86 0755-21077707
+//ï¿½Ö»ï¿½: (ï¿½ï¿½ï¿½ï¿½)18823372746 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)15989313508
+//ï¿½ï¿½ï¿½ï¿½:(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½) sales@qdtft.com  (ï¿½Ûºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)service@qdtft.com
+//QQ:(ï¿½ï¿½Ç°ï¿½ï¿½Ñ¯)3002706772 (ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½)3002778157
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQÈº:778679828
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2020/06/29
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2018-2028
 //All rights reserved
 /************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åUSB SlaveÊ¾Àý
+//STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½USB SlaveÊ¾ï¿½ï¿½
 //     USB_D+         --->            PA12
 //     USB_D-         --->            PA11
 //     LED0           --->            PA1
@@ -32,15 +32,15 @@
 //     SPI_MISO       --->            PB4
 //     USART1_TX      --->            PA9
 //     USART1_RX      --->            PA10
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+//Ö§ï¿½ï¿½ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+//TFT LCDï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½Û»ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½ï¿½ï¿½
+//STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸TFTLCDï¿½ï¿½Û»ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Óµï¿½STM32ï¿½ï¿½ï¿½ï¿½
+//=================================ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½=======================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//      VDD           --->           DC5V/3.3V          //ï¿½ï¿½Ô´
+//      GND           --->             GND              //ï¿½ï¿½Ô´ï¿½ï¿½
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //      DB0           --->            PD14        -|   
 //      DB1           --->            PD15         |  
 //      DB2           --->            PD0          | 
@@ -48,7 +48,7 @@
 //      DB4           --->            PE7          |
 //      DB5           --->            PE8          |
 //      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+//      DB7           --->            PE10         |===>Òºï¿½ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 //      DB8           --->            PE11         |
 //      DB9           --->            PE12         |
 //      DB10          --->            PE13         |
@@ -57,16 +57,16 @@
 //      DB13          --->            PD8          |
 //      DB14          --->            PD9          |
 //      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½ 				            STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//      WR            --->            PD5             //Òºï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RD            --->            PD4             //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RS            --->            PD11            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RST           --->          ï¿½ï¿½Î»ï¿½ï¿½ï¿½Å£ï¿½Ä¬ï¿½Ï£ï¿½  //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½Ò²ï¿½ï¿½Ñ¡ï¿½ï¿½PD13ï¿½ï¿½
+//      CS            --->            PD7             //Òºï¿½ï¿½ï¿½ï¿½Æ¬Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      BL            --->            PB15            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+*************************************************************************************/
+/* @attention
   *
   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
@@ -75,42 +75,42 @@
   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *************************************************************************************/
-#include "w25q64.h" 
+#include "w25q64.h"
 #include "spi.h"
-#include "delay.h"	   
-#include "usart.h"	
-	
-u16 W25QXX_TYPE=W25Q64;	//Ä¬ÈÏÊÇW25Q64
+#include "delay.h"
+#include "usart.h"
 
-//4KbytesÎªÒ»¸öSector
-//16¸öÉÈÇøÎª1¸öBlock
+u16 W25QXX_TYPE = W25Q64; //Ä¬ï¿½ï¿½ï¿½ï¿½W25Q64
+
+//4KbytesÎªÒ»ï¿½ï¿½Sector
+//16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª1ï¿½ï¿½Block
 //W25Q64
-//ÈÝÁ¿Îª8M×Ö½Ú,¹²ÓÐ64¸öBlock,2048¸öSector 
-										
+//ï¿½ï¿½ï¿½ï¿½Îª8Mï¿½Ö½ï¿½,ï¿½ï¿½ï¿½ï¿½64ï¿½ï¿½Block,2048ï¿½ï¿½Sector
+
 /*****************************************************************************
  * @name       :void W25Q64_Init(void)
  * @date       :2020-05-08 
  * @function   :Initialization of SPI flash IO port
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/	 										
+******************************************************************************/
 void W25Q64_Init(void)
-{ 
-  GPIO_InitTypeDef  GPIO_InitStructure;
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//Ê¹ÄÜGPIOBÊ±ÖÓ
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);//Ê¹ÄÜGPIOGÊ±ÖÓ
-	  //GPIOB14
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;//PB14
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//Êä³ö
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-  GPIO_Init(GPIOB, &GPIO_InitStructure);//³õÊ¼»¯
-	W25Q64_CS=1;			//SPI FLASH²»Ñ¡ÖÐ
-	SPI1_Init();		   			//³õÊ¼»¯SPI
-	SPI1_SetSpeed(SPI_BaudRatePrescaler_4);		//ÉèÖÃÎª21MÊ±ÖÓ,¸ßËÙÄ£Ê½ 
-	W25QXX_TYPE=W25QXX_ReadID();	//¶ÁÈ¡FLASH ID.
-}  
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE); //Ê¹ï¿½ï¿½GPIOBÊ±ï¿½ï¿½
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE); //Ê¹ï¿½ï¿½GPIOGÊ±ï¿½ï¿½
+														  //GPIOB14
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;			  //PB14
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;		  //ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;		  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	  //100MHz
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;		  //ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOB, &GPIO_InitStructure);				  //ï¿½ï¿½Ê¼ï¿½ï¿½
+	W25Q64_CS = 1;										  //SPI FLASHï¿½ï¿½Ñ¡ï¿½ï¿½
+	SPI1_Init();										  //ï¿½ï¿½Ê¼ï¿½ï¿½SPI
+	SPI1_SetSpeed(SPI_BaudRatePrescaler_4);				  //ï¿½ï¿½ï¿½ï¿½Îª21MÊ±ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+	W25QXX_TYPE = W25QXX_ReadID();						  //ï¿½ï¿½È¡FLASH ID.
+}
 
 /*****************************************************************************
  * @name       :u8 W25Q64_ReadSR(void) 
@@ -125,15 +125,15 @@ void W25Q64_Init(void)
 								Default:0x00
  * @parameters :None
  * @retvalue   :the value of the status register
-******************************************************************************/	
-u8 W25Q64_ReadSR(void)   
-{  
-	u8 byte=0;   
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-	SPI1_ReadWriteByte(W25X_ReadStatusReg);    //·¢ËÍ¶ÁÈ¡×´Ì¬¼Ä´æÆ÷ÃüÁî    
-	byte=SPI1_ReadWriteByte(0Xff);             //¶ÁÈ¡Ò»¸ö×Ö½Ú  
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     
-	return byte;   
+******************************************************************************/
+u8 W25Q64_ReadSR(void)
+{
+	u8 byte = 0;
+	W25Q64_CS = 0;							//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_ReadStatusReg); //ï¿½ï¿½ï¿½Í¶ï¿½È¡×´Ì¬ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	byte = SPI1_ReadWriteByte(0Xff);		//ï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½Ö½ï¿½
+	W25Q64_CS = 1;							//È¡ï¿½ï¿½Æ¬Ñ¡
+	return byte;
 }
 
 /*****************************************************************************
@@ -150,14 +150,14 @@ u8 W25Q64_ReadSR(void)
 								Default:0x00
  * @parameters :sr:the value of the status register to be written
  * @retvalue   :the value of the status register
-******************************************************************************/	 
-void W25Q64_Write_SR(u8 sr)   
-{   
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-	SPI1_ReadWriteByte(W25X_WriteStatusReg);   //·¢ËÍÐ´È¡×´Ì¬¼Ä´æÆ÷ÃüÁî    
-	SPI1_ReadWriteByte(sr);               //Ð´ÈëÒ»¸ö×Ö½Ú  
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     	      
-} 
+******************************************************************************/
+void W25Q64_Write_SR(u8 sr)
+{
+	W25Q64_CS = 0;							 //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_WriteStatusReg); //ï¿½ï¿½ï¿½ï¿½Ð´È¡×´Ì¬ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(sr);					 //Ð´ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö½ï¿½
+	W25Q64_CS = 1;							 //È¡ï¿½ï¿½Æ¬Ñ¡
+}
 
 /*****************************************************************************
  * @name       :void W25Q64_Write_Enable(void) 
@@ -165,13 +165,13 @@ void W25Q64_Write_SR(u8 sr)
  * @function   :W25q64 write enable(Set wel)
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/	   
-void W25Q64_Write_Enable(void)   
+******************************************************************************/
+void W25Q64_Write_Enable(void)
 {
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_WriteEnable);    //·¢ËÍÐ´Ê¹ÄÜ  
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     	      
-} 
+	W25Q64_CS = 0;						  //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_WriteEnable); //ï¿½ï¿½ï¿½ï¿½Ð´Ê¹ï¿½ï¿½
+	W25Q64_CS = 1;						  //È¡ï¿½ï¿½Æ¬Ñ¡
+}
 
 /*****************************************************************************
  * @name       :void W25Q64_Write_Disable(void) 
@@ -179,12 +179,12 @@ void W25Q64_Write_Enable(void)
  * @function   :W25q64 write disable(Reset wel)
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/	 
-void W25Q64_Write_Disable(void)   
-{  
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_WriteDisable);  //·¢ËÍÐ´½ûÖ¹Ö¸Áî    
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     	      
+******************************************************************************/
+void W25Q64_Write_Disable(void)
+{
+	W25Q64_CS = 0;						   //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_WriteDisable); //ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ö¹Ö¸ï¿½ï¿½
+	W25Q64_CS = 1;						   //È¡ï¿½ï¿½Æ¬Ñ¡
 }
 
 /*****************************************************************************
@@ -197,20 +197,20 @@ void W25Q64_Write_Disable(void)
 								0XEF15:W25Q32  
 								0XEF16:W25Q64 
 								0XEF17:W25Q128 
-******************************************************************************/	 		  
+******************************************************************************/
 u16 W25QXX_ReadID(void)
 {
-	u16 Temp = 0;	  
-	W25Q64_CS=0;				    
-	SPI1_ReadWriteByte(0x90);//·¢ËÍ¶ÁÈ¡IDÃüÁî	    
-	SPI1_ReadWriteByte(0x00); 	    
-	SPI1_ReadWriteByte(0x00); 	    
-	SPI1_ReadWriteByte(0x00); 	 			   
-	Temp|=SPI1_ReadWriteByte(0xFF)<<8;  
-	Temp|=SPI1_ReadWriteByte(0xFF);	 
-	W25Q64_CS=1;				    
+	u16 Temp = 0;
+	W25Q64_CS = 0;
+	SPI1_ReadWriteByte(0x90); //ï¿½ï¿½ï¿½Í¶ï¿½È¡IDï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(0x00);
+	SPI1_ReadWriteByte(0x00);
+	SPI1_ReadWriteByte(0x00);
+	Temp |= SPI1_ReadWriteByte(0xFF) << 8;
+	Temp |= SPI1_ReadWriteByte(0xFF);
+	W25Q64_CS = 1;
 	return Temp;
-}   
+}
 
 /*****************************************************************************
  * @name       :void W25Q64_Read(u8* pBuffer,u32 ReadAddr,u16 NumByteToRead) 
@@ -221,20 +221,20 @@ u16 W25QXX_ReadID(void)
 								ReadAddr:Address to start reading (24bit)
 								NumByteToRead:Number of bytes to read (maximum 65535)
  * @retvalue   :None
-******************************************************************************/			    
-void W25Q64_Read(u8* pBuffer,u32 ReadAddr,u16 NumByteToRead)   
-{ 
- 	u16 i;   										    
-	W25Q64_CS=0;                               //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_ReadData);         //·¢ËÍ¶ÁÈ¡ÃüÁî   
-  SPI1_ReadWriteByte((u8)((ReadAddr)>>16));  //·¢ËÍ24bitµØÖ·    
-  SPI1_ReadWriteByte((u8)((ReadAddr)>>8));   
-  SPI1_ReadWriteByte((u8)ReadAddr);   
-  for(i=0;i<NumByteToRead;i++)
-	{ 
-		pBuffer[i]=SPI1_ReadWriteByte(0XFF);   //Ñ­»·¶ÁÊý  
-  }
-	W25Q64_CS=1;  				    	      
+******************************************************************************/
+void W25Q64_Read(u8 *pBuffer, u32 ReadAddr, u16 NumByteToRead)
+{
+	u16 i;
+	W25Q64_CS = 0;								//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_ReadData);			//ï¿½ï¿½ï¿½Í¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte((u8)((ReadAddr) >> 16)); //ï¿½ï¿½ï¿½ï¿½24bitï¿½ï¿½Ö·
+	SPI1_ReadWriteByte((u8)((ReadAddr) >> 8));
+	SPI1_ReadWriteByte((u8)ReadAddr);
+	for (i = 0; i < NumByteToRead; i++)
+	{
+		pBuffer[i] = SPI1_ReadWriteByte(0XFF); //Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	}
+	W25Q64_CS = 1;
 }
 
 /*****************************************************************************
@@ -247,23 +247,23 @@ void W25Q64_Read(u8* pBuffer,u32 ReadAddr,u16 NumByteToRead)
 								NumByteToWrite:Number of bytes to write (maximum 256),This number 
 								              should not exceed the number of bytes left on this page!!!
  * @retvalue   :None
-******************************************************************************/	   
-void W25Q64_Write_Page(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)
+******************************************************************************/
+void W25Q64_Write_Page(u8 *pBuffer, u32 WriteAddr, u16 NumByteToWrite)
 {
- 	u16 i;  
-  W25Q64_Write_Enable();                  //SET WEL 
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_PageProgram);      //·¢ËÍÐ´Ò³ÃüÁî   
-  SPI1_ReadWriteByte((u8)((WriteAddr)>>16)); //·¢ËÍ24bitµØÖ·    
-  SPI1_ReadWriteByte((u8)((WriteAddr)>>8));   
-  SPI1_ReadWriteByte((u8)WriteAddr);   
-  for(i=0;i<NumByteToWrite;i++)
+	u16 i;
+	W25Q64_Write_Enable();						 //SET WEL
+	W25Q64_CS = 0;								 //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_PageProgram);		 //ï¿½ï¿½ï¿½ï¿½Ð´Ò³ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte((u8)((WriteAddr) >> 16)); //ï¿½ï¿½ï¿½ï¿½24bitï¿½ï¿½Ö·
+	SPI1_ReadWriteByte((u8)((WriteAddr) >> 8));
+	SPI1_ReadWriteByte((u8)WriteAddr);
+	for (i = 0; i < NumByteToWrite; i++)
 	{
-		SPI1_ReadWriteByte(pBuffer[i]);//Ñ­»·Ð´Êý  
+		SPI1_ReadWriteByte(pBuffer[i]); //Ñ­ï¿½ï¿½Ð´ï¿½ï¿½
 	}
-	W25Q64_CS=1;                   //È¡ÏûÆ¬Ñ¡ 
-	W25Q64_Wait_Busy();					   //µÈ´ýÐ´Èë½áÊø
-} 
+	W25Q64_CS = 1;		//È¡ï¿½ï¿½Æ¬Ñ¡
+	W25Q64_Wait_Busy(); //ï¿½È´ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½
+}
 
 /*****************************************************************************
  * @name       :void W25Q64_Write_NoCheck(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)  
@@ -278,38 +278,39 @@ void W25Q64_Write_Page(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)
 								WriteAddr:Address to start writing (24bit)
 								NumByteToWrite:Number of bytes to write (maximum 65535)
  * @retvalue   :None
-******************************************************************************/	
-void W25Q64_Write_NoCheck(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)   
-{ 			 		 
-	u16 pageremain;	   
-	pageremain=256-WriteAddr%256; //µ¥Ò³Ê£ÓàµÄ×Ö½ÚÊý		 	    
-	if(NumByteToWrite<=pageremain)pageremain=NumByteToWrite;//²»´óÓÚ256¸ö×Ö½Ú
-	while(1)
-	{	   
-		W25Q64_Write_Page(pBuffer,WriteAddr,pageremain);
-		if(NumByteToWrite==pageremain)
+******************************************************************************/
+void W25Q64_Write_NoCheck(u8 *pBuffer, u32 WriteAddr, u16 NumByteToWrite)
+{
+	u16 pageremain;
+	pageremain = 256 - WriteAddr % 256; //ï¿½ï¿½Ò³Ê£ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½
+	if (NumByteToWrite <= pageremain)
+		pageremain = NumByteToWrite; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½256ï¿½ï¿½ï¿½Ö½ï¿½
+	while (1)
+	{
+		W25Q64_Write_Page(pBuffer, WriteAddr, pageremain);
+		if (NumByteToWrite == pageremain)
 		{
-			break;//Ð´Èë½áÊøÁË
-	 	}
+			break; //Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		}
 		else //NumByteToWrite>pageremain
 		{
-			pBuffer+=pageremain;
-			WriteAddr+=pageremain;	
+			pBuffer += pageremain;
+			WriteAddr += pageremain;
 
-			NumByteToWrite-=pageremain;			  //¼õÈ¥ÒÑ¾­Ð´ÈëÁËµÄ×Ö½ÚÊý
-			if(NumByteToWrite>256)
+			NumByteToWrite -= pageremain; //ï¿½ï¿½È¥ï¿½Ñ¾ï¿½Ð´ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ö½ï¿½ï¿½ï¿½
+			if (NumByteToWrite > 256)
 			{
-				pageremain=256; //Ò»´Î¿ÉÒÔÐ´Èë256¸ö×Ö½Ú
+				pageremain = 256; //Ò»ï¿½Î¿ï¿½ï¿½ï¿½Ð´ï¿½ï¿½256ï¿½ï¿½ï¿½Ö½ï¿½
 			}
-			else 
+			else
 			{
-				pageremain=NumByteToWrite; 	  //²»¹»256¸ö×Ö½ÚÁË
+				pageremain = NumByteToWrite; //ï¿½ï¿½ï¿½ï¿½256ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½
 			}
 		}
-	}   
-} 
+	}
+}
 
-u8 W25Q64_BUFFER[4096];	
+u8 W25Q64_BUFFER[4096];
 /*****************************************************************************
  * @name       :void W25Q64_Write(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)     
  * @date       :2020-05-08 
@@ -320,64 +321,65 @@ u8 W25Q64_BUFFER[4096];
 								WriteAddr:Address to start writing (24bit)
 								NumByteToWrite:Number of bytes to write (maximum 65535)
  * @retvalue   :None
-******************************************************************************/	 
-void W25Q64_Write(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)   
-{ 
+******************************************************************************/
+void W25Q64_Write(u8 *pBuffer, u32 WriteAddr, u16 NumByteToWrite)
+{
 	u32 secpos;
 	u16 secoff;
-	u16 secremain;	   
- 	u16 i;    
-	u8 * W25QXX_BUF;	  
-  W25QXX_BUF=W25Q64_BUFFER;	     
- 	secpos=WriteAddr/4096;//ÉÈÇøµØÖ·  
-	secoff=WriteAddr%4096;//ÔÚÉÈÇøÄÚµÄÆ«ÒÆ
-	secremain=4096-secoff;//ÉÈÇøÊ£Óà¿Õ¼ä´óÐ¡   
- 	//printf("ad:%X,nb:%X\r\n",WriteAddr,NumByteToWrite);//²âÊÔÓÃ
- 	if(NumByteToWrite<=secremain)secremain=NumByteToWrite;//²»´óÓÚ4096¸ö×Ö½Ú
-	while(1) 
-	{	
-		W25Q64_Read(W25QXX_BUF,secpos*4096,4096);//¶Á³öÕû¸öÉÈÇøµÄÄÚÈÝ
-		for(i=0;i<secremain;i++)//Ð£ÑéÊý¾Ý
+	u16 secremain;
+	u16 i;
+	u8 *W25QXX_BUF;
+	W25QXX_BUF = W25Q64_BUFFER;
+	secpos = WriteAddr / 4096; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+	secoff = WriteAddr % 4096; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Æ«ï¿½ï¿½
+	secremain = 4096 - secoff; //ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½Õ¼ï¿½ï¿½Ð¡
+	//printf("ad:%X,nb:%X\r\n",WriteAddr,NumByteToWrite);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if (NumByteToWrite <= secremain)
+		secremain = NumByteToWrite; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4096ï¿½ï¿½ï¿½Ö½ï¿½
+	while (1)
+	{
+		W25Q64_Read(W25QXX_BUF, secpos * 4096, 4096); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		for (i = 0; i < secremain; i++)				  //Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			if(W25QXX_BUF[secoff+i]!=0XFF)
+			if (W25QXX_BUF[secoff + i] != 0XFF)
 			{
-				break;//ÐèÒª²Á³ý  	  
+				break; //ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 			}
 		}
-		if(i<secremain)//ÐèÒª²Á³ý
+		if (i < secremain) //ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 		{
-			W25Q64_Erase_Sector(secpos);//²Á³ýÕâ¸öÉÈÇø
-			for(i=0;i<secremain;i++)	   //¸´ÖÆ
+			W25Q64_Erase_Sector(secpos);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			for (i = 0; i < secremain; i++) //ï¿½ï¿½ï¿½ï¿½
 			{
-				W25QXX_BUF[i+secoff]=pBuffer[i];	  
+				W25QXX_BUF[i + secoff] = pBuffer[i];
 			}
-			W25Q64_Write_NoCheck(W25QXX_BUF,secpos*4096,4096);//Ð´ÈëÕû¸öÉÈÇø  
+			W25Q64_Write_NoCheck(W25QXX_BUF, secpos * 4096, 4096); //Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
-		else 
+		else
 		{
-			W25Q64_Write_NoCheck(pBuffer,WriteAddr,secremain);//Ð´ÒÑ¾­²Á³ýÁËµÄ,Ö±½ÓÐ´ÈëÉÈÇøÊ£ÓàÇø¼ä. 				   
+			W25Q64_Write_NoCheck(pBuffer, WriteAddr, secremain); //Ð´ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½,Ö±ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		}
-		if(NumByteToWrite==secremain)
+		if (NumByteToWrite == secremain)
 		{
-			break;//Ð´Èë½áÊøÁË
+			break; //Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
-		else//Ð´ÈëÎ´½áÊø
+		else //Ð´ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½
 		{
-			secpos++;//ÉÈÇøµØÖ·Ôö1
-			secoff=0;//Æ«ÒÆÎ»ÖÃÎª0 	 
-		  pBuffer+=secremain;  //Ö¸ÕëÆ«ÒÆ
-			WriteAddr+=secremain;//Ð´µØÖ·Æ«ÒÆ	   
-		  NumByteToWrite-=secremain;				//×Ö½ÚÊýµÝ¼õ
-			if(NumByteToWrite>4096)
+			secpos++;					 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½1
+			secoff = 0;					 //Æ«ï¿½ï¿½Î»ï¿½ï¿½Îª0
+			pBuffer += secremain;		 //Ö¸ï¿½ï¿½Æ«ï¿½ï¿½
+			WriteAddr += secremain;		 //Ð´ï¿½ï¿½Ö·Æ«ï¿½ï¿½
+			NumByteToWrite -= secremain; //ï¿½Ö½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½
+			if (NumByteToWrite > 4096)
 			{
-				secremain=4096;	//ÏÂÒ»¸öÉÈÇø»¹ÊÇÐ´²»Íê
+				secremain = 4096; //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 			}
-			else 
+			else
 			{
-				secremain=NumByteToWrite;			//ÏÂÒ»¸öÉÈÇø¿ÉÒÔÐ´ÍêÁË
+				secremain = NumByteToWrite; //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 			}
-		}	 
-	}	 
+		}
+	}
 }
 
 /*****************************************************************************
@@ -386,15 +388,15 @@ void W25Q64_Write(u8* pBuffer,u32 WriteAddr,u16 NumByteToWrite)
  * @function   :Erase whole chip(Waiting time is too long)
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/	 
-void W25Q64_Erase_Chip(void)   
-{                                   
-  W25Q64_Write_Enable();                  //SET WEL 
-  W25Q64_Wait_Busy();   
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_ChipErase);        //·¢ËÍÆ¬²Á³ýÃüÁî  
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     	      
-	W25Q64_Wait_Busy();   				   //µÈ´ýÐ¾Æ¬²Á³ý½áÊø
+******************************************************************************/
+void W25Q64_Erase_Chip(void)
+{
+	W25Q64_Write_Enable(); //SET WEL
+	W25Q64_Wait_Busy();
+	W25Q64_CS = 0;						//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_ChipErase); //ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	W25Q64_CS = 1;						//È¡ï¿½ï¿½Æ¬Ñ¡
+	W25Q64_Wait_Busy();					//ï¿½È´ï¿½Ð¾Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 /*****************************************************************************
@@ -403,21 +405,21 @@ void W25Q64_Erase_Chip(void)
  * @function   :Erase a sector(Minimum time: 150ms)
  * @parameters :Dst_Addr:The sector address(Set according to actual capacity)
  * @retvalue   :None
-******************************************************************************/	   
-void W25Q64_Erase_Sector(u32 Dst_Addr)   
-{    
- //	printf("fe:%x\r\n",Dst_Addr);	//¼àÊÓfalsh²Á³ýÇé¿ö,²âÊÔÓÃ   
- 	Dst_Addr*=4096;
-  W25Q64_Write_Enable();                  //SET WEL 	 
-  W25Q64_Wait_Busy();   
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_SectorErase);      //·¢ËÍÉÈÇø²Á³ýÖ¸Áî 
-  SPI1_ReadWriteByte((u8)((Dst_Addr)>>16));  //·¢ËÍ24bitµØÖ·    
-  SPI1_ReadWriteByte((u8)((Dst_Addr)>>8));   
-  SPI1_ReadWriteByte((u8)Dst_Addr);  
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     	      
-  W25Q64_Wait_Busy();   				   //µÈ´ý²Á³ýÍê³É
-} 
+******************************************************************************/
+void W25Q64_Erase_Sector(u32 Dst_Addr)
+{
+	//	printf("fe:%x\r\n",Dst_Addr);	//ï¿½ï¿½ï¿½ï¿½falshï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	Dst_Addr *= 4096;
+	W25Q64_Write_Enable(); //SET WEL
+	W25Q64_Wait_Busy();
+	W25Q64_CS = 0;								//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_SectorErase);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+	SPI1_ReadWriteByte((u8)((Dst_Addr) >> 16)); //ï¿½ï¿½ï¿½ï¿½24bitï¿½ï¿½Ö·
+	SPI1_ReadWriteByte((u8)((Dst_Addr) >> 8));
+	SPI1_ReadWriteByte((u8)Dst_Addr);
+	W25Q64_CS = 1;		//È¡ï¿½ï¿½Æ¬Ñ¡
+	W25Q64_Wait_Busy(); //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+}
 
 /*****************************************************************************
  * @name       :void W25Q64_Wait_Busy(void)    
@@ -425,11 +427,12 @@ void W25Q64_Erase_Sector(u32 Dst_Addr)
  * @function   :Waiting for idle
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/	 
-void W25Q64_Wait_Busy(void)   
-{   
-	while((W25Q64_ReadSR()&0x01)==0x01);   // µÈ´ýBUSYÎ»Çå¿Õ
-} 
+******************************************************************************/
+void W25Q64_Wait_Busy(void)
+{
+	while ((W25Q64_ReadSR() & 0x01) == 0x01)
+		; // ï¿½È´ï¿½BUSYÎ»ï¿½ï¿½ï¿½
+}
 
 /*****************************************************************************
  * @name       :void W25Q64_PowerDown(void)     
@@ -437,14 +440,14 @@ void W25Q64_Wait_Busy(void)
  * @function   :Enter power down mode
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/ 
-void W25Q64_PowerDown(void)   
-{ 
-  W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_PowerDown);        //·¢ËÍµôµçÃüÁî  
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     	      
-  delay_us(3);                               //µÈ´ýTPD  
-} 
+******************************************************************************/
+void W25Q64_PowerDown(void)
+{
+	W25Q64_CS = 0;						//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_PowerDown); //ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	W25Q64_CS = 1;						//È¡ï¿½ï¿½Æ¬Ñ¡
+	delay_us(3);						//ï¿½È´ï¿½TPD
+}
 
 /*****************************************************************************
  * @name       :void W25Q64_WAKEUP(void)       
@@ -452,12 +455,11 @@ void W25Q64_PowerDown(void)
  * @function   :Enter wake up mode
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/  
-void W25Q64_WAKEUP(void)   
-{  
-	W25Q64_CS=0;                            //Ê¹ÄÜÆ÷¼þ   
-  SPI1_ReadWriteByte(W25X_ReleasePowerDown);   //  send W25X_PowerDown command 0xAB    
-	W25Q64_CS=1;                            //È¡ÏûÆ¬Ñ¡     	      
-  delay_us(3);                               //µÈ´ýTRES1
-}   
-
+******************************************************************************/
+void W25Q64_WAKEUP(void)
+{
+	W25Q64_CS = 0;							   //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPI1_ReadWriteByte(W25X_ReleasePowerDown); //  send W25X_PowerDown command 0xAB
+	W25Q64_CS = 1;							   //È¡ï¿½ï¿½Æ¬Ñ¡
+	delay_us(3);							   //ï¿½È´ï¿½TRES1
+}

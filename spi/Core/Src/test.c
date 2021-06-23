@@ -1,38 +1,38 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+//////////////////////////////////////////////////////////////////////////////////
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Í¾
+//ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½STM32F407VGT6,STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æµ168MHZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8MHZ
+//QDtech-TFTÒºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for STM32 FSMC
 //Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+//ï¿½ï¿½Ë¾ï¿½ï¿½Õ¾:www.qdtft.com
+//wikiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½http://www.lcdwiki.com
+//ï¿½ï¿½Ë¾ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ÎºÎ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â»¶Ó­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ñ§Ï°
+//ï¿½Ì»ï¿½(ï¿½ï¿½ï¿½ï¿½) :+86 0755-21077707
+//ï¿½Ö»ï¿½: (ï¿½ï¿½ï¿½ï¿½)18823372746 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)15989313508
+//ï¿½ï¿½ï¿½ï¿½:(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½) sales@qdtft.com  (ï¿½Ûºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)service@qdtft.com
+//QQ:(ï¿½ï¿½Ç°ï¿½ï¿½Ñ¯)3002706772 (ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½)3002778157
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQÈº:778679828
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2020/06/29
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2018-2028
 //All rights reserved
 /************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åSPIÊ¾Àý
+//STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SPIÊ¾ï¿½ï¿½
 //     LED0           --->            PA1
 //     KEY0           --->            PE4
 //     KEY_UP         --->            PA0
 //     SPI_CLK        --->            PB3
 //     SPI_MOSI       --->            PB5
 //     SPI_MISO       --->            PB4
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+//Ö§ï¿½ï¿½ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+//TFT LCDï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½Û»ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½ï¿½ï¿½
+//STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸TFTLCDï¿½ï¿½Û»ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Óµï¿½STM32ï¿½ï¿½ï¿½ï¿½
+//=================================ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½=======================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//      VDD           --->           DC5V/3.3V          //ï¿½ï¿½Ô´
+//      GND           --->             GND              //ï¿½ï¿½Ô´ï¿½ï¿½
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //      DB0           --->            PD14        -|   
 //      DB1           --->            PD15         |  
 //      DB2           --->            PD0          | 
@@ -40,7 +40,7 @@
 //      DB4           --->            PE7          |
 //      DB5           --->            PE8          |
 //      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+//      DB7           --->            PE10         |===>Òºï¿½ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 //      DB8           --->            PE11         |
 //      DB9           --->            PE12         |
 //      DB10          --->            PE13         |
@@ -49,16 +49,16 @@
 //      DB13          --->            PD8          |
 //      DB14          --->            PD9          |
 //      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½ 				            STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//      WR            --->            PD5             //Òºï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RD            --->            PD4             //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RS            --->            PD11            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RST           --->          ï¿½ï¿½Î»ï¿½ï¿½ï¿½Å£ï¿½Ä¬ï¿½Ï£ï¿½  //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½Ò²ï¿½ï¿½Ñ¡ï¿½ï¿½PD13ï¿½ï¿½
+//      CS            --->            PD7             //Òºï¿½ï¿½ï¿½ï¿½Æ¬Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      BL            --->            PB15            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+*************************************************************************************/
+/* @attention
   *
   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
@@ -66,7 +66,7 @@
   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/	
+*************************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include "lcd.h"
@@ -75,13 +75,12 @@
 #include "test.h"
 #include "led.h"
 #include "pic.h"
-#include "usart.h" 
+#include "usart.h"
 #include "w25q64.h"
 
-#if 0
 //========================variable==========================//
-u16 ColorTab[5]={RED,GREEN,BLUE,YELLOW,BRED};//¶¨ÒåÑÕÉ«Êý×é
-u16 ColornTab[8]={RED,MAGENTA,GREEN,DARKBLUE,BLUE,BLACK,LIGHTGREEN};
+u16 ColorTab[5] = {RED, GREEN, BLUE, YELLOW, BRED}; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
+u16 ColornTab[8] = {RED, MAGENTA, GREEN, DARKBLUE, BLUE, BLACK, LIGHTGREEN};
 //=====================end of variable======================//
 
 /*****************************************************************************
@@ -90,18 +89,18 @@ u16 ColornTab[8]={RED,MAGENTA,GREEN,DARKBLUE,BLUE,BLACK,LIGHTGREEN};
  * @function   :Drawing test interface
  * @parameters :str:the start address of the Chinese and English strings
  * @retvalue   :None
-******************************************************************************/ 
+******************************************************************************/
 void DrawTestPage(u8 *str)
 {
-POINT_COLOR=WHITE;
-//»æÖÆ¹Ì¶¨À¸up
-LCD_Fill(0,0,lcddev.width,20,BLUE);
-Gui_StrCenter(0,2,WHITE,BLUE,str,16,1);//¾ÓÖÐÏÔÊ¾
-//»æÖÆ¹Ì¶¨À¸down
-LCD_Fill(0,lcddev.height-20,lcddev.width-1,lcddev.height-1,BLUE);
-Gui_StrCenter(0,lcddev.height-18,WHITE,BLUE,"http://www.lcdwiki.com",16,1);//¾ÓÖÐÏÔÊ¾
-//»æÖÆ²âÊÔÇøÓò
-LCD_Fill(0,21,lcddev.width-1,lcddev.height-21,WHITE);
+	POINT_COLOR = WHITE;
+	//ï¿½ï¿½ï¿½Æ¹Ì¶ï¿½ï¿½ï¿½up
+	LCD_Fill(0, 0, lcddev.width, 20, BLUE);
+	Gui_StrCenter(0, 2, WHITE, BLUE, str, 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	//ï¿½ï¿½ï¿½Æ¹Ì¶ï¿½ï¿½ï¿½down
+	LCD_Fill(0, lcddev.height - 20, lcddev.width - 1, lcddev.height - 1, BLUE);
+	Gui_StrCenter(0, lcddev.height - 18, WHITE, BLUE, "http://www.lcdwiki.com", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	//ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	LCD_Fill(0, 21, lcddev.width - 1, lcddev.height - 21, WHITE);
 }
 
 /*****************************************************************************
@@ -113,14 +112,14 @@ LCD_Fill(0,21,lcddev.width-1,lcddev.height-21,WHITE);
 ******************************************************************************/
 void main_test(void)
 {
-	DrawTestPage("×îÐ¡ÏµÍ³×ÛºÏ²âÊÔ³ÌÐò");	
-	Gui_StrCenter(0,40,RED,BLUE,"STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,70,RED,BLUE,"×ÛºÏ²âÊÔ³ÌÐò",16,1);//¾ÓÖÐÏÔÊ¾	
-	Gui_StrCenter(0,100,MAGENTA,BLUE,"ILI9341  ILI9486  ILI9488",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,120,MAGENTA,BLUE,"R61509V  ST7793   ST7796S",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,140,MAGENTA,BLUE,"NT35310  NT35510  SSD1963",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,170,BLUE,BLUE,"STM32F407VxT6 2020-06-05",16,1);//¾ÓÖÐÏÔÊ¾
-	delay_ms(1500);		
+	DrawTestPage("ï¿½ï¿½Ð¡ÏµÍ³ï¿½ÛºÏ²ï¿½ï¿½Ô³ï¿½ï¿½ï¿½");
+	Gui_StrCenter(0, 40, RED, BLUE, "STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 16, 1);		  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 70, RED, BLUE, "ï¿½ÛºÏ²ï¿½ï¿½Ô³ï¿½ï¿½ï¿½", 16, 1);					  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 100, MAGENTA, BLUE, "ILI9341  ILI9486  ILI9488", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 120, MAGENTA, BLUE, "R61509V  ST7793   ST7796S", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 140, MAGENTA, BLUE, "NT35310  NT35510  SSD1963", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 170, BLUE, BLUE, "STM32F407VxT6 2020-06-05", 16, 1);	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	delay_ms(1500);
 	delay_ms(1500);
 }
 
@@ -133,15 +132,19 @@ void main_test(void)
 ******************************************************************************/
 void Test_Color(void)
 {
-	//DrawTestPage("²âÊÔ1:´¿É«Ìî³ä²âÊÔ");
-	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,WHITE);
-	Show_Str(20,30,BLUE,YELLOW,"BL Test",16,1);delay_ms(800);
-	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,RED);
-	Show_Str(20,30,BLUE,YELLOW,"RED ",16,1);delay_ms(800);
-	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,GREEN);
-	Show_Str(20,30,BLUE,YELLOW,"GREEN ",16,1);delay_ms(800);
-	LCD_Fill(0,0,lcddev.width-1,lcddev.height-1,BLUE);
-	Show_Str(20,30,RED,YELLOW,"BLUE ",16,1);delay_ms(800);
+	//DrawTestPage("ï¿½ï¿½ï¿½ï¿½1:ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+	LCD_Fill(0, 0, lcddev.width - 1, lcddev.height - 1, WHITE);
+	Show_Str(20, 30, BLUE, YELLOW, "BL Test", 16, 1);
+	delay_ms(800);
+	LCD_Fill(0, 0, lcddev.width - 1, lcddev.height - 1, RED);
+	Show_Str(20, 30, BLUE, YELLOW, "RED ", 16, 1);
+	delay_ms(800);
+	LCD_Fill(0, 0, lcddev.width - 1, lcddev.height - 1, GREEN);
+	Show_Str(20, 30, BLUE, YELLOW, "GREEN ", 16, 1);
+	delay_ms(800);
+	LCD_Fill(0, 0, lcddev.width - 1, lcddev.height - 1, BLUE);
+	Show_Str(20, 30, RED, YELLOW, "BLUE ", 16, 1);
+	delay_ms(800);
 }
 
 /*****************************************************************************
@@ -156,18 +159,18 @@ void Test_Color(void)
 ******************************************************************************/
 void Test_FillRec(void)
 {
-	u8 i=0;
-	DrawTestPage("²âÊÔ3:GUI¾ØÐÎÌî³ä²âÊÔ");
-	for (i=0; i<5; i++) 
+	u8 i = 0;
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½3:GUIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+	for (i = 0; i < 5; i++)
 	{
-		POINT_COLOR=ColorTab[i];
-		LCD_DrawRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)+60,lcddev.height/2-80+(i*15)+60); 
+		POINT_COLOR = ColorTab[i];
+		LCD_DrawRectangle(lcddev.width / 2 - 80 + (i * 15), lcddev.height / 2 - 80 + (i * 15), lcddev.width / 2 - 80 + (i * 15) + 60, lcddev.height / 2 - 80 + (i * 15) + 60);
 	}
-	delay_ms(1500);	
-	for (i=0; i<5; i++) 
+	delay_ms(1500);
+	for (i = 0; i < 5; i++)
 	{
-		POINT_COLOR=ColorTab[i];
-		LCD_DrawFillRectangle(lcddev.width/2-80+(i*15),lcddev.height/2-80+(i*15),lcddev.width/2-80+(i*15)+60,lcddev.height/2-80+(i*15)+60); 
+		POINT_COLOR = ColorTab[i];
+		LCD_DrawFillRectangle(lcddev.width / 2 - 80 + (i * 15), lcddev.height / 2 - 80 + (i * 15), lcddev.width / 2 - 80 + (i * 15) + 60, lcddev.height / 2 - 80 + (i * 15) + 60);
 	}
 	delay_ms(1500);
 }
@@ -184,13 +187,13 @@ void Test_FillRec(void)
 ******************************************************************************/
 void Test_Circle(void)
 {
-	u8 i=0;
-	DrawTestPage("²âÊÔ4:GUI»­Ô²Ìî³ä²âÊÔ");
-	for (i=0; i<5; i++)  
-		gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,0);
-	delay_ms(1500);	
-	for (i=0; i<5; i++) 
-	  	gui_circle(lcddev.width/2-80+(i*25),lcddev.height/2-50+(i*25),ColorTab[i],30,1);
+	u8 i = 0;
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½4:GUIï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+	for (i = 0; i < 5; i++)
+		gui_circle(lcddev.width / 2 - 80 + (i * 25), lcddev.height / 2 - 50 + (i * 25), ColorTab[i], 30, 0);
+	delay_ms(1500);
+	for (i = 0; i < 5; i++)
+		gui_circle(lcddev.width / 2 - 80 + (i * 25), lcddev.height / 2 - 50 + (i * 25), ColorTab[i], 30, 1);
 	delay_ms(1500);
 }
 
@@ -203,13 +206,13 @@ void Test_Circle(void)
 ******************************************************************************/
 void English_Font_test(void)
 {
-	DrawTestPage("²âÊÔ6:Ó¢ÎÄÏÔÊ¾²âÊÔ");
-	Show_Str(10,30,BLUE,YELLOW,"6X12:abcdefghijklmnopqrstuvwxyz0123456789",12,0);
-	Show_Str(10,45,BLUE,YELLOW,"6X12:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",12,1);
-	Show_Str(10,60,BLUE,YELLOW,"6X12:~!@#$%^&*()_+{}:<>?/|-+.",12,0);
-	Show_Str(10,80,BLUE,YELLOW,"8X16:abcdefghijklmnopqrstuvwxyz0123456789",16,0);
-	Show_Str(10,100,BLUE,YELLOW,"8X16:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",16,1);
-	Show_Str(10,120,BLUE,YELLOW,"8X16:~!@#$%^&*()_+{}:<>?/|-+.",16,0); 
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½6:Ó¢ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½");
+	Show_Str(10, 30, BLUE, YELLOW, "6X12:abcdefghijklmnopqrstuvwxyz0123456789", 12, 0);
+	Show_Str(10, 45, BLUE, YELLOW, "6X12:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12, 1);
+	Show_Str(10, 60, BLUE, YELLOW, "6X12:~!@#$%^&*()_+{}:<>?/|-+.", 12, 0);
+	Show_Str(10, 80, BLUE, YELLOW, "8X16:abcdefghijklmnopqrstuvwxyz0123456789", 16, 0);
+	Show_Str(10, 100, BLUE, YELLOW, "8X16:ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 16, 1);
+	Show_Str(10, 120, BLUE, YELLOW, "8X16:~!@#$%^&*()_+{}:<>?/|-+.", 16, 0);
 	delay_ms(1200);
 }
 
@@ -225,18 +228,18 @@ void English_Font_test(void)
 ******************************************************************************/
 void Test_Triangle(void)
 {
-	u8 i=0;
-	DrawTestPage("²âÊÔ5:GUI TriangleÌî³ä²âÊÔ");
-	for(i=0;i<5;i++)
+	u8 i = 0;
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½5:GUI Triangleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+	for (i = 0; i < 5; i++)
 	{
-		POINT_COLOR=ColorTab[i];
-		Draw_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcddev.height/2-20-52-1+(i*15),lcddev.width/2-20-1+(i*20),lcddev.height/2-20+(i*15));
+		POINT_COLOR = ColorTab[i];
+		Draw_Triangel(lcddev.width / 2 - 80 + (i * 20), lcddev.height / 2 - 20 + (i * 15), lcddev.width / 2 - 50 - 1 + (i * 20), lcddev.height / 2 - 20 - 52 - 1 + (i * 15), lcddev.width / 2 - 20 - 1 + (i * 20), lcddev.height / 2 - 20 + (i * 15));
 	}
-	delay_ms(1500);	
-	for(i=0;i<5;i++)
+	delay_ms(1500);
+	for (i = 0; i < 5; i++)
 	{
-		POINT_COLOR=ColorTab[i];
-		Fill_Triangel(lcddev.width/2-80+(i*20),lcddev.height/2-20+(i*15),lcddev.width/2-50-1+(i*20),lcddev.height/2-20-52-1+(i*15),lcddev.width/2-20-1+(i*20),lcddev.height/2-20+(i*15));
+		POINT_COLOR = ColorTab[i];
+		Fill_Triangel(lcddev.width / 2 - 80 + (i * 20), lcddev.height / 2 - 20 + (i * 15), lcddev.width / 2 - 50 - 1 + (i * 20), lcddev.height / 2 - 20 - 52 - 1 + (i * 15), lcddev.width / 2 - 20 - 1 + (i * 20), lcddev.height / 2 - 20 + (i * 15));
 	}
 	delay_ms(1500);
 }
@@ -249,12 +252,12 @@ void Test_Triangle(void)
  * @retvalue   :None
 ******************************************************************************/
 void Chinese_Font_test(void)
-{	
-	DrawTestPage("²âÊÔ7:ÖÐÎÄÏÔÊ¾²âÊÔ");
-	Show_Str(10,30,BLUE,YELLOW,"16X16:ÉîÛÚ»¶Ó­Äú",16,0);
-	Show_Str(10,50,BLUE,YELLOW,"16X16:Welcome to ÉîÛÚ",16,0);
-	Show_Str(10,70,BLUE,YELLOW,"24X24:ÖÐÎÄ²âÊÔ",24,1);
-	Show_Str(10,100,BLUE,YELLOW,"32X32:×ÖÌå²âÊÔ",32,1);
+{
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½7:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½");
+	Show_Str(10, 30, BLUE, YELLOW, "16X16:ï¿½ï¿½ï¿½Ú»ï¿½Ó­ï¿½ï¿½", 16, 0);
+	Show_Str(10, 50, BLUE, YELLOW, "16X16:Welcome to ï¿½ï¿½ï¿½ï¿½", 16, 0);
+	Show_Str(10, 70, BLUE, YELLOW, "24X24:ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½", 24, 1);
+	Show_Str(10, 100, BLUE, YELLOW, "32X32:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 32, 1);
 	delay_ms(1200);
 }
 
@@ -267,13 +270,13 @@ void Chinese_Font_test(void)
 ******************************************************************************/
 void Pic_test(void)
 {
-	DrawTestPage("²âÊÔ8:Í¼Æ¬ÏÔÊ¾²âÊÔ");
-	Gui_Drawbmp16(30,30,40,40,gImage_qq);
-	Show_Str(30+12,75,BLUE,YELLOW,"QQ",16,1);
-	Gui_Drawbmp16(90,30,40,40,gImage_qq);
-	Show_Str(90+12,75,BLUE,YELLOW,"QQ",16,1);
-	Gui_Drawbmp16(150,30,40,40,gImage_qq);
-	Show_Str(150+12,75,BLUE,YELLOW,"QQ",16,1);
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½8:Í¼Æ¬ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½");
+	Gui_Drawbmp16(30, 30, 40, 40, gImage_qq);
+	Show_Str(30 + 12, 75, BLUE, YELLOW, "QQ", 16, 1);
+	Gui_Drawbmp16(90, 30, 40, 40, gImage_qq);
+	Show_Str(90 + 12, 75, BLUE, YELLOW, "QQ", 16, 1);
+	Gui_Drawbmp16(150, 30, 40, 40, gImage_qq);
+	Show_Str(150 + 12, 75, BLUE, YELLOW, "QQ", 16, 1);
 	delay_ms(1200);
 }
 
@@ -286,17 +289,18 @@ void Pic_test(void)
 ******************************************************************************/
 void Rotate_Test(void)
 {
-	u8 i=0;
-	u8 *Direction[4]={"Rotation:0","Rotation:90","Rotation:180","Rotation:270"};
-	
-	for(i=0;i<4;i++)
+	u8 i = 0;
+	u8 *Direction[4] = {"Rotation:0", "Rotation:90", "Rotation:180", "Rotation:270"};
+
+	for (i = 0; i < 4; i++)
 	{
 		LCD_Clear(WHITE);
 		LCD_direction(i);
-		DrawTestPage("²âÊÔ10:ÆÁÄ»Ðý×ª²âÊÔ");
-		Show_Str(20,30,BLUE,YELLOW,Direction[i],16,1);
-		Gui_Drawbmp16(30,50,40,40,gImage_qq);
-		delay_ms(1000);delay_ms(1000);
+		DrawTestPage("ï¿½ï¿½ï¿½ï¿½10:ï¿½ï¿½Ä»ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½");
+		Show_Str(20, 30, BLUE, YELLOW, Direction[i], 16, 1);
+		Gui_Drawbmp16(30, 50, 40, 40, gImage_qq);
+		delay_ms(1000);
+		delay_ms(1000);
 	}
 	LCD_direction(USE_HORIZONTAL);
 }
@@ -311,26 +315,26 @@ void Rotate_Test(void)
 void Test_Read(void)
 {
 	u16 color;
-	u8 buf[10] = {0},i;
+	u8 buf[10] = {0}, i;
 	u8 cbuf[35] = {0};
-	DrawTestPage("²âÊÔ2:¶ÁIDºÍÑÕÉ«Öµ²âÊÔ");
-	sprintf((char *)buf,"ID:0x%x",lcddev.id);
-	Show_Str(50,25,BLUE,YELLOW,buf,16,1);
-	for (i=0; i<7; i++) 
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½2:ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½É«Öµï¿½ï¿½ï¿½ï¿½");
+	sprintf((char *)buf, "ID:0x%x", lcddev.id);
+	Show_Str(50, 25, BLUE, YELLOW, buf, 16, 1);
+	for (i = 0; i < 7; i++)
 	{
-		POINT_COLOR=ColornTab[i];
-		LCD_DrawFillRectangle(20-10,55+i*25-10,20+10,55+i*25+10);
-		color = LCD_ReadPoint(20,55+i*25);
-		if(POINT_COLOR==color)
+		POINT_COLOR = ColornTab[i];
+		LCD_DrawFillRectangle(20 - 10, 55 + i * 25 - 10, 20 + 10, 55 + i * 25 + 10);
+		color = LCD_ReadPoint(20, 55 + i * 25);
+		if (POINT_COLOR == color)
 		{
-			strcpy((char*)buf, "OK");
+			strcpy((char *)buf, "OK");
 		}
 		else
 		{
-			strcpy((char*)buf, "ERROR");
+			strcpy((char *)buf, "ERROR");
 		}
-		sprintf((char *)cbuf,"read color:0x%04X  %s",color, buf);
-		Show_Str(20+20,55+i*25-8,POINT_COLOR,YELLOW,cbuf,16,1);
+		sprintf((char *)cbuf, "read color:0x%04X  %s", color, buf);
+		Show_Str(20 + 20, 55 + i * 25 - 8, POINT_COLOR, YELLOW, cbuf, 16, 1);
 	}
 	delay_ms(1500);
 }
@@ -344,49 +348,49 @@ void Test_Read(void)
 ******************************************************************************/
 void POINT_Test(void)
 {
-	uint8_t x=lcddev.width/2,y=lcddev.height/2,r=20,t,m,i;
+	uint8_t x = lcddev.width / 2, y = lcddev.height / 2, r = 20, t, m, i;
 
-	t = 7*r/10;
-	m =100;	//ÏÔÊ¾ËÙ¶ÈºÁÃëÖµ
-	
-	DrawTestPage("²âÊÔ12:GUI Loading");
-	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,BLACK);
+	t = 7 * r / 10;
+	m = 100; //ï¿½ï¿½Ê¾ï¿½Ù¶Èºï¿½ï¿½ï¿½Öµ
+
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½12:GUI Loading");
+	LCD_Fill(0, 20, lcddev.width - 1, lcddev.height - 20, BLACK);
 	POINT_COLOR = WHITE;
 	BACK_COLOR = BLACK;
-	Show_Str((lcddev.width-96)/2, lcddev.height/2+r+10, POINT_COLOR,BACK_COLOR,"Loading.....",16,1);
-	for(i=0;i<2;i++)
+	Show_Str((lcddev.width - 96) / 2, lcddev.height / 2 + r + 10, POINT_COLOR, BACK_COLOR, "Loading.....", 16, 1);
+	for (i = 0; i < 2; i++)
 	{
-		LCD_Draw9Point(x, y-r, WHITE); //»­µÚÒ»¸öµã
+		LCD_Draw9Point(x, y - r, WHITE); //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x+t, y-t, WHITE); //»­µÚ¶þ¸öµã
+		LCD_Draw9Point(x + t, y - t, WHITE); //ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x, y-r, BLACK); //É¾³ýµÚÒ»¸öµã
+		LCD_Draw9Point(x, y - r, BLACK); //É¾ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x+r, y, WHITE); //»­µÚÈý¸öµã
+		LCD_Draw9Point(x + r, y, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x+t, y-t, BLACK);  //É¾³ýµÚ¶þ¸öµã
+		LCD_Draw9Point(x + t, y - t, BLACK); //É¾ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x+t, y+t, WHITE);  //»­µÚËÄ¸öµã
+		LCD_Draw9Point(x + t, y + t, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x+r, y, BLACK); //É¾³ýµÚÈý¸öµã
+		LCD_Draw9Point(x + r, y, BLACK); //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x, y+r, WHITE);  //»­µÚÎå¸öµã
+		LCD_Draw9Point(x, y + r, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x+t, y+t, BLACK);  //É¾³ýµÚËÄ¸öµã
+		LCD_Draw9Point(x + t, y + t, BLACK); //É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x-t, y+t, WHITE);  //»­µÚÁù¸öµã
+		LCD_Draw9Point(x - t, y + t, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x, y+r, BLACK);  //É¾³ýµÚÎå¸öµã
+		LCD_Draw9Point(x, y + r, BLACK); //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x-r, y, WHITE);  //»­µÚÆß¸öµã
+		LCD_Draw9Point(x - r, y, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x-t, y+t, BLACK);  //É¾³ýµÚÁù¸öµã
+		LCD_Draw9Point(x - t, y + t, BLACK); //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x-t, y-t, WHITE);  //»­µÚ°Ë¸öµã
+		LCD_Draw9Point(x - t, y - t, WHITE); //ï¿½ï¿½ï¿½Ú°Ë¸ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x-r, y, BLACK);  //É¾³ýµÚÆß¸öµã
+		LCD_Draw9Point(x - r, y, BLACK); //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½
 		delay_ms(m);
-		LCD_Draw9Point(x-t, y-t, BLACK);  //É¾³ýµÚ°Ë¸öµã
+		LCD_Draw9Point(x - t, y - t, BLACK); //É¾ï¿½ï¿½ï¿½Ú°Ë¸ï¿½ï¿½ï¿½
 		delay_ms(m);
 	}
 	delay_ms(1500);
@@ -401,70 +405,70 @@ void POINT_Test(void)
 ******************************************************************************/
 void Combo_Test(void)
 {
-	DrawTestPage("²âÊÔ13:GUI Combo");
-	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
-	//»­Ò»¸öÌõÐÎÊäÈë¿ò
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½13:GUI Combo");
+	LCD_Fill(0, 20, lcddev.width - 1, lcddev.height - 20, GRAY);
+	//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Draw_TextBox(50, 50, 200, 73);
-	//»­ÏÂÀ­ÁÐ±í°´Å¥(19*19)ÏñËØ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Å¥(19*19)ï¿½ï¿½ï¿½ï¿½
 	Draw_Button(179, 52, 198, 71);
-	Draw_DirectButton(179,52);
+	Draw_DirectButton(179, 52);
 	delay_ms(500);
 	delay_ms(500);
 	delay_ms(500);
 	SetButton(179, 52, 198, 71);
 	LCD_Fill(183, 56, 194, 67, LGRAY);
-   	Draw_DirectButton(180,53);
+	Draw_DirectButton(180, 53);
 	delay_ms(500);
 	delay_ms(500);
 	delay_ms(500);
 	EscButton(179, 52, 198, 71);
 	LCD_Fill(183, 56, 194, 67, LGRAY);
-	Draw_DirectButton(179,52);
-	//À­³öÏÂÀ­ÁÐ±í
-	POINT_COLOR=BLACK;
+	Draw_DirectButton(179, 52);
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+	POINT_COLOR = BLACK;
 	LCD_DrawRectangle(50, 74, 200, 143);
 	LCD_Fill(51, 75, 199, 142, WHITE);
-	//Ð´ÁÐ±íÖÐµÄÄÚÈÝ
-	LCD_Fill(51, 75, 199, 97, DARKBLUE); //µÚÒ»¸öÄ¬ÈÏÎªÑ¡ÖÐ×´Ì¬
-	POINT_COLOR=WHITE;
-	BACK_COLOR=DARKBLUE;
-	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+	//Ð´ï¿½Ð±ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+	LCD_Fill(51, 75, 199, 97, DARKBLUE); //ï¿½ï¿½Ò»ï¿½ï¿½Ä¬ï¿½ï¿½ÎªÑ¡ï¿½ï¿½×´Ì¬
+	POINT_COLOR = WHITE;
+	BACK_COLOR = DARKBLUE;
+	Show_Str(53, 79, POINT_COLOR, BACK_COLOR, "STM ICP Bridge", 16, 1);
 
-	POINT_COLOR=BLACK;
-	BACK_COLOR=WHITE;
-	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
-	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+	POINT_COLOR = BLACK;
+	BACK_COLOR = WHITE;
+	Show_Str(53, 101, POINT_COLOR, BACK_COLOR, "STM PP Bridge", 16, 1);
+	Show_Str(53, 124, POINT_COLOR, BACK_COLOR, "None ISP", 16, 1);
 	delay_ms(500);
 	delay_ms(500);
 	delay_ms(500);
-	//Ñ¡ÖÐµÚ¶þ¸ö
-	LCD_Fill(51, 75, 199, 97, WHITE);	   //ÏÈÈ¡ÏûµÚÒ»¸ö
-	POINT_COLOR=BLACK;
-	BACK_COLOR=WHITE;
-	Show_Str(53, 79, POINT_COLOR,BACK_COLOR,"STM ICP Bridge",16,1);
+	//Ñ¡ï¿½ÐµÚ¶ï¿½ï¿½ï¿½
+	LCD_Fill(51, 75, 199, 97, WHITE); //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+	POINT_COLOR = BLACK;
+	BACK_COLOR = WHITE;
+	Show_Str(53, 79, POINT_COLOR, BACK_COLOR, "STM ICP Bridge", 16, 1);
 
-	LCD_Fill(51, 98, 199, 120, DARKBLUE);  //Ñ¡ÖÐµÚ¶þ¸ö
-	POINT_COLOR=WHITE;
-	BACK_COLOR=DARKBLUE;
-	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+	LCD_Fill(51, 98, 199, 120, DARKBLUE); //Ñ¡ï¿½ÐµÚ¶ï¿½ï¿½ï¿½
+	POINT_COLOR = WHITE;
+	BACK_COLOR = DARKBLUE;
+	Show_Str(53, 101, POINT_COLOR, BACK_COLOR, "STM PP Bridge", 16, 1);
 	delay_ms(500);
 	delay_ms(500);
 	delay_ms(500);
-	//Ñ¡ÖÐµÚÈý¸ö
-	LCD_Fill(51, 98, 199, 120, WHITE);//ÏÈÈ¡ÏûÑ¡ÖÐµÄµÚ¶þ¸ö
-	POINT_COLOR=BLACK;
-	BACK_COLOR=WHITE;
-	Show_Str(53, 101, POINT_COLOR,BACK_COLOR,"STM PP Bridge",16,1);
+	//Ñ¡ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+	LCD_Fill(51, 98, 199, 120, WHITE); //ï¿½ï¿½È¡ï¿½ï¿½Ñ¡ï¿½ÐµÄµÚ¶ï¿½ï¿½ï¿½
+	POINT_COLOR = BLACK;
+	BACK_COLOR = WHITE;
+	Show_Str(53, 101, POINT_COLOR, BACK_COLOR, "STM PP Bridge", 16, 1);
 
-	LCD_Fill(51, 121, 199, 142, DARKBLUE);//Ñ¡ÖÐµÚÈý¸ö
-	POINT_COLOR=WHITE;
-	BACK_COLOR=DARKBLUE;
-	Show_Str(53, 124, POINT_COLOR,BACK_COLOR,"None ISP",16,1);
+	LCD_Fill(51, 121, 199, 142, DARKBLUE); //Ñ¡ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+	POINT_COLOR = WHITE;
+	BACK_COLOR = DARKBLUE;
+	Show_Str(53, 124, POINT_COLOR, BACK_COLOR, "None ISP", 16, 1);
 	delay_ms(500);
 	delay_ms(500);
 	delay_ms(500);
 	delay_ms(500);
-	//Çå³ý
+	//ï¿½ï¿½ï¿½
 	LCD_Fill(50, 74, 200, 143, GRAY);
 	delay_ms(1500);
 }
@@ -478,33 +482,33 @@ void Combo_Test(void)
 ******************************************************************************/
 void ProgresBar_Test(void)
 {
-	uint8_t i,num=1;
-	u16 x1=20;
-	u16 y1=30;
-	u16 x2=150;//130
-	u16 y2=130;//100
-			
-	DrawTestPage("²âÊÔ14:GUI ProgresBar");
-	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
-	Draw_Button(x1, y1, x2, y2);   // ÏÔÊ¾Ö÷Ìå´°¿Ú
-	LCD_Fill(x1+3, y1+3, x2-3, y2-75, DARKBLUE);	 // ÏÔÊ¾±êÌâÀ¸ 
-	Show_Str(x1+25, y1+5, POINT_COLOR,BACK_COLOR,"ProgresBar",16,1); // °´Å¥ÉÏÐ´×Ö
-	Draw_Button(x1+5, y1+70, x2-70, y2-5);  // ÏÔÊ¾µÚÒ»¸ö°´Å¥
-	Draw_Button(x1+70, y1+70, x2-5, y2-5);  // ÏÔÊ¾µÚ¶þ¸ö°´Å¥
-	POINT_COLOR=BLACK;	
-	BACK_COLOR=LGRAY;
-	Show_Str(x1+25, y1+74,POINT_COLOR,BACK_COLOR,"OK",16,1);
-	Show_Str(x1+75, y1+74, POINT_COLOR,BACK_COLOR,"Cancel",16,1);
-	Show_Str(x1+80, y1+35, POINT_COLOR,BACK_COLOR,"%",16,1);	  
-	for(i=x1+26;i<x2-5;i++)
+	uint8_t i, num = 1;
+	u16 x1 = 20;
+	u16 y1 = 30;
+	u16 x2 = 150; //130
+	u16 y2 = 130; //100
+
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½14:GUI ProgresBar");
+	LCD_Fill(0, 20, lcddev.width - 1, lcddev.height - 20, WHITE);
+	Draw_Button(x1, y1, x2, y2);											 // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½å´°ï¿½ï¿½
+	LCD_Fill(x1 + 3, y1 + 3, x2 - 3, y2 - 75, DARKBLUE);					 // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	Show_Str(x1 + 25, y1 + 5, POINT_COLOR, BACK_COLOR, "ProgresBar", 16, 1); // ï¿½ï¿½Å¥ï¿½ï¿½Ð´ï¿½ï¿½
+	Draw_Button(x1 + 5, y1 + 70, x2 - 70, y2 - 5);							 // ï¿½ï¿½Ê¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Å¥
+	Draw_Button(x1 + 70, y1 + 70, x2 - 5, y2 - 5);							 // ï¿½ï¿½Ê¾ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
+	POINT_COLOR = BLACK;
+	BACK_COLOR = LGRAY;
+	Show_Str(x1 + 25, y1 + 74, POINT_COLOR, BACK_COLOR, "OK", 16, 1);
+	Show_Str(x1 + 75, y1 + 74, POINT_COLOR, BACK_COLOR, "Cancel", 16, 1);
+	Show_Str(x1 + 80, y1 + 35, POINT_COLOR, BACK_COLOR, "%", 16, 1);
+	for (i = x1 + 26; i < x2 - 5; i++)
 	{
-		LCD_Fill(x1+5, y1+53, i, y1+68, RED);
+		LCD_Fill(x1 + 5, y1 + 53, i, y1 + 68, RED);
 		delay_ms(40);
-		LCD_ShowNum(x1+62, y1+35, num,2,16,0);
+		LCD_ShowNum(x1 + 62, y1 + 35, num, 2, 16, 0);
 		num++;
 	}
-	LCD_Fill(x1+5, y1+35, x2-5, y1+50, LGRAY);
-	Show_Str(x1+25, y1+35, BLUE,BACK_COLOR,"Success!!!",16,1);
+	LCD_Fill(x1 + 5, y1 + 35, x2 - 5, y1 + 50, LGRAY);
+	Show_Str(x1 + 25, y1 + 35, BLUE, BACK_COLOR, "Success!!!", 16, 1);
 	delay_ms(1500);
 }
 
@@ -517,46 +521,46 @@ void ProgresBar_Test(void)
 ******************************************************************************/
 void BarReport_Test(void)
 {
-	uint16_t i;	
+	uint16_t i;
 
-	DrawTestPage("²âÊÔ15:GUI BarReport");
-	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½15:GUI BarReport");
+	LCD_Fill(0, 20, lcddev.width - 1, lcddev.height - 20, WHITE);
 	POINT_COLOR = BLACK;
-	//»­×Ý×ø±ê
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	LCD_DrawLine(20, 50, 20, 210);
 	LCD_DrawLine(10, 60, 20, 50);
 	LCD_DrawLine(30, 60, 20, 50);
-	//»­ºá×ø±ê
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	LCD_DrawLine(20, 210, 220, 210);
 	LCD_DrawLine(210, 200, 220, 210);
 	LCD_DrawLine(210, 220, 220, 210);
-	//»­ÌõÐÎ
-	LCD_Fill(35, 80, 55, 209,RED);
-	LCD_Fill(75, 130, 95, 209,YELLOW);
-	LCD_Fill(115, 60, 135, 209,BLUE);
-	LCD_Fill(155, 90, 175, 209,GREEN);
-	//ÌõÐÎ½¥±ä
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	LCD_Fill(35, 80, 55, 209, RED);
+	LCD_Fill(75, 130, 95, 209, YELLOW);
+	LCD_Fill(115, 60, 135, 209, BLUE);
+	LCD_Fill(155, 90, 175, 209, GREEN);
+	//ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½
 	delay_ms(50);
-	for(i=81;i<209;i++) //ºìÉ«Ìõ½µµÍ
+	for (i = 81; i < 209; i++) //ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		LCD_Fill(35, 80, 55, i,WHITE);
+		LCD_Fill(35, 80, 55, i, WHITE);
 		delay_ms(10);
 	}
-	for(i=208;i>100;i--) //ºìÉ«ÌõÉý¸ß
+	for (i = 208; i > 100; i--) //ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		LCD_Fill(35, i, 55, 209,RED);
+		LCD_Fill(35, i, 55, 209, RED);
 		delay_ms(10);
 	}
-	for(i=129;i>80;i--) //»ÆÉ«ÌõÉý¸ß
+	for (i = 129; i > 80; i--) //ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		LCD_Fill(75, i, 95, 130,YELLOW);
+		LCD_Fill(75, i, 95, 130, YELLOW);
 		delay_ms(10);
 	}
-	for(i=25;i<160;i++) //À¶É«Ìõ½µµÍ
+	for (i = 25; i < 160; i++) //ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		LCD_Fill(115, 24, 135, i,WHITE);
+		LCD_Fill(115, 24, 135, i, WHITE);
 		delay_ms(10);
-	}		
+	}
 	delay_ms(1500);
 }
 
@@ -570,17 +574,20 @@ void BarReport_Test(void)
 void Window_Test(void)
 {
 
-	uint16_t xstart=2,ystart=30,xend=lcddev.width*2/3,yend=lcddev.height-30;
-	uint8_t i=3;
-	DrawTestPage("²âÊÔ16:GUI Window");
-	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,GRAY);
+	uint16_t xstart = 2, ystart = 30, xend = lcddev.width * 2 / 3, yend = lcddev.height - 30;
+	uint8_t i = 3;
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½16:GUI Window");
+	LCD_Fill(0, 20, lcddev.width - 1, lcddev.height - 20, GRAY);
 	do
 	{
-		Draw_Window(xstart,ystart,xend,yend,"OK");
+		Draw_Window(xstart, ystart, xend, yend, "OK");
 		delay_ms(500);
 		delay_ms(500);
-		xstart+=15;ystart+=15;xend-=30;yend-=30;
-	}while(--i);
+		xstart += 15;
+		ystart += 15;
+		xend -= 30;
+		yend -= 30;
+	} while (--i);
 	delay_ms(1500);
 }
 
@@ -592,64 +599,62 @@ void Window_Test(void)
  * @retvalue   :None
 ******************************************************************************/
 void Button_Test(void)
-{		  	
-	DrawTestPage("²âÊÔ17:GUI Button");
-	LCD_Fill(0,20,lcddev.width-1,lcddev.height-20,WHITE);
-	Draw_TextBox(30, 60, 170, 90);	 // ÏÔÊ¾Ò»¸öÎÄ×ÖÊäÈë¿ò
-	Draw_Button(180, 60, 235, 90);			 // ÏÔÊ¾1¸ö°´Å¥
+{
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½17:GUI Button");
+	LCD_Fill(0, 20, lcddev.width - 1, lcddev.height - 20, WHITE);
+	Draw_TextBox(30, 60, 170, 90); // ï¿½ï¿½Ê¾Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	Draw_Button(180, 60, 235, 90); // ï¿½ï¿½Ê¾1ï¿½ï¿½ï¿½ï¿½Å¥
 	POINT_COLOR = BLACK;
 	BACK_COLOR = LGRAY;
-	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+	Show_Str(184, 67, POINT_COLOR, BACK_COLOR, "Search", 16, 1);
 
-	
 	POINT_COLOR = BLUE;
 	BACK_COLOR = WHITE;
-	Show_Str(30,38,POINT_COLOR,BACK_COLOR,"News",16,1);
-	LCD_DrawLine(30,55,62,55);
-	Show_Str(118,38,POINT_COLOR,BACK_COLOR,"Pic",16,1);
-	LCD_DrawLine(118,55,150,55);
+	Show_Str(30, 38, POINT_COLOR, BACK_COLOR, "News", 16, 1);
+	LCD_DrawLine(30, 55, 62, 55);
+	Show_Str(118, 38, POINT_COLOR, BACK_COLOR, "Pic", 16, 1);
+	LCD_DrawLine(118, 55, 150, 55);
 	POINT_COLOR = BLACK;
-	Show_Str(70,38,POINT_COLOR,BACK_COLOR,"Label",16,1);
+	Show_Str(70, 38, POINT_COLOR, BACK_COLOR, "Label", 16, 1);
 	delay_ms(500);
 	delay_ms(500);
-	delay_ms(500);
-	
-	LCD_ShowChar(35, 67, POINT_COLOR,BACK_COLOR,'C',16,1);
-	delay_ms(500);
-	LCD_ShowChar(43, 67, POINT_COLOR,BACK_COLOR,'o',16,1);
-	delay_ms(500);
-	LCD_ShowChar(51, 67, POINT_COLOR,BACK_COLOR,'r',16,1);
-	delay_ms(500);
-	LCD_ShowChar(58, 67, POINT_COLOR,BACK_COLOR,'t',16,1);
-	delay_ms(500);
-	LCD_ShowChar(66, 67, POINT_COLOR,BACK_COLOR,'e',16,1);
-	delay_ms(500);
-	LCD_ShowChar(74, 67, POINT_COLOR,BACK_COLOR,'x',16,1);
-	delay_ms(500);
-	LCD_ShowChar(82, 67, POINT_COLOR,BACK_COLOR,'-',16,1);
-	delay_ms(500);
-	LCD_ShowChar(88, 67, POINT_COLOR,BACK_COLOR,'M',16,1);
 	delay_ms(500);
 
-
-	SetButton(180, 60, 235, 90);			 // °´ÏÂ¡°ËÑË÷¡±°´Å¥
-	POINT_COLOR = BLACK;
-	BACK_COLOR = LGRAY;
-	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+	LCD_ShowChar(35, 67, POINT_COLOR, BACK_COLOR, 'C', 16, 1);
+	delay_ms(500);
+	LCD_ShowChar(43, 67, POINT_COLOR, BACK_COLOR, 'o', 16, 1);
+	delay_ms(500);
+	LCD_ShowChar(51, 67, POINT_COLOR, BACK_COLOR, 'r', 16, 1);
+	delay_ms(500);
+	LCD_ShowChar(58, 67, POINT_COLOR, BACK_COLOR, 't', 16, 1);
+	delay_ms(500);
+	LCD_ShowChar(66, 67, POINT_COLOR, BACK_COLOR, 'e', 16, 1);
+	delay_ms(500);
+	LCD_ShowChar(74, 67, POINT_COLOR, BACK_COLOR, 'x', 16, 1);
+	delay_ms(500);
+	LCD_ShowChar(82, 67, POINT_COLOR, BACK_COLOR, '-', 16, 1);
+	delay_ms(500);
+	LCD_ShowChar(88, 67, POINT_COLOR, BACK_COLOR, 'M', 16, 1);
 	delay_ms(500);
 
-	EscButton(180, 60, 235, 90);			 // ·Å¿ª¡°ËÑË÷¡±°´Å¥
+	SetButton(180, 60, 235, 90); // ï¿½ï¿½ï¿½Â¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 	POINT_COLOR = BLACK;
 	BACK_COLOR = LGRAY;
-	Show_Str(184,67,POINT_COLOR,BACK_COLOR,"Search",16,1);
+	Show_Str(184, 67, POINT_COLOR, BACK_COLOR, "Search", 16, 1);
+	delay_ms(500);
+
+	EscButton(180, 60, 235, 90); // ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
+	POINT_COLOR = BLACK;
+	BACK_COLOR = LGRAY;
+	Show_Str(184, 67, POINT_COLOR, BACK_COLOR, "Search", 16, 1);
 	POINT_COLOR = RED;
-	BACK_COLOR = WHITE;		 
-	Show_Str(12,100,POINT_COLOR,BACK_COLOR,"The ARM Cortex-M is a group",16,1 );
-	Show_Str(12,120,POINT_COLOR,BACK_COLOR,"of 32-bit RISC ARM processor",16,1 );
-	Show_Str(12,140,POINT_COLOR,BACK_COLOR,"cores licensed by ARM Holdings.",16,1 );
-	Show_Str(12,160,POINT_COLOR,BACK_COLOR,"The cores are intended for ",16,1 );
-	Show_Str(12,180,POINT_COLOR,BACK_COLOR,"microcontroller use,and consist",16,1);
-	Show_Str(12,200,POINT_COLOR,BACK_COLOR,"of the Cortex-M0/M1/M2/M3/M4.",16,1);
+	BACK_COLOR = WHITE;
+	Show_Str(12, 100, POINT_COLOR, BACK_COLOR, "The ARM Cortex-M is a group", 16, 1);
+	Show_Str(12, 120, POINT_COLOR, BACK_COLOR, "of 32-bit RISC ARM processor", 16, 1);
+	Show_Str(12, 140, POINT_COLOR, BACK_COLOR, "cores licensed by ARM Holdings.", 16, 1);
+	Show_Str(12, 160, POINT_COLOR, BACK_COLOR, "The cores are intended for ", 16, 1);
+	Show_Str(12, 180, POINT_COLOR, BACK_COLOR, "microcontroller use,and consist", 16, 1);
+	Show_Str(12, 200, POINT_COLOR, BACK_COLOR, "of the Cortex-M0/M1/M2/M3/M4.", 16, 1);
 	delay_ms(500);
 	delay_ms(500);
 	delay_ms(500);
@@ -673,33 +678,32 @@ void Button_Test(void)
 ******************************************************************************/
 void Test_Dynamic_Num(void)
 {
-		u8 i;
-	DrawTestPage("²âÊÔ9:¶¯Ì¬Êý×ÖÏÔÊ¾");
-	POINT_COLOR=BLUE;
+	u8 i;
+	DrawTestPage("ï¿½ï¿½ï¿½ï¿½9:ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾");
+	POINT_COLOR = BLUE;
 	srand(123456);
-	LCD_ShowString(15,50,16, " HCHO:           ug/m3",1);
-	LCD_ShowString(15,70,16, "  CO2:           ppm",1);
-	LCD_ShowString(15,90,16, " TVOC:           ug/m3",1);
-	LCD_ShowString(15,110,16,"PM2.5:           ug/m3",1);
-	LCD_ShowString(15,130,16," PM10:           ug/m3",1);
-	LCD_ShowString(15,150,16,"  TEP:           C",1);
-	LCD_ShowString(15,170,16,"  HUM:           %",1);
-	POINT_COLOR=RED;
-	for(i=0;i<15;i++)
+	LCD_ShowString(15, 50, 16, " HCHO:           ug/m3", 1);
+	LCD_ShowString(15, 70, 16, "  CO2:           ppm", 1);
+	LCD_ShowString(15, 90, 16, " TVOC:           ug/m3", 1);
+	LCD_ShowString(15, 110, 16, "PM2.5:           ug/m3", 1);
+	LCD_ShowString(15, 130, 16, " PM10:           ug/m3", 1);
+	LCD_ShowString(15, 150, 16, "  TEP:           C", 1);
+	LCD_ShowString(15, 170, 16, "  HUM:           %", 1);
+	POINT_COLOR = RED;
+	for (i = 0; i < 15; i++)
 	{
-		LCD_ShowNum(100,50,rand()%10000,5,16,0);
-		LCD_ShowNum(100,70,rand()%10000,5,16),0;
-		LCD_ShowNum(100,90,rand()%10000,5,16,0);
-		LCD_ShowNum(100,110,rand()%10000,5,16,0);
-		LCD_ShowNum(100,130,rand()%10000,5,16,0);
-		LCD_ShowNum(100,150,rand()%50,5,16,0);
-		LCD_ShowNum(100,170,rand()%100,5,16,0);
+		LCD_ShowNum(100, 50, rand() % 10000, 5, 16, 0);
+		LCD_ShowNum(100, 70, rand() % 10000, 5, 16, 0);
+		LCD_ShowNum(100, 90, rand() % 10000, 5, 16, 0);
+		LCD_ShowNum(100, 110, rand() % 10000, 5, 16, 0);
+		LCD_ShowNum(100, 130, rand() % 10000, 5, 16, 0);
+		LCD_ShowNum(100, 150, rand() % 50, 5, 16, 0);
+		LCD_ShowNum(100, 170, rand() % 100, 5, 16, 0);
 		delay_ms(500);
 	}
 }
-#endif
 
-const u8 send_test[]="STM32F407VxT6 SPI TEST";   //Ð´ÈëÊý×é
+const u8 send_test[] = "Hello Phung Minh Duc"; //Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 /*****************************************************************************
  * @name       :void SPI_W25Q64_test(void)
@@ -710,21 +714,22 @@ const u8 send_test[]="STM32F407VxT6 SPI TEST";   //Ð´ÈëÊý×é
 ******************************************************************************/
 void SPI_W25Q64_test(void)
 {
+	USART1_Send("spi w25q64 test\r\n");
 	printf("spi w25q64 test\r\n");
-	Gui_StrCenter(0,20,RED,BLUE,"STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,45,RED,BLUE,"SPI ²âÊÔ³ÌÐò",16,1);//¾ÓÖÐÏÔÊ¾	
-	Gui_StrCenter(0,70,BLUE,BLUE,"KEY_UP:Write  KEY0:Read",16,1);//¾ÓÖÐÏÔÊ¾	
-	while(W25QXX_ReadID()!=W25Q64)
+	Gui_StrCenter(0, 20, RED, BLUE, "STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 45, RED, BLUE, "SPI ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½", 16, 1);				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 70, BLUE, BLUE, "KEY_UP:Write  KEY0:Read", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	while (W25QXX_ReadID() != W25Q64)
 	{
-		Gui_StrCenter(0,95,RED,WHITE,"W25Q64 Check Failed!",16,0);
+		Gui_StrCenter(0, 95, RED, WHITE, "W25Q64 Check Failed!", 16, 0);
 		delay_ms(500);
-		Gui_StrCenter(0,95,RED,WHITE,"Please Check!       ",16,0);
+		Gui_StrCenter(0, 95, RED, WHITE, "Please Check!       ", 16, 0);
 		delay_ms(500);
-		LED0=!LED0;//LED0ÉÁË¸
+		LED0 = !LED0; //LED0ï¿½ï¿½Ë¸
 	}
-	Gui_StrCenter(0,95,BLUE,WHITE,"W25Q64 Ready!",16,0);
-	Gui_StrCenter(0,165,BLUE,BLUE,"2020-06-05",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,190,GREEN,BLUE,"http://www.lcdwiki.com",16,1);//¾ÓÖÐÏÔÊ¾
+	Gui_StrCenter(0, 95, BLUE, WHITE, "W25Q64 Ready!", 16, 0);
+	Gui_StrCenter(0, 165, BLUE, BLUE, "2020-06-05", 16, 1);				 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 190, GREEN, BLUE, "http://www.lcdwiki.com", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 }
 
 /*****************************************************************************
@@ -736,10 +741,10 @@ void SPI_W25Q64_test(void)
 ******************************************************************************/
 void Show_W25Q64_Write(void)
 {
-	LCD_Fill(0,140,lcddev.width-1,156,WHITE);
-	Show_Str(lcddev.width/2-84,120,RED,WHITE,"Start Write W25Q64....",16,0);
-	W25Q64_Write((u8*)send_test,FLASH_SIZE-64,sizeof(send_test));
-	Show_Str(lcddev.width/2-84,120,RED,WHITE,"W25Q64 Write Finished!",16,0);//ÌáÊ¾´«ËÍÍê³É
+	LCD_Fill(0, 140, lcddev.width - 1, 156, WHITE);
+	Show_Str(lcddev.width / 2 - 84, 120, RED, WHITE, "Start Write W25Q64....", 16, 0);
+	W25Q64_Write((u8 *)send_test, FLASH_SIZE - 64, sizeof(send_test));
+	Show_Str(lcddev.width / 2 - 84, 120, RED, WHITE, "W25Q64 Write Finished!", 16, 0); //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 /*****************************************************************************
@@ -752,9 +757,8 @@ void Show_W25Q64_Write(void)
 void Show_W25Q64_Read(void)
 {
 	u8 rece_buf[sizeof(send_test)];
-	Show_Str(lcddev.width/2-84,120,RED,WHITE,"Start Read W25Q64.... ",16,0);
-	W25Q64_Read(rece_buf,FLASH_SIZE-64,sizeof(send_test));
-	Show_Str(lcddev.width/2-84,120,RED,WHITE,"The Data Readed Is:   ",16,0);
-	Show_Str(lcddev.width/2-84,140,BLUE,WHITE,rece_buf,16,0);//ÏÔÊ¾¶Áµ½µÄ×Ö·û´®
+	Show_Str(lcddev.width / 2 - 84, 120, RED, WHITE, "Start Read W25Q64.... ", 16, 0);
+	W25Q64_Read(rece_buf, FLASH_SIZE - 64, sizeof(send_test));
+	Show_Str(lcddev.width / 2 - 84, 120, RED, WHITE, "The Data Readed Is:   ", 16, 0);
+	Show_Str(lcddev.width / 2 - 84, 140, BLUE, WHITE, rece_buf, 16, 0); //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 }
-

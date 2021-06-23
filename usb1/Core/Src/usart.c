@@ -1,23 +1,23 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+//////////////////////////////////////////////////////////////////////////////////
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Í¾
+//ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½STM32F407VGT6,STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æµ168MHZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8MHZ
+//QDtech-TFTÒºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for STM32 FSMC
 //Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+//ï¿½ï¿½Ë¾ï¿½ï¿½Õ¾:www.qdtft.com
+//wikiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½http://www.lcdwiki.com
+//ï¿½ï¿½Ë¾ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ÎºÎ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â»¶Ó­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ñ§Ï°
+//ï¿½Ì»ï¿½(ï¿½ï¿½ï¿½ï¿½) :+86 0755-21077707
+//ï¿½Ö»ï¿½: (ï¿½ï¿½ï¿½ï¿½)18823372746 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)15989313508
+//ï¿½ï¿½ï¿½ï¿½:(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½) sales@qdtft.com  (ï¿½Ûºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)service@qdtft.com
+//QQ:(ï¿½ï¿½Ç°ï¿½ï¿½Ñ¯)3002706772 (ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½)3002778157
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQÈº:778679828
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2020/06/29
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2018-2028
 //All rights reserved
 /************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åUSB SlaveÊ¾Àý
+//STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½USB SlaveÊ¾ï¿½ï¿½
 //     USB_D+         --->            PA12
 //     USB_D-         --->            PA11
 //     LED0           --->            PA1
@@ -32,15 +32,15 @@
 //     SPI_MISO       --->            PB4
 //     USART1_TX      --->            PA9
 //     USART1_RX      --->            PA10
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+//Ö§ï¿½ï¿½ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+//TFT LCDï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½Û»ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½ï¿½ï¿½
+//STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸TFTLCDï¿½ï¿½Û»ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Óµï¿½STM32ï¿½ï¿½ï¿½ï¿½
+//=================================ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½=======================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//      VDD           --->           DC5V/3.3V          //ï¿½ï¿½Ô´
+//      GND           --->             GND              //ï¿½ï¿½Ô´ï¿½ï¿½
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //      DB0           --->            PD14        -|   
 //      DB1           --->            PD15         |  
 //      DB2           --->            PD0          | 
@@ -48,7 +48,7 @@
 //      DB4           --->            PE7          |
 //      DB5           --->            PE8          |
 //      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+//      DB7           --->            PE10         |===>Òºï¿½ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 //      DB8           --->            PE11         |
 //      DB9           --->            PE12         |
 //      DB10          --->            PE13         |
@@ -57,16 +57,16 @@
 //      DB13          --->            PD8          |
 //      DB14          --->            PD9          |
 //      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½ 				            STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//      WR            --->            PD5             //Òºï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RD            --->            PD4             //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RS            --->            PD11            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RST           --->          ï¿½ï¿½Î»ï¿½ï¿½ï¿½Å£ï¿½Ä¬ï¿½Ï£ï¿½  //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½Ò²ï¿½ï¿½Ñ¡ï¿½ï¿½PD13ï¿½ï¿½
+//      CS            --->            PD7             //Òºï¿½ï¿½ï¿½ï¿½Æ¬Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      BL            --->            PB15            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+*************************************************************************************/
+/* @attention
   *
   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
@@ -76,42 +76,43 @@
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *************************************************************************************/
 #include "sys.h"
-#include "usart.h"	
+#include "usart.h"
 
 //////////////////////////////////////////////////////////////////
-//¼ÓÈëÒÔÏÂ´úÂë,Ö§³Öprintfº¯Êý´®¿ÚÊä³ö,¶ø²»ÐèÒªÑ¡Ôñuse MicroLIB	  
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½,Ö§ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÑ¡ï¿½ï¿½use MicroLIB
 #if !USE_MICROLIB
-#pragma import(__use_no_semihosting) //µ¼Èë__use_no_semihosting·ûºÅ£¬È·±£Ã»ÓÐ´ÓC¿âÊ¹ÓÃ°ëÖ÷»úµÄº¯Êý            
-//±ê×¼¿âÐèÒªµÄÖ§³Öº¯Êý                 
-struct __FILE 
-{ 
-	int handle; 
-}; 
+#pragma import(__use_no_semihosting) //ï¿½ï¿½ï¿½ï¿½__use_no_semihostingï¿½ï¿½ï¿½Å£ï¿½È·ï¿½ï¿½Ã»ï¿½Ð´ï¿½Cï¿½ï¿½Ê¹ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½
+//ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ö§ï¿½Öºï¿½ï¿½ï¿½
+struct __FILE
+{
+	int handle;
+};
 
-FILE __stdout;       
-//¶¨Òå_sys_exit()ÒÔ±ÜÃâÊ¹ÓÃ°ëÖ÷»úÄ£Ê½    
-void _sys_exit(int x) 
-{ 
-	x = x; 
-} 
+FILE __stdout;
+//ï¿½ï¿½ï¿½ï¿½_sys_exit()ï¿½Ô±ï¿½ï¿½ï¿½Ê¹ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+void _sys_exit(int x)
+{
+	x = x;
+}
 
 #endif
- 
-//ÖØ¶¨Òåfputcº¯Êý 
+
+//ï¿½Ø¶ï¿½ï¿½ï¿½fputcï¿½ï¿½ï¿½ï¿½
 int fputc(int ch, FILE *f)
-{ 
-	while (USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);//Ñ­»··¢ËÍ,Ö±µ½·¢ËÍÍê±Ï 
-	USART_SendData(USART1,(u8)ch);     
+{
+	while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
+		; //Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_SendData(USART1, (u8)ch);
 	return ch;
 }
- 
-u8 USART_RX_BUF[USART_REC_LEN];     //½ÓÊÕ»º³å,×î´óUSART_REC_LEN¸ö×Ö½Ú.
 
-//½ÓÊÕ×´Ì¬
-//bit15£¬	½ÓÊÕÍê³É±êÖ¾
-//bit14£¬	½ÓÊÕµ½0x0d
-//bit13~0£¬	½ÓÊÕµ½µÄÓÐÐ§×Ö½ÚÊýÄ¿
-u16 USART_RX_STA=0;       //½ÓÊÕ×´Ì¬±ê¼Ç	
+u8 USART_RX_BUF[USART_REC_LEN]; //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½USART_REC_LENï¿½ï¿½ï¿½Ö½ï¿½.
+
+//ï¿½ï¿½ï¿½ï¿½×´Ì¬
+//bit15ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+//bit14ï¿½ï¿½	ï¿½ï¿½ï¿½Õµï¿½0x0d
+//bit13~0ï¿½ï¿½	ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ö½ï¿½ï¿½ï¿½Ä¿
+u16 USART_RX_STA = 0; //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½
 
 /*****************************************************************************
  * @name       :void USART1_Init(u32 bound)
@@ -119,91 +120,100 @@ u16 USART_RX_STA=0;       //½ÓÊÕ×´Ì¬±ê¼Ç
  * @function   :Initialize USART1
  * @parameters :bound:baudrate
  * @retvalue   :None
-******************************************************************************/	
+******************************************************************************/
 void USART1_Init(u32 bound)
 {
-   //GPIO¶Ë¿ÚÉèÖÃ
-  GPIO_InitTypeDef GPIO_InitStructure;
+	//GPIOï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE); //Ê¹ÄÜGPIOAÊ±ÖÓ
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);//Ê¹ÄÜUSART1Ê±ÖÓ
- 
-	//´®¿Ú1¶ÔÓ¦Òý½Å¸´ÓÃÓ³Éä
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource9,GPIO_AF_USART1); //GPIOA9¸´ÓÃÎªUSART1
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource10,GPIO_AF_USART1); //GPIOA10¸´ÓÃÎªUSART1
-	
-	//USART1¶Ë¿ÚÅäÖÃ
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10; //GPIOA9ÓëGPIOA10
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//¸´ÓÃ¹¦ÄÜ
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	//ËÙ¶È50MHz
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //ÍÆÍì¸´ÓÃÊä³ö
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //ÉÏÀ­
-	GPIO_Init(GPIOA,&GPIO_InitStructure); //³õÊ¼»¯PA9£¬PA10
+	NVIC_InitTypeDef NVIC_InitStructure;
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);  //Ê¹ï¿½ï¿½GPIOAÊ±ï¿½ï¿½
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE); //Ê¹ï¿½ï¿½USART1Ê±ï¿½ï¿½
 
-   //USART1 ³õÊ¼»¯ÉèÖÃ
-	USART_InitStructure.USART_BaudRate = bound;//²¨ÌØÂÊÉèÖÃ
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;//×Ö³¤Îª8Î»Êý¾Ý¸ñÊ½
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;//Ò»¸öÍ£Ö¹Î»
-	USART_InitStructure.USART_Parity = USART_Parity_No;//ÎÞÆæÅ¼Ð£ÑéÎ»
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//ÎÞÓ²¼þÊý¾ÝÁ÷¿ØÖÆ
-	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//ÊÕ·¢Ä£Ê½
-  USART_Init(USART1, &USART_InitStructure); //³õÊ¼»¯´®¿Ú1
-	
-  USART_Cmd(USART1, ENABLE);  //Ê¹ÄÜ´®¿Ú1 	
-	USART_ClearFlag(USART1, USART_FLAG_TC); //Çå³ý±êÖ¾Î»
-	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);//¿ªÆôÏà¹ØÖÐ¶Ï
+	//ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ó³ï¿½ï¿½
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);  //GPIOA9ï¿½ï¿½ï¿½ï¿½ÎªUSART1
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1); //GPIOA10ï¿½ï¿½ï¿½ï¿½ÎªUSART1
 
-	//Usart1 NVIC ÅäÖÃ
-  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;//´®¿Ú1ÖÐ¶ÏÍ¨µÀ
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3;//ÇÀÕ¼ÓÅÏÈ¼¶3
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority =3;		//×ÓÓÅÏÈ¼¶3
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨µÀÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);	//¸ù¾ÝÖ¸¶¨µÄ²ÎÊý³õÊ¼»¯VIC¼Ä´æÆ÷¡¢	
+	//USART1ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10; //GPIOA9ï¿½ï¿½GPIOA10
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;			//ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		//ï¿½Ù¶ï¿½50MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;			//ï¿½ï¿½ï¿½ì¸´ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;			//ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOA, &GPIO_InitStructure);					//ï¿½ï¿½Ê¼ï¿½ï¿½PA9ï¿½ï¿½PA10
+
+	//USART1 ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_InitStructure.USART_BaudRate = bound;										//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;						//ï¿½Ö³ï¿½Îª8Î»ï¿½ï¿½ï¿½Ý¸ï¿½Ê½
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;							//Ò»ï¿½ï¿½Í£Ö¹Î»
+	USART_InitStructure.USART_Parity = USART_Parity_No;								//ï¿½ï¿½ï¿½ï¿½Å¼Ð£ï¿½ï¿½Î»
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;					//ï¿½Õ·ï¿½Ä£Ê½
+	USART_Init(USART1, &USART_InitStructure);										//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+
+	USART_Cmd(USART1, ENABLE);					   //Ê¹ï¿½Ü´ï¿½ï¿½ï¿½1
+	USART_ClearFlag(USART1, USART_FLAG_TC);		   //ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾Î»
+	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+
+	//Usart1 NVIC ï¿½ï¿½ï¿½ï¿½
+	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;		  //ï¿½ï¿½ï¿½ï¿½1ï¿½Ð¶ï¿½Í¨ï¿½ï¿½
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3; //ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½È¼ï¿½3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		  //ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			  //IRQÍ¨ï¿½ï¿½Ê¹ï¿½ï¿½
+	NVIC_Init(&NVIC_InitStructure);							  //ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½VICï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
+void USART1_Send(const char *str)
+{
+	while (*str)
+	{
+		while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET)
+			;
+		USART_SendData(USART1, *str++);
+	}
+}
 /*****************************************************************************
  * @name       :void USART1_Init(u32 bound)
  * @date       :2020-05-08 
  * @function   :USART1 interrupt service program
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/	
-void USART1_IRQHandler(void)                	
+******************************************************************************/
+void USART1_IRQHandler(void)
 {
 	u8 Res;
-	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)  //½ÓÊÕÖÐ¶Ï(½ÓÊÕµ½µÄÊý¾Ý±ØÐëÊÇ0x0d 0x0a½áÎ²)
+	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) //ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½(ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ï¿½ï¿½0x0d 0x0aï¿½ï¿½Î²)
 	{
-		Res =USART_ReceiveData(USART1); 	//¶ÁÈ¡½ÓÊÕµ½µÄÊý¾Ý		
-		if((USART_RX_STA&0x8000)==0)//½ÓÊÕÎ´Íê³É
+		Res = USART_ReceiveData(USART1);  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if ((USART_RX_STA & 0x8000) == 0) //ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½
 		{
-			if(USART_RX_STA&0x4000)//½ÓÊÕµ½ÁË0x0d
+			if (USART_RX_STA & 0x4000) //ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½0x0d
 			{
-				if(Res!=0x0a)
+				if (Res != 0x0a)
 				{
-					USART_RX_STA=0;//½ÓÊÕ´íÎó,ÖØÐÂ¿ªÊ¼
+					USART_RX_STA = 0; //ï¿½ï¿½ï¿½Õ´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Â¿ï¿½Ê¼
 				}
 				else
 				{
-					USART_RX_STA|=0x8000;	//½ÓÊÕÍê³ÉÁË 
+					USART_RX_STA |= 0x8000; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				}
 			}
-			else //»¹Ã»ÊÕµ½0X0D
-			{	
-				if(Res==0x0d)
+			else //ï¿½ï¿½Ã»ï¿½Õµï¿½0X0D
+			{
+				if (Res == 0x0d)
 				{
-					USART_RX_STA|=0x4000;
+					USART_RX_STA |= 0x4000;
 				}
 				else
 				{
-					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
+					USART_RX_BUF[USART_RX_STA & 0X3FFF] = Res;
 					USART_RX_STA++;
-					if(USART_RX_STA>(USART_REC_LEN-1))
+					if (USART_RX_STA > (USART_REC_LEN - 1))
 					{
-						USART_RX_STA=0;//½ÓÊÕÊý¾Ý´íÎó,ÖØÐÂ¿ªÊ¼½ÓÊÕ	  
+						USART_RX_STA = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Â¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 					}
-				}		 
+				}
 			}
-		}   		 
-  } 
-} 
+		}
+	}
+}

@@ -1,23 +1,23 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+//////////////////////////////////////////////////////////////////////////////////
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Í¾
+//ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½STM32F407VGT6,STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æµ168MHZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8MHZ
+//QDtech-TFTÒºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for STM32 FSMC
 //Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+//ï¿½ï¿½Ë¾ï¿½ï¿½Õ¾:www.qdtft.com
+//wikiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½http://www.lcdwiki.com
+//ï¿½ï¿½Ë¾ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ÎºÎ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â»¶Ó­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ñ§Ï°
+//ï¿½Ì»ï¿½(ï¿½ï¿½ï¿½ï¿½) :+86 0755-21077707
+//ï¿½Ö»ï¿½: (ï¿½ï¿½ï¿½ï¿½)18823372746 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)15989313508
+//ï¿½ï¿½ï¿½ï¿½:(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½) sales@qdtft.com  (ï¿½Ûºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)service@qdtft.com
+//QQ:(ï¿½ï¿½Ç°ï¿½ï¿½Ñ¯)3002706772 (ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½)3002778157
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQÈº:778679828
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2020/06/29
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2018-2028
 //All rights reserved
 /************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åUSB SlaveÊ¾Àý
+//STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½USB SlaveÊ¾ï¿½ï¿½
 //     USB_D+         --->            PA12
 //     USB_D-         --->            PA11
 //     LED0           --->            PA1
@@ -32,15 +32,15 @@
 //     SPI_MISO       --->            PB4
 //     USART1_TX      --->            PA9
 //     USART1_RX      --->            PA10
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+//Ö§ï¿½ï¿½ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+//TFT LCDï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½Û»ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½ï¿½ï¿½
+//STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸TFTLCDï¿½ï¿½Û»ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Óµï¿½STM32ï¿½ï¿½ï¿½ï¿½
+//=================================ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½=======================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//      VDD           --->           DC5V/3.3V          //ï¿½ï¿½Ô´
+//      GND           --->             GND              //ï¿½ï¿½Ô´ï¿½ï¿½
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //      DB0           --->            PD14        -|   
 //      DB1           --->            PD15         |  
 //      DB2           --->            PD0          | 
@@ -48,7 +48,7 @@
 //      DB4           --->            PE7          |
 //      DB5           --->            PE8          |
 //      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+//      DB7           --->            PE10         |===>Òºï¿½ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 //      DB8           --->            PE11         |
 //      DB9           --->            PE12         |
 //      DB10          --->            PE13         |
@@ -57,16 +57,16 @@
 //      DB13          --->            PD8          |
 //      DB14          --->            PD9          |
 //      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½ 				            STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//      WR            --->            PD5             //Òºï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RD            --->            PD4             //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RS            --->            PD11            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RST           --->          ï¿½ï¿½Î»ï¿½ï¿½ï¿½Å£ï¿½Ä¬ï¿½Ï£ï¿½  //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½Ò²ï¿½ï¿½Ñ¡ï¿½ï¿½PD13ï¿½ï¿½
+//      CS            --->            PD7             //Òºï¿½ï¿½ï¿½ï¿½Æ¬Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      BL            --->            PB15            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+*************************************************************************************/
+/* @attention
   *
   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
@@ -74,56 +74,55 @@
   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/	
+*************************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include "lcd.h"
 #include "delay.h"
 #include "gui.h"
 #include "test.h"
-#include "led.h" 
-#include "usart.h" 
+#include "led.h"
+#include "usart.h"
 #include "w25q64.h"
-#include "sdio_sdcard.h"   
+#include "sdio_sdcard.h"
 #include "usbd_msc_core.h"
 #include "usbd_usr.h"
 #include "usbd_desc.h"
-#include "usb_conf.h" 
+#include "usb_conf.h"
 
 USB_OTG_CORE_HANDLE USB_OTG_dev;
-extern vu8 USB_STATUS_REG;		//USB×´Ì¬
-extern vu8 bDeviceState;		//USBÁ¬½Ó Çé¿ö
+extern vu8 USB_STATUS_REG; //USB×´Ì¬
+extern vu8 bDeviceState;   //USBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 void Check_SDCard(void)
 {
-	POINT_COLOR=BLUE;
-	BACK_COLOR=WHITE;
-	if(SD_Init())			//¼ì²âSD¿¨
+	POINT_COLOR = BLUE;
+	BACK_COLOR = WHITE;
+	if (SD_Init()) //ï¿½ï¿½ï¿½SDï¿½ï¿½
 	{
-		POINT_COLOR=RED;
-		LCD_ShowString(lcddev.width/2-56,70,16,"SDCard Failed!",1);		    
-	}	
+		POINT_COLOR = RED;
+		LCD_ShowString(lcddev.width / 2 - 56, 70, 16, "SDCard Failed!", 1);
+	}
 	else
 	{
-		LCD_ShowString(lcddev.width/2-76,70,16,"SDCard Size:     MB",1);
-		LCD_ShowNum(lcddev.width/2+20,70,SDCardInfo.CardCapacity>>20,5,16);	//ÏÔÊ¾SD¿¨ÈÝÁ¿
+		LCD_ShowString(lcddev.width / 2 - 76, 70, 16, "SDCard Size:     MB", 1);
+		LCD_ShowNum(lcddev.width / 2 + 20, 70, SDCardInfo.CardCapacity >> 20, 5, 16); //ï¿½ï¿½Ê¾SDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 }
 
 void Check_W25Q64(void)
 {
-	POINT_COLOR=BLUE;
-	BACK_COLOR=WHITE;
-	if(W25QXX_ReadID()!=W25Q64)
+	POINT_COLOR = BLUE;
+	BACK_COLOR = WHITE;
+	if (W25QXX_ReadID() != W25Q64)
 	{
-		POINT_COLOR=RED;
-		LCD_ShowString(lcddev.width/2-56,90,16,"W25Q64 Failed!",1);
+		POINT_COLOR = RED;
+		LCD_ShowString(lcddev.width / 2 - 56, 90, 16, "W25Q64 Failed!", 1);
 	}
-	else //SPI FLASH Õý³£
-	{   														 
-		LCD_ShowString(lcddev.width/2-76,90,16,"SPI FLASH Size:12MB",1);
-	}  
-
+	else //SPI FLASH ï¿½ï¿½ï¿½ï¿½
+	{
+		LCD_ShowString(lcddev.width / 2 - 76, 90, 16, "SPI FLASH Size:12MB", 1);
+	}
 }
 
 /*****************************************************************************
@@ -135,88 +134,89 @@ void Check_W25Q64(void)
 ******************************************************************************/
 void USB_Slave_test(void)
 {
+	USART1_Send("USB Slave test\r\n");
 	printf("USB Slave test\r\n");
-	Gui_StrCenter(0,20,RED,BLUE,"STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,45,RED,BLUE,"USB Slave ²âÊÔ³ÌÐò",16,1);//¾ÓÖÐÏÔÊ¾	
-	Gui_StrCenter(0,195,BLUE,BLUE,"2020-06-05",16,1);//¾ÓÖÐÏÔÊ¾
-	Gui_StrCenter(0,215,GREEN,BLUE,"http://www.lcdwiki.com",16,1);//¾ÓÖÐÏÔÊ¾
+	Gui_StrCenter(0, 20, RED, BLUE, "STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 16, 1);	 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 45, RED, BLUE, "USB Slave ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½", 16, 1);		 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 195, BLUE, BLUE, "2020-06-05", 16, 1);				 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	Gui_StrCenter(0, 215, GREEN, BLUE, "http://www.lcdwiki.com", 16, 1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 }
 
 void USB_Slave_Read_Write(void)
 {
-	u8 offline_cnt=0;
-	u8 tct=0;
+	u8 offline_cnt = 0;
+	u8 tct = 0;
 	u8 USB_STA;
 	u8 Divece_STA;
-	POINT_COLOR=BLUE;
-	BACK_COLOR=WHITE;
-	LCD_ShowString(lcddev.width/2-68,115,16,"USB Connecting...",0);	    
-	USBD_Init(&USB_OTG_dev,USB_OTG_FS_CORE_ID,&USR_desc,&USBD_MSC_cb,&USR_cb);
-	delay_ms(1800);	
-	while(1)
-	{	
-		delay_ms(1);				  
-		if(USB_STA!=USB_STATUS_REG)//×´Ì¬¸Ä±äÁË 
-		{	 						   
-			LCD_Fill(0,135,lcddev.width-1,151,WHITE);//Çå³ýÏÔÊ¾			  	   
-			if(USB_STATUS_REG&0x01)//ÕýÔÚÐ´		  
-			{
-				LED1=0;
-				LCD_ShowString(lcddev.width/2-56,135,16,"USB Writing...",0);//ÌáÊ¾USBÕýÔÚÐ´ÈëÊý¾Ý	
-			}
-			if(USB_STATUS_REG&0x02)//ÕýÔÚ¶Á
-			{
-				LED1=0;
-				LCD_ShowString(lcddev.width/2-56,135,16,"USB Reading...",0);//ÌáÊ¾USBÕýÔÚ¶Á³öÊý¾Ý 					
-			}	 										  
-			if(USB_STATUS_REG&0x04)
-			{
-				LCD_ShowString(lcddev.width/2-56,155,16,"USB Write Err ",0);//ÌáÊ¾Ð´Èë´íÎó
-			}
-			else 
-			{
-				LCD_Fill(0,155,lcddev.width-1,171,WHITE);//Çå³ýÏÔÊ¾	  
-			}
-			if(USB_STATUS_REG&0x08)
-			{
-				LCD_ShowString(lcddev.width/2-56,175,16,"USB Read Err  ",0);//ÌáÊ¾Ð´Èë´íÎó
-			}
-			else 
-			{
-				LCD_Fill(0,175,lcddev.width-1,191,WHITE);//Çå³ýÏÔÊ¾    
-			}
-			USB_STA=USB_STATUS_REG;//¼ÇÂ¼×îºóµÄ×´Ì¬
-		}
-		if(Divece_STA!=bDeviceState) 
+	POINT_COLOR = BLUE;
+	BACK_COLOR = WHITE;
+	LCD_ShowString(lcddev.width / 2 - 68, 115, 16, "USB Connecting...", 0);
+	USBD_Init(&USB_OTG_dev, USB_OTG_FS_CORE_ID, &USR_desc, &USBD_MSC_cb, &USR_cb);
+	delay_ms(1800);
+	while (1)
+	{
+		delay_ms(1);
+		if (USB_STA != USB_STATUS_REG) //×´Ì¬ï¿½Ä±ï¿½ï¿½ï¿½
 		{
-			if(bDeviceState==1)
+			LCD_Fill(0, 135, lcddev.width - 1, 151, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+			if (USB_STATUS_REG & 0x01)						//ï¿½ï¿½ï¿½ï¿½Ð´
 			{
-				LCD_ShowString(lcddev.width/2-68,115,16,"USB Connected    ",0);//ÌáÊ¾USBÁ¬½ÓÒÑ¾­½¨Á¢	
+				LED1 = 0;
+				LCD_ShowString(lcddev.width / 2 - 56, 135, 16, "USB Writing...", 0); //ï¿½ï¿½Ê¾USBï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
-			else 
+			if (USB_STATUS_REG & 0x02) //ï¿½ï¿½ï¿½Ú¶ï¿½
 			{
-				LCD_ShowString(lcddev.width/2-68,115,16,"USB DisConnected ",0);//ÌáÊ¾USB±»°Î³öÁË	
+				LED1 = 0;
+				LCD_ShowString(lcddev.width / 2 - 56, 135, 16, "USB Reading...", 0); //ï¿½ï¿½Ê¾USBï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
-			Divece_STA=bDeviceState;
+			if (USB_STATUS_REG & 0x04)
+			{
+				LCD_ShowString(lcddev.width / 2 - 56, 155, 16, "USB Write Err ", 0); //ï¿½ï¿½Ê¾Ð´ï¿½ï¿½ï¿½ï¿½ï¿½
+			}
+			else
+			{
+				LCD_Fill(0, 155, lcddev.width - 1, 171, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+			}
+			if (USB_STATUS_REG & 0x08)
+			{
+				LCD_ShowString(lcddev.width / 2 - 56, 175, 16, "USB Read Err  ", 0); //ï¿½ï¿½Ê¾Ð´ï¿½ï¿½ï¿½ï¿½ï¿½
+			}
+			else
+			{
+				LCD_Fill(0, 175, lcddev.width - 1, 191, WHITE); //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+			}
+			USB_STA = USB_STATUS_REG; //ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½×´Ì¬
+		}
+		if (Divece_STA != bDeviceState)
+		{
+			if (bDeviceState == 1)
+			{
+				LCD_ShowString(lcddev.width / 2 - 68, 115, 16, "USB Connected    ", 0); //ï¿½ï¿½Ê¾USBï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
+			}
+			else
+			{
+				LCD_ShowString(lcddev.width / 2 - 68, 115, 16, "USB DisConnected ", 0); //ï¿½ï¿½Ê¾USBï¿½ï¿½ï¿½Î³ï¿½ï¿½ï¿½
+			}
+			Divece_STA = bDeviceState;
 		}
 		tct++;
-		if(tct==200)
+		if (tct == 200)
 		{
-			tct=0;
-			LED1=1;
-			LED0=!LED0;//ÌáÊ¾ÏµÍ³ÔÚÔËÐÐ
-			if(USB_STATUS_REG&0x10)
+			tct = 0;
+			LED1 = 1;
+			LED0 = !LED0; //ï¿½ï¿½Ê¾ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if (USB_STATUS_REG & 0x10)
 			{
-				offline_cnt=0;//USBÁ¬½ÓÁË,ÔòÇå³ýoffline¼ÆÊýÆ÷
-				bDeviceState=1;
-			}else//Ã»ÓÐµÃµ½ÂÖÑ¯ 
-			{
-				offline_cnt++;  
-				if(offline_cnt>10)bDeviceState=0;//2sÄÚÃ»ÊÕµ½ÔÚÏß±ê¼Ç,´ú±íUSB±»°Î³öÁË
+				offline_cnt = 0; //USBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½offlineï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				bDeviceState = 1;
 			}
-			USB_STATUS_REG=0;
+			else //Ã»ï¿½ÐµÃµï¿½ï¿½ï¿½Ñ¯
+			{
+				offline_cnt++;
+				if (offline_cnt > 10)
+					bDeviceState = 0; //2sï¿½ï¿½Ã»ï¿½Õµï¿½ï¿½ï¿½ï¿½ß±ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½USBï¿½ï¿½ï¿½Î³ï¿½ï¿½ï¿½
+			}
+			USB_STATUS_REG = 0;
 		}
-	} 
+	}
 }
-
-
