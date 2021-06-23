@@ -32,7 +32,7 @@ SD_CardInfo SDCardInfo;									//SD����Ϣ
 //SD_ReadDisk/SD_WriteDisk����ר��buf,�����������������ݻ�������ַ����4�ֽڶ����ʱ��,
 //��Ҫ�õ�������,ȷ�����ݻ�������ַ��4�ֽڶ����.
 // __align(4) u8 SDIO_DATA_BUFFER[512];						  
- u8 SDIO_DATA_BUFFER[512] __attribute__ ((aligned (4)));;						  
+ u8 SDIO_DATA_BUFFER[512] __attribute__ ((aligned (4)));					  
  
  
 void SDIO_Register_Deinit()
@@ -654,7 +654,7 @@ SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize)
     }   
  	return errorstatus; 
 }
-u32 *tempbuff __attribute__ ((aligned (4)));; 
+u32 *tempbuff __attribute__ ((aligned (4)));
 // __align(4) u32 *tempbuff;
 SD_Error SD_ReadMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 {

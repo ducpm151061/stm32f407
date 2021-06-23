@@ -4,7 +4,7 @@
 #include "usart.h"	 
 	 
 
-/*ÓÃÓÚsdio³õÊ¼»¯µÄ½á¹¹Ìå*/
+/*ï¿½ï¿½ï¿½ï¿½sdioï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ä½á¹¹ï¿½ï¿½*/
 SDIO_InitTypeDef SDIO_InitStructure;
 SDIO_CmdInitTypeDef SDIO_CmdInitStructure;
 SDIO_DataInitTypeDef SDIO_DataInitStructure;   
@@ -21,17 +21,18 @@ SD_Error FindSCR(u16 rca,u32 *pscr);
 u8 convert_from_bytes_to_power_of_two(u16 NumberOfBytes); 
 
 
-static u8 CardType=SDIO_STD_CAPACITY_SD_CARD_V1_1;		//SD¿¨ÀàÐÍ£¨Ä¬ÈÏÎª1.x¿¨£©
-static u32 CSD_Tab[4],CID_Tab[4],RCA=0;					//SD¿¨CSD,CIDÒÔ¼°Ïà¶ÔµØÖ·(RCA)Êý¾Ý
-static u8 DeviceMode=SD_DMA_MODE;		   				//¹¤×÷Ä£Ê½,×¢Òâ,¹¤×÷Ä£Ê½±ØÐëÍ¨¹ýSD_SetDeviceMode,ºó²ÅËãÊý.ÕâÀïÖ»ÊÇ¶¨ÒåÒ»¸öÄ¬ÈÏµÄÄ£Ê½(SD_DMA_MODE)
-static u8 StopCondition=0; 								//ÊÇ·ñ·¢ËÍÍ£Ö¹´«Êä±êÖ¾Î»,DMA¶à¿é¶ÁÐ´µÄÊ±ºòÓÃµ½  
-volatile SD_Error TransferError=SD_OK;					//Êý¾Ý´«Êä´íÎó±êÖ¾,DMA¶ÁÐ´Ê±Ê¹ÓÃ	    
-volatile u8 TransferEnd=0;								//´«Êä½áÊø±êÖ¾,DMA¶ÁÐ´Ê±Ê¹ÓÃ
-SD_CardInfo SDCardInfo;									//SD¿¨ÐÅÏ¢
+static u8 CardType=SDIO_STD_CAPACITY_SD_CARD_V1_1;		//SDï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½Ä¬ï¿½ï¿½Îª1.xï¿½ï¿½ï¿½ï¿½
+static u32 CSD_Tab[4],CID_Tab[4],RCA=0;					//SDï¿½ï¿½CSD,CIDï¿½Ô¼ï¿½ï¿½ï¿½Ôµï¿½Ö·(RCA)ï¿½ï¿½ï¿½ï¿½
+static u8 DeviceMode=SD_DMA_MODE;		   				//ï¿½ï¿½ï¿½ï¿½Ä£Ê½,×¢ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½SD_SetDeviceMode,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½Ö»ï¿½Ç¶ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ä¬ï¿½Ïµï¿½Ä£Ê½(SD_DMA_MODE)
+static u8 StopCondition=0; 								//ï¿½Ç·ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾Î»,DMAï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ãµï¿½  
+volatile SD_Error TransferError=SD_OK;					//ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾,DMAï¿½ï¿½Ð´Ê±Ê¹ï¿½ï¿½	    
+volatile u8 TransferEnd=0;								//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾,DMAï¿½ï¿½Ð´Ê±Ê¹ï¿½ï¿½
+SD_CardInfo SDCardInfo;									//SDï¿½ï¿½ï¿½ï¿½Ï¢
 
-//SD_ReadDisk/SD_WriteDiskº¯Êý×¨ÓÃbuf,µ±ÕâÁ½¸öº¯ÊýµÄÊý¾Ý»º´æÇøµØÖ·²»ÊÇ4×Ö½Ú¶ÔÆëµÄÊ±ºò,
-//ÐèÒªÓÃµ½¸ÃÊý×é,È·±£Êý¾Ý»º´æÇøµØÖ·ÊÇ4×Ö½Ú¶ÔÆëµÄ.
-__align(4) u8 SDIO_DATA_BUFFER[512];						  
+//SD_ReadDisk/SD_WriteDiskï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½buf,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½4ï¿½Ö½Ú¶ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½,
+//ï¿½ï¿½Òªï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,È·ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½4ï¿½Ö½Ú¶ï¿½ï¿½ï¿½ï¿½.
+// __align(4) u8 SDIO_DATA_BUFFER[512];						  
+u8 SDIO_DATA_BUFFER[512] __attribute__ ((aligned (4)));
  
  
 void SDIO_Register_Deinit()
@@ -47,8 +48,8 @@ void SDIO_Register_Deinit()
 	SDIO->MASK=0x00000000;	 
 }
 
-//³õÊ¼»¯SD¿¨
-//·µ»ØÖµ:´íÎó´úÂë;(0,ÎÞ´íÎó)
+//ï¿½ï¿½Ê¼ï¿½ï¿½SDï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;(0,ï¿½Þ´ï¿½ï¿½ï¿½)
 SD_Error SD_Init(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
@@ -56,31 +57,31 @@ SD_Error SD_Init(void)
 
 	SD_Error errorstatus=SD_OK;	 
 	u8 clkdiv=0;
-	//ÓÉÓÚSDIOÓëÉãÏñÍ·½Ó¿Ú¹²ÓÃÊý¾ÝÏßÐè
-	//½«ÉãÏñÍ·½Ó¿ÚPWDN(PG9)À­¸ß£¬ÉãÏñÍ·POWER DOWN£¬·ñÔòÓÐÊ±ºòSD¿¨³õÊ¼»¯²»¹ý
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);//Ê¹ÄÜGPIOGÊ±ÖÓ
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;//PG9ÍÆÍìÊä³ö
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; //ÍÆÍìÊä³ö
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+	//ï¿½ï¿½ï¿½ï¿½SDIOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ó¿Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ó¿ï¿½PWDN(PG9)ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½Í·POWER DOWNï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½SDï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);//Ê¹ï¿½ï¿½GPIOGÊ±ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;//PG9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//100MHz
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-	GPIO_Init(GPIOG, &GPIO_InitStructure);//³õÊ¼»¯
-	GPIO_SetBits(GPIOG, GPIO_Pin_9);//À­¸ß
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOG, &GPIO_InitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½
+	GPIO_SetBits(GPIOG, GPIO_Pin_9);//ï¿½ï¿½ï¿½ï¿½
 	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC|RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_DMA2, ENABLE);//Ê¹ÄÜGPIOC,GPIOD DMA2Ê±ÖÓ
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SDIO, ENABLE);//SDIOÊ±ÖÓÊ¹ÄÜ
-	RCC_APB2PeriphResetCmd(RCC_APB2Periph_SDIO, ENABLE);//SDIO¸´Î»
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC|RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_DMA2, ENABLE);//Ê¹ï¿½ï¿½GPIOC,GPIOD DMA2Ê±ï¿½ï¿½
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SDIO, ENABLE);//SDIOÊ±ï¿½ï¿½Ê¹ï¿½ï¿½
+	RCC_APB2PeriphResetCmd(RCC_APB2Periph_SDIO, ENABLE);//SDIOï¿½ï¿½Î»
 
-	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12; 	//PC8,9,10,11,12¸´ÓÃ¹¦ÄÜÊä³ö	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//¸´ÓÃ¹¦ÄÜ
+	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12; 	//PC8,9,10,11,12ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//100M
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-	GPIO_Init(GPIOC, &GPIO_InitStructure);// PC8,9,10,11,12¸´ÓÃ¹¦ÄÜÊä³ö
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOC, &GPIO_InitStructure);// PC8,9,10,11,12ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_2;
-	GPIO_Init(GPIOD, &GPIO_InitStructure);//PD2¸´ÓÃ¹¦ÄÜÊä³ö
-	 //Òý½Å¸´ÓÃÓ³ÉäÉèÖÃ
+	GPIO_Init(GPIOD, &GPIO_InitStructure);//PD2ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 //ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	GPIO_PinAFConfig(GPIOC,GPIO_PinSource8,GPIO_AF_SDIO); //PC8,AF12
 	GPIO_PinAFConfig(GPIOC,GPIO_PinSource9,GPIO_AF_SDIO);
 	GPIO_PinAFConfig(GPIOC,GPIO_PinSource10,GPIO_AF_SDIO);
@@ -88,37 +89,37 @@ SD_Error SD_Init(void)
 	GPIO_PinAFConfig(GPIOC,GPIO_PinSource12,GPIO_AF_SDIO);	
 	GPIO_PinAFConfig(GPIOD,GPIO_PinSource2,GPIO_AF_SDIO);	
 
-	RCC_APB2PeriphResetCmd(RCC_APB2Periph_SDIO, DISABLE);//SDIO½áÊø¸´Î»
+	RCC_APB2PeriphResetCmd(RCC_APB2Periph_SDIO, DISABLE);//SDIOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
 		
-	//SDIOÍâÉè¼Ä´æÆ÷ÉèÖÃÎªÄ¬ÈÏÖµ 			   
+	//SDIOï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÄ¬ï¿½ï¿½Öµ 			   
 	SDIO_Register_Deinit();
 
 	NVIC_InitStructure.NVIC_IRQChannel = SDIO_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;//ÇÀÕ¼ÓÅÏÈ¼¶3
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority =0;		//×ÓÓÅÏÈ¼¶3
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨µÀÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);	//¸ù¾ÝÖ¸¶¨µÄ²ÎÊý³õÊ¼»¯VIC¼Ä´æÆ÷¡¢
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;//ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½È¼ï¿½3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =0;		//ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨ï¿½ï¿½Ê¹ï¿½ï¿½
+	NVIC_Init(&NVIC_InitStructure);	//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½VICï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	errorstatus=SD_PowerON();			//SD¿¨ÉÏµç
-	if(errorstatus==SD_OK)errorstatus=SD_InitializeCards();			//³õÊ¼»¯SD¿¨														  
-	if(errorstatus==SD_OK)errorstatus=SD_GetCardInfo(&SDCardInfo);	//»ñÈ¡¿¨ÐÅÏ¢
-	if(errorstatus==SD_OK)errorstatus=SD_SelectDeselect((u32)(SDCardInfo.RCA<<16));//Ñ¡ÖÐSD¿¨   
-	if(errorstatus==SD_OK)errorstatus=SD_EnableWideBusOperation(SDIO_BusWide_4b);	//4Î»¿í¶È,Èç¹ûÊÇMMC¿¨,Ôò²»ÄÜÓÃ4Î»Ä£Ê½ 
+	errorstatus=SD_PowerON();			//SDï¿½ï¿½ï¿½Ïµï¿½
+	if(errorstatus==SD_OK)errorstatus=SD_InitializeCards();			//ï¿½ï¿½Ê¼ï¿½ï¿½SDï¿½ï¿½														  
+	if(errorstatus==SD_OK)errorstatus=SD_GetCardInfo(&SDCardInfo);	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ï¢
+	if(errorstatus==SD_OK)errorstatus=SD_SelectDeselect((u32)(SDCardInfo.RCA<<16));//Ñ¡ï¿½ï¿½SDï¿½ï¿½   
+	if(errorstatus==SD_OK)errorstatus=SD_EnableWideBusOperation(SDIO_BusWide_4b);	//4Î»ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½MMCï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4Î»Ä£Ê½ 
 	if((errorstatus==SD_OK)||(SDIO_MULTIMEDIA_CARD==CardType))
 	{  		    
 		if(SDCardInfo.CardType==SDIO_STD_CAPACITY_SD_CARD_V1_1||SDCardInfo.CardType==SDIO_STD_CAPACITY_SD_CARD_V2_0)
 		{
-			clkdiv=SDIO_TRANSFER_CLK_DIV+2;	//V1.1/V2.0¿¨£¬ÉèÖÃ×î¸ß48/4=12Mhz
-		}else clkdiv=SDIO_TRANSFER_CLK_DIV;	//SDHCµÈÆäËû¿¨£¬ÉèÖÃ×î¸ß48/2=24Mhz
-		SDIO_Clock_Set(clkdiv);	//ÉèÖÃÊ±ÖÓÆµÂÊ,SDIOÊ±ÖÓ¼ÆËã¹«Ê½:SDIO_CKÊ±ÖÓ=SDIOCLK/[clkdiv+2];ÆäÖÐ,SDIOCLK¹Ì¶¨Îª48Mhz 
-		//errorstatus=SD_SetDeviceMode(SD_DMA_MODE);	//ÉèÖÃÎªDMAÄ£Ê½
-		errorstatus=SD_SetDeviceMode(SD_POLLING_MODE);//ÉèÖÃÎª²éÑ¯Ä£Ê½
+			clkdiv=SDIO_TRANSFER_CLK_DIV+2;	//V1.1/V2.0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½48/4=12Mhz
+		}else clkdiv=SDIO_TRANSFER_CLK_DIV;	//SDHCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½48/2=24Mhz
+		SDIO_Clock_Set(clkdiv);	//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Æµï¿½ï¿½,SDIOÊ±ï¿½Ó¼ï¿½ï¿½ã¹«Ê½:SDIO_CKÊ±ï¿½ï¿½=SDIOCLK/[clkdiv+2];ï¿½ï¿½ï¿½ï¿½,SDIOCLKï¿½Ì¶ï¿½Îª48Mhz 
+		//errorstatus=SD_SetDeviceMode(SD_DMA_MODE);	//ï¿½ï¿½ï¿½ï¿½ÎªDMAÄ£Ê½
+		errorstatus=SD_SetDeviceMode(SD_POLLING_MODE);//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ñ¯Ä£Ê½
 	}
 	return errorstatus;		 
 }
-//SDIOÊ±ÖÓ³õÊ¼»¯ÉèÖÃ
-//clkdiv:Ê±ÖÓ·ÖÆµÏµÊý
-//CKÊ±ÖÓ=SDIOCLK/[clkdiv+2];(SDIOCLKÊ±ÖÓ¹Ì¶¨Îª48Mhz)
+//SDIOÊ±ï¿½Ó³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//clkdiv:Ê±ï¿½Ó·ï¿½ÆµÏµï¿½ï¿½
+//CKÊ±ï¿½ï¿½=SDIOCLK/[clkdiv+2];(SDIOCLKÊ±ï¿½Ó¹Ì¶ï¿½Îª48Mhz)
 void SDIO_Clock_Set(u8 clkdiv)
 {
 	u32 tmpreg=SDIO->CLKCR; 
@@ -128,9 +129,9 @@ void SDIO_Clock_Set(u8 clkdiv)
 } 
 
 
-//¿¨ÉÏµç
-//²éÑ¯ËùÓÐSDIO½Ó¿ÚÉÏµÄ¿¨Éè±¸,²¢²éÑ¯ÆäµçÑ¹ºÍÅäÖÃÊ±ÖÓ
-//·µ»ØÖµ:´íÎó´úÂë;(0,ÎÞ´íÎó)
+//ï¿½ï¿½ï¿½Ïµï¿½
+//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½SDIOï¿½Ó¿ï¿½ï¿½ÏµÄ¿ï¿½ï¿½è±¸,ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;(0,ï¿½Þ´ï¿½ï¿½ï¿½)
 SD_Error SD_PowerON(void)
 {
  	u8 i=0;
@@ -138,87 +139,87 @@ SD_Error SD_PowerON(void)
 	u32 response=0,count=0,validvoltage=0;
 	u32 SDType=SD_STD_CAPACITY;
 	
-	 /*³õÊ¼»¯Ê±µÄÊ±ÖÓ²»ÄÜ´óÓÚ400KHz*/ 
+	 /*ï¿½ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½Ê±ï¿½Ó²ï¿½ï¿½Ü´ï¿½ï¿½ï¿½400KHz*/ 
   SDIO_InitStructure.SDIO_ClockDiv = SDIO_INIT_CLK_DIV;	/* HCLK = 72MHz, SDIOCLK = 72MHz, SDIO_CK = HCLK/(178 + 2) = 400 KHz */
   SDIO_InitStructure.SDIO_ClockEdge = SDIO_ClockEdge_Rising;
-  SDIO_InitStructure.SDIO_ClockBypass = SDIO_ClockBypass_Disable;  //²»Ê¹ÓÃbypassÄ£Ê½£¬Ö±½ÓÓÃHCLK½øÐÐ·ÖÆµµÃµ½SDIO_CK
-  SDIO_InitStructure.SDIO_ClockPowerSave = SDIO_ClockPowerSave_Disable;	// ¿ÕÏÐÊ±²»¹Ø±ÕÊ±ÖÓµçÔ´
-  SDIO_InitStructure.SDIO_BusWide = SDIO_BusWide_1b;	 				//1Î»Êý¾ÝÏß
-  SDIO_InitStructure.SDIO_HardwareFlowControl = SDIO_HardwareFlowControl_Disable;//Ó²¼þÁ÷
+  SDIO_InitStructure.SDIO_ClockBypass = SDIO_ClockBypass_Disable;  //ï¿½ï¿½Ê¹ï¿½ï¿½bypassÄ£Ê½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½HCLKï¿½ï¿½ï¿½Ð·ï¿½Æµï¿½Ãµï¿½SDIO_CK
+  SDIO_InitStructure.SDIO_ClockPowerSave = SDIO_ClockPowerSave_Disable;	// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ø±ï¿½Ê±ï¿½Óµï¿½Ô´
+  SDIO_InitStructure.SDIO_BusWide = SDIO_BusWide_1b;	 				//1Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  SDIO_InitStructure.SDIO_HardwareFlowControl = SDIO_HardwareFlowControl_Disable;//Ó²ï¿½ï¿½ï¿½ï¿½
   SDIO_Init(&SDIO_InitStructure);
 
-	SDIO_SetPowerState(SDIO_PowerState_ON);	//ÉÏµç×´Ì¬,¿ªÆô¿¨Ê±ÖÓ   
-  SDIO->CLKCR|=1<<8;			//SDIOCKÊ¹ÄÜ  
+	SDIO_SetPowerState(SDIO_PowerState_ON);	//ï¿½Ïµï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½   
+  SDIO->CLKCR|=1<<8;			//SDIOCKÊ¹ï¿½ï¿½  
  
  	for(i=0;i<74;i++)
 	{
  
-		SDIO_CmdInitStructure.SDIO_Argument = 0x0;//·¢ËÍCMD0½øÈëIDLE STAGEÄ£Ê½ÃüÁî.
+		SDIO_CmdInitStructure.SDIO_Argument = 0x0;//ï¿½ï¿½ï¿½ï¿½CMD0ï¿½ï¿½ï¿½ï¿½IDLE STAGEÄ£Ê½ï¿½ï¿½ï¿½ï¿½.
     SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_GO_IDLE_STATE; //cmd0
-    SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_No;  //ÎÞÏìÓ¦
+    SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_No;  //ï¿½ï¿½ï¿½ï¿½Ó¦
     SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
-    SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;  //ÔòCPSMÔÚ¿ªÊ¼·¢ËÍÃüÁîÖ®Ç°µÈ´ýÊý¾Ý´«Êä½áÊø¡£ 
-    SDIO_SendCommand(&SDIO_CmdInitStructure);	  		//Ð´ÃüÁî½øÃüÁî¼Ä´æÆ÷
+    SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;  //ï¿½ï¿½CPSMï¿½Ú¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½È´ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+    SDIO_SendCommand(&SDIO_CmdInitStructure);	  		//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 		
 		errorstatus=CmdError();
 		
 		if(errorstatus==SD_OK)break;
  	}
- 	if(errorstatus)return errorstatus;//·µ»Ø´íÎó×´Ì¬
+ 	if(errorstatus)return errorstatus;//ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½×´Ì¬
 	
-  SDIO_CmdInitStructure.SDIO_Argument = SD_CHECK_PATTERN;	//·¢ËÍCMD8,¶ÌÏìÓ¦,¼ì²éSD¿¨½Ó¿ÚÌØÐÔ
+  SDIO_CmdInitStructure.SDIO_Argument = SD_CHECK_PATTERN;	//ï¿½ï¿½ï¿½ï¿½CMD8,ï¿½ï¿½ï¿½ï¿½Ó¦,ï¿½ï¿½ï¿½SDï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½
   SDIO_CmdInitStructure.SDIO_CmdIndex = SDIO_SEND_IF_COND;	//cmd8
   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;	 //r7
-  SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;			 //¹Ø±ÕµÈ´ýÖÐ¶Ï
+  SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;			 //ï¿½Ø±ÕµÈ´ï¿½ï¿½Ð¶ï¿½
   SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
   SDIO_SendCommand(&SDIO_CmdInitStructure);
 	
-  errorstatus=CmdResp7Error();						//µÈ´ýR7ÏìÓ¦
+  errorstatus=CmdResp7Error();						//ï¿½È´ï¿½R7ï¿½ï¿½Ó¦
 	
- 	if(errorstatus==SD_OK) 								//R7ÏìÓ¦Õý³£
+ 	if(errorstatus==SD_OK) 								//R7ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
 	{
-		CardType=SDIO_STD_CAPACITY_SD_CARD_V2_0;		//SD 2.0¿¨
-		SDType=SD_HIGH_CAPACITY;			   			//¸ßÈÝÁ¿¿¨
+		CardType=SDIO_STD_CAPACITY_SD_CARD_V2_0;		//SD 2.0ï¿½ï¿½
+		SDType=SD_HIGH_CAPACITY;			   			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	  
-	  SDIO_CmdInitStructure.SDIO_Argument = 0x00;//·¢ËÍCMD55,¶ÌÏìÓ¦	
+	  SDIO_CmdInitStructure.SDIO_Argument = 0x00;//ï¿½ï¿½ï¿½ï¿½CMD55,ï¿½ï¿½ï¿½ï¿½Ó¦	
     SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_APP_CMD;
     SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
     SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
     SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-    SDIO_SendCommand(&SDIO_CmdInitStructure);		//·¢ËÍCMD55,¶ÌÏìÓ¦	 
+    SDIO_SendCommand(&SDIO_CmdInitStructure);		//ï¿½ï¿½ï¿½ï¿½CMD55,ï¿½ï¿½ï¿½ï¿½Ó¦	 
 	
-	 errorstatus=CmdResp1Error(SD_CMD_APP_CMD); 		 	//µÈ´ýR1ÏìÓ¦   
+	 errorstatus=CmdResp1Error(SD_CMD_APP_CMD); 		 	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦   
 	
-	if(errorstatus==SD_OK)//SD2.0/SD 1.1,·ñÔòÎªMMC¿¨
+	if(errorstatus==SD_OK)//SD2.0/SD 1.1,ï¿½ï¿½ï¿½ï¿½ÎªMMCï¿½ï¿½
 	{																  
-		//SD¿¨,·¢ËÍACMD41 SD_APP_OP_COND,²ÎÊýÎª:0x80100000 
+		//SDï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ACMD41 SD_APP_OP_COND,ï¿½ï¿½ï¿½ï¿½Îª:0x80100000 
 		while((!validvoltage)&&(count<SD_MAX_VOLT_TRIAL))
 		{	   										   
-		  SDIO_CmdInitStructure.SDIO_Argument = 0x00;//·¢ËÍCMD55,¶ÌÏìÓ¦
+		  SDIO_CmdInitStructure.SDIO_Argument = 0x00;//ï¿½ï¿½ï¿½ï¿½CMD55,ï¿½ï¿½ï¿½ï¿½Ó¦
       SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_APP_CMD;	  //CMD55
       SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
       SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
       SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-      SDIO_SendCommand(&SDIO_CmdInitStructure);			//·¢ËÍCMD55,¶ÌÏìÓ¦	 
+      SDIO_SendCommand(&SDIO_CmdInitStructure);			//ï¿½ï¿½ï¿½ï¿½CMD55,ï¿½ï¿½ï¿½ï¿½Ó¦	 
 			
-			errorstatus=CmdResp1Error(SD_CMD_APP_CMD); 	 	//µÈ´ýR1ÏìÓ¦  
+			errorstatus=CmdResp1Error(SD_CMD_APP_CMD); 	 	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦  
 			
- 			if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó
+ 			if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
 
-      //acmd41£¬ÃüÁî²ÎÊýÓÉÖ§³ÖµÄµçÑ¹·¶Î§¼°HCSÎ»×é³É£¬HCSÎ»ÖÃÒ»À´Çø·Ö¿¨ÊÇSDSc»¹ÊÇsdhc
-      SDIO_CmdInitStructure.SDIO_Argument = SD_VOLTAGE_WINDOW_SD | SDType;	//·¢ËÍACMD41,¶ÌÏìÓ¦	
+      //acmd41ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ÖµÄµï¿½Ñ¹ï¿½ï¿½Î§ï¿½ï¿½HCSÎ»ï¿½ï¿½É£ï¿½HCSÎ»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ï¿½SDScï¿½ï¿½ï¿½ï¿½sdhc
+      SDIO_CmdInitStructure.SDIO_Argument = SD_VOLTAGE_WINDOW_SD | SDType;	//ï¿½ï¿½ï¿½ï¿½ACMD41,ï¿½ï¿½ï¿½ï¿½Ó¦	
       SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SD_APP_OP_COND;
       SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;  //r3
       SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
       SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
       SDIO_SendCommand(&SDIO_CmdInitStructure);
 			
-			errorstatus=CmdResp3Error(); 					//µÈ´ýR3ÏìÓ¦   
+			errorstatus=CmdResp3Error(); 					//ï¿½È´ï¿½R3ï¿½ï¿½Ó¦   
 			
- 			if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó 
-			response=SDIO->RESP1;;			   				//µÃµ½ÏìÓ¦
-			validvoltage=(((response>>31)==1)?1:0);			//ÅÐ¶ÏSD¿¨ÉÏµçÊÇ·ñÍê³É
+ 			if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ 
+			response=SDIO->RESP1;;			   				//ï¿½Ãµï¿½ï¿½ï¿½Ó¦
+			validvoltage=(((response>>31)==1)?1:0);			//ï¿½Ð¶ï¿½SDï¿½ï¿½ï¿½Ïµï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 			count++;
 		}
 		if(count>=SD_MAX_VOLT_TRIAL)
@@ -230,22 +231,22 @@ SD_Error SD_PowerON(void)
 		{
 			CardType=SDIO_HIGH_CAPACITY_SD_CARD;
 		}
- 	}else//MMC¿¨
+ 	}else//MMCï¿½ï¿½
 	{
-		//MMC¿¨,·¢ËÍCMD1 SDIO_SEND_OP_COND,²ÎÊýÎª:0x80FF8000 
+		//MMCï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½CMD1 SDIO_SEND_OP_COND,ï¿½ï¿½ï¿½ï¿½Îª:0x80FF8000 
 		while((!validvoltage)&&(count<SD_MAX_VOLT_TRIAL))
 		{	   										   				   
-			SDIO_CmdInitStructure.SDIO_Argument = SD_VOLTAGE_WINDOW_MMC;//·¢ËÍCMD1,¶ÌÏìÓ¦	   
+			SDIO_CmdInitStructure.SDIO_Argument = SD_VOLTAGE_WINDOW_MMC;//ï¿½ï¿½ï¿½ï¿½CMD1,ï¿½ï¿½ï¿½ï¿½Ó¦	   
       SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEND_OP_COND;
       SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;  //r3
       SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
       SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
       SDIO_SendCommand(&SDIO_CmdInitStructure);
 			
-			errorstatus=CmdResp3Error(); 					//µÈ´ýR3ÏìÓ¦   
+			errorstatus=CmdResp3Error(); 					//ï¿½È´ï¿½R3ï¿½ï¿½Ó¦   
 			
- 			if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó  
-			response=SDIO->RESP1;;			   				//µÃµ½ÏìÓ¦
+ 			if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½  
+			response=SDIO->RESP1;;			   				//ï¿½Ãµï¿½ï¿½ï¿½Ó¦
 			validvoltage=(((response>>31)==1)?1:0);
 			count++;
 		}
@@ -258,225 +259,225 @@ SD_Error SD_PowerON(void)
   	}  
   	return(errorstatus);		
 }
-//SD¿¨ Power OFF
-//·µ»ØÖµ:´íÎó´úÂë;(0,ÎÞ´íÎó)
+//SDï¿½ï¿½ Power OFF
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;(0,ï¿½Þ´ï¿½ï¿½ï¿½)
 SD_Error SD_PowerOFF(void)
 {
  
-  SDIO_SetPowerState(SDIO_PowerState_OFF);//SDIOµçÔ´¹Ø±Õ,Ê±ÖÓÍ£Ö¹	
+  SDIO_SetPowerState(SDIO_PowerState_OFF);//SDIOï¿½ï¿½Ô´ï¿½Ø±ï¿½,Ê±ï¿½ï¿½Í£Ö¹	
 
   return SD_OK;	  
 }   
-//³õÊ¼»¯ËùÓÐµÄ¿¨,²¢ÈÃ¿¨½øÈë¾ÍÐ÷×´Ì¬
-//·µ»ØÖµ:´íÎó´úÂë
+//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¿ï¿½,ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 SD_Error SD_InitializeCards(void)
 {
  	SD_Error errorstatus=SD_OK;
 	u16 rca = 0x01;
 	
-  if (SDIO_GetPowerState() == SDIO_PowerState_OFF)	//¼ì²éµçÔ´×´Ì¬,È·±£ÎªÉÏµç×´Ì¬
+  if (SDIO_GetPowerState() == SDIO_PowerState_OFF)	//ï¿½ï¿½ï¿½ï¿½Ô´×´Ì¬,È·ï¿½ï¿½Îªï¿½Ïµï¿½×´Ì¬
   {
     errorstatus = SD_REQUEST_NOT_APPLICABLE;
     return(errorstatus);
   }
 
- 	if(SDIO_SECURE_DIGITAL_IO_CARD!=CardType)			//·ÇSECURE_DIGITAL_IO_CARD
+ 	if(SDIO_SECURE_DIGITAL_IO_CARD!=CardType)			//ï¿½ï¿½SECURE_DIGITAL_IO_CARD
 	{
-		SDIO_CmdInitStructure.SDIO_Argument = 0x0;//·¢ËÍCMD2,È¡µÃCID,³¤ÏìÓ¦
+		SDIO_CmdInitStructure.SDIO_Argument = 0x0;//ï¿½ï¿½ï¿½ï¿½CMD2,È¡ï¿½ï¿½CID,ï¿½ï¿½ï¿½ï¿½Ó¦
     SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_ALL_SEND_CID;
     SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Long;
     SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
     SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-    SDIO_SendCommand(&SDIO_CmdInitStructure);//·¢ËÍCMD2,È¡µÃCID,³¤ÏìÓ¦	
+    SDIO_SendCommand(&SDIO_CmdInitStructure);//ï¿½ï¿½ï¿½ï¿½CMD2,È¡ï¿½ï¿½CID,ï¿½ï¿½ï¿½ï¿½Ó¦	
 		
-		errorstatus=CmdResp2Error(); 					//µÈ´ýR2ÏìÓ¦ 
+		errorstatus=CmdResp2Error(); 					//ï¿½È´ï¿½R2ï¿½ï¿½Ó¦ 
 		
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó		 
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½		 
 		
  		CID_Tab[0]=SDIO->RESP1;
 		CID_Tab[1]=SDIO->RESP2;
 		CID_Tab[2]=SDIO->RESP3;
 		CID_Tab[3]=SDIO->RESP4;
 	}
-	if((SDIO_STD_CAPACITY_SD_CARD_V1_1==CardType)||(SDIO_STD_CAPACITY_SD_CARD_V2_0==CardType)||(SDIO_SECURE_DIGITAL_IO_COMBO_CARD==CardType)||(SDIO_HIGH_CAPACITY_SD_CARD==CardType))//ÅÐ¶Ï¿¨ÀàÐÍ
+	if((SDIO_STD_CAPACITY_SD_CARD_V1_1==CardType)||(SDIO_STD_CAPACITY_SD_CARD_V2_0==CardType)||(SDIO_SECURE_DIGITAL_IO_COMBO_CARD==CardType)||(SDIO_HIGH_CAPACITY_SD_CARD==CardType))//ï¿½Ð¶Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		SDIO_CmdInitStructure.SDIO_Argument = 0x00;//·¢ËÍCMD3,¶ÌÏìÓ¦ 
+		SDIO_CmdInitStructure.SDIO_Argument = 0x00;//ï¿½ï¿½ï¿½ï¿½CMD3,ï¿½ï¿½ï¿½ï¿½Ó¦ 
     SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SET_REL_ADDR;	//cmd3
     SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short; //r6
     SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
     SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-    SDIO_SendCommand(&SDIO_CmdInitStructure);	//·¢ËÍCMD3,¶ÌÏìÓ¦ 
+    SDIO_SendCommand(&SDIO_CmdInitStructure);	//ï¿½ï¿½ï¿½ï¿½CMD3,ï¿½ï¿½ï¿½ï¿½Ó¦ 
 		
-		errorstatus=CmdResp6Error(SD_CMD_SET_REL_ADDR,&rca);//µÈ´ýR6ÏìÓ¦ 
+		errorstatus=CmdResp6Error(SD_CMD_SET_REL_ADDR,&rca);//ï¿½È´ï¿½R6ï¿½ï¿½Ó¦ 
 		
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó		    
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½		    
 	}   
     if (SDIO_MULTIMEDIA_CARD==CardType)
     {
 
-		  SDIO_CmdInitStructure.SDIO_Argument = (u32)(rca<<16);//·¢ËÍCMD3,¶ÌÏìÓ¦ 
+		  SDIO_CmdInitStructure.SDIO_Argument = (u32)(rca<<16);//ï¿½ï¿½ï¿½ï¿½CMD3,ï¿½ï¿½ï¿½ï¿½Ó¦ 
       SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SET_REL_ADDR;	//cmd3
       SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short; //r6
       SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
       SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-      SDIO_SendCommand(&SDIO_CmdInitStructure);	//·¢ËÍCMD3,¶ÌÏìÓ¦ 	
+      SDIO_SendCommand(&SDIO_CmdInitStructure);	//ï¿½ï¿½ï¿½ï¿½CMD3,ï¿½ï¿½ï¿½ï¿½Ó¦ 	
 			
-      errorstatus=CmdResp2Error(); 					//µÈ´ýR2ÏìÓ¦   
+      errorstatus=CmdResp2Error(); 					//ï¿½È´ï¿½R2ï¿½ï¿½Ó¦   
 			
-		  if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó	 
+		  if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½	 
     }
-	if (SDIO_SECURE_DIGITAL_IO_CARD!=CardType)			//·ÇSECURE_DIGITAL_IO_CARD
+	if (SDIO_SECURE_DIGITAL_IO_CARD!=CardType)			//ï¿½ï¿½SECURE_DIGITAL_IO_CARD
 	{
 		RCA = rca;
 		
-    SDIO_CmdInitStructure.SDIO_Argument = (uint32_t)(rca << 16);//·¢ËÍCMD9+¿¨RCA,È¡µÃCSD,³¤ÏìÓ¦ 
+    SDIO_CmdInitStructure.SDIO_Argument = (uint32_t)(rca << 16);//ï¿½ï¿½ï¿½ï¿½CMD9+ï¿½ï¿½RCA,È¡ï¿½ï¿½CSD,ï¿½ï¿½ï¿½ï¿½Ó¦ 
     SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEND_CSD;
     SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Long;
     SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
     SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
     SDIO_SendCommand(&SDIO_CmdInitStructure);
 		
-		errorstatus=CmdResp2Error(); 					//µÈ´ýR2ÏìÓ¦   
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó		    
+		errorstatus=CmdResp2Error(); 					//ï¿½È´ï¿½R2ï¿½ï¿½Ó¦   
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½		    
   		
 		CSD_Tab[0]=SDIO->RESP1;
 	  CSD_Tab[1]=SDIO->RESP2;
 		CSD_Tab[2]=SDIO->RESP3;						
 		CSD_Tab[3]=SDIO->RESP4;					    
 	}
-	return SD_OK;//¿¨³õÊ¼»¯³É¹¦
+	return SD_OK;//ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½É¹ï¿½
 } 
-//µÃµ½¿¨ÐÅÏ¢
-//cardinfo:¿¨ÐÅÏ¢´æ´¢Çø
-//·µ»ØÖµ:´íÎó×´Ì¬
+//ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+//cardinfo:ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½æ´¢ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error SD_GetCardInfo(SD_CardInfo *cardinfo)
 {
  	SD_Error errorstatus=SD_OK;
 	u8 tmp=0;	   
-	cardinfo->CardType=(u8)CardType; 				//¿¨ÀàÐÍ
-	cardinfo->RCA=(u16)RCA;							//¿¨RCAÖµ
+	cardinfo->CardType=(u8)CardType; 				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	cardinfo->RCA=(u16)RCA;							//ï¿½ï¿½RCAÖµ
 	tmp=(u8)((CSD_Tab[0]&0xFF000000)>>24);
-	cardinfo->SD_csd.CSDStruct=(tmp&0xC0)>>6;		//CSD½á¹¹
-	cardinfo->SD_csd.SysSpecVersion=(tmp&0x3C)>>2;	//2.0Ð­Òé»¹Ã»¶¨ÒåÕâ²¿·Ö(Îª±£Áô),Ó¦¸ÃÊÇºóÐøÐ­Òé¶¨ÒåµÄ
-	cardinfo->SD_csd.Reserved1=tmp&0x03;			//2¸ö±£ÁôÎ»  
-	tmp=(u8)((CSD_Tab[0]&0x00FF0000)>>16);			//µÚ1¸ö×Ö½Ú
-	cardinfo->SD_csd.TAAC=tmp;				   		//Êý¾Ý¶ÁÊ±¼ä1
-	tmp=(u8)((CSD_Tab[0]&0x0000FF00)>>8);	  		//µÚ2¸ö×Ö½Ú
-	cardinfo->SD_csd.NSAC=tmp;		  				//Êý¾Ý¶ÁÊ±¼ä2
-	tmp=(u8)(CSD_Tab[0]&0x000000FF);				//µÚ3¸ö×Ö½Ú
-	cardinfo->SD_csd.MaxBusClkFrec=tmp;		  		//´«ÊäËÙ¶È	   
-	tmp=(u8)((CSD_Tab[1]&0xFF000000)>>24);			//µÚ4¸ö×Ö½Ú
-	cardinfo->SD_csd.CardComdClasses=tmp<<4;    	//¿¨Ö¸ÁîÀà¸ßËÄÎ»
-	tmp=(u8)((CSD_Tab[1]&0x00FF0000)>>16);	 		//µÚ5¸ö×Ö½Ú
-	cardinfo->SD_csd.CardComdClasses|=(tmp&0xF0)>>4;//¿¨Ö¸ÁîÀàµÍËÄÎ»
-	cardinfo->SD_csd.RdBlockLen=tmp&0x0F;	    	//×î´ó¶ÁÈ¡Êý¾Ý³¤¶È
-	tmp=(u8)((CSD_Tab[1]&0x0000FF00)>>8);			//µÚ6¸ö×Ö½Ú
-	cardinfo->SD_csd.PartBlockRead=(tmp&0x80)>>7;	//ÔÊÐí·Ö¿é¶Á
-	cardinfo->SD_csd.WrBlockMisalign=(tmp&0x40)>>6;	//Ð´¿é´íÎ»
-	cardinfo->SD_csd.RdBlockMisalign=(tmp&0x20)>>5;	//¶Á¿é´íÎ»
+	cardinfo->SD_csd.CSDStruct=(tmp&0xC0)>>6;		//CSDï¿½á¹¹
+	cardinfo->SD_csd.SysSpecVersion=(tmp&0x3C)>>2;	//2.0Ð­ï¿½é»¹Ã»ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½(Îªï¿½ï¿½ï¿½ï¿½),Ó¦ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½Ð­ï¿½é¶¨ï¿½ï¿½ï¿½
+	cardinfo->SD_csd.Reserved1=tmp&0x03;			//2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»  
+	tmp=(u8)((CSD_Tab[0]&0x00FF0000)>>16);			//ï¿½ï¿½1ï¿½ï¿½ï¿½Ö½ï¿½
+	cardinfo->SD_csd.TAAC=tmp;				   		//ï¿½ï¿½ï¿½Ý¶ï¿½Ê±ï¿½ï¿½1
+	tmp=(u8)((CSD_Tab[0]&0x0000FF00)>>8);	  		//ï¿½ï¿½2ï¿½ï¿½ï¿½Ö½ï¿½
+	cardinfo->SD_csd.NSAC=tmp;		  				//ï¿½ï¿½ï¿½Ý¶ï¿½Ê±ï¿½ï¿½2
+	tmp=(u8)(CSD_Tab[0]&0x000000FF);				//ï¿½ï¿½3ï¿½ï¿½ï¿½Ö½ï¿½
+	cardinfo->SD_csd.MaxBusClkFrec=tmp;		  		//ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½	   
+	tmp=(u8)((CSD_Tab[1]&0xFF000000)>>24);			//ï¿½ï¿½4ï¿½ï¿½ï¿½Ö½ï¿½
+	cardinfo->SD_csd.CardComdClasses=tmp<<4;    	//ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
+	tmp=(u8)((CSD_Tab[1]&0x00FF0000)>>16);	 		//ï¿½ï¿½5ï¿½ï¿½ï¿½Ö½ï¿½
+	cardinfo->SD_csd.CardComdClasses|=(tmp&0xF0)>>4;//ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
+	cardinfo->SD_csd.RdBlockLen=tmp&0x0F;	    	//ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
+	tmp=(u8)((CSD_Tab[1]&0x0000FF00)>>8);			//ï¿½ï¿½6ï¿½ï¿½ï¿½Ö½ï¿½
+	cardinfo->SD_csd.PartBlockRead=(tmp&0x80)>>7;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½
+	cardinfo->SD_csd.WrBlockMisalign=(tmp&0x40)>>6;	//Ð´ï¿½ï¿½ï¿½Î»
+	cardinfo->SD_csd.RdBlockMisalign=(tmp&0x20)>>5;	//ï¿½ï¿½ï¿½ï¿½ï¿½Î»
 	cardinfo->SD_csd.DSRImpl=(tmp&0x10)>>4;
-	cardinfo->SD_csd.Reserved2=0; 					//±£Áô
- 	if((CardType==SDIO_STD_CAPACITY_SD_CARD_V1_1)||(CardType==SDIO_STD_CAPACITY_SD_CARD_V2_0)||(SDIO_MULTIMEDIA_CARD==CardType))//±ê×¼1.1/2.0¿¨/MMC¿¨
+	cardinfo->SD_csd.Reserved2=0; 					//ï¿½ï¿½ï¿½ï¿½
+ 	if((CardType==SDIO_STD_CAPACITY_SD_CARD_V1_1)||(CardType==SDIO_STD_CAPACITY_SD_CARD_V2_0)||(SDIO_MULTIMEDIA_CARD==CardType))//ï¿½ï¿½×¼1.1/2.0ï¿½ï¿½/MMCï¿½ï¿½
 	{
 		cardinfo->SD_csd.DeviceSize=(tmp&0x03)<<10;	//C_SIZE(12Î»)
-	 	tmp=(u8)(CSD_Tab[1]&0x000000FF); 			//µÚ7¸ö×Ö½Ú	
+	 	tmp=(u8)(CSD_Tab[1]&0x000000FF); 			//ï¿½ï¿½7ï¿½ï¿½ï¿½Ö½ï¿½	
 		cardinfo->SD_csd.DeviceSize|=(tmp)<<2;
- 		tmp=(u8)((CSD_Tab[2]&0xFF000000)>>24);		//µÚ8¸ö×Ö½Ú	
+ 		tmp=(u8)((CSD_Tab[2]&0xFF000000)>>24);		//ï¿½ï¿½8ï¿½ï¿½ï¿½Ö½ï¿½	
 		cardinfo->SD_csd.DeviceSize|=(tmp&0xC0)>>6;
  		cardinfo->SD_csd.MaxRdCurrentVDDMin=(tmp&0x38)>>3;
 		cardinfo->SD_csd.MaxRdCurrentVDDMax=(tmp&0x07);
- 		tmp=(u8)((CSD_Tab[2]&0x00FF0000)>>16);		//µÚ9¸ö×Ö½Ú	
+ 		tmp=(u8)((CSD_Tab[2]&0x00FF0000)>>16);		//ï¿½ï¿½9ï¿½ï¿½ï¿½Ö½ï¿½	
 		cardinfo->SD_csd.MaxWrCurrentVDDMin=(tmp&0xE0)>>5;
 		cardinfo->SD_csd.MaxWrCurrentVDDMax=(tmp&0x1C)>>2;
 		cardinfo->SD_csd.DeviceSizeMul=(tmp&0x03)<<1;//C_SIZE_MULT
- 		tmp=(u8)((CSD_Tab[2]&0x0000FF00)>>8);	  	//µÚ10¸ö×Ö½Ú	
+ 		tmp=(u8)((CSD_Tab[2]&0x0000FF00)>>8);	  	//ï¿½ï¿½10ï¿½ï¿½ï¿½Ö½ï¿½	
 		cardinfo->SD_csd.DeviceSizeMul|=(tmp&0x80)>>7;
- 		cardinfo->CardCapacity=(cardinfo->SD_csd.DeviceSize+1);//¼ÆËã¿¨ÈÝÁ¿
+ 		cardinfo->CardCapacity=(cardinfo->SD_csd.DeviceSize+1);//ï¿½ï¿½ï¿½ã¿¨ï¿½ï¿½ï¿½ï¿½
 		cardinfo->CardCapacity*=(1<<(cardinfo->SD_csd.DeviceSizeMul+2));
-		cardinfo->CardBlockSize=1<<(cardinfo->SD_csd.RdBlockLen);//¿é´óÐ¡
+		cardinfo->CardBlockSize=1<<(cardinfo->SD_csd.RdBlockLen);//ï¿½ï¿½ï¿½Ð¡
 		cardinfo->CardCapacity*=cardinfo->CardBlockSize;
-	}else if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)	//¸ßÈÝÁ¿¿¨
+	}else if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
- 		tmp=(u8)(CSD_Tab[1]&0x000000FF); 		//µÚ7¸ö×Ö½Ú	
+ 		tmp=(u8)(CSD_Tab[1]&0x000000FF); 		//ï¿½ï¿½7ï¿½ï¿½ï¿½Ö½ï¿½	
 		cardinfo->SD_csd.DeviceSize=(tmp&0x3F)<<16;//C_SIZE
- 		tmp=(u8)((CSD_Tab[2]&0xFF000000)>>24); 	//µÚ8¸ö×Ö½Ú	
+ 		tmp=(u8)((CSD_Tab[2]&0xFF000000)>>24); 	//ï¿½ï¿½8ï¿½ï¿½ï¿½Ö½ï¿½	
  		cardinfo->SD_csd.DeviceSize|=(tmp<<8);
- 		tmp=(u8)((CSD_Tab[2]&0x00FF0000)>>16);	//µÚ9¸ö×Ö½Ú	
+ 		tmp=(u8)((CSD_Tab[2]&0x00FF0000)>>16);	//ï¿½ï¿½9ï¿½ï¿½ï¿½Ö½ï¿½	
  		cardinfo->SD_csd.DeviceSize|=(tmp);
- 		tmp=(u8)((CSD_Tab[2]&0x0000FF00)>>8); 	//µÚ10¸ö×Ö½Ú	
- 		cardinfo->CardCapacity=(long long)(cardinfo->SD_csd.DeviceSize+1)*512*1024;//¼ÆËã¿¨ÈÝÁ¿
-		cardinfo->CardBlockSize=512; 			//¿é´óÐ¡¹Ì¶¨Îª512×Ö½Ú
+ 		tmp=(u8)((CSD_Tab[2]&0x0000FF00)>>8); 	//ï¿½ï¿½10ï¿½ï¿½ï¿½Ö½ï¿½	
+ 		cardinfo->CardCapacity=(long long)(cardinfo->SD_csd.DeviceSize+1)*512*1024;//ï¿½ï¿½ï¿½ã¿¨ï¿½ï¿½ï¿½ï¿½
+		cardinfo->CardBlockSize=512; 			//ï¿½ï¿½ï¿½Ð¡ï¿½Ì¶ï¿½Îª512ï¿½Ö½ï¿½
 	}	  
 	cardinfo->SD_csd.EraseGrSize=(tmp&0x40)>>6;
 	cardinfo->SD_csd.EraseGrMul=(tmp&0x3F)<<1;	   
-	tmp=(u8)(CSD_Tab[2]&0x000000FF);			//µÚ11¸ö×Ö½Ú	
+	tmp=(u8)(CSD_Tab[2]&0x000000FF);			//ï¿½ï¿½11ï¿½ï¿½ï¿½Ö½ï¿½	
 	cardinfo->SD_csd.EraseGrMul|=(tmp&0x80)>>7;
 	cardinfo->SD_csd.WrProtectGrSize=(tmp&0x7F);
- 	tmp=(u8)((CSD_Tab[3]&0xFF000000)>>24);		//µÚ12¸ö×Ö½Ú	
+ 	tmp=(u8)((CSD_Tab[3]&0xFF000000)>>24);		//ï¿½ï¿½12ï¿½ï¿½ï¿½Ö½ï¿½	
 	cardinfo->SD_csd.WrProtectGrEnable=(tmp&0x80)>>7;
 	cardinfo->SD_csd.ManDeflECC=(tmp&0x60)>>5;
 	cardinfo->SD_csd.WrSpeedFact=(tmp&0x1C)>>2;
 	cardinfo->SD_csd.MaxWrBlockLen=(tmp&0x03)<<2;	 
-	tmp=(u8)((CSD_Tab[3]&0x00FF0000)>>16);		//µÚ13¸ö×Ö½Ú
+	tmp=(u8)((CSD_Tab[3]&0x00FF0000)>>16);		//ï¿½ï¿½13ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_csd.MaxWrBlockLen|=(tmp&0xC0)>>6;
 	cardinfo->SD_csd.WriteBlockPaPartial=(tmp&0x20)>>5;
 	cardinfo->SD_csd.Reserved3=0;
 	cardinfo->SD_csd.ContentProtectAppli=(tmp&0x01);  
-	tmp=(u8)((CSD_Tab[3]&0x0000FF00)>>8);		//µÚ14¸ö×Ö½Ú
+	tmp=(u8)((CSD_Tab[3]&0x0000FF00)>>8);		//ï¿½ï¿½14ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_csd.FileFormatGrouop=(tmp&0x80)>>7;
 	cardinfo->SD_csd.CopyFlag=(tmp&0x40)>>6;
 	cardinfo->SD_csd.PermWrProtect=(tmp&0x20)>>5;
 	cardinfo->SD_csd.TempWrProtect=(tmp&0x10)>>4;
 	cardinfo->SD_csd.FileFormat=(tmp&0x0C)>>2;
 	cardinfo->SD_csd.ECC=(tmp&0x03);  
-	tmp=(u8)(CSD_Tab[3]&0x000000FF);			//µÚ15¸ö×Ö½Ú
+	tmp=(u8)(CSD_Tab[3]&0x000000FF);			//ï¿½ï¿½15ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_csd.CSD_CRC=(tmp&0xFE)>>1;
 	cardinfo->SD_csd.Reserved4=1;		 
-	tmp=(u8)((CID_Tab[0]&0xFF000000)>>24);		//µÚ0¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[0]&0xFF000000)>>24);		//ï¿½ï¿½0ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ManufacturerID=tmp;		    
-	tmp=(u8)((CID_Tab[0]&0x00FF0000)>>16);		//µÚ1¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[0]&0x00FF0000)>>16);		//ï¿½ï¿½1ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.OEM_AppliID=tmp<<8;	  
-	tmp=(u8)((CID_Tab[0]&0x000000FF00)>>8);		//µÚ2¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[0]&0x000000FF00)>>8);		//ï¿½ï¿½2ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.OEM_AppliID|=tmp;	    
-	tmp=(u8)(CID_Tab[0]&0x000000FF);			//µÚ3¸ö×Ö½Ú	
+	tmp=(u8)(CID_Tab[0]&0x000000FF);			//ï¿½ï¿½3ï¿½ï¿½ï¿½Ö½ï¿½	
 	cardinfo->SD_cid.ProdName1=tmp<<24;				  
-	tmp=(u8)((CID_Tab[1]&0xFF000000)>>24); 		//µÚ4¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[1]&0xFF000000)>>24); 		//ï¿½ï¿½4ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdName1|=tmp<<16;	  
-	tmp=(u8)((CID_Tab[1]&0x00FF0000)>>16);	   	//µÚ5¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[1]&0x00FF0000)>>16);	   	//ï¿½ï¿½5ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdName1|=tmp<<8;		 
-	tmp=(u8)((CID_Tab[1]&0x0000FF00)>>8);		//µÚ6¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[1]&0x0000FF00)>>8);		//ï¿½ï¿½6ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdName1|=tmp;		   
-	tmp=(u8)(CID_Tab[1]&0x000000FF);	  		//µÚ7¸ö×Ö½Ú
+	tmp=(u8)(CID_Tab[1]&0x000000FF);	  		//ï¿½ï¿½7ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdName2=tmp;			  
-	tmp=(u8)((CID_Tab[2]&0xFF000000)>>24); 		//µÚ8¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[2]&0xFF000000)>>24); 		//ï¿½ï¿½8ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdRev=tmp;		 
-	tmp=(u8)((CID_Tab[2]&0x00FF0000)>>16);		//µÚ9¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[2]&0x00FF0000)>>16);		//ï¿½ï¿½9ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdSN=tmp<<24;	   
-	tmp=(u8)((CID_Tab[2]&0x0000FF00)>>8); 		//µÚ10¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[2]&0x0000FF00)>>8); 		//ï¿½ï¿½10ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdSN|=tmp<<16;	   
-	tmp=(u8)(CID_Tab[2]&0x000000FF);   			//µÚ11¸ö×Ö½Ú
+	tmp=(u8)(CID_Tab[2]&0x000000FF);   			//ï¿½ï¿½11ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdSN|=tmp<<8;		   
-	tmp=(u8)((CID_Tab[3]&0xFF000000)>>24); 		//µÚ12¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[3]&0xFF000000)>>24); 		//ï¿½ï¿½12ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ProdSN|=tmp;			     
-	tmp=(u8)((CID_Tab[3]&0x00FF0000)>>16);	 	//µÚ13¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[3]&0x00FF0000)>>16);	 	//ï¿½ï¿½13ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.Reserved1|=(tmp&0xF0)>>4;
 	cardinfo->SD_cid.ManufactDate=(tmp&0x0F)<<8;    
-	tmp=(u8)((CID_Tab[3]&0x0000FF00)>>8);		//µÚ14¸ö×Ö½Ú
+	tmp=(u8)((CID_Tab[3]&0x0000FF00)>>8);		//ï¿½ï¿½14ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.ManufactDate|=tmp;		 	  
-	tmp=(u8)(CID_Tab[3]&0x000000FF);			//µÚ15¸ö×Ö½Ú
+	tmp=(u8)(CID_Tab[3]&0x000000FF);			//ï¿½ï¿½15ï¿½ï¿½ï¿½Ö½ï¿½
 	cardinfo->SD_cid.CID_CRC=(tmp&0xFE)>>1;
 	cardinfo->SD_cid.Reserved2=1;	 
 	return errorstatus;
 }
-//ÉèÖÃSDIO×ÜÏß¿í¶È(MMC¿¨²»Ö§³Ö4bitÄ£Ê½)
-//wmode:Î»¿íÄ£Ê½.0,1Î»Êý¾Ý¿í¶È;1,4Î»Êý¾Ý¿í¶È;2,8Î»Êý¾Ý¿í¶È
-//·µ»ØÖµ:SD¿¨´íÎó×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½SDIOï¿½ï¿½ï¿½ß¿ï¿½ï¿½ï¿½(MMCï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½4bitÄ£Ê½)
+//wmode:Î»ï¿½ï¿½Ä£Ê½.0,1Î»ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½;1,4Î»ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½;2,8Î»ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:SDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 
-//ÉèÖÃSDIO×ÜÏß¿í¶È(MMC¿¨²»Ö§³Ö4bitÄ£Ê½)
+//ï¿½ï¿½ï¿½ï¿½SDIOï¿½ï¿½ï¿½ß¿ï¿½ï¿½ï¿½(MMCï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½4bitÄ£Ê½)
 //   @arg SDIO_BusWide_8b: 8-bit data transfer (Only for MMC)
 //   @arg SDIO_BusWide_4b: 4-bit data transfer
-//   @arg SDIO_BusWide_1b: 1-bit data transfer (Ä¬ÈÏ)
-//·µ»ØÖµ:SD¿¨´íÎó×´Ì¬
+//   @arg SDIO_BusWide_1b: 1-bit data transfer (Ä¬ï¿½ï¿½)
+//ï¿½ï¿½ï¿½ï¿½Öµ:SDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error SD_EnableWideBusOperation(u32 WideMode)
 {
 	SD_Error errorstatus=SD_OK;
@@ -487,7 +488,7 @@ SD_Error SD_EnableWideBusOperation(u32 WideMode)
 	}
 	else if((SDIO_STD_CAPACITY_SD_CARD_V1_1==CardType)||(SDIO_STD_CAPACITY_SD_CARD_V2_0==CardType)||(SDIO_HIGH_CAPACITY_SD_CARD==CardType))
 	{
-		if (SDIO_BusWide_8b == WideMode)   //2.0 sd²»Ö§³Ö8bits
+		if (SDIO_BusWide_8b == WideMode)   //2.0 sdï¿½ï¿½Ö§ï¿½ï¿½8bits
 		{
 			errorstatus = SD_UNSUPPORTED_FEATURE;
 			return(errorstatus);
@@ -497,17 +498,17 @@ SD_Error SD_EnableWideBusOperation(u32 WideMode)
 			errorstatus=SDEnWideBus(WideMode);
 			if(SD_OK==errorstatus)
 			{
-				SDIO->CLKCR&=~(3<<11);		//Çå³ýÖ®Ç°µÄÎ»¿íÉèÖÃ    
-				SDIO->CLKCR|=WideMode;//1Î»/4Î»×ÜÏß¿í¶È 
-				SDIO->CLKCR|=0<<14;			//²»¿ªÆôÓ²¼þÁ÷¿ØÖÆ
+				SDIO->CLKCR&=~(3<<11);		//ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
+				SDIO->CLKCR|=WideMode;//1Î»/4Î»ï¿½ï¿½ï¿½ß¿ï¿½ï¿½ï¿½ 
+				SDIO->CLKCR|=0<<14;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 		}  
 	}
 	return errorstatus; 
 }
-//ÉèÖÃSD¿¨¹¤×÷Ä£Ê½
+//ï¿½ï¿½ï¿½ï¿½SDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 //Mode:
-//·µ»ØÖµ:´íÎó×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error SD_SetDeviceMode(u32 Mode)
 {
 	SD_Error errorstatus = SD_OK;
@@ -515,41 +516,41 @@ SD_Error SD_SetDeviceMode(u32 Mode)
 	else errorstatus=SD_INVALID_PARAMETER;
 	return errorstatus;	    
 }
-//Ñ¡¿¨
-//·¢ËÍCMD7,Ñ¡ÔñÏà¶ÔµØÖ·(rca)ÎªaddrµÄ¿¨,È¡ÏûÆäËû¿¨.Èç¹ûÎª0,Ôò¶¼²»Ñ¡Ôñ.
-//addr:¿¨µÄRCAµØÖ·
+//Ñ¡ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½CMD7,Ñ¡ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ö·(rca)Îªaddrï¿½Ä¿ï¿½,È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½Îª0,ï¿½ò¶¼²ï¿½Ñ¡ï¿½ï¿½.
+//addr:ï¿½ï¿½ï¿½ï¿½RCAï¿½ï¿½Ö·
 SD_Error SD_SelectDeselect(u32 addr)
 {
 
-  SDIO_CmdInitStructure.SDIO_Argument =  addr;//·¢ËÍCMD7,Ñ¡Ôñ¿¨,¶ÌÏìÓ¦	
+  SDIO_CmdInitStructure.SDIO_Argument =  addr;//ï¿½ï¿½ï¿½ï¿½CMD7,Ñ¡ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¦	
   SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEL_DESEL_CARD;
   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
   SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
   SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-  SDIO_SendCommand(&SDIO_CmdInitStructure);//·¢ËÍCMD7,Ñ¡Ôñ¿¨,¶ÌÏìÓ¦
+  SDIO_SendCommand(&SDIO_CmdInitStructure);//ï¿½ï¿½ï¿½ï¿½CMD7,Ñ¡ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¦
 	
  	return CmdResp1Error(SD_CMD_SEL_DESEL_CARD);	  
 }
-//SD¿¨¶ÁÈ¡Ò»¸ö¿é 
-//buf:¶ÁÊý¾Ý»º´æÇø(±ØÐë4×Ö½Ú¶ÔÆë!!)
-//addr:¶ÁÈ¡µØÖ·
-//blksize:¿é´óÐ¡
+//SDï¿½ï¿½ï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½ï¿½ 
+//buf:ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½4ï¿½Ö½Ú¶ï¿½ï¿½ï¿½!!)
+//addr:ï¿½ï¿½È¡ï¿½ï¿½Ö·
+//blksize:ï¿½ï¿½ï¿½Ð¡
 SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize)
 {	  
 	SD_Error errorstatus=SD_OK;
 	u8 power;
-  u32 count=0,*tempbuff=(u32*)buf;//×ª»»Îªu32Ö¸Õë 
+  u32 count=0,*tempbuff=(u32*)buf;//×ªï¿½ï¿½Îªu32Ö¸ï¿½ï¿½ 
 	u32 timeout=SDIO_DATATIMEOUT;   
   if(NULL==buf)
 		return SD_INVALID_PARAMETER; 
-  SDIO->DCTRL=0x0;	//Êý¾Ý¿ØÖÆ¼Ä´æÆ÷ÇåÁã(¹ØDMA) 
+  SDIO->DCTRL=0x0;	//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½DMA) 
   
-	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)//´óÈÝÁ¿¿¨
+	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		blksize=512;
 		addr>>=9;
 	}   
-  	SDIO_DataInitStructure.SDIO_DataBlockSize= SDIO_DataBlockSize_1b ;//Çå³ýDPSM×´Ì¬»úÅäÖÃ
+  	SDIO_DataInitStructure.SDIO_DataBlockSize= SDIO_DataBlockSize_1b ;//ï¿½ï¿½ï¿½DPSM×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  SDIO_DataInitStructure.SDIO_DataLength= 0 ;
 	  SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 	  SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -558,7 +559,7 @@ SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize)
     SDIO_DataConfig(&SDIO_DataInitStructure);
 	
 	
-	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//¿¨ËøÁË
+	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if((blksize>0)&&(blksize<=2048)&&((blksize&(blksize-1))==0))
 	{
 		power=convert_from_bytes_to_power_of_two(blksize);	
@@ -569,16 +570,16 @@ SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize)
     SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
     SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
     SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-    SDIO_SendCommand(&SDIO_CmdInitStructure);//·¢ËÍCMD16+ÉèÖÃÊý¾Ý³¤¶ÈÎªblksize,¶ÌÏìÓ¦
+    SDIO_SendCommand(&SDIO_CmdInitStructure);//ï¿½ï¿½ï¿½ï¿½CMD16+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Îªblksize,ï¿½ï¿½ï¿½ï¿½Ó¦
 		
 		
-		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//µÈ´ýR1ÏìÓ¦ 
+		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦ 
 		
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó	
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½	
 		
 	}else return SD_INVALID_PARAMETER;	  	 
 	
-	  SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4 ;//Çå³ýDPSM×´Ì¬»úÅäÖÃ
+	  SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4 ;//ï¿½ï¿½ï¿½DPSM×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  SDIO_DataInitStructure.SDIO_DataLength= blksize ;
 	  SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 	  SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -591,91 +592,93 @@ SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize)
     SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
     SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
     SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
-    SDIO_SendCommand(&SDIO_CmdInitStructure);//·¢ËÍCMD17+´ÓaddrµØÖ·³ö¶ÁÈ¡Êý¾Ý,¶ÌÏìÓ¦ 
+    SDIO_SendCommand(&SDIO_CmdInitStructure);//ï¿½ï¿½ï¿½ï¿½CMD17+ï¿½ï¿½addrï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¦ 
 	
-	errorstatus=CmdResp1Error(SD_CMD_READ_SINGLE_BLOCK);//µÈ´ýR1ÏìÓ¦   
-	if(errorstatus!=SD_OK)return errorstatus;   		//ÏìÓ¦´íÎó	 
- 	if(DeviceMode==SD_POLLING_MODE)						//²éÑ¯Ä£Ê½,ÂÖÑ¯Êý¾Ý	 
+	errorstatus=CmdResp1Error(SD_CMD_READ_SINGLE_BLOCK);//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦   
+	if(errorstatus!=SD_OK)return errorstatus;   		//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½	 
+ 	if(DeviceMode==SD_POLLING_MODE)						//ï¿½ï¿½Ñ¯Ä£Ê½,ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½	 
 	{
- 		INTX_DISABLE();//¹Ø±Õ×ÜÖÐ¶Ï(POLLINGÄ£Ê½,ÑÏ½ûÖÐ¶Ï´ò¶ÏSDIO¶ÁÐ´²Ù×÷!!!)
-		while(!(SDIO->STA&((1<<5)|(1<<1)|(1<<3)|(1<<10)|(1<<9))))//ÎÞÉÏÒç/CRC/³¬Ê±/Íê³É(±êÖ¾)/ÆðÊ¼Î»´íÎó
+ 		INTX_DISABLE();//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½(POLLINGÄ£Ê½,ï¿½Ï½ï¿½ï¿½Ð¶Ï´ï¿½ï¿½SDIOï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½!!!)
+		while(!(SDIO->STA&((1<<5)|(1<<1)|(1<<3)|(1<<10)|(1<<9))))//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/CRC/ï¿½ï¿½Ê±/ï¿½ï¿½ï¿½(ï¿½ï¿½Ö¾)/ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 		{
-			if(SDIO_GetFlagStatus(SDIO_FLAG_RXFIFOHF) != RESET)						//½ÓÊÕÇø°ëÂú,±íÊ¾ÖÁÉÙ´æÁË8¸ö×Ö
+			if(SDIO_GetFlagStatus(SDIO_FLAG_RXFIFOHF) != RESET)						//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½
 			{
-				for(count=0;count<8;count++)			//Ñ­»·¶ÁÈ¡Êý¾Ý
+				for(count=0;count<8;count++)			//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 				{
 					*(tempbuff+count)=SDIO->FIFO;
 				}
 				tempbuff+=8;	 
-				timeout=0X7FFFFF; 	//¶ÁÊý¾ÝÒç³öÊ±¼ä
-			}else 	//´¦Àí³¬Ê±
+				timeout=0X7FFFFF; 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+			}else 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
 			{
 				if(timeout==0)return SD_DATA_TIMEOUT;
 				timeout--;
 			}
 		} 
-		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//Êý¾Ý³¬Ê±´íÎó
+		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//ï¿½ï¿½ï¿½Ý³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		{										   
-	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_TIMEOUT;
-	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//Êý¾Ý¿éCRC´íÎó
+	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//ï¿½ï¿½ï¿½Ý¿ï¿½CRCï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_CRC_FAIL;		   
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET) 	//½ÓÊÕfifoÉÏÒç´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½fifoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_RX_OVERRUN;		 
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//½ÓÊÕÆðÊ¼Î»´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_START_BIT_ERR;		 
 		}   
-		while(SDIO_GetFlagStatus(SDIO_FLAG_RXDAVL) != RESET)	//FIFOÀïÃæ,»¹´æÔÚ¿ÉÓÃÊý¾Ý
+		while(SDIO_GetFlagStatus(SDIO_FLAG_RXDAVL) != RESET)	//FIFOï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			*tempbuff=SDIO->FIFO;	//Ñ­»·¶ÁÈ¡Êý¾Ý
+			*tempbuff=SDIO->FIFO;	//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 			tempbuff++;
 		}
-		INTX_ENABLE();//¿ªÆô×ÜÖÐ¶Ï
-		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+		INTX_ENABLE();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
 	 
 	}else if(DeviceMode==SD_DMA_MODE)
 	{
  		TransferError=SD_OK;
-		StopCondition=0;			//µ¥¿é¶Á,²»ÐèÒª·¢ËÍÍ£Ö¹´«ÊäÖ¸Áî
-		TransferEnd=0;				//´«Êä½áÊø±êÖÃÎ»£¬ÔÚÖÐ¶Ï·þÎñÖÃ1
-		SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<5)|(1<<9);	//ÅäÖÃÐèÒªµÄÖÐ¶Ï 
-	 	SDIO->DCTRL|=1<<3;		 	//SDIO DMAÊ¹ÄÜ 
+		StopCondition=0;			//ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+		TransferEnd=0;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½1
+		SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<5)|(1<<9);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ð¶ï¿½ 
+	 	SDIO->DCTRL|=1<<3;		 	//SDIO DMAÊ¹ï¿½ï¿½ 
  	    SD_DMA_Config((u32*)buf,blksize,DMA_DIR_PeripheralToMemory); 
- 		while(((DMA2->LISR&(1<<27))==RESET)&&(TransferEnd==0)&&(TransferError==SD_OK)&&timeout)timeout--;//µÈ´ý´«ÊäÍê³É 
-		if(timeout==0)return SD_DATA_TIMEOUT;//³¬Ê±
+ 		while(((DMA2->LISR&(1<<27))==RESET)&&(TransferEnd==0)&&(TransferError==SD_OK)&&timeout)timeout--;//ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		if(timeout==0)return SD_DATA_TIMEOUT;//ï¿½ï¿½Ê±
 		if(TransferError!=SD_OK)errorstatus=TransferError;  
     }   
  	return errorstatus; 
 }
-//SD¿¨¶ÁÈ¡¶à¸ö¿é 
-//buf:¶ÁÊý¾Ý»º´æÇø
-//addr:¶ÁÈ¡µØÖ·
-//blksize:¿é´óÐ¡
-//nblks:Òª¶ÁÈ¡µÄ¿éÊý
-//·µ»ØÖµ:´íÎó×´Ì¬
-__align(4) u32 *tempbuff;
+//SDï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//buf:ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
+//addr:ï¿½ï¿½È¡ï¿½ï¿½Ö·
+//blksize:ï¿½ï¿½ï¿½Ð¡
+//nblks:Òªï¿½ï¿½È¡ï¿½Ä¿ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
+// __align(4) u32 *tempbuff;
+u32 *tempbuff __attribute__ ((aligned (4)));
+
 SD_Error SD_ReadMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 {
   SD_Error errorstatus=SD_OK;
 	u8 power;
   u32 count=0;
 	u32 timeout=SDIO_DATATIMEOUT;  
-	tempbuff=(u32*)buf;//×ª»»Îªu32Ö¸Õë
+	tempbuff=(u32*)buf;//×ªï¿½ï¿½Îªu32Ö¸ï¿½ï¿½
 	
-  SDIO->DCTRL=0x0;		//Êý¾Ý¿ØÖÆ¼Ä´æÆ÷ÇåÁã(¹ØDMA)   
-	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)//´óÈÝÁ¿¿¨
+  SDIO->DCTRL=0x0;		//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½DMA)   
+	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		blksize=512;
 		addr>>=9;
 	}  
 	
-	  SDIO_DataInitStructure.SDIO_DataBlockSize= 0; ;//Çå³ýDPSM×´Ì¬»úÅäÖÃ
+	  SDIO_DataInitStructure.SDIO_DataBlockSize= 0; ;//ï¿½ï¿½ï¿½DPSM×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  SDIO_DataInitStructure.SDIO_DataLength= 0 ;
 	  SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 	  SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -683,29 +686,29 @@ SD_Error SD_ReadMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 	  SDIO_DataInitStructure.SDIO_TransferMode=SDIO_TransferMode_Block;
     SDIO_DataConfig(&SDIO_DataInitStructure);
 	
-	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//¿¨ËøÁË
+	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if((blksize>0)&&(blksize<=2048)&&((blksize&(blksize-1))==0))
 	{
 		power=convert_from_bytes_to_power_of_two(blksize);	    
 		
-	  SDIO_CmdInitStructure.SDIO_Argument =  blksize;//·¢ËÍCMD16+ÉèÖÃÊý¾Ý³¤¶ÈÎªblksize,¶ÌÏìÓ¦ 
+	  SDIO_CmdInitStructure.SDIO_Argument =  blksize;//ï¿½ï¿½ï¿½ï¿½CMD16+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Îªblksize,ï¿½ï¿½ï¿½ï¿½Ó¦ 
 		SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SET_BLOCKLEN;
 		SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 		SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 		SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 		SDIO_SendCommand(&SDIO_CmdInitStructure);
 		
-		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//µÈ´ýR1ÏìÓ¦  
+		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦  
 		
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó	 
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½	 
 		
 	}else return SD_INVALID_PARAMETER;	  
 	
-	if(nblks>1)											//¶à¿é¶Á  
+	if(nblks>1)											//ï¿½ï¿½ï¿½ï¿½  
 	{									    
- 	  	if(nblks*blksize>SD_MAX_DATA_LENGTH)return SD_INVALID_PARAMETER;//ÅÐ¶ÏÊÇ·ñ³¬¹ý×î´ó½ÓÊÕ³¤¶È 
+ 	  	if(nblks*blksize>SD_MAX_DATA_LENGTH)return SD_INVALID_PARAMETER;//ï¿½Ð¶ï¿½ï¿½Ç·ñ³¬¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ³ï¿½ï¿½ï¿½ 
 		
-		   SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4; ;//nblks*blksize,512¿é´óÐ¡,¿¨µ½¿ØÖÆÆ÷
+		   SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4; ;//nblks*blksize,512ï¿½ï¿½ï¿½Ð¡,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			 SDIO_DataInitStructure.SDIO_DataLength= nblks*blksize ;
 			 SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 			 SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -713,98 +716,98 @@ SD_Error SD_ReadMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 			 SDIO_DataInitStructure.SDIO_TransferMode=SDIO_TransferMode_Block;
 			 SDIO_DataConfig(&SDIO_DataInitStructure);
 
-       SDIO_CmdInitStructure.SDIO_Argument =  addr;//·¢ËÍCMD18+´ÓaddrµØÖ·³ö¶ÁÈ¡Êý¾Ý,¶ÌÏìÓ¦ 
+       SDIO_CmdInitStructure.SDIO_Argument =  addr;//ï¿½ï¿½ï¿½ï¿½CMD18+ï¿½ï¿½addrï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¦ 
 	     SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_READ_MULT_BLOCK;
 		   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 		   SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 		   SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 		   SDIO_SendCommand(&SDIO_CmdInitStructure);	
 		
-		errorstatus=CmdResp1Error(SD_CMD_READ_MULT_BLOCK);//µÈ´ýR1ÏìÓ¦ 
+		errorstatus=CmdResp1Error(SD_CMD_READ_MULT_BLOCK);//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦ 
 		
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó	 
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½	 
 		
  		if(DeviceMode==SD_POLLING_MODE)
 		{
-			INTX_DISABLE();//¹Ø±Õ×ÜÖÐ¶Ï(POLLINGÄ£Ê½,ÑÏ½ûÖÐ¶Ï´ò¶ÏSDIO¶ÁÐ´²Ù×÷!!!)
-			while(!(SDIO->STA&((1<<5)|(1<<1)|(1<<3)|(1<<8)|(1<<9))))//ÎÞÉÏÒç/CRC/³¬Ê±/Íê³É(±êÖ¾)/ÆðÊ¼Î»´íÎó
+			INTX_DISABLE();//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½(POLLINGÄ£Ê½,ï¿½Ï½ï¿½ï¿½Ð¶Ï´ï¿½ï¿½SDIOï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½!!!)
+			while(!(SDIO->STA&((1<<5)|(1<<1)|(1<<3)|(1<<8)|(1<<9))))//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/CRC/ï¿½ï¿½Ê±/ï¿½ï¿½ï¿½(ï¿½ï¿½Ö¾)/ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 			{
-				if(SDIO_GetFlagStatus(SDIO_FLAG_RXFIFOHF) != RESET)						//½ÓÊÕÇø°ëÂú,±íÊ¾ÖÁÉÙ´æÁË8¸ö×Ö
+				if(SDIO_GetFlagStatus(SDIO_FLAG_RXFIFOHF) != RESET)						//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½
 				{
-					for(count=0;count<8;count++)			//Ñ­»·¶ÁÈ¡Êý¾Ý
+					for(count=0;count<8;count++)			//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 					{
 						*(tempbuff+count)=SDIO->FIFO;
 					}
 					tempbuff+=8;	 
-					timeout=0X7FFFFF; 	//¶ÁÊý¾ÝÒç³öÊ±¼ä
-				}else 	//´¦Àí³¬Ê±
+					timeout=0X7FFFFF; 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+				}else 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
 				{
 					if(timeout==0)return SD_DATA_TIMEOUT;
 					timeout--;
 				}
 			}  
-		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//Êý¾Ý³¬Ê±´íÎó
+		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//ï¿½ï¿½ï¿½Ý³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		{										   
-	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_TIMEOUT;
-	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//Êý¾Ý¿éCRC´íÎó
+	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//ï¿½ï¿½ï¿½Ý¿ï¿½CRCï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_CRC_FAIL;		   
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET) 	//½ÓÊÕfifoÉÏÒç´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½fifoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_RX_OVERRUN;		 
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//½ÓÊÕÆðÊ¼Î»´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_START_BIT_ERR;		 
 		}   
 	    
-		while(SDIO_GetFlagStatus(SDIO_FLAG_RXDAVL) != RESET)	//FIFOÀïÃæ,»¹´æÔÚ¿ÉÓÃÊý¾Ý
+		while(SDIO_GetFlagStatus(SDIO_FLAG_RXDAVL) != RESET)	//FIFOï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			*tempbuff=SDIO->FIFO;	//Ñ­»·¶ÁÈ¡Êý¾Ý
+			*tempbuff=SDIO->FIFO;	//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 			tempbuff++;
 		}
-	 		if(SDIO_GetFlagStatus(SDIO_FLAG_DATAEND) != RESET)		//½ÓÊÕ½áÊø
+	 		if(SDIO_GetFlagStatus(SDIO_FLAG_DATAEND) != RESET)		//ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ï¿½
 			{
 				if((SDIO_STD_CAPACITY_SD_CARD_V1_1==CardType)||(SDIO_STD_CAPACITY_SD_CARD_V2_0==CardType)||(SDIO_HIGH_CAPACITY_SD_CARD==CardType))
 				{				
-					SDIO_CmdInitStructure.SDIO_Argument =  0;//·¢ËÍCMD12+½áÊø´«Êä
+					SDIO_CmdInitStructure.SDIO_Argument =  0;//ï¿½ï¿½ï¿½ï¿½CMD12+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_STOP_TRANSMISSION;
 					SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 					SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 					SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 					SDIO_SendCommand(&SDIO_CmdInitStructure);	
 					
-					errorstatus=CmdResp1Error(SD_CMD_STOP_TRANSMISSION);//µÈ´ýR1ÏìÓ¦   
+					errorstatus=CmdResp1Error(SD_CMD_STOP_TRANSMISSION);//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦   
 					
 					if(errorstatus!=SD_OK)return errorstatus;	 
 				}
  			}
-			INTX_ENABLE();//¿ªÆô×ÜÖÐ¶Ï
-	 		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+			INTX_ENABLE();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+	 		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
  		}else if(DeviceMode==SD_DMA_MODE)
 		{
 	   		TransferError=SD_OK;
-			StopCondition=1;			//¶à¿é¶Á,ÐèÒª·¢ËÍÍ£Ö¹´«ÊäÖ¸Áî 
-			TransferEnd=0;				//´«Êä½áÊø±êÖÃÎ»£¬ÔÚÖÐ¶Ï·þÎñÖÃ1
-			SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<5)|(1<<9);	//ÅäÖÃÐèÒªµÄÖÐ¶Ï 
-		 	SDIO->DCTRL|=1<<3;		 						//SDIO DMAÊ¹ÄÜ 
+			StopCondition=1;			//ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ 
+			TransferEnd=0;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½1
+			SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<5)|(1<<9);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ð¶ï¿½ 
+		 	SDIO->DCTRL|=1<<3;		 						//SDIO DMAÊ¹ï¿½ï¿½ 
 	 	    SD_DMA_Config((u32*)buf,nblks*blksize,DMA_DIR_PeripheralToMemory); 
-	 		while(((DMA2->LISR&(1<<27))==RESET)&&timeout)timeout--;//µÈ´ý´«ÊäÍê³É 
-			if(timeout==0)return SD_DATA_TIMEOUT;//³¬Ê±
+	 		while(((DMA2->LISR&(1<<27))==RESET)&&timeout)timeout--;//ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+			if(timeout==0)return SD_DATA_TIMEOUT;//ï¿½ï¿½Ê±
 			while((TransferEnd==0)&&(TransferError==SD_OK)); 
 			if(TransferError!=SD_OK)errorstatus=TransferError;  	 
 		}		 
   	}
 	return errorstatus;
 }			    																  
-//SD¿¨Ð´1¸ö¿é 
-//buf:Êý¾Ý»º´æÇø
-//addr:Ð´µØÖ·
-//blksize:¿é´óÐ¡	  
-//·µ»ØÖµ:´íÎó×´Ì¬
+//SDï¿½ï¿½Ð´1ï¿½ï¿½ï¿½ï¿½ 
+//buf:ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
+//addr:Ð´ï¿½ï¿½Ö·
+//blksize:ï¿½ï¿½ï¿½Ð¡	  
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 {
 	SD_Error errorstatus = SD_OK;
@@ -815,15 +818,15 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 	
 	u32 cardstatus=0,count=0,restwords=0;
 	
-	u32	tlen=blksize;						//×Ü³¤¶È(×Ö½Ú)
+	u32	tlen=blksize;						//ï¿½Ü³ï¿½ï¿½ï¿½(ï¿½Ö½ï¿½)
 	
 	u32*tempbuff=(u32*)buf;					
 	
- 	if(buf==NULL)return SD_INVALID_PARAMETER;//²ÎÊý´íÎó  
+ 	if(buf==NULL)return SD_INVALID_PARAMETER;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	
-  SDIO->DCTRL=0x0;							//Êý¾Ý¿ØÖÆ¼Ä´æÆ÷ÇåÁã(¹ØDMA)
+  SDIO->DCTRL=0x0;							//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½DMA)
 	
-	SDIO_DataInitStructure.SDIO_DataBlockSize= 0; ;//Çå³ýDPSM×´Ì¬»úÅäÖÃ
+	SDIO_DataInitStructure.SDIO_DataBlockSize= 0; ;//ï¿½ï¿½ï¿½DPSM×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	SDIO_DataInitStructure.SDIO_DataLength= 0 ;
 	SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 	SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -832,8 +835,8 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
   SDIO_DataConfig(&SDIO_DataInitStructure);
 	
 	
-	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//¿¨ËøÁË
- 	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)	//´óÈÝÁ¿¿¨
+	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ 	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		blksize=512;
 		addr>>=9;
@@ -842,43 +845,43 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 	{
 		power=convert_from_bytes_to_power_of_two(blksize);	
 		
-		SDIO_CmdInitStructure.SDIO_Argument = blksize;//·¢ËÍCMD16+ÉèÖÃÊý¾Ý³¤¶ÈÎªblksize,¶ÌÏìÓ¦ 	
+		SDIO_CmdInitStructure.SDIO_Argument = blksize;//ï¿½ï¿½ï¿½ï¿½CMD16+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Îªblksize,ï¿½ï¿½ï¿½ï¿½Ó¦ 	
 		SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SET_BLOCKLEN;
 		SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 		SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 		SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 		SDIO_SendCommand(&SDIO_CmdInitStructure);	
 		
-		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//µÈ´ýR1ÏìÓ¦  
+		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦  
 		
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó	 
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½	 
 		
 	}else return SD_INVALID_PARAMETER;	
 	
-			SDIO_CmdInitStructure.SDIO_Argument = (u32)RCA<<16;//·¢ËÍCMD13,²éÑ¯¿¨µÄ×´Ì¬,¶ÌÏìÓ¦ 	
+			SDIO_CmdInitStructure.SDIO_Argument = (u32)RCA<<16;//ï¿½ï¿½ï¿½ï¿½CMD13,ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½Ó¦ 	
 		  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEND_STATUS;
 			SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 			SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 			SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 			SDIO_SendCommand(&SDIO_CmdInitStructure);	
 
-	  errorstatus=CmdResp1Error(SD_CMD_SEND_STATUS);		//µÈ´ýR1ÏìÓ¦  
+	  errorstatus=CmdResp1Error(SD_CMD_SEND_STATUS);		//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦  
 	
 	if(errorstatus!=SD_OK)return errorstatus;
 	cardstatus=SDIO->RESP1;													  
 	timeout=SD_DATATIMEOUT;
-   	while(((cardstatus&0x00000100)==0)&&(timeout>0)) 	//¼ì²éREADY_FOR_DATAÎ»ÊÇ·ñÖÃÎ»
+   	while(((cardstatus&0x00000100)==0)&&(timeout>0)) 	//ï¿½ï¿½ï¿½READY_FOR_DATAÎ»ï¿½Ç·ï¿½ï¿½ï¿½Î»
 	{
 		timeout--;  
 		
-		SDIO_CmdInitStructure.SDIO_Argument = (u32)RCA<<16;//·¢ËÍCMD13,²éÑ¯¿¨µÄ×´Ì¬,¶ÌÏìÓ¦
+		SDIO_CmdInitStructure.SDIO_Argument = (u32)RCA<<16;//ï¿½ï¿½ï¿½ï¿½CMD13,ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½Ó¦
 		SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEND_STATUS;
 		SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 		SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 		SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 		SDIO_SendCommand(&SDIO_CmdInitStructure);	
 		
-		errorstatus=CmdResp1Error(SD_CMD_SEND_STATUS);	//µÈ´ýR1ÏìÓ¦   
+		errorstatus=CmdResp1Error(SD_CMD_SEND_STATUS);	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦   
 		
 		if(errorstatus!=SD_OK)return errorstatus;		
 		
@@ -886,20 +889,20 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 	}
 	if(timeout==0)return SD_ERROR;
 
-			SDIO_CmdInitStructure.SDIO_Argument = addr;//·¢ËÍCMD24,Ð´µ¥¿éÖ¸Áî,¶ÌÏìÓ¦ 	
+			SDIO_CmdInitStructure.SDIO_Argument = addr;//ï¿½ï¿½ï¿½ï¿½CMD24,Ð´ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¦ 	
 			SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_WRITE_SINGLE_BLOCK;
 			SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 			SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 			SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 			SDIO_SendCommand(&SDIO_CmdInitStructure);	
 	
-	errorstatus=CmdResp1Error(SD_CMD_WRITE_SINGLE_BLOCK);//µÈ´ýR1ÏìÓ¦  
+	errorstatus=CmdResp1Error(SD_CMD_WRITE_SINGLE_BLOCK);//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦  
 	
 	if(errorstatus!=SD_OK)return errorstatus;   	 
 	
-	StopCondition=0;									//µ¥¿éÐ´,²»ÐèÒª·¢ËÍÍ£Ö¹´«ÊäÖ¸Áî 
+	StopCondition=0;									//ï¿½ï¿½ï¿½ï¿½Ð´,ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ 
 
-	SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4; ;	//blksize, ¿ØÖÆÆ÷µ½¿¨	
+	SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4; ;	//blksize, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	SDIO_DataInitStructure.SDIO_DataLength= blksize ;
 	SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 	SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -912,12 +915,12 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 	
 	if (DeviceMode == SD_POLLING_MODE)
 	{
-		INTX_DISABLE();//¹Ø±Õ×ÜÖÐ¶Ï(POLLINGÄ£Ê½,ÑÏ½ûÖÐ¶Ï´ò¶ÏSDIO¶ÁÐ´²Ù×÷!!!)
-		while(!(SDIO->STA&((1<<10)|(1<<4)|(1<<1)|(1<<3)|(1<<9))))//Êý¾Ý¿é·¢ËÍ³É¹¦/ÏÂÒç/CRC/³¬Ê±/ÆðÊ¼Î»´íÎó
+		INTX_DISABLE();//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½(POLLINGÄ£Ê½,ï¿½Ï½ï¿½ï¿½Ð¶Ï´ï¿½ï¿½SDIOï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½!!!)
+		while(!(SDIO->STA&((1<<10)|(1<<4)|(1<<1)|(1<<3)|(1<<9))))//ï¿½ï¿½ï¿½Ý¿é·¢ï¿½Í³É¹ï¿½/ï¿½ï¿½ï¿½ï¿½/CRC/ï¿½ï¿½Ê±/ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 		{
-			if(SDIO_GetFlagStatus(SDIO_FLAG_TXFIFOHE) != RESET)							//·¢ËÍÇø°ë¿Õ,±íÊ¾ÖÁÉÙ´æÁË8¸ö×Ö
+			if(SDIO_GetFlagStatus(SDIO_FLAG_TXFIFOHE) != RESET)							//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½
 			{
-				if((tlen-bytestransferred)<SD_HALFFIFOBYTES)//²»¹»32×Ö½ÚÁË
+				if((tlen-bytestransferred)<SD_HALFFIFOBYTES)//ï¿½ï¿½ï¿½ï¿½32ï¿½Ö½ï¿½ï¿½ï¿½
 				{
 					restwords=((tlen-bytestransferred)%4==0)?((tlen-bytestransferred)/4):((tlen-bytestransferred)/4+1);
 					
@@ -934,53 +937,53 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 					tempbuff+=8;
 					bytestransferred+=32;
 				}
-				timeout=0X3FFFFFFF;	//Ð´Êý¾ÝÒç³öÊ±¼ä
+				timeout=0X3FFFFFFF;	//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 			}else
 			{
 				if(timeout==0)return SD_DATA_TIMEOUT;
 				timeout--;
 			}
 		} 
-		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//Êý¾Ý³¬Ê±´íÎó
+		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//ï¿½ï¿½ï¿½Ý³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		{										   
-	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_TIMEOUT;
-	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//Êý¾Ý¿éCRC´íÎó
+	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//ï¿½ï¿½ï¿½Ý¿ï¿½CRCï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_CRC_FAIL;		   
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_TXUNDERR) != RESET) 	//½ÓÊÕfifoÏÂÒç´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_TXUNDERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½fifoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_TXUNDERR);		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_TXUNDERR);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_TX_UNDERRUN;		 
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//½ÓÊÕÆðÊ¼Î»´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_START_BIT_ERR;		 
 		}   
 	      
-		INTX_ENABLE();//¿ªÆô×ÜÖÐ¶Ï
-		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç  
+		INTX_ENABLE();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½  
 	}else if(DeviceMode==SD_DMA_MODE)
 	{
    		TransferError=SD_OK;
-		StopCondition=0;			//µ¥¿éÐ´,²»ÐèÒª·¢ËÍÍ£Ö¹´«ÊäÖ¸Áî 
-		TransferEnd=0;				//´«Êä½áÊø±êÖÃÎ»£¬ÔÚÖÐ¶Ï·þÎñÖÃ1
-		SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<4)|(1<<9);	//ÅäÖÃ²úÉúÊý¾Ý½ÓÊÕÍê³ÉÖÐ¶Ï
-		SD_DMA_Config((u32*)buf,blksize,DMA_DIR_MemoryToPeripheral);				//SDIO DMAÅäÖÃ
- 	 	SDIO->DCTRL|=1<<3;								//SDIO DMAÊ¹ÄÜ.  
- 		while(((DMA2->LISR&(1<<27))==RESET)&&timeout)timeout--;//µÈ´ý´«ÊäÍê³É 
+		StopCondition=0;			//ï¿½ï¿½ï¿½ï¿½Ð´,ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ 
+		TransferEnd=0;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½1
+		SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<4)|(1<<9);	//ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+		SD_DMA_Config((u32*)buf,blksize,DMA_DIR_MemoryToPeripheral);				//SDIO DMAï¿½ï¿½ï¿½ï¿½
+ 	 	SDIO->DCTRL|=1<<3;								//SDIO DMAÊ¹ï¿½ï¿½.  
+ 		while(((DMA2->LISR&(1<<27))==RESET)&&timeout)timeout--;//ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		if(timeout==0)
 		{
-  			SD_Init();	 					//ÖØÐÂ³õÊ¼»¯SD¿¨,¿ÉÒÔ½â¾öÐ´ÈëËÀ»úµÄÎÊÌâ
-			return SD_DATA_TIMEOUT;			//³¬Ê±	 
+  			SD_Init();	 					//ï¿½ï¿½ï¿½Â³ï¿½Ê¼ï¿½ï¿½SDï¿½ï¿½,ï¿½ï¿½ï¿½Ô½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			return SD_DATA_TIMEOUT;			//ï¿½ï¿½Ê±	 
  		}
 		timeout=SDIO_DATATIMEOUT;
 		while((TransferEnd==0)&&(TransferError==SD_OK)&&timeout)timeout--;
- 		if(timeout==0)return SD_DATA_TIMEOUT;			//³¬Ê±	 
+ 		if(timeout==0)return SD_DATA_TIMEOUT;			//ï¿½ï¿½Ê±	 
   		if(TransferError!=SD_OK)return TransferError;
  	}  
- 	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+ 	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
  	errorstatus=IsCardProgramming(&cardstate);
  	while((errorstatus==SD_OK)&&((cardstate==SD_CARD_PROGRAMMING)||(cardstate==SD_CARD_RECEIVING)))
 	{
@@ -988,24 +991,24 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 	}   
 	return errorstatus;
 }
-//SD¿¨Ð´¶à¸ö¿é 
-//buf:Êý¾Ý»º´æÇø
-//addr:Ð´µØÖ·
-//blksize:¿é´óÐ¡
-//nblks:ÒªÐ´ÈëµÄ¿éÊý
-//·µ»ØÖµ:´íÎó×´Ì¬												   
+//SDï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//buf:ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
+//addr:Ð´ï¿½ï¿½Ö·
+//blksize:ï¿½ï¿½ï¿½Ð¡
+//nblks:ÒªÐ´ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬												   
 SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 {
 	SD_Error errorstatus = SD_OK;
 	u8  power = 0, cardstate = 0;
 	u32 timeout=0,bytestransferred=0;
 	u32 count = 0, restwords = 0;
-	u32 tlen=nblks*blksize;				//×Ü³¤¶È(×Ö½Ú)
+	u32 tlen=nblks*blksize;				//ï¿½Ü³ï¿½ï¿½ï¿½(ï¿½Ö½ï¿½)
 	u32 *tempbuff = (u32*)buf;  
-  if(buf==NULL)return SD_INVALID_PARAMETER; //²ÎÊý´íÎó  
-  SDIO->DCTRL=0x0;							//Êý¾Ý¿ØÖÆ¼Ä´æÆ÷ÇåÁã(¹ØDMA)   
+  if(buf==NULL)return SD_INVALID_PARAMETER; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+  SDIO->DCTRL=0x0;							//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½DMA)   
 	
-	SDIO_DataInitStructure.SDIO_DataBlockSize= 0; ;	//Çå³ýDPSM×´Ì¬»úÅäÖÃ	
+	SDIO_DataInitStructure.SDIO_DataBlockSize= 0; ;	//ï¿½ï¿½ï¿½DPSM×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	SDIO_DataInitStructure.SDIO_DataLength= 0 ;
 	SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 	SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -1013,8 +1016,8 @@ SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 	SDIO_DataInitStructure.SDIO_TransferMode=SDIO_TransferMode_Block;
   SDIO_DataConfig(&SDIO_DataInitStructure);
 	
-	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//¿¨ËøÁË
- 	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)//´óÈÝÁ¿¿¨
+	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ 	if(CardType==SDIO_HIGH_CAPACITY_SD_CARD)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		blksize=512;
 		addr>>=9;
@@ -1023,16 +1026,16 @@ SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 	{
 		power=convert_from_bytes_to_power_of_two(blksize);
 		
-		SDIO_CmdInitStructure.SDIO_Argument = blksize;	//·¢ËÍCMD16+ÉèÖÃÊý¾Ý³¤¶ÈÎªblksize,¶ÌÏìÓ¦
+		SDIO_CmdInitStructure.SDIO_Argument = blksize;	//ï¿½ï¿½ï¿½ï¿½CMD16+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Îªblksize,ï¿½ï¿½ï¿½ï¿½Ó¦
 		SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SET_BLOCKLEN;
 		SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 		SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 		SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 		SDIO_SendCommand(&SDIO_CmdInitStructure);	
 		
-		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//µÈ´ýR1ÏìÓ¦  
+		errorstatus=CmdResp1Error(SD_CMD_SET_BLOCKLEN);	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦  
 		
-		if(errorstatus!=SD_OK)return errorstatus;   	//ÏìÓ¦´íÎó	 
+		if(errorstatus!=SD_OK)return errorstatus;   	//ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½	 
 		
 	}else return SD_INVALID_PARAMETER;	 
 	if(nblks>1)
@@ -1040,43 +1043,43 @@ SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 		if(nblks*blksize>SD_MAX_DATA_LENGTH)return SD_INVALID_PARAMETER;   
      	if((SDIO_STD_CAPACITY_SD_CARD_V1_1==CardType)||(SDIO_STD_CAPACITY_SD_CARD_V2_0==CardType)||(SDIO_HIGH_CAPACITY_SD_CARD==CardType))
     	{
-			//Ìá¸ßÐÔÄÜ
-				SDIO_CmdInitStructure.SDIO_Argument = (u32)RCA<<16;		//·¢ËÍACMD55,¶ÌÏìÓ¦ 	
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				SDIO_CmdInitStructure.SDIO_Argument = (u32)RCA<<16;		//ï¿½ï¿½ï¿½ï¿½ACMD55,ï¿½ï¿½ï¿½ï¿½Ó¦ 	
 				SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_APP_CMD;
 				SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 				SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 				SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 				SDIO_SendCommand(&SDIO_CmdInitStructure);	
 				
-			errorstatus=CmdResp1Error(SD_CMD_APP_CMD);		//µÈ´ýR1ÏìÓ¦ 
+			errorstatus=CmdResp1Error(SD_CMD_APP_CMD);		//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦ 
 				
 			if(errorstatus!=SD_OK)return errorstatus;				 
 				
-				SDIO_CmdInitStructure.SDIO_Argument =nblks;		//·¢ËÍCMD23,ÉèÖÃ¿éÊýÁ¿,¶ÌÏìÓ¦ 	 
+				SDIO_CmdInitStructure.SDIO_Argument =nblks;		//ï¿½ï¿½ï¿½ï¿½CMD23,ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¦ 	 
 				SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SET_BLOCK_COUNT;
 				SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 				SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 				SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 				SDIO_SendCommand(&SDIO_CmdInitStructure);
 			  
-				errorstatus=CmdResp1Error(SD_CMD_SET_BLOCK_COUNT);//µÈ´ýR1ÏìÓ¦ 
+				errorstatus=CmdResp1Error(SD_CMD_SET_BLOCK_COUNT);//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦ 
 				
 			if(errorstatus!=SD_OK)return errorstatus;		
 		    
 		} 
 
-				SDIO_CmdInitStructure.SDIO_Argument =addr;	//·¢ËÍCMD25,¶à¿éÐ´Ö¸Áî,¶ÌÏìÓ¦ 	  
+				SDIO_CmdInitStructure.SDIO_Argument =addr;	//ï¿½ï¿½ï¿½ï¿½CMD25,ï¿½ï¿½ï¿½Ð´Ö¸ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¦ 	  
 				SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_WRITE_MULT_BLOCK;
 				SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 				SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 				SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 				SDIO_SendCommand(&SDIO_CmdInitStructure);	
 
- 		errorstatus=CmdResp1Error(SD_CMD_WRITE_MULT_BLOCK);	//µÈ´ýR1ÏìÓ¦   		   
+ 		errorstatus=CmdResp1Error(SD_CMD_WRITE_MULT_BLOCK);	//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦   		   
 	
 		if(errorstatus!=SD_OK)return errorstatus;
 
-        SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4; ;	//blksize, ¿ØÖÆÆ÷µ½¿¨	
+        SDIO_DataInitStructure.SDIO_DataBlockSize= power<<4; ;	//blksize, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 				SDIO_DataInitStructure.SDIO_DataLength= nblks*blksize ;
 				SDIO_DataInitStructure.SDIO_DataTimeOut=SD_DATATIMEOUT ;
 				SDIO_DataInitStructure.SDIO_DPSM=SDIO_DPSM_Enable;
@@ -1087,19 +1090,19 @@ SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 		if(DeviceMode==SD_POLLING_MODE)
 	    {
 			timeout=SDIO_DATATIMEOUT;
-			INTX_DISABLE();//¹Ø±Õ×ÜÖÐ¶Ï(POLLINGÄ£Ê½,ÑÏ½ûÖÐ¶Ï´ò¶ÏSDIO¶ÁÐ´²Ù×÷!!!)
-			while(!(SDIO->STA&((1<<4)|(1<<1)|(1<<8)|(1<<3)|(1<<9))))//ÏÂÒç/CRC/Êý¾Ý½áÊø/³¬Ê±/ÆðÊ¼Î»´íÎó
+			INTX_DISABLE();//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½(POLLINGÄ£Ê½,ï¿½Ï½ï¿½ï¿½Ð¶Ï´ï¿½ï¿½SDIOï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½!!!)
+			while(!(SDIO->STA&((1<<4)|(1<<1)|(1<<8)|(1<<3)|(1<<9))))//ï¿½ï¿½ï¿½ï¿½/CRC/ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½/ï¿½ï¿½Ê±/ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 			{
-				if(SDIO_GetFlagStatus(SDIO_FLAG_TXFIFOHE) != RESET)							//·¢ËÍÇø°ë¿Õ,±íÊ¾ÖÁÉÙ´æÁË8×Ö(32×Ö½Ú)
+				if(SDIO_GetFlagStatus(SDIO_FLAG_TXFIFOHE) != RESET)							//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½8ï¿½ï¿½(32ï¿½Ö½ï¿½)
 				{	  
-					if((tlen-bytestransferred)<SD_HALFFIFOBYTES)//²»¹»32×Ö½ÚÁË
+					if((tlen-bytestransferred)<SD_HALFFIFOBYTES)//ï¿½ï¿½ï¿½ï¿½32ï¿½Ö½ï¿½ï¿½ï¿½
 					{
 						restwords=((tlen-bytestransferred)%4==0)?((tlen-bytestransferred)/4):((tlen-bytestransferred)/4+1);
 						for(count=0;count<restwords;count++,tempbuff++,bytestransferred+=4)
 						{
 							SDIO->FIFO=*tempbuff;
 						}
-					}else 										//·¢ËÍÇø°ë¿Õ,¿ÉÒÔ·¢ËÍÖÁÉÙ8×Ö(32×Ö½Ú)Êý¾Ý
+					}else 										//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½(32ï¿½Ö½ï¿½)ï¿½ï¿½ï¿½ï¿½
 					{
 						for(count=0;count<SD_HALFFIFO;count++)
 						{
@@ -1108,70 +1111,70 @@ SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 						tempbuff+=SD_HALFFIFO;
 						bytestransferred+=SD_HALFFIFOBYTES;
 					}
-					timeout=0X3FFFFFFF;	//Ð´Êý¾ÝÒç³öÊ±¼ä
+					timeout=0X3FFFFFFF;	//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 				}else
 				{
 					if(timeout==0)return SD_DATA_TIMEOUT; 
 					timeout--;
 				}
 			} 
-		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//Êý¾Ý³¬Ê±´íÎó
+		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//ï¿½ï¿½ï¿½Ý³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		{										   
-	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_TIMEOUT;
-	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//Êý¾Ý¿éCRC´íÎó
+	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//ï¿½ï¿½ï¿½Ý¿ï¿½CRCï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_CRC_FAIL;		   
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_TXUNDERR) != RESET) 	//½ÓÊÕfifoÏÂÒç´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_TXUNDERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½fifoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_TXUNDERR);		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_TXUNDERR);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_TX_UNDERRUN;		 
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//½ÓÊÕÆðÊ¼Î»´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_START_BIT_ERR;		 
 		}   
 	      										   
-			if(SDIO_GetFlagStatus(SDIO_FLAG_DATAEND) != RESET)		//·¢ËÍ½áÊø
+			if(SDIO_GetFlagStatus(SDIO_FLAG_DATAEND) != RESET)		//ï¿½ï¿½ï¿½Í½ï¿½ï¿½ï¿½
 			{															 
 				if((SDIO_STD_CAPACITY_SD_CARD_V1_1==CardType)||(SDIO_STD_CAPACITY_SD_CARD_V2_0==CardType)||(SDIO_HIGH_CAPACITY_SD_CARD==CardType))
 				{   
-					SDIO_CmdInitStructure.SDIO_Argument =0;//·¢ËÍCMD12+½áÊø´«Êä 	  
+					SDIO_CmdInitStructure.SDIO_Argument =0;//ï¿½ï¿½ï¿½ï¿½CMD12+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 	  
 					SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_STOP_TRANSMISSION;
 					SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 					SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
 					SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
 					SDIO_SendCommand(&SDIO_CmdInitStructure);	
 					
-					errorstatus=CmdResp1Error(SD_CMD_STOP_TRANSMISSION);//µÈ´ýR1ÏìÓ¦   
+					errorstatus=CmdResp1Error(SD_CMD_STOP_TRANSMISSION);//ï¿½È´ï¿½R1ï¿½ï¿½Ó¦   
 					if(errorstatus!=SD_OK)return errorstatus;	 
 				}
 			}
-			INTX_ENABLE();//¿ªÆô×ÜÖÐ¶Ï
-	 		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+			INTX_ENABLE();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+	 		SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
 	    }else if(DeviceMode==SD_DMA_MODE)
 		{
 	   	TransferError=SD_OK;
-			StopCondition=1;			//¶à¿éÐ´,ÐèÒª·¢ËÍÍ£Ö¹´«ÊäÖ¸Áî 
-			TransferEnd=0;				//´«Êä½áÊø±êÖÃÎ»£¬ÔÚÖÐ¶Ï·þÎñÖÃ1
-			SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<4)|(1<<9);	//ÅäÖÃ²úÉúÊý¾Ý½ÓÊÕÍê³ÉÖÐ¶Ï
-			SD_DMA_Config((u32*)buf,nblks*blksize,DMA_DIR_MemoryToPeripheral);		//SDIO DMAÅäÖÃ
-	 	 	SDIO->DCTRL|=1<<3;								//SDIO DMAÊ¹ÄÜ. 
+			StopCondition=1;			//ï¿½ï¿½ï¿½Ð´,ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ 
+			TransferEnd=0;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½1
+			SDIO->MASK|=(1<<1)|(1<<3)|(1<<8)|(1<<4)|(1<<9);	//ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+			SD_DMA_Config((u32*)buf,nblks*blksize,DMA_DIR_MemoryToPeripheral);		//SDIO DMAï¿½ï¿½ï¿½ï¿½
+	 	 	SDIO->DCTRL|=1<<3;								//SDIO DMAÊ¹ï¿½ï¿½. 
 			timeout=SDIO_DATATIMEOUT;
-	 		while(((DMA2->LISR&(1<<27))==RESET)&&timeout)timeout--;//µÈ´ý´«ÊäÍê³É 
-			if(timeout==0)	 								//³¬Ê±
+	 		while(((DMA2->LISR&(1<<27))==RESET)&&timeout)timeout--;//ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+			if(timeout==0)	 								//ï¿½ï¿½Ê±
 			{									  
-  				SD_Init();	 					//ÖØÐÂ³õÊ¼»¯SD¿¨,¿ÉÒÔ½â¾öÐ´ÈëËÀ»úµÄÎÊÌâ
-	 			return SD_DATA_TIMEOUT;			//³¬Ê±	 
+  				SD_Init();	 					//ï¿½ï¿½ï¿½Â³ï¿½Ê¼ï¿½ï¿½SDï¿½ï¿½,ï¿½ï¿½ï¿½Ô½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 			return SD_DATA_TIMEOUT;			//ï¿½ï¿½Ê±	 
 	 		}
 			timeout=SDIO_DATATIMEOUT;
 			while((TransferEnd==0)&&(TransferError==SD_OK)&&timeout)timeout--;
-	 		if(timeout==0)return SD_DATA_TIMEOUT;			//³¬Ê±	 
+	 		if(timeout==0)return SD_DATA_TIMEOUT;			//ï¿½ï¿½Ê±	 
 	 		if(TransferError!=SD_OK)return TransferError;	 
 		}
   	}
- 	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+ 	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
  	errorstatus=IsCardProgramming(&cardstate);
  	while((errorstatus==SD_OK)&&((cardstate==SD_CARD_PROGRAMMING)||(cardstate==SD_CARD_RECEIVING)))
 	{
@@ -1179,21 +1182,21 @@ SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 	}   
 	return errorstatus;	   
 }
-//SDIOÖÐ¶Ï·þÎñº¯Êý		  
+//SDIOï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½		  
 void SDIO_IRQHandler(void) 
 {											
- 	SD_ProcessIRQSrc();//´¦ÀíËùÓÐSDIOÏà¹ØÖÐ¶Ï
+ 	SD_ProcessIRQSrc();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SDIOï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 }	 																    
-//SDIOÖÐ¶Ï´¦Àíº¯Êý
-//´¦ÀíSDIO´«Êä¹ý³ÌÖÐµÄ¸÷ÖÖÖÐ¶ÏÊÂÎñ
-//·µ»ØÖµ:´íÎó´úÂë
+//SDIOï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½SDIOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¸ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 SD_Error SD_ProcessIRQSrc(void)
 {
-	if(SDIO_GetFlagStatus(SDIO_FLAG_DATAEND) != RESET)//½ÓÊÕÍê³ÉÖÐ¶Ï
+	if(SDIO_GetFlagStatus(SDIO_FLAG_DATAEND) != RESET)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	{	 
 		if (StopCondition==1)
 		{  
-				SDIO_CmdInitStructure.SDIO_Argument =0;//·¢ËÍCMD12+½áÊø´«Êä 	  
+				SDIO_CmdInitStructure.SDIO_Argument =0;//ï¿½ï¿½ï¿½ï¿½CMD12+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 	  
 				SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_STOP_TRANSMISSION;
 				SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
 				SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
@@ -1202,65 +1205,65 @@ SD_Error SD_ProcessIRQSrc(void)
 					
 			TransferError=CmdResp1Error(SD_CMD_STOP_TRANSMISSION);
 		}else TransferError = SD_OK;	
- 		SDIO->ICR|=1<<8;//Çå³ýÍê³ÉÖÐ¶Ï±ê¼Ç
-		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//¹Ø±ÕÏà¹ØÖÐ¶Ï
+ 		SDIO->ICR|=1<<8;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½ï¿½
+		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
  		TransferEnd = 1;
 		return(TransferError);
 	}
- 	if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)//Êý¾ÝCRC´íÎó
+ 	if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)//ï¿½ï¿½ï¿½ï¿½CRCï¿½ï¿½ï¿½ï¿½
 	{
-		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//Çå´íÎó±êÖ¾
-		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//¹Ø±ÕÏà¹ØÖÐ¶Ï
+		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
+		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	    TransferError = SD_DATA_CRC_FAIL;
 	    return(SD_DATA_CRC_FAIL);
 	}
- 	if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)//Êý¾Ý³¬Ê±´íÎó
+ 	if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)//ï¿½ï¿½ï¿½Ý³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	{
-		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT);  			//ÇåÖÐ¶Ï±êÖ¾
-		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//¹Ø±ÕÏà¹ØÖÐ¶Ï
+		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT);  			//ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾
+		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	    TransferError = SD_DATA_TIMEOUT;
 	    return(SD_DATA_TIMEOUT);
 	}
-  	if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET)//FIFOÉÏÒç´íÎó
+  	if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET)//FIFOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);  			//ÇåÖÐ¶Ï±êÖ¾
-		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//¹Ø±ÕÏà¹ØÖÐ¶Ï
+		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);  			//ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾
+		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	    TransferError = SD_RX_OVERRUN;
 	    return(SD_RX_OVERRUN);
 	}
-   	if(SDIO_GetFlagStatus(SDIO_FLAG_TXUNDERR) != RESET)//FIFOÏÂÒç´íÎó
+   	if(SDIO_GetFlagStatus(SDIO_FLAG_TXUNDERR) != RESET)//FIFOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		SDIO_ClearFlag(SDIO_FLAG_TXUNDERR);  			//ÇåÖÐ¶Ï±êÖ¾
-		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//¹Ø±ÕÏà¹ØÖÐ¶Ï
+		SDIO_ClearFlag(SDIO_FLAG_TXUNDERR);  			//ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾
+		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	    TransferError = SD_TX_UNDERRUN;
 	    return(SD_TX_UNDERRUN);
 	}
-	if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET)//ÆðÊ¼Î»´íÎó
+	if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET)//ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 	{
-		SDIO_ClearFlag(SDIO_FLAG_STBITERR);  		//ÇåÖÐ¶Ï±êÖ¾
-		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//¹Ø±ÕÏà¹ØÖÐ¶Ï
+		SDIO_ClearFlag(SDIO_FLAG_STBITERR);  		//ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾
+		SDIO->MASK&=~((1<<1)|(1<<3)|(1<<8)|(1<<14)|(1<<15)|(1<<4)|(1<<5)|(1<<9));//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	    TransferError = SD_START_BIT_ERR;
 	    return(SD_START_BIT_ERR);
 	}
 	return(SD_OK);
 }
   
-//¼ì²éCMD0µÄÖ´ÐÐ×´Ì¬
-//·µ»ØÖµ:sd¿¨´íÎóÂë
+//ï¿½ï¿½ï¿½CMD0ï¿½ï¿½Ö´ï¿½ï¿½×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:sdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 SD_Error CmdError(void)
 {
 	SD_Error errorstatus = SD_OK;
 	u32 timeout=SDIO_CMD0TIMEOUT;	   
 	while(timeout--)
 	{
-		if(SDIO_GetFlagStatus(SDIO_FLAG_CMDSENT) != RESET)break;	//ÃüÁîÒÑ·¢ËÍ(ÎÞÐèÏìÓ¦)	 
+		if(SDIO_GetFlagStatus(SDIO_FLAG_CMDSENT) != RESET)break;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦)	 
 	}	    
 	if(timeout==0)return SD_CMD_RSP_TIMEOUT;  
-	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
 	return errorstatus;
 }	 
-//¼ì²éR7ÏìÓ¦µÄ´íÎó×´Ì¬
-//·µ»ØÖµ:sd¿¨´íÎóÂë
+//ï¿½ï¿½ï¿½R7ï¿½ï¿½Ó¦ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:sdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 SD_Error CmdResp7Error(void)
 {
 	SD_Error errorstatus=SD_OK;
@@ -1269,66 +1272,66 @@ SD_Error CmdResp7Error(void)
  	while(timeout--)
 	{
 		status=SDIO->STA;
-		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRC´íÎó/ÃüÁîÏìÓ¦³¬Ê±/ÒÑ¾­ÊÕµ½ÏìÓ¦(CRCÐ£Ñé³É¹¦)	
+		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRCï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±/ï¿½Ñ¾ï¿½ï¿½Õµï¿½ï¿½ï¿½Ó¦(CRCÐ£ï¿½ï¿½É¹ï¿½)	
 	}
- 	if((timeout==0)||(status&(1<<2)))	//ÏìÓ¦³¬Ê±
+ 	if((timeout==0)||(status&(1<<2)))	//ï¿½ï¿½Ó¦ï¿½ï¿½Ê±
 	{																				    
-		errorstatus=SD_CMD_RSP_TIMEOUT;	//µ±Ç°¿¨²»ÊÇ2.0¼æÈÝ¿¨,»òÕß²»Ö§³ÖÉè¶¨µÄµçÑ¹·¶Î§
-		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT); 			//Çå³ýÃüÁîÏìÓ¦³¬Ê±±êÖ¾
+		errorstatus=SD_CMD_RSP_TIMEOUT;	//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2.0ï¿½ï¿½ï¿½Ý¿ï¿½,ï¿½ï¿½ï¿½ß²ï¿½Ö§ï¿½ï¿½ï¿½è¶¨ï¿½Äµï¿½Ñ¹ï¿½ï¿½Î§
+		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT); 			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±ï¿½ï¿½Ö¾
 		return errorstatus;
 	}	 
-	if(status&1<<6)						//³É¹¦½ÓÊÕµ½ÏìÓ¦
+	if(status&1<<6)						//ï¿½É¹ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ó¦
 	{								   
 		errorstatus=SD_OK;
-		SDIO_ClearFlag(SDIO_FLAG_CMDREND); 				//Çå³ýÏìÓ¦±êÖ¾
+		SDIO_ClearFlag(SDIO_FLAG_CMDREND); 				//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ö¾
  	}
 	return errorstatus;
 }	   
-//¼ì²éR1ÏìÓ¦µÄ´íÎó×´Ì¬
-//cmd:µ±Ç°ÃüÁî
-//·µ»ØÖµ:sd¿¨´íÎóÂë
+//ï¿½ï¿½ï¿½R1ï¿½ï¿½Ó¦ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬
+//cmd:ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Öµ:sdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 SD_Error CmdResp1Error(u8 cmd)
 {	  
    	u32 status; 
 	while(1)
 	{
 		status=SDIO->STA;
-		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRC´íÎó/ÃüÁîÏìÓ¦³¬Ê±/ÒÑ¾­ÊÕµ½ÏìÓ¦(CRCÐ£Ñé³É¹¦)
+		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRCï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±/ï¿½Ñ¾ï¿½ï¿½Õµï¿½ï¿½ï¿½Ó¦(CRCÐ£ï¿½ï¿½É¹ï¿½)
 	} 
-	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)					//ÏìÓ¦³¬Ê±
+	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)					//ï¿½ï¿½Ó¦ï¿½ï¿½Ê±
 	{																				    
- 		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT); 				//Çå³ýÃüÁîÏìÓ¦³¬Ê±±êÖ¾
+ 		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT); 				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±ï¿½ï¿½Ö¾
 		return SD_CMD_RSP_TIMEOUT;
 	}	
- 	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)					//CRC´íÎó
+ 	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)					//CRCï¿½ï¿½ï¿½ï¿½
 	{																				    
- 		SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL); 				//Çå³ý±êÖ¾
+ 		SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL); 				//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 		return SD_CMD_CRC_FAIL;
 	}		
-	if(SDIO->RESPCMD!=cmd)return SD_ILLEGAL_CMD;//ÃüÁî²»Æ¥Åä 
-  SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
-	return (SD_Error)(SDIO->RESP1&SD_OCR_ERRORBITS);//·µ»Ø¿¨ÏìÓ¦
+	if(SDIO->RESPCMD!=cmd)return SD_ILLEGAL_CMD;//ï¿½ï¿½ï¿½î²»Æ¥ï¿½ï¿½ 
+  SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
+	return (SD_Error)(SDIO->RESP1&SD_OCR_ERRORBITS);//ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½Ó¦
 }
-//¼ì²éR3ÏìÓ¦µÄ´íÎó×´Ì¬
-//·µ»ØÖµ:´íÎó×´Ì¬
+//ï¿½ï¿½ï¿½R3ï¿½ï¿½Ó¦ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error CmdResp3Error(void)
 {
 	u32 status;						 
  	while(1)
 	{
 		status=SDIO->STA;
-		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRC´íÎó/ÃüÁîÏìÓ¦³¬Ê±/ÒÑ¾­ÊÕµ½ÏìÓ¦(CRCÐ£Ñé³É¹¦)	
+		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRCï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±/ï¿½Ñ¾ï¿½ï¿½Õµï¿½ï¿½ï¿½Ó¦(CRCÐ£ï¿½ï¿½É¹ï¿½)	
 	}
- 	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)					//ÏìÓ¦³¬Ê±
+ 	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)					//ï¿½ï¿½Ó¦ï¿½ï¿½Ê±
 	{											 
-		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT);			//Çå³ýÃüÁîÏìÓ¦³¬Ê±±êÖ¾
+		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±ï¿½ï¿½Ö¾
 		return SD_CMD_RSP_TIMEOUT;
 	}	 
-   SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+   SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
  	return SD_OK;								  
 }
-//¼ì²éR2ÏìÓ¦µÄ´íÎó×´Ì¬
-//·µ»ØÖµ:´íÎó×´Ì¬
+//ï¿½ï¿½ï¿½R2ï¿½ï¿½Ó¦ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error CmdResp2Error(void)
 {
 	SD_Error errorstatus=SD_OK;
@@ -1337,26 +1340,26 @@ SD_Error CmdResp2Error(void)
  	while(timeout--)
 	{
 		status=SDIO->STA;
-		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRC´íÎó/ÃüÁîÏìÓ¦³¬Ê±/ÒÑ¾­ÊÕµ½ÏìÓ¦(CRCÐ£Ñé³É¹¦)	
+		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRCï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±/ï¿½Ñ¾ï¿½ï¿½Õµï¿½ï¿½ï¿½Ó¦(CRCÐ£ï¿½ï¿½É¹ï¿½)	
 	}
-  	if((timeout==0)||(status&(1<<2)))	//ÏìÓ¦³¬Ê±
+  	if((timeout==0)||(status&(1<<2)))	//ï¿½ï¿½Ó¦ï¿½ï¿½Ê±
 	{																				    
 		errorstatus=SD_CMD_RSP_TIMEOUT; 
-		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT); 		//Çå³ýÃüÁîÏìÓ¦³¬Ê±±êÖ¾
+		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT); 		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±ï¿½ï¿½Ö¾
 		return errorstatus;
 	}	 
-	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)						//CRC´íÎó
+	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)						//CRCï¿½ï¿½ï¿½ï¿½
 	{								   
 		errorstatus=SD_CMD_CRC_FAIL;
-		SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL);		//Çå³ýÏìÓ¦±êÖ¾
+		SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL);		//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ö¾
  	}
-	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
  	return errorstatus;								    		 
 } 
-//¼ì²éR6ÏìÓ¦µÄ´íÎó×´Ì¬
-//cmd:Ö®Ç°·¢ËÍµÄÃüÁî
-//prca:¿¨·µ»ØµÄRCAµØÖ·
-//·µ»ØÖµ:´íÎó×´Ì¬
+//ï¿½ï¿½ï¿½R6ï¿½ï¿½Ó¦ï¿½Ä´ï¿½ï¿½ï¿½×´Ì¬
+//cmd:Ö®Ç°ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½
+//prca:ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½RCAï¿½ï¿½Ö·
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error CmdResp6Error(u8 cmd,u16*prca)
 {
 	SD_Error errorstatus=SD_OK;
@@ -1365,27 +1368,27 @@ SD_Error CmdResp6Error(u8 cmd,u16*prca)
  	while(1)
 	{
 		status=SDIO->STA;
-		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRC´íÎó/ÃüÁîÏìÓ¦³¬Ê±/ÒÑ¾­ÊÕµ½ÏìÓ¦(CRCÐ£Ñé³É¹¦)	
+		if(status&((1<<0)|(1<<2)|(1<<6)))break;//CRCï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±/ï¿½Ñ¾ï¿½ï¿½Õµï¿½ï¿½ï¿½Ó¦(CRCÐ£ï¿½ï¿½É¹ï¿½)	
 	}
-	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)					//ÏìÓ¦³¬Ê±
+	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)					//ï¿½ï¿½Ó¦ï¿½ï¿½Ê±
 	{																				    
- 		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT);			//Çå³ýÃüÁîÏìÓ¦³¬Ê±±êÖ¾
+ 		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê±ï¿½ï¿½Ö¾
 		return SD_CMD_RSP_TIMEOUT;
 	}	 	 
-	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)						//CRC´íÎó
+	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)						//CRCï¿½ï¿½ï¿½ï¿½
 	{								   
-		SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL);					//Çå³ýÏìÓ¦±êÖ¾
+		SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL);					//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ö¾
  		return SD_CMD_CRC_FAIL;
 	}
-	if(SDIO->RESPCMD!=cmd)				//ÅÐ¶ÏÊÇ·ñÏìÓ¦cmdÃüÁî
+	if(SDIO->RESPCMD!=cmd)				//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ó¦cmdï¿½ï¿½ï¿½ï¿½
 	{
  		return SD_ILLEGAL_CMD; 		
 	}	    
-	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
-	rspr1=SDIO->RESP1;					//µÃµ½ÏìÓ¦ 	 
+	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
+	rspr1=SDIO->RESP1;					//ï¿½Ãµï¿½ï¿½ï¿½Ó¦ 	 
 	if(SD_ALLZERO==(rspr1&(SD_R6_GENERAL_UNKNOWN_ERROR|SD_R6_ILLEGAL_CMD|SD_R6_COM_CRC_FAILED)))
 	{
-		*prca=(u16)(rspr1>>16);			//ÓÒÒÆ16Î»µÃµ½,rca
+		*prca=(u16)(rspr1>>16);			//ï¿½ï¿½ï¿½ï¿½16Î»ï¿½Ãµï¿½,rca
 		return errorstatus;
 	}
    	if(rspr1&SD_R6_GENERAL_UNKNOWN_ERROR)return SD_GENERAL_UNKNOWN_ERROR;
@@ -1394,9 +1397,9 @@ SD_Error CmdResp6Error(u8 cmd,u16*prca)
 	return errorstatus;
 }
 
-//SDIOÊ¹ÄÜ¿í×ÜÏßÄ£Ê½
-//enx:0,²»Ê¹ÄÜ;1,Ê¹ÄÜ;
-//·µ»ØÖµ:´íÎó×´Ì¬
+//SDIOÊ¹ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+//enx:0,ï¿½ï¿½Ê¹ï¿½ï¿½;1,Ê¹ï¿½ï¿½;
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬
 SD_Error SDEnWideBus(u8 enx)
 {
 	SD_Error errorstatus = SD_OK;
@@ -1404,12 +1407,12 @@ SD_Error SDEnWideBus(u8 enx)
 	u8 arg=0X00;
 	if(enx)arg=0X02;
 	else arg=0X00;
- 	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//SD¿¨´¦ÓÚLOCKED×´Ì¬		    
- 	errorstatus=FindSCR(RCA,scr);						//µÃµ½SCR¼Ä´æÆ÷Êý¾Ý
+ 	if(SDIO->RESP1&SD_CARD_LOCKED)return SD_LOCK_UNLOCK_FAILED;//SDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LOCKED×´Ì¬		    
+ 	errorstatus=FindSCR(RCA,scr);						//ï¿½Ãµï¿½SCRï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  	if(errorstatus!=SD_OK)return errorstatus;
-	if((scr[1]&SD_WIDE_BUS_SUPPORT)!=SD_ALLZERO)		//Ö§³Ö¿í×ÜÏß
+	if((scr[1]&SD_WIDE_BUS_SUPPORT)!=SD_ALLZERO)		//Ö§ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		  SDIO_CmdInitStructure.SDIO_Argument = (uint32_t) RCA << 16;//·¢ËÍCMD55+RCA,¶ÌÏìÓ¦	
+		  SDIO_CmdInitStructure.SDIO_Argument = (uint32_t) RCA << 16;//ï¿½ï¿½ï¿½ï¿½CMD55+RCA,ï¿½ï¿½ï¿½ï¿½Ó¦	
       SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_APP_CMD;
       SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
       SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
@@ -1420,7 +1423,7 @@ SD_Error SDEnWideBus(u8 enx)
 		
 	 	if(errorstatus!=SD_OK)return errorstatus; 
 		
-		  SDIO_CmdInitStructure.SDIO_Argument = arg;//·¢ËÍACMD6,¶ÌÏìÓ¦,²ÎÊý:10,4Î»;00,1Î».	
+		  SDIO_CmdInitStructure.SDIO_Argument = arg;//ï¿½ï¿½ï¿½ï¿½ACMD6,ï¿½ï¿½ï¿½ï¿½Ó¦,ï¿½ï¿½ï¿½ï¿½:10,4Î»;00,1Î».	
       SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_APP_SD_SET_BUSWIDTH;
       SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
       SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
@@ -1430,17 +1433,17 @@ SD_Error SDEnWideBus(u8 enx)
      errorstatus=CmdResp1Error(SD_CMD_APP_SD_SET_BUSWIDTH);
 		
 		return errorstatus;
-	}else return SD_REQUEST_NOT_APPLICABLE;				//²»Ö§³Ö¿í×ÜÏßÉèÖÃ 	 
+	}else return SD_REQUEST_NOT_APPLICABLE;				//ï¿½ï¿½Ö§ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 	 
 }												   
-//¼ì²é¿¨ÊÇ·ñÕýÔÚÖ´ÐÐÐ´²Ù×÷
-//pstatus:µ±Ç°×´Ì¬.
-//·µ»ØÖµ:´íÎó´úÂë
+//ï¿½ï¿½é¿¨ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
+//pstatus:ï¿½ï¿½Ç°×´Ì¬.
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 SD_Error IsCardProgramming(u8 *pstatus)
 {
  	vu32 respR1 = 0, status = 0;  
   
-  SDIO_CmdInitStructure.SDIO_Argument = (uint32_t) RCA << 16; //¿¨Ïà¶ÔµØÖ·²ÎÊý
-  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEND_STATUS;//·¢ËÍCMD13 	
+  SDIO_CmdInitStructure.SDIO_Argument = (uint32_t) RCA << 16; //ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ö·ï¿½ï¿½ï¿½ï¿½
+  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEND_STATUS;//ï¿½ï¿½ï¿½ï¿½CMD13 	
   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
   SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
   SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
@@ -1448,26 +1451,26 @@ SD_Error IsCardProgramming(u8 *pstatus)
  	
 	status=SDIO->STA;
 	
-	while(!(status&((1<<0)|(1<<6)|(1<<2))))status=SDIO->STA;//µÈ´ý²Ù×÷Íê³É
-   	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)			//CRC¼ì²âÊ§°Ü
+	while(!(status&((1<<0)|(1<<6)|(1<<2))))status=SDIO->STA;//ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   	if(SDIO_GetFlagStatus(SDIO_FLAG_CCRCFAIL) != RESET)			//CRCï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 	{  
-	  SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL);	//Çå³ý´íÎó±ê¼Ç
+	  SDIO_ClearFlag(SDIO_FLAG_CCRCFAIL);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return SD_CMD_CRC_FAIL;
 	}
-   	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)			//ÃüÁî³¬Ê± 
+   	if(SDIO_GetFlagStatus(SDIO_FLAG_CTIMEOUT) != RESET)			//ï¿½ï¿½ï¿½î³¬Ê± 
 	{
-		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT);			//Çå³ý´íÎó±ê¼Ç
+		SDIO_ClearFlag(SDIO_FLAG_CTIMEOUT);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return SD_CMD_RSP_TIMEOUT;
 	}
  	if(SDIO->RESPCMD!=SD_CMD_SEND_STATUS)return SD_ILLEGAL_CMD;
-	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
+	SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
 	respR1=SDIO->RESP1;
 	*pstatus=(u8)((respR1>>9)&0x0000000F);
 	return SD_OK;
 }
-//¶ÁÈ¡µ±Ç°¿¨×´Ì¬
-//pcardstatus:¿¨×´Ì¬
-//·µ»ØÖµ:´íÎó´úÂë
+//ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½×´Ì¬
+//pcardstatus:ï¿½ï¿½×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 SD_Error SD_SendStatus(uint32_t *pcardstatus)
 {
 	SD_Error errorstatus = SD_OK;
@@ -1477,37 +1480,37 @@ SD_Error SD_SendStatus(uint32_t *pcardstatus)
 		return errorstatus;
 	}
 	
-	SDIO_CmdInitStructure.SDIO_Argument = (uint32_t) RCA << 16;//·¢ËÍCMD13,¶ÌÏìÓ¦		 
+	SDIO_CmdInitStructure.SDIO_Argument = (uint32_t) RCA << 16;//ï¿½ï¿½ï¿½ï¿½CMD13,ï¿½ï¿½ï¿½ï¿½Ó¦		 
   SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SEND_STATUS;
   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
   SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
   SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
   SDIO_SendCommand(&SDIO_CmdInitStructure);	
 	
-	errorstatus=CmdResp1Error(SD_CMD_SEND_STATUS);	//²éÑ¯ÏìÓ¦×´Ì¬ 
+	errorstatus=CmdResp1Error(SD_CMD_SEND_STATUS);	//ï¿½ï¿½Ñ¯ï¿½ï¿½Ó¦×´Ì¬ 
 	if(errorstatus!=SD_OK)return errorstatus;
-	*pcardstatus=SDIO->RESP1;//¶ÁÈ¡ÏìÓ¦Öµ
+	*pcardstatus=SDIO->RESP1;//ï¿½ï¿½È¡ï¿½ï¿½Ó¦Öµ
 	return errorstatus;
 } 
-//·µ»ØSD¿¨µÄ×´Ì¬
-//·µ»ØÖµ:SD¿¨×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½SDï¿½ï¿½ï¿½ï¿½×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½Öµ:SDï¿½ï¿½×´Ì¬
 SDCardState SD_GetState(void)
 {
 	u32 resp1=0;
 	if(SD_SendStatus(&resp1)!=SD_OK)return SD_CARD_ERROR;
 	else return (SDCardState)((resp1>>9) & 0x0F);
 }
-//²éÕÒSD¿¨µÄSCR¼Ä´æÆ÷Öµ
-//rca:¿¨Ïà¶ÔµØÖ·
-//pscr:Êý¾Ý»º´æÇø(´æ´¢SCRÄÚÈÝ)
-//·µ»ØÖµ:´íÎó×´Ì¬		   
+//ï¿½ï¿½ï¿½ï¿½SDï¿½ï¿½ï¿½ï¿½SCRï¿½Ä´ï¿½ï¿½ï¿½Öµ
+//rca:ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ö·
+//pscr:ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½æ´¢SCRï¿½ï¿½ï¿½ï¿½)
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬		   
 SD_Error FindSCR(u16 rca,u32 *pscr)
 { 
 	u32 index = 0; 
 	SD_Error errorstatus = SD_OK;
 	u32 tempscr[2]={0,0};  
 	
-	SDIO_CmdInitStructure.SDIO_Argument = (uint32_t)8;	 //·¢ËÍCMD16,¶ÌÏìÓ¦,ÉèÖÃBlock SizeÎª8×Ö½Ú	
+	SDIO_CmdInitStructure.SDIO_Argument = (uint32_t)8;	 //ï¿½ï¿½ï¿½ï¿½CMD16,ï¿½ï¿½ï¿½ï¿½Ó¦,ï¿½ï¿½ï¿½ï¿½Block SizeÎª8ï¿½Ö½ï¿½	
   SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SET_BLOCKLEN; //	 cmd16
   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;  //r1
   SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
@@ -1519,7 +1522,7 @@ SD_Error FindSCR(u16 rca,u32 *pscr)
  	if(errorstatus!=SD_OK)return errorstatus;	 
 	
   SDIO_CmdInitStructure.SDIO_Argument = (uint32_t) RCA << 16; 
-  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_APP_CMD;//·¢ËÍCMD55,¶ÌÏìÓ¦ 	
+  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_APP_CMD;//ï¿½ï¿½ï¿½ï¿½CMD55,ï¿½ï¿½ï¿½ï¿½Ó¦ 	
   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;
   SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
   SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
@@ -1529,15 +1532,15 @@ SD_Error FindSCR(u16 rca,u32 *pscr)
  	if(errorstatus!=SD_OK)return errorstatus;
 	
   SDIO_DataInitStructure.SDIO_DataTimeOut = SD_DATATIMEOUT;
-  SDIO_DataInitStructure.SDIO_DataLength = 8;  //8¸ö×Ö½Ú³¤¶È,blockÎª8×Ö½Ú,SD¿¨µ½SDIO.
-  SDIO_DataInitStructure.SDIO_DataBlockSize = SDIO_DataBlockSize_8b  ;  //¿é´óÐ¡8byte 
+  SDIO_DataInitStructure.SDIO_DataLength = 8;  //8ï¿½ï¿½ï¿½Ö½Ú³ï¿½ï¿½ï¿½,blockÎª8ï¿½Ö½ï¿½,SDï¿½ï¿½ï¿½ï¿½SDIO.
+  SDIO_DataInitStructure.SDIO_DataBlockSize = SDIO_DataBlockSize_8b  ;  //ï¿½ï¿½ï¿½Ð¡8byte 
   SDIO_DataInitStructure.SDIO_TransferDir = SDIO_TransferDir_ToSDIO;
   SDIO_DataInitStructure.SDIO_TransferMode = SDIO_TransferMode_Block;
   SDIO_DataInitStructure.SDIO_DPSM = SDIO_DPSM_Enable;
   SDIO_DataConfig(&SDIO_DataInitStructure);		
 
   SDIO_CmdInitStructure.SDIO_Argument = 0x0;
-  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SD_APP_SEND_SCR;	//·¢ËÍACMD51,¶ÌÏìÓ¦,²ÎÊýÎª0	
+  SDIO_CmdInitStructure.SDIO_CmdIndex = SD_CMD_SD_APP_SEND_SCR;	//ï¿½ï¿½ï¿½ï¿½ACMD51,ï¿½ï¿½ï¿½ï¿½Ó¦,ï¿½ï¿½ï¿½ï¿½Îª0	
   SDIO_CmdInitStructure.SDIO_Response = SDIO_Response_Short;  //r1
   SDIO_CmdInitStructure.SDIO_Wait = SDIO_Wait_No;
   SDIO_CmdInitStructure.SDIO_CPSM = SDIO_CPSM_Enable;
@@ -1547,39 +1550,39 @@ SD_Error FindSCR(u16 rca,u32 *pscr)
  	if(errorstatus!=SD_OK)return errorstatus;							   
  	while(!(SDIO->STA&(SDIO_FLAG_RXOVERR|SDIO_FLAG_DCRCFAIL|SDIO_FLAG_DTIMEOUT|SDIO_FLAG_DBCKEND|SDIO_FLAG_STBITERR)))
 	{ 
-		if(SDIO_GetFlagStatus(SDIO_FLAG_RXDAVL) != RESET)//½ÓÊÕFIFOÊý¾Ý¿ÉÓÃ
+		if(SDIO_GetFlagStatus(SDIO_FLAG_RXDAVL) != RESET)//ï¿½ï¿½ï¿½ï¿½FIFOï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
 		{
-			*(tempscr+index)=SDIO->FIFO;	//¶ÁÈ¡FIFOÄÚÈÝ
+			*(tempscr+index)=SDIO->FIFO;	//ï¿½ï¿½È¡FIFOï¿½ï¿½ï¿½ï¿½
 			index++;
 			if(index>=2)break;
 		}
 	}
-		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//Êý¾Ý³¬Ê±´íÎó
+		if(SDIO_GetFlagStatus(SDIO_FLAG_DTIMEOUT) != RESET)		//ï¿½ï¿½ï¿½Ý³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		{										   
-	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DTIMEOUT); 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_TIMEOUT;
-	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//Êý¾Ý¿éCRC´íÎó
+	 	}else if(SDIO_GetFlagStatus(SDIO_FLAG_DCRCFAIL) != RESET)	//ï¿½ï¿½ï¿½Ý¿ï¿½CRCï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_DCRCFAIL);  		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_DATA_CRC_FAIL;		   
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET) 	//½ÓÊÕfifoÉÏÒç´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_RXOVERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½fifoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);		//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_RXOVERR);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_RX_OVERRUN;		 
-		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//½ÓÊÕÆðÊ¼Î»´íÎó
+		}else if(SDIO_GetFlagStatus(SDIO_FLAG_STBITERR) != RESET) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½ï¿½ï¿½
 		{
-	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//Çå´íÎó±êÖ¾
+	 		SDIO_ClearFlag(SDIO_FLAG_STBITERR);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 			return SD_START_BIT_ERR;		 
 		}  
-   SDIO_ClearFlag(SDIO_STATIC_FLAGS);//Çå³ýËùÓÐ±ê¼Ç
-	//°ÑÊý¾ÝË³Ðò°´8Î»Îªµ¥Î»µ¹¹ýÀ´.   	
+   SDIO_ClearFlag(SDIO_STATIC_FLAGS);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½8Î»Îªï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.   	
 	*(pscr+1)=((tempscr[0]&SD_0TO7BITS)<<24)|((tempscr[0]&SD_8TO15BITS)<<8)|((tempscr[0]&SD_16TO23BITS)>>8)|((tempscr[0]&SD_24TO31BITS)>>24);
 	*(pscr)=((tempscr[1]&SD_0TO7BITS)<<24)|((tempscr[1]&SD_8TO15BITS)<<8)|((tempscr[1]&SD_16TO23BITS)>>8)|((tempscr[1]&SD_24TO31BITS)>>24);
  	return errorstatus;
 }
-//µÃµ½NumberOfBytesÒÔ2Îªµ×µÄÖ¸Êý.
-//NumberOfBytes:×Ö½ÚÊý.
-//·µ»ØÖµ:ÒÔ2Îªµ×µÄÖ¸ÊýÖµ
+//ï¿½Ãµï¿½NumberOfBytesï¿½ï¿½2Îªï¿½×µï¿½Ö¸ï¿½ï¿½.
+//NumberOfBytes:ï¿½Ö½ï¿½ï¿½ï¿½.
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½2Îªï¿½×µï¿½Ö¸ï¿½ï¿½Öµ
 u8 convert_from_bytes_to_power_of_two(u16 NumberOfBytes)
 {
 	u8 count=0;
@@ -1591,49 +1594,49 @@ u8 convert_from_bytes_to_power_of_two(u16 NumberOfBytes)
 	return count;
 } 	 
 
-//ÅäÖÃSDIO DMA  
-//mbuf:´æ´¢Æ÷µØÖ·
-//bufsize:´«ÊäÊý¾ÝÁ¿
-//dir:·½Ïò;DMA_DIR_MemoryToPeripheral  ´æ´¢Æ÷-->SDIO(Ð´Êý¾Ý);DMA_DIR_PeripheralToMemory SDIO-->´æ´¢Æ÷(¶ÁÊý¾Ý);
+//ï¿½ï¿½ï¿½ï¿½SDIO DMA  
+//mbuf:ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
+//bufsize:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//dir:ï¿½ï¿½ï¿½ï¿½;DMA_DIR_MemoryToPeripheral  ï¿½æ´¢ï¿½ï¿½-->SDIO(Ð´ï¿½ï¿½ï¿½ï¿½);DMA_DIR_PeripheralToMemory SDIO-->ï¿½æ´¢ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½);
 void SD_DMA_Config(u32*mbuf,u32 bufsize,u32 dir)
 {		 
 
   DMA_InitTypeDef  DMA_InitStructure;
 	
-	while (DMA_GetCmdStatus(DMA2_Stream3) != DISABLE){}//µÈ´ýDMA¿ÉÅäÖÃ 
+	while (DMA_GetCmdStatus(DMA2_Stream3) != DISABLE){}//ï¿½È´ï¿½DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		
-  DMA_DeInit(DMA2_Stream3);//Çå¿ÕÖ®Ç°¸Ãstream3ÉÏµÄËùÓÐÖÐ¶Ï±êÖ¾
+  DMA_DeInit(DMA2_Stream3);//ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½stream3ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾
 	
  
-  DMA_InitStructure.DMA_Channel = DMA_Channel_4;  //Í¨µÀÑ¡Ôñ
-  DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)&SDIO->FIFO;//DMAÍâÉèµØÖ·
-  DMA_InitStructure.DMA_Memory0BaseAddr = (u32)mbuf;//DMA ´æ´¢Æ÷0µØÖ·
-  DMA_InitStructure.DMA_DIR = dir;//´æ´¢Æ÷µ½ÍâÉèÄ£Ê½
-  DMA_InitStructure.DMA_BufferSize = 0;//Êý¾Ý´«ÊäÁ¿ 
-  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;//ÍâÉè·ÇÔöÁ¿Ä£Ê½
-  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;//´æ´¢Æ÷ÔöÁ¿Ä£Ê½
-  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;//ÍâÉèÊý¾Ý³¤¶È:32Î»
-  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;//´æ´¢Æ÷Êý¾Ý³¤¶È:32Î»
-  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// Ê¹ÓÃÆÕÍ¨Ä£Ê½ 
-  DMA_InitStructure.DMA_Priority = DMA_Priority_VeryHigh;//×î¸ßÓÅÏÈ¼¶
-  DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Enable;   //FIFOÊ¹ÄÜ      
+  DMA_InitStructure.DMA_Channel = DMA_Channel_4;  //Í¨ï¿½ï¿½Ñ¡ï¿½ï¿½
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)&SDIO->FIFO;//DMAï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+  DMA_InitStructure.DMA_Memory0BaseAddr = (u32)mbuf;//DMA ï¿½æ´¢ï¿½ï¿½0ï¿½ï¿½Ö·
+  DMA_InitStructure.DMA_DIR = dir;//ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+  DMA_InitStructure.DMA_BufferSize = 0;//ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ 
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;//ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½:32Î»
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;//ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½:32Î»
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// Ê¹ï¿½ï¿½ï¿½ï¿½Í¨Ä£Ê½ 
+  DMA_InitStructure.DMA_Priority = DMA_Priority_VeryHigh;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+  DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Enable;   //FIFOÊ¹ï¿½ï¿½      
   DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;//È«FIFO
-  DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_INC4;//ÍâÉèÍ»·¢4´Î´«Êä
-  DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_INC4;//´æ´¢Æ÷Í»·¢4´Î´«Êä
-  DMA_Init(DMA2_Stream3, &DMA_InitStructure);//³õÊ¼»¯DMA Stream
+  DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_INC4;//ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½4ï¿½Î´ï¿½ï¿½ï¿½
+  DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_INC4;//ï¿½æ´¢ï¿½ï¿½Í»ï¿½ï¿½4ï¿½Î´ï¿½ï¿½ï¿½
+  DMA_Init(DMA2_Stream3, &DMA_InitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½DMA Stream
 
-	DMA_FlowControllerConfig(DMA2_Stream3,DMA_FlowCtrl_Peripheral);//ÍâÉèÁ÷¿ØÖÆ 
+	DMA_FlowControllerConfig(DMA2_Stream3,DMA_FlowCtrl_Peripheral);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	 
-  DMA_Cmd(DMA2_Stream3 ,ENABLE);//¿ªÆôDMA´«Êä	 
+  DMA_Cmd(DMA2_Stream3 ,ENABLE);//ï¿½ï¿½ï¿½ï¿½DMAï¿½ï¿½ï¿½ï¿½	 
 
 }   
 
 
-//¶ÁSD¿¨
-//buf:¶ÁÊý¾Ý»º´æÇø
-//sector:ÉÈÇøµØÖ·
-//cnt:ÉÈÇø¸öÊý	
-//·µ»ØÖµ:´íÎó×´Ì¬;0,Õý³£;ÆäËû,´íÎó´úÂë;				  				 
+//ï¿½ï¿½SDï¿½ï¿½
+//buf:ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
+//sector:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+//cnt:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬;0,ï¿½ï¿½ï¿½ï¿½;ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;				  				 
 u8 SD_ReadDisk(u8*buf,u32 sector,u8 cnt)
 {
 	u8 sta=SD_OK;
@@ -1644,22 +1647,22 @@ u8 SD_ReadDisk(u8*buf,u32 sector,u8 cnt)
 	{
 	 	for(n=0;n<cnt;n++)
 		{
-		 	sta=SD_ReadBlock(SDIO_DATA_BUFFER,lsector+512*n,512);//µ¥¸ösectorµÄ¶Á²Ù×÷
+		 	sta=SD_ReadBlock(SDIO_DATA_BUFFER,lsector+512*n,512);//ï¿½ï¿½ï¿½ï¿½sectorï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½
 			memcpy(buf,SDIO_DATA_BUFFER,512);
 			buf+=512;
 		} 
 	}else
 	{
-		if(cnt==1)sta=SD_ReadBlock(buf,lsector,512);    	//µ¥¸ösectorµÄ¶Á²Ù×÷
-		else sta=SD_ReadMultiBlocks(buf,lsector,512,cnt);//¶à¸ösector  
+		if(cnt==1)sta=SD_ReadBlock(buf,lsector,512);    	//ï¿½ï¿½ï¿½ï¿½sectorï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½
+		else sta=SD_ReadMultiBlocks(buf,lsector,512,cnt);//ï¿½ï¿½ï¿½sector  
 	}
 	return sta;
 }
-//Ð´SD¿¨
-//buf:Ð´Êý¾Ý»º´æÇø
-//sector:ÉÈÇøµØÖ·
-//cnt:ÉÈÇø¸öÊý	
-//·µ»ØÖµ:´íÎó×´Ì¬;0,Õý³£;ÆäËû,´íÎó´úÂë;	
+//Ð´SDï¿½ï¿½
+//buf:Ð´ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½
+//sector:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+//cnt:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
+//ï¿½ï¿½ï¿½ï¿½Öµ:ï¿½ï¿½ï¿½ï¿½×´Ì¬;0,ï¿½ï¿½ï¿½ï¿½;ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;	
 u8 SD_WriteDisk(u8*buf,u32 sector,u8 cnt)
 {
 	u8 sta=SD_OK;
@@ -1671,13 +1674,13 @@ u8 SD_WriteDisk(u8*buf,u32 sector,u8 cnt)
 	 	for(n=0;n<cnt;n++)
 		{
 			memcpy(SDIO_DATA_BUFFER,buf,512);
-		 	sta=SD_WriteBlock(SDIO_DATA_BUFFER,lsector+512*n,512);//µ¥¸ösectorµÄÐ´²Ù×÷
+		 	sta=SD_WriteBlock(SDIO_DATA_BUFFER,lsector+512*n,512);//ï¿½ï¿½ï¿½ï¿½sectorï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 			buf+=512;
 		} 
 	}else
 	{
-		if(cnt==1)sta=SD_WriteBlock(buf,lsector,512);    	//µ¥¸ösectorµÄÐ´²Ù×÷
-		else sta=SD_WriteMultiBlocks(buf,lsector,512,cnt);	//¶à¸ösector  
+		if(cnt==1)sta=SD_WriteBlock(buf,lsector,512);    	//ï¿½ï¿½ï¿½ï¿½sectorï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
+		else sta=SD_WriteMultiBlocks(buf,lsector,512,cnt);	//ï¿½ï¿½ï¿½sector  
 	}
 	return sta;
 }

@@ -13,7 +13,7 @@
 ######################################
 # target
 ######################################
-TARGET = template
+TARGET = sd
 
 
 ######################################
@@ -36,9 +36,12 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  
-C_SOURCES +=Core/Src/main.c 
-C_SOURCES +=Core/Src/delay.c 
 C_SOURCES +=Core/Src/bmp.c 
+C_SOURCES +=Core/Src/delay.c 
+C_SOURCES +=Core/Src/diskio.c 
+C_SOURCES +=Core/Src/exfuns.c 
+C_SOURCES +=Core/Src/fattester.c 
+C_SOURCES +=Core/Src/ff.c 
 C_SOURCES +=Core/Src/fontupd.c 
 C_SOURCES +=Core/Src/gif.c 
 C_SOURCES +=Core/Src/GUI.c 
@@ -47,6 +50,7 @@ C_SOURCES +=Core/Src/lcd.c
 C_SOURCES +=Core/Src/led.c 
 C_SOURCES +=Core/Src/main.c 
 C_SOURCES +=Core/Src/malloc.c 
+C_SOURCES +=Core/Src/mycc936.c 
 C_SOURCES +=Core/Src/piclib.c 
 C_SOURCES +=Core/Src/sdio_sdcard.c 
 C_SOURCES +=Core/Src/spi.c 
@@ -55,11 +59,6 @@ C_SOURCES +=Core/Src/text.c
 C_SOURCES +=Core/Src/tjpgd.c 
 C_SOURCES +=Core/Src/usart.c 
 C_SOURCES +=Core/Src/w25q64.c 
-C_SOURCES +=Core/Src/fattester.c 
-C_SOURCES +=Core/Src/ff.c 
-C_SOURCES +=Core/Src/exfuns.c 
-C_SOURCES +=Core/Src/diskio.c 
-C_SOURCES +=Core/Src/mycc936.c 
 C_SOURCES +=Core/Src/stm32f4xx_it.c 
 C_SOURCES +=Drivers/STM32F4xx_FWLIB/src/misc.c 
 # C_SOURCES +=Drivers/STM32F4xx_FWLIB/src/stm32f4xx_adc.c 
@@ -148,7 +147,8 @@ AS_DEFS =
 # C defines
 C_DEFS =  \
 -DUSE_STDPERIPH_DRIVER \
--DSTM32F40_41xxx
+-DSTM32F40_41xxx \
+-DLIB_FILE_DESCRIPTOR
 
 
 # AS includes
