@@ -39,6 +39,7 @@
 #include "usart.h"
 #include "led.h"
 #include "key.h"
+#include "stdio.h"
 
 int main(void)
 {
@@ -49,9 +50,14 @@ int main(void)
 	USART1_Init(115200);							//初始化串口1
 	KEY_Init();										//初始化按键GPIO
 	LED_Init();										//初始化LED灯GPIO
+	printf("hello");
 	while (1)
 	{
-		// USART1_Send("%d",count);
+		char send[50];
+		sprintf(send, "\rcount: %d\n", count);
+		USART1_Send(send);
+		printf("%d", count);
+		printf("hello");
 		count++;
 		if (USART_RX_STA & 0x8000)
 		{
