@@ -1,41 +1,9 @@
-//////////////////////////////////////////////////////////////////////////////////
-//������ֻ��ѧϰʹ�ã�δ���������ɣ���������������ҵ��;
-//����Ӳ������Ƭ��STM32F407VGT6,STM32F407VxT6��Сϵͳ������,��Ƶ168MHZ������8MHZ
-//QDtech-TFTҺ������ for STM32 FSMC
-//Chan@ShenZhen QDtech co.,LTD
-//��˾��վ:www.qdtft.com
-//wiki����������վ��http://www.lcdwiki.com
-//��˾�ṩ����֧�֣��κμ������⻶ӭ��ʱ����ѧϰ
-//�̻�(����) :+86 0755-21077707
-//�ֻ�: (����)18823372746 ������)15989313508
-//����:(����/����) sales@qdtft.com  (�ۺ�/��������)service@qdtft.com
-//QQ:(��ǰ��ѯ)3002706772 (����֧��)3002778157
-//��������QQȺ:778679828
-//��������:2020/06/29
-//�汾��V1.0
-//��Ȩ���У�����ؾ���
-//Copyright(C) ������ȫ�����Ӽ������޹�˾ 2018-2028
-//All rights reserved
-/************************************************************************************
-//STM32F407VxT6��Сϵͳ�����崮��ʾ��
-//LED0       --->   PA1
-//LED1       --->   PC5
-//KEY0       --->   PE4
-//KEY_UP     --->   PA0
-//USART1_TX  --->   PA9
-//USART1_RX  --->   PA10
-*************************************************************************************/
-/* @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/
+
 #include "sys.h"
 #include "usart.h"
+#include "stdarg.h"
+
+static char *itoa(int value, char *string, int radix);
 
 //////////////////////////////////////////////////////////////////
 //�������´���,֧��printf�����������,������Ҫѡ��use MicroLIB
@@ -121,7 +89,7 @@ void USART1_Init(u32 bound)
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			  //IRQͨ��ʹ��
 	NVIC_Init(&NVIC_InitStructure);							  //����ָ���Ĳ�����ʼ��VIC�Ĵ�����
 }
-
+/* Method 1 using usart send */
 void USART1_Send(const char *str)
 {
 	while (*str)
@@ -130,6 +98,135 @@ void USART1_Send(const char *str)
 			;
 		USART_SendData(USART1, *str++);
 	}
+}
+/* Method 2 using itoa */
+void USART1_printf(USART_TypeDef *USARTx, char *Data, ...)
+{
+	const char *s;
+	int d;
+	char buf[16];
+
+	va_list ap;
+	va_start(ap, Data);
+
+	while (*Data != 0) // Determine whether the end of string is reached
+	{
+		if (*Data == 0x5c) //'\'
+		{
+			switch (*++Data)
+			{
+			case 'r': //carriage return
+				USART_SendData(USARTx, 0x0d);
+				Data++;
+				break;
+
+			case 'n': //line break
+				USART_SendData(USARTx, 0x0a);
+				Data++;
+				break;
+
+			default:
+				Data++;
+				break;
+			}
+		}
+
+		else if (*Data == '%')
+		{ //
+			switch (*++Data)
+			{
+			case 's': //string
+				s = va_arg(ap, const char *);
+
+				for (; *s; s++)
+				{
+					USART_SendData(USARTx, *s);
+					while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET)
+						;
+				}
+
+				Data++;
+				break;
+			case 'd':
+				//Decimal
+				d = va_arg(ap, int);
+				itoa(d, buf, 10);
+				for (s = buf; *s; s++)
+				{
+					USART_SendData(USARTx, *s);
+					while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET)
+						;
+				}
+				Data++;
+				break;
+			default:
+				Data++;
+				break;
+			}
+		}
+		else
+			USART_SendData(USARTx, *Data++);
+		while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET)
+			;
+	}
+}
+
+/*
+   * Function name: itoa
+   * Description: Convert integer data to character string
+   * Input: -radix =10 means decimal, other results are 0
+   * -value Integer to be converted
+   * -buf converted string
+ *         -radix = 10
+   * Output: None
+   * Return: None
+   * Call: Called by USART1_printf()
+ */
+static char *itoa(int value, char *string, int radix)
+{
+	int i, d;
+	int flag = 0;
+	char *ptr = string;
+
+	/* This implementation only works for decimal numbers. */
+	if (radix != 10)
+	{
+		*ptr = 0;
+		return string;
+	}
+
+	if (!value)
+	{
+		*ptr++ = 0x30;
+		*ptr = 0;
+		return string;
+	}
+
+	/* if this is a negative value insert the minus sign. */
+	if (value < 0)
+	{
+		*ptr++ = '-';
+
+		/* Make the value positive. */
+		value *= -1;
+	}
+
+	for (i = 10000; i > 0; i /= 10)
+	{
+		d = value / i;
+
+		if (d || flag)
+		{
+			*ptr++ = (char)(d + 0x30);
+			value -= (d * i);
+			flag = 1;
+		}
+	}
+
+	/* Null terminate the string. */
+	*ptr = 0;
+
+	return string;
 }
 
 /*****************************************************************************

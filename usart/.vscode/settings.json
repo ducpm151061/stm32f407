@@ -5,6 +5,7 @@
         "led.h": "c",
         "delay.h": "c",
         "sys.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdarg.h": "c"
     }
 }

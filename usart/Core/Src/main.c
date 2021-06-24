@@ -53,9 +53,11 @@ int main(void)
 	printf("hello");
 	while (1)
 	{
+		USART1_printf(USART1,"adkafdlajglag\r\n");
+		delay_ms(100);
 		char send[50];
 		sprintf(send, "\rcount: %d\n", count);
-		USART1_Send(send);
+		// USART1_Send(send);
 		printf("%d", count);
 		printf("hello");
 		count++;
