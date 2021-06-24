@@ -1,108 +1,45 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
-//Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
-//All rights reserved
-/************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åIICÊ¾Àý
-//     LED0           --->            PA1
-//     KEY0           --->            PE4
-//     KEY_UP         --->            PA0
-//     IIC_SCL        --->            PB8
-//     IIC_SDA        --->            PB9
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      DB0           --->            PD14        -|   
-//      DB1           --->            PD15         |  
-//      DB2           --->            PD0          | 
-//      DB3           --->            PD1          | 
-//      DB4           --->            PE7          |
-//      DB5           --->            PE8          |
-//      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
-//      DB8           --->            PE11         |
-//      DB9           --->            PE12         |
-//      DB10          --->            PE13         |
-//      DB11          --->            PE14         |
-//      DB12          --->            PE15         |
-//      DB13          --->            PD8          |
-//      DB14          --->            PD9          |
-//      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/
+
 #include "sys.h"
-#include "usart.h"	
+#include "usart.h"
+#include "stdarg.h"
+
+static char *itoa(int value, char *string, int radix);
 
 //////////////////////////////////////////////////////////////////
-//¼ÓÈëÒÔÏÂ´úÂë,Ö§³Öprintfº¯Êý´®¿ÚÊä³ö,¶ø²»ÐèÒªÑ¡Ôñuse MicroLIB	  
-#if !USE_MICROLIB
-#pragma import(__use_no_semihosting) //µ¼Èë__use_no_semihosting·ûºÅ£¬È·±£Ã»ÓÐ´ÓC¿âÊ¹ÓÃ°ëÖ÷»úµÄº¯Êý            
-//±ê×¼¿âÐèÒªµÄÖ§³Öº¯Êý                 
-struct __FILE 
-{ 
-	int handle; 
-}; 
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½,Ö§ï¿½ï¿½printfï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÑ¡ï¿½ï¿½use MicroLIB
+// #if !USE_MICROLIB
+// #pragma import(__use_no_semihosting) //ï¿½ï¿½ï¿½ï¿½__use_no_semihostingï¿½ï¿½ï¿½Å£ï¿½È·ï¿½ï¿½Ã»ï¿½Ð´ï¿½Cï¿½ï¿½Ê¹ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½
+//ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ö§ï¿½Öºï¿½ï¿½ï¿½
+struct __FILE
+{
+	int handle;
+};
 
-FILE __stdout;       
-//¶¨Òå_sys_exit()ÒÔ±ÜÃâÊ¹ÓÃ°ëÖ÷»úÄ£Ê½    
-void _sys_exit(int x) 
-{ 
-	x = x; 
-} 
+FILE __stdout;
+//ï¿½ï¿½ï¿½ï¿½_sys_exit()ï¿½Ô±ï¿½ï¿½ï¿½Ê¹ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+void _sys_exit(int x)
+{
+	x = x;
+}
 
-#endif
- 
-//ÖØ¶¨Òåfputcº¯Êý 
+// #endif
+
+//ï¿½Ø¶ï¿½ï¿½ï¿½fputcï¿½ï¿½ï¿½ï¿½
 int fputc(int ch, FILE *f)
-{ 
-	while (USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);//Ñ­»··¢ËÍ,Ö±µ½·¢ËÍÍê±Ï 
-	USART_SendData(USART1,(u8)ch);     
+{
+	while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
+		; //Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_SendData(USART1, (u8)ch);
 	return ch;
 }
- 
-u8 USART_RX_BUF[USART_REC_LEN];     //½ÓÊÕ»º³å,×î´óUSART_REC_LEN¸ö×Ö½Ú.
 
-//½ÓÊÕ×´Ì¬
-//bit15£¬	½ÓÊÕÍê³É±êÖ¾
-//bit14£¬	½ÓÊÕµ½0x0d
-//bit13~0£¬	½ÓÊÕµ½µÄÓÐÐ§×Ö½ÚÊýÄ¿
-u16 USART_RX_STA=0;       //½ÓÊÕ×´Ì¬±ê¼Ç	
+u8 USART_RX_BUF[USART_REC_LEN]; //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½USART_REC_LENï¿½ï¿½ï¿½Ö½ï¿½.
+
+//ï¿½ï¿½ï¿½ï¿½×´Ì¬
+//bit15ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ö¾
+//bit14ï¿½ï¿½	ï¿½ï¿½ï¿½Õµï¿½0x0d
+//bit13~0ï¿½ï¿½	ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ö½ï¿½ï¿½ï¿½Ä¿
+u16 USART_RX_STA = 0; //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½
 
 /*****************************************************************************
  * @name       :void USART1_Init(u32 bound)
@@ -110,47 +47,186 @@ u16 USART_RX_STA=0;       //½ÓÊÕ×´Ì¬±ê¼Ç
  * @function   :Initialize USART1
  * @parameters :bound:baudrate
  * @retvalue   :None
-******************************************************************************/	
+******************************************************************************/
 void USART1_Init(u32 bound)
 {
-   //GPIO¶Ë¿ÚÉèÖÃ
-  GPIO_InitTypeDef GPIO_InitStructure;
+	//GPIOï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE); //Ê¹ÄÜGPIOAÊ±ÖÓ
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);//Ê¹ÄÜUSART1Ê±ÖÓ
- 
-	//´®¿Ú1¶ÔÓ¦Òý½Å¸´ÓÃÓ³Éä
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource9,GPIO_AF_USART1); //GPIOA9¸´ÓÃÎªUSART1
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource10,GPIO_AF_USART1); //GPIOA10¸´ÓÃÎªUSART1
-	
-	//USART1¶Ë¿ÚÅäÖÃ
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10; //GPIOA9ÓëGPIOA10
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//¸´ÓÃ¹¦ÄÜ
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	//ËÙ¶È50MHz
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //ÍÆÍì¸´ÓÃÊä³ö
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //ÉÏÀ­
-	GPIO_Init(GPIOA,&GPIO_InitStructure); //³õÊ¼»¯PA9£¬PA10
+	NVIC_InitTypeDef NVIC_InitStructure;
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);  //Ê¹ï¿½ï¿½GPIOAÊ±ï¿½ï¿½
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE); //Ê¹ï¿½ï¿½USART1Ê±ï¿½ï¿½
 
-   //USART1 ³õÊ¼»¯ÉèÖÃ
-	USART_InitStructure.USART_BaudRate = bound;//²¨ÌØÂÊÉèÖÃ
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;//×Ö³¤Îª8Î»Êý¾Ý¸ñÊ½
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;//Ò»¸öÍ£Ö¹Î»
-	USART_InitStructure.USART_Parity = USART_Parity_No;//ÎÞÆæÅ¼Ð£ÑéÎ»
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//ÎÞÓ²¼þÊý¾ÝÁ÷¿ØÖÆ
-	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	//ÊÕ·¢Ä£Ê½
-  USART_Init(USART1, &USART_InitStructure); //³õÊ¼»¯´®¿Ú1
-	
-  USART_Cmd(USART1, ENABLE);  //Ê¹ÄÜ´®¿Ú1 	
-	USART_ClearFlag(USART1, USART_FLAG_TC); //Çå³ý±êÖ¾Î»
-	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);//¿ªÆôÏà¹ØÖÐ¶Ï
+	//ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ó³ï¿½ï¿½
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);  //GPIOA9ï¿½ï¿½ï¿½ï¿½ÎªUSART1
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1); //GPIOA10ï¿½ï¿½ï¿½ï¿½ÎªUSART1
 
-	//Usart1 NVIC ÅäÖÃ
-  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;//´®¿Ú1ÖÐ¶ÏÍ¨µÀ
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3;//ÇÀÕ¼ÓÅÏÈ¼¶3
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority =3;		//×ÓÓÅÏÈ¼¶3
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQÍ¨µÀÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);	//¸ù¾ÝÖ¸¶¨µÄ²ÎÊý³õÊ¼»¯VIC¼Ä´æÆ÷¡¢	
+	//USART1ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10; //GPIOA9ï¿½ï¿½GPIOA10
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;			//ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		//ï¿½Ù¶ï¿½50MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;			//ï¿½ï¿½ï¿½ì¸´ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;			//ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOA, &GPIO_InitStructure);					//ï¿½ï¿½Ê¼ï¿½ï¿½PA9ï¿½ï¿½PA10
+
+	//USART1 ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_InitStructure.USART_BaudRate = bound;										//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;						//ï¿½Ö³ï¿½Îª8Î»ï¿½ï¿½ï¿½Ý¸ï¿½Ê½
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;							//Ò»ï¿½ï¿½Í£Ö¹Î»
+	USART_InitStructure.USART_Parity = USART_Parity_No;								//ï¿½ï¿½ï¿½ï¿½Å¼Ð£ï¿½ï¿½Î»
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;					//ï¿½Õ·ï¿½Ä£Ê½
+	USART_Init(USART1, &USART_InitStructure);										//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+
+	USART_Cmd(USART1, ENABLE);					   //Ê¹ï¿½Ü´ï¿½ï¿½ï¿½1
+	USART_ClearFlag(USART1, USART_FLAG_TC);		   //ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾Î»
+	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+
+	//Usart1 NVIC ï¿½ï¿½ï¿½ï¿½
+	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;		  //ï¿½ï¿½ï¿½ï¿½1ï¿½Ð¶ï¿½Í¨ï¿½ï¿½
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3; //ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½È¼ï¿½3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		  //ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			  //IRQÍ¨ï¿½ï¿½Ê¹ï¿½ï¿½
+	NVIC_Init(&NVIC_InitStructure);							  //ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½VICï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½
+}
+/* Method 1 using usart send */
+void USART1_Send(const char *str)
+{
+	while (*str)
+	{
+		while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET)
+			;
+		USART_SendData(USART1, *str++);
+	}
+}
+/* Method 2 using itoa */
+void USART1_printf(USART_TypeDef *USARTx, char *Data, ...)
+{
+	const char *s;
+	int d;
+	char buf[16];
+
+	va_list ap;
+	va_start(ap, Data);
+
+	while (*Data != 0) // Determine whether the end of string is reached
+	{
+		if (*Data == 0x5c) //'\'
+		{
+			switch (*++Data)
+			{
+			case 'r': //carriage return
+				USART_SendData(USARTx, 0x0d);
+				Data++;
+				break;
+
+			case 'n': //line break
+				USART_SendData(USARTx, 0x0a);
+				Data++;
+				break;
+
+			default:
+				Data++;
+				break;
+			}
+		}
+
+		else if (*Data == '%')
+		{ //
+			switch (*++Data)
+			{
+			case 's': //string
+				s = va_arg(ap, const char *);
+
+				for (; *s; s++)
+				{
+					USART_SendData(USARTx, *s);
+					while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET)
+						;
+				}
+
+				Data++;
+				break;
+			case 'd':
+				//Decimal
+				d = va_arg(ap, int);
+				itoa(d, buf, 10);
+				for (s = buf; *s; s++)
+				{
+					USART_SendData(USARTx, *s);
+					while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET)
+						;
+				}
+				Data++;
+				break;
+			default:
+				Data++;
+				break;
+			}
+		}
+		else
+			USART_SendData(USARTx, *Data++);
+		while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET)
+			;
+	}
+}
+
+/*
+   * Function name: itoa
+   * Description: Convert integer data to character string
+   * Input: -radix =10 means decimal, other results are 0
+   * -value Integer to be converted
+   * -buf converted string
+ *         -radix = 10
+   * Output: None
+   * Return: None
+   * Call: Called by USART1_printf()
+ */
+static char *itoa(int value, char *string, int radix)
+{
+	int i, d;
+	int flag = 0;
+	char *ptr = string;
+
+	/* This implementation only works for decimal numbers. */
+	if (radix != 10)
+	{
+		*ptr = 0;
+		return string;
+	}
+
+	if (!value)
+	{
+		*ptr++ = 0x30;
+		*ptr = 0;
+		return string;
+	}
+
+	/* if this is a negative value insert the minus sign. */
+	if (value < 0)
+	{
+		*ptr++ = '-';
+
+		/* Make the value positive. */
+		value *= -1;
+	}
+
+	for (i = 10000; i > 0; i /= 10)
+	{
+		d = value / i;
+
+		if (d || flag)
+		{
+			*ptr++ = (char)(d + 0x30);
+			value -= (d * i);
+			flag = 1;
+		}
+	}
+
+	/* Null terminate the string. */
+	*ptr = 0;
+
+	return string;
 }
 
 /*****************************************************************************
@@ -159,42 +235,42 @@ void USART1_Init(u32 bound)
  * @function   :USART1 interrupt service program
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/	
-void USART1_IRQHandler(void)                	
+******************************************************************************/
+void USART1_IRQHandler(void)
 {
 	u8 Res;
-	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)  //½ÓÊÕÖÐ¶Ï(½ÓÊÕµ½µÄÊý¾Ý±ØÐëÊÇ0x0d 0x0a½áÎ²)
+	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) //ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½(ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ï¿½ï¿½0x0d 0x0aï¿½ï¿½Î²)
 	{
-		Res =USART_ReceiveData(USART1); 	//¶ÁÈ¡½ÓÊÕµ½µÄÊý¾Ý		
-		if((USART_RX_STA&0x8000)==0)//½ÓÊÕÎ´Íê³É
+		Res = USART_ReceiveData(USART1);  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if ((USART_RX_STA & 0x8000) == 0) //ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½
 		{
-			if(USART_RX_STA&0x4000)//½ÓÊÕµ½ÁË0x0d
+			if (USART_RX_STA & 0x4000) //ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½0x0d
 			{
-				if(Res!=0x0a)
+				if (Res != 0x0a)
 				{
-					USART_RX_STA=0;//½ÓÊÕ´íÎó,ÖØÐÂ¿ªÊ¼
+					USART_RX_STA = 0; //ï¿½ï¿½ï¿½Õ´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Â¿ï¿½Ê¼
 				}
 				else
 				{
-					USART_RX_STA|=0x8000;	//½ÓÊÕÍê³ÉÁË 
+					USART_RX_STA |= 0x8000; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				}
 			}
-			else //»¹Ã»ÊÕµ½0X0D
-			{	
-				if(Res==0x0d)
+			else //ï¿½ï¿½Ã»ï¿½Õµï¿½0X0D
+			{
+				if (Res == 0x0d)
 				{
-					USART_RX_STA|=0x4000;
+					USART_RX_STA |= 0x4000;
 				}
 				else
 				{
-					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
+					USART_RX_BUF[USART_RX_STA & 0X3FFF] = Res;
 					USART_RX_STA++;
-					if(USART_RX_STA>(USART_REC_LEN-1))
+					if (USART_RX_STA > (USART_REC_LEN - 1))
 					{
-						USART_RX_STA=0;//½ÓÊÕÊý¾Ý´íÎó,ÖØÐÂ¿ªÊ¼½ÓÊÕ	  
+						USART_RX_STA = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Â¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 					}
-				}		 
+				}
 			}
-		}   		 
-  } 
-} 
+		}
+	}
+}

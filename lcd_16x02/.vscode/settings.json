@@ -2,7 +2,10 @@
     "files.associations": {
         "gui.h": "c",
         "sys.h": "c",
-        "24c02.h": "c"
+        "24c02.h": "c",
+        "i2c_lcd.h": "c",
+        "delay.h": "c",
+        "i2clcd.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

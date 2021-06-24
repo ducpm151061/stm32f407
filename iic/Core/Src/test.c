@@ -699,6 +699,7 @@ void Test_Dynamic_Num(void)
 #endif
 
 const u8 send_test[] = "STM32F407VxT6 IIC TEST"; //д������
+const u8 send_test1[] = "Phung minh duc"; //д������
 
 /*****************************************************************************
  * @name       :void IIC_24C02_test(void)
@@ -709,6 +710,7 @@ const u8 send_test[] = "STM32F407VxT6 IIC TEST"; //д������
 ******************************************************************************/
 void IIC_24C02_test(void)
 {
+	USART1_Send("iic 24c02 test\r\n");
 	printf("iic 24c02 test\r\n");
 	Gui_StrCenter(0, 40, RED, BLUE, "STM32F407VxT6��Сϵͳ������", 16, 1); //������ʾ
 	Gui_StrCenter(0, 65, RED, BLUE, "IIC ���Գ���", 16, 1);				//������ʾ
@@ -722,7 +724,7 @@ void IIC_24C02_test(void)
 		LED0 = !LED0; //LED0��˸
 	}
 	Gui_StrCenter(0, 115, BLUE, WHITE, "24C02 Ready!", 16, 0);
-	Gui_StrCenter(0, 185, BLUE, BLUE, "2020-06-05", 16, 1);				 //������ʾ
+	Gui_StrCenter(0, 185, BLUE, BLUE, "2021-06-05", 16, 1);				 //������ʾ
 	Gui_StrCenter(0, 210, GREEN, BLUE, "http://www.lcdwiki.com", 16, 1); //������ʾ
 }
 
@@ -733,11 +735,12 @@ void IIC_24C02_test(void)
  * @parameters :None
  * @retvalue   :None
 ******************************************************************************/
-void Show_24C02_Write(void)
+void Show_24C02_Write(const u8* data)
 {
 	LCD_Fill(0, 160, lcddev.width - 1, 176, WHITE);
 	Show_Str(lcddev.width / 2 - 84, 140, RED, WHITE, "Start Write 24C02....", 16, 0);
-	AT24C02_Write(0, (u8 *)send_test, sizeof(send_test));
+	// AT24C02_Write(0, (u8 *)send_test, sizeof(send_test));
+	AT24C02_Write(0, data, sizeof(send_test));
 	Show_Str(lcddev.width / 2 - 84, 140, RED, WHITE, "24C02 Write Finished!", 16, 0); //��ʾ�������
 }
 

@@ -13,7 +13,7 @@
 ######################################
 # target
 ######################################
-TARGET = template
+TARGET = i2clcd
 
 
 ######################################
@@ -38,7 +38,7 @@ BUILD_DIR = build
 C_SOURCES =  
 C_SOURCES +=Core/Src/main.c 
 C_SOURCES +=Core/Src/delay.c 
-C_SOURCES +=Core/Src/i2c_lcd.c 
+C_SOURCES +=Core/Src/i2clcd.c 
 C_SOURCES +=Core/Src/24c02.c 
 C_SOURCES +=Core/Src/GUI.c 
 C_SOURCES +=Core/Src/iic.c 

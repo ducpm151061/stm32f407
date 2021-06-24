@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "FONT.H": "cpp"
+        "FONT.H": "cpp",
+        "sys.h": "c",
+        "usart.h": "c"
     }
 }

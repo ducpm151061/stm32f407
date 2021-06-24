@@ -1,37 +1,37 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+//////////////////////////////////////////////////////////////////////////////////
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Í¾
+//ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½STM32F407VGT6,STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æµ168MHZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8MHZ
+//QDtech-TFTÒºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for STM32 FSMC
 //Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+//ï¿½ï¿½Ë¾ï¿½ï¿½Õ¾:www.qdtft.com
+//wikiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½http://www.lcdwiki.com
+//ï¿½ï¿½Ë¾ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ÎºÎ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â»¶Ó­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ñ§Ï°
+//ï¿½Ì»ï¿½(ï¿½ï¿½ï¿½ï¿½) :+86 0755-21077707
+//ï¿½Ö»ï¿½: (ï¿½ï¿½ï¿½ï¿½)18823372746 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)15989313508
+//ï¿½ï¿½ï¿½ï¿½:(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½) sales@qdtft.com  (ï¿½Ûºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)service@qdtft.com
+//QQ:(ï¿½ï¿½Ç°ï¿½ï¿½Ñ¯)3002706772 (ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½)3002778157
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQÈº:778679828
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2020/06/29
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2018-2028
 //All rights reserved
 /************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åIICÊ¾Àý
+//STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IICÊ¾ï¿½ï¿½
 //     LED0           --->            PA1
 //     KEY0           --->            PE4
 //     KEY_UP         --->            PA0
 //     IIC_SCL        --->            PB8
 //     IIC_SDA        --->            PB9
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+//Ö§ï¿½ï¿½ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+//TFT LCDï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½Û»ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½ï¿½ï¿½
+//STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸TFTLCDï¿½ï¿½Û»ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Óµï¿½STM32ï¿½ï¿½ï¿½ï¿½
+//=================================ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½=======================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//      VDD           --->           DC5V/3.3V          //ï¿½ï¿½Ô´
+//      GND           --->             GND              //ï¿½ï¿½Ô´ï¿½ï¿½
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //      DB0           --->            PD14        -|   
 //      DB1           --->            PD15         |  
 //      DB2           --->            PD0          | 
@@ -39,7 +39,7 @@
 //      DB4           --->            PE7          |
 //      DB5           --->            PE8          |
 //      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+//      DB7           --->            PE10         |===>Òºï¿½ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 //      DB8           --->            PE11         |
 //      DB9           --->            PE12         |
 //      DB10          --->            PE13         |
@@ -48,16 +48,16 @@
 //      DB13          --->            PD8          |
 //      DB14          --->            PD9          |
 //      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½ 				            STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//      WR            --->            PD5             //Òºï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RD            --->            PD4             //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RS            --->            PD11            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RST           --->          ï¿½ï¿½Î»ï¿½ï¿½ï¿½Å£ï¿½Ä¬ï¿½Ï£ï¿½  //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½Ò²ï¿½ï¿½Ñ¡ï¿½ï¿½PD13ï¿½ï¿½
+//      CS            --->            PD7             //Òºï¿½ï¿½ï¿½ï¿½Æ¬Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      BL            --->            PB15            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+*************************************************************************************/
+/* @attention
   *
   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
@@ -66,8 +66,8 @@
   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *************************************************************************************/
-#include "24c02.h" 
-#include "delay.h" 				 
+#include "24c02.h"
+#include "delay.h"
 
 /*****************************************************************************
  * @name       :void AT24C02_Init(void)
@@ -75,10 +75,10 @@
  * @function   :Initialize IIC interface
  * @parameters :None
  * @retvalue   :None
-******************************************************************************/ 
+******************************************************************************/
 void AT24C02_Init(void)
 {
-	IIC_Init();//IIC³õÊ¼»¯
+	IIC_Init(); //IICï¿½ï¿½Ê¼ï¿½ï¿½
 }
 
 /*****************************************************************************
@@ -87,29 +87,29 @@ void AT24C02_Init(void)
  * @function   :Read out a data at a specified address in the AT24CXX
  * @parameters :ReadAddr:the address of start reading
  * @retvalue   :Read data
-******************************************************************************/ 
+******************************************************************************/
 u8 AT24C02_ReadOneByte(u16 ReadAddr)
-{				  
-	u8 temp=0;		  	    																 
-  IIC_Start();  
-	if(EE_TYPE>AT24C16)
+{
+	u8 temp = 0;
+	IIC_Start();
+	if (EE_TYPE > AT24C16)
 	{
-		IIC_Send_Byte(0XA0);	   //·¢ËÍÐ´ÃüÁî
+		IIC_Send_Byte(0XA0); //ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 		IIC_Wait_Ack();
-		IIC_Send_Byte(ReadAddr>>8);//·¢ËÍ¸ßµØÖ·	    
+		IIC_Send_Byte(ReadAddr >> 8); //ï¿½ï¿½ï¿½Í¸ßµï¿½Ö·
 	}
-	else 
+	else
 	{
-		IIC_Send_Byte(0XA0+((ReadAddr/256)<<1));   //·¢ËÍÆ÷¼þµØÖ·0XA0,Ð´Êý¾Ý 	   
+		IIC_Send_Byte(0XA0 + ((ReadAddr / 256) << 1)); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·0XA0,Ð´ï¿½ï¿½ï¿½ï¿½
 	}
-	IIC_Wait_Ack(); 
-  IIC_Send_Byte(ReadAddr%256);   //·¢ËÍµÍµØÖ·
-	IIC_Wait_Ack();	    
-	IIC_Start();  	 	   
-	IIC_Send_Byte(0XA1);           //½øÈë½ÓÊÕÄ£Ê½			   
-	IIC_Wait_Ack();	 
-  temp=IIC_Read_Byte(0);		   
-  IIC_Stop();//²úÉúÒ»¸öÍ£Ö¹Ìõ¼þ	    
+	IIC_Wait_Ack();
+	IIC_Send_Byte(ReadAddr % 256); //ï¿½ï¿½ï¿½ÍµÍµï¿½Ö·
+	IIC_Wait_Ack();
+	IIC_Start();
+	IIC_Send_Byte(0XA1); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+	IIC_Wait_Ack();
+	temp = IIC_Read_Byte(0);
+	IIC_Stop(); //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½
 	return temp;
 }
 
@@ -120,27 +120,27 @@ u8 AT24C02_ReadOneByte(u16 ReadAddr)
  * @parameters :WriteAddr:the destination address for writing data
 								DataToWrite:Data to be written
  * @retvalue   :None
-******************************************************************************/ 
-void AT24C02_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
-{				   	  	    																 
-  IIC_Start();  
-	if(EE_TYPE>AT24C16)
+******************************************************************************/
+void AT24C02_WriteOneByte(u16 WriteAddr, u8 DataToWrite)
+{
+	IIC_Start();
+	if (EE_TYPE > AT24C16)
 	{
-		IIC_Send_Byte(0XA0);	    //·¢ËÍÐ´ÃüÁî
+		IIC_Send_Byte(0XA0); //ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 		IIC_Wait_Ack();
-		IIC_Send_Byte(WriteAddr>>8);//·¢ËÍ¸ßµØÖ·	  
+		IIC_Send_Byte(WriteAddr >> 8); //ï¿½ï¿½ï¿½Í¸ßµï¿½Ö·
 	}
-	else 
+	else
 	{
-		IIC_Send_Byte(0XA0+((WriteAddr/256)<<1));   //·¢ËÍÆ÷¼þµØÖ·0XA0,Ð´Êý¾Ý 	 
+		IIC_Send_Byte(0XA0 + ((WriteAddr / 256) << 1)); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·0XA0,Ð´ï¿½ï¿½ï¿½ï¿½
 	}
-	IIC_Wait_Ack();	   
-  IIC_Send_Byte(WriteAddr%256);   //·¢ËÍµÍµØÖ·
-	IIC_Wait_Ack(); 	 										  		   
-	IIC_Send_Byte(DataToWrite);     //·¢ËÍ×Ö½Ú							   
-	IIC_Wait_Ack();  		    	   
-  IIC_Stop();//²úÉúÒ»¸öÍ£Ö¹Ìõ¼þ 
-	delay_ms(10);	 
+	IIC_Wait_Ack();
+	IIC_Send_Byte(WriteAddr % 256); //ï¿½ï¿½ï¿½ÍµÍµï¿½Ö·
+	IIC_Wait_Ack();
+	IIC_Send_Byte(DataToWrite); //ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½
+	IIC_Wait_Ack();
+	IIC_Stop(); //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½
+	delay_ms(10);
 }
 
 /*****************************************************************************
@@ -152,14 +152,14 @@ void AT24C02_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
 								DataToWrite:the header address of the data array 
 								Len:Length of data to be written(2 or 4)
  * @retvalue   :None
-******************************************************************************/ 
-void AT24C02_WriteLenByte(u16 WriteAddr,u32 DataToWrite,u8 Len)
-{  	
+******************************************************************************/
+void AT24C02_WriteLenByte(u16 WriteAddr, u32 DataToWrite, u8 Len)
+{
 	u8 t;
-	for(t=0;t<Len;t++)
+	for (t = 0; t < Len; t++)
 	{
-		AT24C02_WriteOneByte(WriteAddr+t,(DataToWrite>>(8*t))&0xff);
-	}												    
+		AT24C02_WriteOneByte(WriteAddr + t, (DataToWrite >> (8 * t)) & 0xff);
+	}
 }
 
 /*****************************************************************************
@@ -171,17 +171,17 @@ void AT24C02_WriteLenByte(u16 WriteAddr,u32 DataToWrite,u8 Len)
  * @parameters :ReadAddr:the address of start reading
 								len:Length of data to be read(2 or 4)
  * @retvalue   :Read data
-******************************************************************************/ 
-u32 AT24C02_ReadLenByte(u16 ReadAddr,u8 Len)
-{  	
+******************************************************************************/
+u32 AT24C02_ReadLenByte(u16 ReadAddr, u8 Len)
+{
 	u8 t;
-	u32 temp=0;
-	for(t=0;t<Len;t++)
+	u32 temp = 0;
+	for (t = 0; t < Len; t++)
 	{
-		temp<<=8;
-		temp+=AT24C02_ReadOneByte(ReadAddr+Len-t-1); 	 				   
+		temp <<= 8;
+		temp += AT24C02_ReadOneByte(ReadAddr + Len - t - 1);
 	}
-	return temp;												    
+	return temp;
 }
 
 /*****************************************************************************
@@ -197,21 +197,21 @@ u32 AT24C02_ReadLenByte(u16 ReadAddr,u8 Len)
 u8 AT24C02_Check(void)
 {
 	u8 temp;
-	temp=AT24C02_ReadOneByte(255);//±ÜÃâÃ¿´Î¿ª»ú¶¼Ð´AT24CXX			   
-	if(temp==0X55)
+	temp = AT24C02_ReadOneByte(255); //ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½Ð´AT24CXX
+	if (temp == 0X55)
 	{
-		return 0;		   
+		return 0;
 	}
-	else//ÅÅ³ýµÚÒ»´Î³õÊ¼»¯µÄÇé¿ö
+	else //ï¿½Å³ï¿½ï¿½ï¿½Ò»ï¿½Î³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		AT24C02_WriteOneByte(255,0X55);
-	  temp=AT24C02_ReadOneByte(255);	  
-		if(temp==0X55)
+		AT24C02_WriteOneByte(255, 0X55);
+		temp = AT24C02_ReadOneByte(255);
+		if (temp == 0X55)
 		{
 			return 0;
 		}
 	}
-	return 1;											  
+	return 1;
 }
 
 /*****************************************************************************
@@ -224,11 +224,11 @@ u8 AT24C02_Check(void)
 								NumToRead:Number of data to be read
  * @retvalue   :None
 ******************************************************************************/
-void AT24C02_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead)
+void AT24C02_Read(u16 ReadAddr, u8 *pBuffer, u16 NumToRead)
 {
-	while(NumToRead)
+	while (NumToRead)
 	{
-		*pBuffer++=AT24C02_ReadOneByte(ReadAddr++);	
+		*pBuffer++ = AT24C02_ReadOneByte(ReadAddr++);
 		NumToRead--;
 	}
 }
@@ -242,21 +242,13 @@ void AT24C02_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead)
 								pBuffer:the header address of the data array 
 								NumToRead:Number of data to be writen
  * @retvalue   :None
-******************************************************************************/   
-void AT24C02_Write(u16 WriteAddr,u8 *pBuffer,u16 NumToWrite)
+******************************************************************************/
+void AT24C02_Write(u16 WriteAddr, u8 *pBuffer, u16 NumToWrite)
 {
-	while(NumToWrite--)
+	while (NumToWrite--)
 	{
-		AT24C02_WriteOneByte(WriteAddr,*pBuffer);
+		AT24C02_WriteOneByte(WriteAddr, *pBuffer);
 		WriteAddr++;
 		pBuffer++;
 	}
 }
-
-
-
-
-
-
-
-

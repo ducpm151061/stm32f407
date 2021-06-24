@@ -160,6 +160,18 @@ void USART1_Init(u32 bound)
 }
 
 
+void USART1_Send(const char *str)
+{
+	while (*str)
+	{
+		while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET)
+			;
+		USART_SendData(USART1, *str++);
+	}
+}
+
+
+
 void USART2_Init(u32 bound)
 {
 	//GPIO锟剿匡拷锟斤拷锟斤拷
