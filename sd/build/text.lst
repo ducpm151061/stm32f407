@@ -1,0 +1,1069 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"text.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Get_HzMat,"ax",%progbits
+  18              		.align	1
+  19              		.global	Get_HzMat
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	Get_HzMat:
+  27              	.LVL0:
+  28              	.LFB133:
+  29              		.file 1 "Core/Src/text.c"
+   1:Core/Src/text.c **** #include "sys.h" 
+   2:Core/Src/text.c **** #include "fontupd.h"
+   3:Core/Src/text.c **** #include "w25q64.h"
+   4:Core/Src/text.c **** #include "lcd.h"
+   5:Core/Src/text.c **** #include "text.h"	
+   6:Core/Src/text.c **** #include "string.h"												    
+   7:Core/Src/text.c **** #include "usart.h"
+   8:Core/Src/text.c **** #include "gui.h"												    
+   9:Core/Src/text.c **** 	 
+  10:Core/Src/text.c ****  
+  11:Core/Src/text.c **** //code 字符指针开始
+  12:Core/Src/text.c **** //从字库中查找出字模
+  13:Core/Src/text.c **** //code 字符串的开始地址,GBK码
+  14:Core/Src/text.c **** //mat  数据存放地址 (size/8+((size%8)?1:0))*(size) bytes大小	
+  15:Core/Src/text.c **** //size:字体大小
+  16:Core/Src/text.c **** void Get_HzMat(unsigned char *code,unsigned char *mat,u8 size)
+  17:Core/Src/text.c **** {		    
+  30              		.loc 1 17 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 17 1 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 8646     		mov	lr, r0
+  41 0004 0846     		mov	r0, r1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 2
+
+
+  42              	.LVL1:
+  43              		.loc 1 17 1 view .LVU2
+  44 0006 9446     		mov	ip, r2
+  18:Core/Src/text.c **** 	unsigned char qh,ql;
+  45              		.loc 1 18 2 is_stmt 1 view .LVU3
+  19:Core/Src/text.c **** 	unsigned char i;					  
+  46              		.loc 1 19 2 view .LVU4
+  20:Core/Src/text.c **** 	unsigned long foffset; 
+  47              		.loc 1 20 2 view .LVU5
+  21:Core/Src/text.c **** 	u8 csize=(size/8+((size%8)?1:0))*(size);//得到字体一个字符对应点阵集所占的字节数	 
+  48              		.loc 1 21 2 view .LVU6
+  49              		.loc 1 21 30 is_stmt 0 view .LVU7
+  50 0008 12F00703 		ands	r3, r2, #7
+  51 000c 18BF     		it	ne
+  52 000e 0123     		movne	r3, #1
+  53              		.loc 1 21 18 view .LVU8
+  54 0010 03EBD203 		add	r3, r3, r2, lsr #3
+  55              		.loc 1 21 5 view .LVU9
+  56 0014 13FB02F3 		smulbb	r3, r3, r2
+  57 0018 DAB2     		uxtb	r2, r3
+  58              	.LVL2:
+  22:Core/Src/text.c **** 	qh=*code;
+  59              		.loc 1 22 2 is_stmt 1 view .LVU10
+  60              		.loc 1 22 4 is_stmt 0 view .LVU11
+  61 001a 9EF80040 		ldrb	r4, [lr]	@ zero_extendqisi2
+  62              	.LVL3:
+  23:Core/Src/text.c **** 	ql=*(++code);
+  63              		.loc 1 23 2 is_stmt 1 view .LVU12
+  64              		.loc 1 23 4 is_stmt 0 view .LVU13
+  65 001e 9EF80130 		ldrb	r3, [lr, #1]	@ zero_extendqisi2
+  66              	.LVL4:
+  24:Core/Src/text.c **** 	if(qh<0x81||ql<0x40||ql==0xff||qh==0xff)//非 常用汉字
+  67              		.loc 1 24 2 is_stmt 1 view .LVU14
+  68              		.loc 1 24 4 is_stmt 0 view .LVU15
+  69 0022 802C     		cmp	r4, #128
+  70 0024 28D9     		bls	.L11
+  71              		.loc 1 24 12 discriminator 1 view .LVU16
+  72 0026 3F2B     		cmp	r3, #63
+  73 0028 28D9     		bls	.L12
+  74              		.loc 1 24 21 discriminator 2 view .LVU17
+  75 002a FF2B     		cmp	r3, #255
+  76 002c 28D0     		beq	.L13
+  77              		.loc 1 24 31 discriminator 3 view .LVU18
+  78 002e FF2C     		cmp	r4, #255
+  79 0030 28D0     		beq	.L17
+  25:Core/Src/text.c **** 	{   		    
+  26:Core/Src/text.c **** 	    for(i=0;i<csize;i++)*mat++=0x00;//填充满格
+  27:Core/Src/text.c **** 	    return; //结束访问
+  28:Core/Src/text.c **** 	}          
+  29:Core/Src/text.c **** 	if(ql<0x7f)ql-=0x40;//注意!
+  80              		.loc 1 29 2 is_stmt 1 view .LVU19
+  81              		.loc 1 29 4 is_stmt 0 view .LVU20
+  82 0032 7E2B     		cmp	r3, #126
+  83 0034 28D8     		bhi	.L7
+  84              		.loc 1 29 13 is_stmt 1 discriminator 1 view .LVU21
+  85              		.loc 1 29 15 is_stmt 0 discriminator 1 view .LVU22
+  86 0036 A3F14001 		sub	r1, r3, #64
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 3
+
+
+  87              	.LVL5:
+  88              		.loc 1 29 15 discriminator 1 view .LVU23
+  89 003a C9B2     		uxtb	r1, r1
+  90              	.LVL6:
+  91              	.L8:
+  30:Core/Src/text.c **** 	else ql-=0x41;
+  31:Core/Src/text.c **** 	qh-=0x81;   
+  92              		.loc 1 31 2 is_stmt 1 view .LVU24
+  93              		.loc 1 31 4 is_stmt 0 view .LVU25
+  94 003c 7F34     		adds	r4, r4, #127
+  95              	.LVL7:
+  96              		.loc 1 31 4 view .LVU26
+  97 003e E4B2     		uxtb	r4, r4
+  98              	.LVL8:
+  32:Core/Src/text.c **** 	foffset=((unsigned long)190*qh+ql)*csize;	//得到字库中的字节偏移量  		  
+  99              		.loc 1 32 2 is_stmt 1 view .LVU27
+ 100              		.loc 1 32 32 is_stmt 0 view .LVU28
+ 101 0040 BE23     		movs	r3, #190
+ 102 0042 03FB0411 		mla	r1, r3, r4, r1
+ 103              	.LVL9:
+ 104              		.loc 1 32 9 view .LVU29
+ 105 0046 02FB01F1 		mul	r1, r2, r1
+ 106              	.LVL10:
+  33:Core/Src/text.c **** 	switch(size)
+ 107              		.loc 1 33 2 is_stmt 1 view .LVU30
+ 108 004a BCF1100F 		cmp	ip, #16
+ 109 004e 1FD0     		beq	.L9
+ 110 0050 BCF1180F 		cmp	ip, #24
+ 111 0054 22D0     		beq	.L10
+ 112 0056 BCF10C0F 		cmp	ip, #12
+ 113 005a 0CD1     		bne	.L1
+  34:Core/Src/text.c **** 	{
+  35:Core/Src/text.c **** 		case 12:
+  36:Core/Src/text.c **** 			W25Q64_Read(mat,foffset+ftinfo.f12addr,csize);
+ 114              		.loc 1 36 4 view .LVU31
+ 115              		.loc 1 36 34 is_stmt 0 view .LVU32
+ 116 005c 124B     		ldr	r3, .L18
+ 117 005e DB68     		ldr	r3, [r3, #12]	@ unaligned
+ 118              		.loc 1 36 4 view .LVU33
+ 119 0060 1944     		add	r1, r1, r3
+ 120              	.LVL11:
+ 121              		.loc 1 36 4 view .LVU34
+ 122 0062 FFF7FEFF 		bl	W25Q64_Read
+ 123              	.LVL12:
+  37:Core/Src/text.c **** 			break;
+ 124              		.loc 1 37 4 is_stmt 1 view .LVU35
+ 125 0066 06E0     		b	.L1
+ 126              	.LVL13:
+ 127              	.L5:
+  26:Core/Src/text.c **** 	    return; //结束访问
+ 128              		.loc 1 26 26 discriminator 3 view .LVU36
+  26:Core/Src/text.c **** 	    return; //结束访问
+ 129              		.loc 1 26 32 is_stmt 0 discriminator 3 view .LVU37
+ 130 0068 0021     		movs	r1, #0
+ 131 006a 00F8011B 		strb	r1, [r0], #1
+ 132              	.LVL14:
+  26:Core/Src/text.c **** 	    return; //结束访问
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 4
+
+
+ 133              		.loc 1 26 22 is_stmt 1 discriminator 3 view .LVU38
+  26:Core/Src/text.c **** 	    return; //结束访问
+ 134              		.loc 1 26 23 is_stmt 0 discriminator 3 view .LVU39
+ 135 006e 0133     		adds	r3, r3, #1
+ 136              	.LVL15:
+  26:Core/Src/text.c **** 	    return; //结束访问
+ 137              		.loc 1 26 23 discriminator 3 view .LVU40
+ 138 0070 DBB2     		uxtb	r3, r3
+ 139              	.LVL16:
+ 140              	.L4:
+  26:Core/Src/text.c **** 	    return; //结束访问
+ 141              		.loc 1 26 14 is_stmt 1 discriminator 1 view .LVU41
+  26:Core/Src/text.c **** 	    return; //结束访问
+ 142              		.loc 1 26 6 is_stmt 0 discriminator 1 view .LVU42
+ 143 0072 9342     		cmp	r3, r2
+ 144 0074 F8D3     		bcc	.L5
+ 145              	.LVL17:
+ 146              	.L1:
+  38:Core/Src/text.c **** 		case 16:
+  39:Core/Src/text.c **** 			W25Q64_Read(mat,foffset+ftinfo.f16addr,csize);
+  40:Core/Src/text.c **** 			break;
+  41:Core/Src/text.c **** 		case 24:
+  42:Core/Src/text.c **** 			W25Q64_Read(mat,foffset+ftinfo.f24addr,csize);
+  43:Core/Src/text.c **** 			break;
+  44:Core/Src/text.c **** 			
+  45:Core/Src/text.c **** 	}     												    
+  46:Core/Src/text.c **** }  
+ 147              		.loc 1 46 1 view .LVU43
+ 148 0076 10BD     		pop	{r4, pc}
+ 149              	.LVL18:
+ 150              	.L11:
+ 151              		.loc 1 46 1 view .LVU44
+ 152 0078 0023     		movs	r3, #0
+ 153              	.LVL19:
+ 154              		.loc 1 46 1 view .LVU45
+ 155 007a FAE7     		b	.L4
+ 156              	.LVL20:
+ 157              	.L12:
+ 158              		.loc 1 46 1 view .LVU46
+ 159 007c 0023     		movs	r3, #0
+ 160              	.LVL21:
+ 161              		.loc 1 46 1 view .LVU47
+ 162 007e F8E7     		b	.L4
+ 163              	.LVL22:
+ 164              	.L13:
+ 165              		.loc 1 46 1 view .LVU48
+ 166 0080 0023     		movs	r3, #0
+ 167              	.LVL23:
+ 168              		.loc 1 46 1 view .LVU49
+ 169 0082 F6E7     		b	.L4
+ 170              	.LVL24:
+ 171              	.L17:
+ 172              		.loc 1 46 1 view .LVU50
+ 173 0084 0023     		movs	r3, #0
+ 174              	.LVL25:
+ 175              		.loc 1 46 1 view .LVU51
+ 176 0086 F4E7     		b	.L4
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 5
+
+
+ 177              	.LVL26:
+ 178              	.L7:
+  30:Core/Src/text.c **** 	qh-=0x81;   
+ 179              		.loc 1 30 7 is_stmt 1 view .LVU52
+  30:Core/Src/text.c **** 	qh-=0x81;   
+ 180              		.loc 1 30 9 is_stmt 0 view .LVU53
+ 181 0088 A3F14101 		sub	r1, r3, #65
+ 182 008c C9B2     		uxtb	r1, r1
+ 183              	.LVL27:
+  30:Core/Src/text.c **** 	qh-=0x81;   
+ 184              		.loc 1 30 9 view .LVU54
+ 185 008e D5E7     		b	.L8
+ 186              	.LVL28:
+ 187              	.L9:
+  39:Core/Src/text.c **** 			break;
+ 188              		.loc 1 39 4 is_stmt 1 view .LVU55
+  39:Core/Src/text.c **** 			break;
+ 189              		.loc 1 39 34 is_stmt 0 view .LVU56
+ 190 0090 054B     		ldr	r3, .L18
+ 191 0092 5B69     		ldr	r3, [r3, #20]	@ unaligned
+  39:Core/Src/text.c **** 			break;
+ 192              		.loc 1 39 4 view .LVU57
+ 193 0094 1944     		add	r1, r1, r3
+ 194              	.LVL29:
+  39:Core/Src/text.c **** 			break;
+ 195              		.loc 1 39 4 view .LVU58
+ 196 0096 FFF7FEFF 		bl	W25Q64_Read
+ 197              	.LVL30:
+  40:Core/Src/text.c **** 		case 24:
+ 198              		.loc 1 40 4 is_stmt 1 view .LVU59
+ 199 009a ECE7     		b	.L1
+ 200              	.LVL31:
+ 201              	.L10:
+  42:Core/Src/text.c **** 			break;
+ 202              		.loc 1 42 4 view .LVU60
+  42:Core/Src/text.c **** 			break;
+ 203              		.loc 1 42 34 is_stmt 0 view .LVU61
+ 204 009c 024B     		ldr	r3, .L18
+ 205 009e DB69     		ldr	r3, [r3, #28]	@ unaligned
+  42:Core/Src/text.c **** 			break;
+ 206              		.loc 1 42 4 view .LVU62
+ 207 00a0 1944     		add	r1, r1, r3
+ 208              	.LVL32:
+  42:Core/Src/text.c **** 			break;
+ 209              		.loc 1 42 4 view .LVU63
+ 210 00a2 FFF7FEFF 		bl	W25Q64_Read
+ 211              	.LVL33:
+  43:Core/Src/text.c **** 			
+ 212              		.loc 1 43 4 is_stmt 1 view .LVU64
+ 213 00a6 E6E7     		b	.L1
+ 214              	.L19:
+ 215              		.align	2
+ 216              	.L18:
+ 217 00a8 00000000 		.word	ftinfo
+ 218              		.cfi_endproc
+ 219              	.LFE133:
+ 221              		.section	.text.Show_Font,"ax",%progbits
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 6
+
+
+ 222              		.align	1
+ 223              		.global	Show_Font
+ 224              		.syntax unified
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.fpu fpv4-sp-d16
+ 229              	Show_Font:
+ 230              	.LVL34:
+ 231              	.LFB134:
+  47:Core/Src/text.c **** //显示一个指定大小的汉字
+  48:Core/Src/text.c **** //x,y :汉字的坐标
+  49:Core/Src/text.c **** //font:汉字GBK码
+  50:Core/Src/text.c **** //size:字体大小
+  51:Core/Src/text.c **** //mode:0,正常显示,1,叠加显示	   
+  52:Core/Src/text.c **** void Show_Font(u16 x,u16 y,u8 *font,u8 size,u8 mode)
+  53:Core/Src/text.c **** {
+ 232              		.loc 1 53 1 view -0
+ 233              		.cfi_startproc
+ 234              		@ args = 4, pretend = 0, frame = 80
+ 235              		@ frame_needed = 0, uses_anonymous_args = 0
+ 236              		.loc 1 53 1 is_stmt 0 view .LVU66
+ 237 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 238              	.LCFI1:
+ 239              		.cfi_def_cfa_offset 36
+ 240              		.cfi_offset 4, -36
+ 241              		.cfi_offset 5, -32
+ 242              		.cfi_offset 6, -28
+ 243              		.cfi_offset 7, -24
+ 244              		.cfi_offset 8, -20
+ 245              		.cfi_offset 9, -16
+ 246              		.cfi_offset 10, -12
+ 247              		.cfi_offset 11, -8
+ 248              		.cfi_offset 14, -4
+ 249 0004 95B0     		sub	sp, sp, #84
+ 250              	.LCFI2:
+ 251              		.cfi_def_cfa_offset 120
+ 252 0006 8246     		mov	r10, r0
+ 253 0008 8846     		mov	r8, r1
+ 254 000a 1046     		mov	r0, r2
+ 255              	.LVL35:
+ 256              		.loc 1 53 1 view .LVU67
+ 257 000c 1F46     		mov	r7, r3
+ 258 000e 9DF878B0 		ldrb	fp, [sp, #120]	@ zero_extendqisi2
+  54:Core/Src/text.c **** 	u8 temp,t,t1;
+ 259              		.loc 1 54 2 is_stmt 1 view .LVU68
+  55:Core/Src/text.c **** 	u16 y0=y;
+ 260              		.loc 1 55 2 view .LVU69
+ 261              	.LVL36:
+  56:Core/Src/text.c **** 	u8 dzk[72];   
+ 262              		.loc 1 56 2 view .LVU70
+  57:Core/Src/text.c **** 	u8 csize=(size/8+((size%8)?1:0))*(size);//得到字体一个字符对应点阵集所占的字节数	 
+ 263              		.loc 1 57 2 view .LVU71
+ 264              		.loc 1 57 30 is_stmt 0 view .LVU72
+ 265 0012 13F00703 		ands	r3, r3, #7
+ 266              	.LVL37:
+ 267              		.loc 1 57 30 view .LVU73
+ 268 0016 18BF     		it	ne
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 7
+
+
+ 269 0018 0123     		movne	r3, #1
+ 270              		.loc 1 57 18 view .LVU74
+ 271 001a 03EBD703 		add	r3, r3, r7, lsr #3
+ 272              		.loc 1 57 5 view .LVU75
+ 273 001e 13FB07F3 		smulbb	r3, r3, r7
+ 274 0022 DBB2     		uxtb	r3, r3
+ 275 0024 0193     		str	r3, [sp, #4]
+ 276              	.LVL38:
+  58:Core/Src/text.c **** 	if(size!=12&&size!=16&&size!=24)return;	//不支持的size
+ 277              		.loc 1 58 2 is_stmt 1 view .LVU76
+ 278              		.loc 1 58 4 is_stmt 0 view .LVU77
+ 279 0026 0C2F     		cmp	r7, #12
+ 280 0028 03D0     		beq	.L21
+ 281              		.loc 1 58 13 discriminator 1 view .LVU78
+ 282 002a 102F     		cmp	r7, #16
+ 283 002c 01D0     		beq	.L21
+ 284              		.loc 1 58 23 discriminator 2 view .LVU79
+ 285 002e 182F     		cmp	r7, #24
+ 286 0030 38D1     		bne	.L20
+ 287              	.L21:
+  59:Core/Src/text.c **** 	Get_HzMat(font,dzk,size);	//得到相应大小的点阵数据 
+ 288              		.loc 1 59 2 is_stmt 1 view .LVU80
+ 289 0032 3A46     		mov	r2, r7
+ 290              	.LVL39:
+ 291              		.loc 1 59 2 is_stmt 0 view .LVU81
+ 292 0034 02A9     		add	r1, sp, #8
+ 293              	.LVL40:
+ 294              		.loc 1 59 2 view .LVU82
+ 295 0036 FFF7FEFF 		bl	Get_HzMat
+ 296              	.LVL41:
+  60:Core/Src/text.c **** 	for(t=0;t<csize;t++)
+ 297              		.loc 1 60 2 is_stmt 1 view .LVU83
+ 298              		.loc 1 60 2 is_stmt 0 view .LVU84
+ 299 003a 4446     		mov	r4, r8
+ 300              		.loc 1 60 7 view .LVU85
+ 301 003c 4FF00009 		mov	r9, #0
+ 302              		.loc 1 60 2 view .LVU86
+ 303 0040 27E0     		b	.L23
+ 304              	.LVL42:
+ 305              	.L33:
+  61:Core/Src/text.c **** 	{   												   
+  62:Core/Src/text.c **** 		temp=dzk[t];			//得到点阵数据                          
+  63:Core/Src/text.c **** 		for(t1=0;t1<8;t1++)
+  64:Core/Src/text.c **** 		{
+  65:Core/Src/text.c **** 			if(temp&0x80)GUI_DrawPoint(x,y,POINT_COLOR);
+ 306              		.loc 1 65 17 is_stmt 1 discriminator 1 view .LVU87
+ 307 0042 1A4B     		ldr	r3, .L34
+ 308 0044 1A88     		ldrh	r2, [r3]
+ 309 0046 2146     		mov	r1, r4
+ 310 0048 5046     		mov	r0, r10
+ 311 004a FFF7FEFF 		bl	GUI_DrawPoint
+ 312              	.LVL43:
+ 313              	.L26:
+  66:Core/Src/text.c **** 			else if(mode==0)GUI_DrawPoint(x,y,BACK_COLOR); 
+  67:Core/Src/text.c **** 			temp<<=1;
+ 314              		.loc 1 67 4 view .LVU88
+ 315              		.loc 1 67 8 is_stmt 0 view .LVU89
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 8
+
+
+ 316 004e 6D00     		lsls	r5, r5, #1
+ 317              	.LVL44:
+ 318              		.loc 1 67 8 view .LVU90
+ 319 0050 EDB2     		uxtb	r5, r5
+ 320              	.LVL45:
+  68:Core/Src/text.c **** 			y++;
+ 321              		.loc 1 68 4 is_stmt 1 view .LVU91
+ 322              		.loc 1 68 5 is_stmt 0 view .LVU92
+ 323 0052 0134     		adds	r4, r4, #1
+ 324              	.LVL46:
+ 325              		.loc 1 68 5 view .LVU93
+ 326 0054 A4B2     		uxth	r4, r4
+ 327              	.LVL47:
+  69:Core/Src/text.c **** 			if((y-y0)==size)
+ 328              		.loc 1 69 4 is_stmt 1 view .LVU94
+ 329              		.loc 1 69 9 is_stmt 0 view .LVU95
+ 330 0056 A4EB0803 		sub	r3, r4, r8
+ 331              		.loc 1 69 6 view .LVU96
+ 332 005a BB42     		cmp	r3, r7
+ 333 005c 10D0     		beq	.L32
+  63:Core/Src/text.c **** 		{
+ 334              		.loc 1 63 17 is_stmt 1 discriminator 2 view .LVU97
+  63:Core/Src/text.c **** 		{
+ 335              		.loc 1 63 19 is_stmt 0 discriminator 2 view .LVU98
+ 336 005e 0136     		adds	r6, r6, #1
+ 337              	.LVL48:
+  63:Core/Src/text.c **** 		{
+ 338              		.loc 1 63 19 discriminator 2 view .LVU99
+ 339 0060 F6B2     		uxtb	r6, r6
+ 340              	.LVL49:
+ 341              	.L24:
+  63:Core/Src/text.c **** 		{
+ 342              		.loc 1 63 12 is_stmt 1 discriminator 1 view .LVU100
+  63:Core/Src/text.c **** 		{
+ 343              		.loc 1 63 3 is_stmt 0 discriminator 1 view .LVU101
+ 344 0062 072E     		cmp	r6, #7
+ 345 0064 11D8     		bhi	.L28
+  65:Core/Src/text.c **** 			else if(mode==0)GUI_DrawPoint(x,y,BACK_COLOR); 
+ 346              		.loc 1 65 4 is_stmt 1 view .LVU102
+  65:Core/Src/text.c **** 			else if(mode==0)GUI_DrawPoint(x,y,BACK_COLOR); 
+ 347              		.loc 1 65 6 is_stmt 0 view .LVU103
+ 348 0066 15F0800F 		tst	r5, #128
+ 349 006a EAD1     		bne	.L33
+  66:Core/Src/text.c **** 			temp<<=1;
+ 350              		.loc 1 66 9 is_stmt 1 view .LVU104
+  66:Core/Src/text.c **** 			temp<<=1;
+ 351              		.loc 1 66 11 is_stmt 0 view .LVU105
+ 352 006c BBF1000F 		cmp	fp, #0
+ 353 0070 EDD1     		bne	.L26
+  66:Core/Src/text.c **** 			temp<<=1;
+ 354              		.loc 1 66 20 is_stmt 1 discriminator 1 view .LVU106
+ 355 0072 0F4B     		ldr	r3, .L34+4
+ 356 0074 1A88     		ldrh	r2, [r3]
+ 357 0076 2146     		mov	r1, r4
+ 358 0078 5046     		mov	r0, r10
+ 359 007a FFF7FEFF 		bl	GUI_DrawPoint
+ 360              	.LVL50:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 9
+
+
+ 361 007e E6E7     		b	.L26
+ 362              	.L32:
+  70:Core/Src/text.c **** 			{
+  71:Core/Src/text.c **** 				y=y0;
+ 363              		.loc 1 71 5 view .LVU107
+ 364              	.LVL51:
+  72:Core/Src/text.c **** 				x++;
+ 365              		.loc 1 72 5 view .LVU108
+ 366              		.loc 1 72 6 is_stmt 0 view .LVU109
+ 367 0080 0AF1010A 		add	r10, r10, #1
+ 368              	.LVL52:
+ 369              		.loc 1 72 6 view .LVU110
+ 370 0084 1FFA8AFA 		uxth	r10, r10
+ 371              	.LVL53:
+  73:Core/Src/text.c **** 				break;
+ 372              		.loc 1 73 5 is_stmt 1 view .LVU111
+  71:Core/Src/text.c **** 				x++;
+ 373              		.loc 1 71 6 is_stmt 0 view .LVU112
+ 374 0088 4446     		mov	r4, r8
+ 375              	.LVL54:
+ 376              	.L28:
+  60:Core/Src/text.c **** 	{   												   
+ 377              		.loc 1 60 18 is_stmt 1 discriminator 2 view .LVU113
+  60:Core/Src/text.c **** 	{   												   
+ 378              		.loc 1 60 19 is_stmt 0 discriminator 2 view .LVU114
+ 379 008a 09F10109 		add	r9, r9, #1
+ 380              	.LVL55:
+  60:Core/Src/text.c **** 	{   												   
+ 381              		.loc 1 60 19 discriminator 2 view .LVU115
+ 382 008e 5FFA89F9 		uxtb	r9, r9
+ 383              	.LVL56:
+ 384              	.L23:
+  60:Core/Src/text.c **** 	{   												   
+ 385              		.loc 1 60 10 is_stmt 1 discriminator 1 view .LVU116
+  60:Core/Src/text.c **** 	{   												   
+ 386              		.loc 1 60 2 is_stmt 0 discriminator 1 view .LVU117
+ 387 0092 019B     		ldr	r3, [sp, #4]
+ 388 0094 9945     		cmp	r9, r3
+ 389 0096 05D2     		bcs	.L20
+  62:Core/Src/text.c **** 		for(t1=0;t1<8;t1++)
+ 390              		.loc 1 62 3 is_stmt 1 view .LVU118
+  62:Core/Src/text.c **** 		for(t1=0;t1<8;t1++)
+ 391              		.loc 1 62 7 is_stmt 0 view .LVU119
+ 392 0098 14AB     		add	r3, sp, #80
+ 393 009a 4B44     		add	r3, r3, r9
+ 394 009c 13F8485C 		ldrb	r5, [r3, #-72]	@ zero_extendqisi2
+ 395              	.LVL57:
+  63:Core/Src/text.c **** 		{
+ 396              		.loc 1 63 3 is_stmt 1 view .LVU120
+  63:Core/Src/text.c **** 		{
+ 397              		.loc 1 63 9 is_stmt 0 view .LVU121
+ 398 00a0 0026     		movs	r6, #0
+  63:Core/Src/text.c **** 		{
+ 399              		.loc 1 63 3 view .LVU122
+ 400 00a2 DEE7     		b	.L24
+ 401              	.LVL58:
+ 402              	.L20:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 10
+
+
+  74:Core/Src/text.c **** 			}
+  75:Core/Src/text.c **** 		}  	 
+  76:Core/Src/text.c **** 	}  
+  77:Core/Src/text.c **** }
+ 403              		.loc 1 77 1 view .LVU123
+ 404 00a4 15B0     		add	sp, sp, #84
+ 405              	.LCFI3:
+ 406              		.cfi_def_cfa_offset 36
+ 407              		@ sp needed
+ 408 00a6 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 409              	.LVL59:
+ 410              	.L35:
+ 411              		.loc 1 77 1 view .LVU124
+ 412 00aa 00BF     		.align	2
+ 413              	.L34:
+ 414 00ac 00000000 		.word	POINT_COLOR
+ 415 00b0 00000000 		.word	BACK_COLOR
+ 416              		.cfi_endproc
+ 417              	.LFE134:
+ 419              		.section	.text.Show_Str,"ax",%progbits
+ 420              		.align	1
+ 421              		.global	Show_Str
+ 422              		.syntax unified
+ 423              		.thumb
+ 424              		.thumb_func
+ 425              		.fpu fpv4-sp-d16
+ 427              	Show_Str:
+ 428              	.LVL60:
+ 429              	.LFB135:
+  78:Core/Src/text.c **** //在指定位置开始显示一个字符串	    
+  79:Core/Src/text.c **** //支持自动换行
+  80:Core/Src/text.c **** //(x,y):起始坐标
+  81:Core/Src/text.c **** //width,height:区域
+  82:Core/Src/text.c **** //str  :字符串
+  83:Core/Src/text.c **** //size :字体大小
+  84:Core/Src/text.c **** //mode:0,非叠加方式;1,叠加方式    	   		   
+  85:Core/Src/text.c **** void Show_Str(u16 x,u16 y,u16 width,u16 height,u8*str,u8 size,u8 mode)
+  86:Core/Src/text.c **** {					
+ 430              		.loc 1 86 1 is_stmt 1 view -0
+ 431              		.cfi_startproc
+ 432              		@ args = 12, pretend = 0, frame = 16
+ 433              		@ frame_needed = 0, uses_anonymous_args = 0
+ 434              		.loc 1 86 1 is_stmt 0 view .LVU126
+ 435 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 436              	.LCFI4:
+ 437              		.cfi_def_cfa_offset 36
+ 438              		.cfi_offset 4, -36
+ 439              		.cfi_offset 5, -32
+ 440              		.cfi_offset 6, -28
+ 441              		.cfi_offset 7, -24
+ 442              		.cfi_offset 8, -20
+ 443              		.cfi_offset 9, -16
+ 444              		.cfi_offset 10, -12
+ 445              		.cfi_offset 11, -8
+ 446              		.cfi_offset 14, -4
+ 447 0004 89B0     		sub	sp, sp, #36
+ 448              	.LCFI5:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 11
+
+
+ 449              		.cfi_def_cfa_offset 72
+ 450 0006 8246     		mov	r10, r0
+ 451 0008 8B46     		mov	fp, r1
+ 452 000a 0592     		str	r2, [sp, #20]
+ 453 000c 1D46     		mov	r5, r3
+ 454 000e DDF84880 		ldr	r8, [sp, #72]
+ 455 0012 9DF84C70 		ldrb	r7, [sp, #76]	@ zero_extendqisi2
+ 456 0016 9DF85030 		ldrb	r3, [sp, #80]	@ zero_extendqisi2
+ 457              	.LVL61:
+ 458              		.loc 1 86 1 view .LVU127
+ 459 001a 0693     		str	r3, [sp, #24]
+  87:Core/Src/text.c **** 	u16 x0=x;
+ 460              		.loc 1 87 2 is_stmt 1 view .LVU128
+ 461              	.LVL62:
+  88:Core/Src/text.c **** 	u16 y0=y;							  	  
+ 462              		.loc 1 88 2 view .LVU129
+  89:Core/Src/text.c ****     u8 bHz=0;     //字符或者中文  	    				    				  	  
+ 463              		.loc 1 89 5 view .LVU130
+  90:Core/Src/text.c ****     while(*str!=0)//数据未结束
+ 464              		.loc 1 90 5 view .LVU131
+ 465              		.loc 1 90 10 is_stmt 0 view .LVU132
+ 466 001c 0E46     		mov	r6, r1
+ 467 001e 0446     		mov	r4, r0
+  89:Core/Src/text.c ****     u8 bHz=0;     //字符或者中文  	    				    				  	  
+ 468              		.loc 1 89 8 view .LVU133
+ 469 0020 4FF00009 		mov	r9, #0
+ 470              		.loc 1 90 10 view .LVU134
+ 471 0024 27E0     		b	.L37
+ 472              	.LVL63:
+ 473              	.L42:
+  91:Core/Src/text.c ****     { 
+  92:Core/Src/text.c ****         if(!bHz)
+  93:Core/Src/text.c ****         {
+  94:Core/Src/text.c **** 	        if(*str>0x80)bHz=1;//中文 
+  95:Core/Src/text.c **** 	        else              //字符
+  96:Core/Src/text.c **** 	        {      
+  97:Core/Src/text.c ****                 if(x>(x0+width-size/2))//换行
+  98:Core/Src/text.c **** 				{				   
+  99:Core/Src/text.c **** 					y+=size;
+ 100:Core/Src/text.c **** 					x=x0;	   
+ 101:Core/Src/text.c **** 				}							    
+ 102:Core/Src/text.c **** 		        if(y>(y0+height-size))break;//越界返回      
+ 103:Core/Src/text.c **** 		        if(*str==13)//换行符号
+ 104:Core/Src/text.c **** 		        {         
+ 105:Core/Src/text.c **** 		            y+=size;
+ 106:Core/Src/text.c **** 					x=x0;
+ 107:Core/Src/text.c **** 		            str++; 
+ 108:Core/Src/text.c **** 		        }  
+ 109:Core/Src/text.c **** 		        else LCD_ShowChar(x,y,POINT_COLOR,BACK_COLOR,*str,size,mode);//有效部分写入 
+ 474              		.loc 1 109 16 is_stmt 1 view .LVU135
+ 475 0026 069A     		ldr	r2, [sp, #24]
+ 476 0028 0292     		str	r2, [sp, #8]
+ 477 002a 0197     		str	r7, [sp, #4]
+ 478 002c 0093     		str	r3, [sp]
+ 479 002e 274B     		ldr	r3, .L48
+ 480 0030 1B88     		ldrh	r3, [r3]
+ 481 0032 274A     		ldr	r2, .L48+4
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 12
+
+
+ 482 0034 1288     		ldrh	r2, [r2]
+ 483 0036 3146     		mov	r1, r6
+ 484 0038 2046     		mov	r0, r4
+ 485 003a FFF7FEFF 		bl	LCD_ShowChar
+ 486              	.LVL64:
+ 487 003e 39E0     		b	.L43
+ 488              	.L38:
+ 110:Core/Src/text.c **** 				str++; 
+ 111:Core/Src/text.c **** 		        x+=size/2; //字符,为全字的一半 
+ 112:Core/Src/text.c **** 	        }
+ 113:Core/Src/text.c ****         }else//中文 
+ 114:Core/Src/text.c ****         {     
+ 115:Core/Src/text.c ****             bHz=0;//有汉字库    
+ 489              		.loc 1 115 13 view .LVU136
+ 490              	.LVL65:
+ 116:Core/Src/text.c ****             if(x>(x0+width-size))//换行
+ 491              		.loc 1 116 13 view .LVU137
+ 492              		.loc 1 116 21 is_stmt 0 view .LVU138
+ 493 0040 059B     		ldr	r3, [sp, #20]
+ 494 0042 5344     		add	r3, r10, r3
+ 495              		.loc 1 116 27 view .LVU139
+ 496 0044 DB1B     		subs	r3, r3, r7
+ 497              		.loc 1 116 15 view .LVU140
+ 498 0046 9C42     		cmp	r4, r3
+ 499 0048 02DD     		ble	.L44
+ 117:Core/Src/text.c **** 			{	    
+ 118:Core/Src/text.c **** 				y+=size;
+ 500              		.loc 1 118 5 is_stmt 1 view .LVU141
+ 501              		.loc 1 118 6 is_stmt 0 view .LVU142
+ 502 004a 3E44     		add	r6, r6, r7
+ 503              	.LVL66:
+ 504              		.loc 1 118 6 view .LVU143
+ 505 004c B6B2     		uxth	r6, r6
+ 506              	.LVL67:
+ 119:Core/Src/text.c **** 				x=x0;		  
+ 507              		.loc 1 119 5 is_stmt 1 view .LVU144
+ 508              		.loc 1 119 6 is_stmt 0 view .LVU145
+ 509 004e 5446     		mov	r4, r10
+ 510              	.LVL68:
+ 511              	.L44:
+ 120:Core/Src/text.c **** 			}
+ 121:Core/Src/text.c **** 	        if(y>(y0+height-size))break;//越界返回  						     
+ 512              		.loc 1 121 10 is_stmt 1 view .LVU146
+ 513              		.loc 1 121 18 is_stmt 0 view .LVU147
+ 514 0050 0BEB0503 		add	r3, fp, r5
+ 515              		.loc 1 121 25 view .LVU148
+ 516 0054 DB1B     		subs	r3, r3, r7
+ 517              		.loc 1 121 12 view .LVU149
+ 518 0056 9E42     		cmp	r6, r3
+ 519 0058 35DC     		bgt	.L36
+ 122:Core/Src/text.c **** 	        Show_Font(x,y,str,size,mode); //显示这个汉字,空心显示 
+ 520              		.loc 1 122 10 is_stmt 1 view .LVU150
+ 521 005a 069B     		ldr	r3, [sp, #24]
+ 522 005c 0093     		str	r3, [sp]
+ 523 005e 3B46     		mov	r3, r7
+ 524 0060 4246     		mov	r2, r8
+ 525 0062 3146     		mov	r1, r6
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 13
+
+
+ 526 0064 2046     		mov	r0, r4
+ 527 0066 FFF7FEFF 		bl	Show_Font
+ 528              	.LVL69:
+ 123:Core/Src/text.c **** 	        str+=2; 
+ 529              		.loc 1 123 10 view .LVU151
+ 530              		.loc 1 123 13 is_stmt 0 view .LVU152
+ 531 006a 08F10208 		add	r8, r8, #2
+ 532              	.LVL70:
+ 124:Core/Src/text.c **** 	        x+=size;//下一个汉字偏移	    
+ 533              		.loc 1 124 10 is_stmt 1 view .LVU153
+ 534              		.loc 1 124 11 is_stmt 0 view .LVU154
+ 535 006e 3C44     		add	r4, r4, r7
+ 536              	.LVL71:
+ 537              		.loc 1 124 11 view .LVU155
+ 538 0070 A4B2     		uxth	r4, r4
+ 539              	.LVL72:
+ 115:Core/Src/text.c ****             if(x>(x0+width-size))//换行
+ 540              		.loc 1 115 16 view .LVU156
+ 541 0072 4FF00009 		mov	r9, #0
+ 542              	.LVL73:
+ 543              	.L37:
+  90:Core/Src/text.c ****     { 
+ 544              		.loc 1 90 10 is_stmt 1 view .LVU157
+  90:Core/Src/text.c ****     { 
+ 545              		.loc 1 90 11 is_stmt 0 view .LVU158
+ 546 0076 98F80030 		ldrb	r3, [r8]	@ zero_extendqisi2
+  90:Core/Src/text.c ****     { 
+ 547              		.loc 1 90 10 view .LVU159
+ 548 007a 23B3     		cbz	r3, .L36
+  92:Core/Src/text.c ****         {
+ 549              		.loc 1 92 9 is_stmt 1 view .LVU160
+  92:Core/Src/text.c ****         {
+ 550              		.loc 1 92 11 is_stmt 0 view .LVU161
+ 551 007c B9F1000F 		cmp	r9, #0
+ 552 0080 DED1     		bne	.L38
+  94:Core/Src/text.c **** 	        else              //字符
+ 553              		.loc 1 94 10 is_stmt 1 view .LVU162
+  94:Core/Src/text.c **** 	        else              //字符
+ 554              		.loc 1 94 12 is_stmt 0 view .LVU163
+ 555 0082 802B     		cmp	r3, #128
+ 556 0084 1CD8     		bhi	.L46
+  97:Core/Src/text.c **** 				{				   
+ 557              		.loc 1 97 17 is_stmt 1 view .LVU164
+  97:Core/Src/text.c **** 				{				   
+ 558              		.loc 1 97 25 is_stmt 0 view .LVU165
+ 559 0086 059A     		ldr	r2, [sp, #20]
+ 560 0088 5244     		add	r2, r10, r2
+  97:Core/Src/text.c **** 				{				   
+ 561              		.loc 1 97 36 view .LVU166
+ 562 008a 7908     		lsrs	r1, r7, #1
+ 563 008c 0791     		str	r1, [sp, #28]
+  97:Core/Src/text.c **** 				{				   
+ 564              		.loc 1 97 31 view .LVU167
+ 565 008e A2EB5702 		sub	r2, r2, r7, lsr #1
+  97:Core/Src/text.c **** 				{				   
+ 566              		.loc 1 97 19 view .LVU168
+ 567 0092 9442     		cmp	r4, r2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 14
+
+
+ 568 0094 02DD     		ble	.L40
+  99:Core/Src/text.c **** 					x=x0;	   
+ 569              		.loc 1 99 6 is_stmt 1 view .LVU169
+  99:Core/Src/text.c **** 					x=x0;	   
+ 570              		.loc 1 99 7 is_stmt 0 view .LVU170
+ 571 0096 3E44     		add	r6, r6, r7
+ 572              	.LVL74:
+  99:Core/Src/text.c **** 					x=x0;	   
+ 573              		.loc 1 99 7 view .LVU171
+ 574 0098 B6B2     		uxth	r6, r6
+ 575              	.LVL75:
+ 100:Core/Src/text.c **** 				}							    
+ 576              		.loc 1 100 6 is_stmt 1 view .LVU172
+ 100:Core/Src/text.c **** 				}							    
+ 577              		.loc 1 100 7 is_stmt 0 view .LVU173
+ 578 009a 5446     		mov	r4, r10
+ 579              	.LVL76:
+ 580              	.L40:
+ 102:Core/Src/text.c **** 		        if(*str==13)//换行符号
+ 581              		.loc 1 102 11 is_stmt 1 view .LVU174
+ 102:Core/Src/text.c **** 		        if(*str==13)//换行符号
+ 582              		.loc 1 102 19 is_stmt 0 view .LVU175
+ 583 009c 0BEB0502 		add	r2, fp, r5
+ 102:Core/Src/text.c **** 		        if(*str==13)//换行符号
+ 584              		.loc 1 102 26 view .LVU176
+ 585 00a0 D21B     		subs	r2, r2, r7
+ 102:Core/Src/text.c **** 		        if(*str==13)//换行符号
+ 586              		.loc 1 102 13 view .LVU177
+ 587 00a2 9642     		cmp	r6, r2
+ 588 00a4 0FDC     		bgt	.L36
+ 103:Core/Src/text.c **** 		        {         
+ 589              		.loc 1 103 11 is_stmt 1 view .LVU178
+ 103:Core/Src/text.c **** 		        {         
+ 590              		.loc 1 103 13 is_stmt 0 view .LVU179
+ 591 00a6 0D2B     		cmp	r3, #13
+ 592 00a8 BDD1     		bne	.L42
+ 105:Core/Src/text.c **** 					x=x0;
+ 593              		.loc 1 105 15 is_stmt 1 view .LVU180
+ 105:Core/Src/text.c **** 					x=x0;
+ 594              		.loc 1 105 16 is_stmt 0 view .LVU181
+ 595 00aa 3E44     		add	r6, r6, r7
+ 596              	.LVL77:
+ 105:Core/Src/text.c **** 					x=x0;
+ 597              		.loc 1 105 16 view .LVU182
+ 598 00ac B6B2     		uxth	r6, r6
+ 599              	.LVL78:
+ 106:Core/Src/text.c **** 		            str++; 
+ 600              		.loc 1 106 6 is_stmt 1 view .LVU183
+ 107:Core/Src/text.c **** 		        }  
+ 601              		.loc 1 107 15 view .LVU184
+ 107:Core/Src/text.c **** 		        }  
+ 602              		.loc 1 107 18 is_stmt 0 view .LVU185
+ 603 00ae 08F10108 		add	r8, r8, #1
+ 604              	.LVL79:
+ 106:Core/Src/text.c **** 		            str++; 
+ 605              		.loc 1 106 7 view .LVU186
+ 606 00b2 5446     		mov	r4, r10
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 15
+
+
+ 607              	.LVL80:
+ 608              	.L43:
+ 110:Core/Src/text.c **** 		        x+=size/2; //字符,为全字的一半 
+ 609              		.loc 1 110 5 is_stmt 1 view .LVU187
+ 110:Core/Src/text.c **** 		        x+=size/2; //字符,为全字的一半 
+ 610              		.loc 1 110 8 is_stmt 0 view .LVU188
+ 611 00b4 08F10108 		add	r8, r8, #1
+ 612              	.LVL81:
+ 111:Core/Src/text.c **** 	        }
+ 613              		.loc 1 111 11 is_stmt 1 view .LVU189
+ 111:Core/Src/text.c **** 	        }
+ 614              		.loc 1 111 12 is_stmt 0 view .LVU190
+ 615 00b8 079B     		ldr	r3, [sp, #28]
+ 616 00ba 1C44     		add	r4, r4, r3
+ 617              	.LVL82:
+ 111:Core/Src/text.c **** 	        }
+ 618              		.loc 1 111 12 view .LVU191
+ 619 00bc A4B2     		uxth	r4, r4
+ 620              	.LVL83:
+ 111:Core/Src/text.c **** 	        }
+ 621              		.loc 1 111 12 view .LVU192
+ 622 00be DAE7     		b	.L37
+ 623              	.L46:
+  94:Core/Src/text.c **** 	        else              //字符
+ 624              		.loc 1 94 26 view .LVU193
+ 625 00c0 4FF00109 		mov	r9, #1
+ 626              	.LVL84:
+  94:Core/Src/text.c **** 	        else              //字符
+ 627              		.loc 1 94 26 view .LVU194
+ 628 00c4 D7E7     		b	.L37
+ 629              	.L36:
+ 125:Core/Src/text.c ****         }						 
+ 126:Core/Src/text.c ****     }   
+ 127:Core/Src/text.c **** }  			 		 
+ 630              		.loc 1 127 1 view .LVU195
+ 631 00c6 09B0     		add	sp, sp, #36
+ 632              	.LCFI6:
+ 633              		.cfi_def_cfa_offset 36
+ 634              		@ sp needed
+ 635 00c8 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 636              	.LVL85:
+ 637              	.L49:
+ 638              		.loc 1 127 1 view .LVU196
+ 639              		.align	2
+ 640              	.L48:
+ 641 00cc 00000000 		.word	BACK_COLOR
+ 642 00d0 00000000 		.word	POINT_COLOR
+ 643              		.cfi_endproc
+ 644              	.LFE135:
+ 646              		.section	.text.Show_Str_Mid,"ax",%progbits
+ 647              		.align	1
+ 648              		.global	Show_Str_Mid
+ 649              		.syntax unified
+ 650              		.thumb
+ 651              		.thumb_func
+ 652              		.fpu fpv4-sp-d16
+ 654              	Show_Str_Mid:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 16
+
+
+ 655              	.LVL86:
+ 656              	.LFB136:
+ 128:Core/Src/text.c **** //在指定宽度的中间显示字符串
+ 129:Core/Src/text.c **** //如果字符长度超过了len,则用Show_Str显示
+ 130:Core/Src/text.c **** //len:指定要显示的宽度			  
+ 131:Core/Src/text.c **** void Show_Str_Mid(u16 x,u16 y,u8*str,u8 size,u8 len)
+ 132:Core/Src/text.c **** {
+ 657              		.loc 1 132 1 is_stmt 1 view -0
+ 658              		.cfi_startproc
+ 659              		@ args = 4, pretend = 0, frame = 0
+ 660              		@ frame_needed = 0, uses_anonymous_args = 0
+ 661              		.loc 1 132 1 is_stmt 0 view .LVU198
+ 662 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 663              	.LCFI7:
+ 664              		.cfi_def_cfa_offset 24
+ 665              		.cfi_offset 4, -24
+ 666              		.cfi_offset 5, -20
+ 667              		.cfi_offset 6, -16
+ 668              		.cfi_offset 7, -12
+ 669              		.cfi_offset 8, -8
+ 670              		.cfi_offset 14, -4
+ 671 0004 84B0     		sub	sp, sp, #16
+ 672              	.LCFI8:
+ 673              		.cfi_def_cfa_offset 40
+ 674 0006 8046     		mov	r8, r0
+ 675 0008 0F46     		mov	r7, r1
+ 676 000a 1546     		mov	r5, r2
+ 677 000c 1E46     		mov	r6, r3
+ 678 000e 9DF82840 		ldrb	r4, [sp, #40]	@ zero_extendqisi2
+ 133:Core/Src/text.c **** 	u16 strlenth=0;
+ 679              		.loc 1 133 2 is_stmt 1 view .LVU199
+ 680              	.LVL87:
+ 134:Core/Src/text.c ****    	strlenth=strlen((const char*)str);
+ 681              		.loc 1 134 5 view .LVU200
+ 682              		.loc 1 134 14 is_stmt 0 view .LVU201
+ 683 0012 1046     		mov	r0, r2
+ 684              	.LVL88:
+ 685              		.loc 1 134 14 view .LVU202
+ 686 0014 FFF7FEFF 		bl	strlen
+ 687              	.LVL89:
+ 688              		.loc 1 134 13 view .LVU203
+ 689 0018 83B2     		uxth	r3, r0
+ 690              	.LVL90:
+ 135:Core/Src/text.c **** 	strlenth*=size/2;
+ 691              		.loc 1 135 2 is_stmt 1 view .LVU204
+ 692              		.loc 1 135 10 is_stmt 0 view .LVU205
+ 693 001a 7008     		lsrs	r0, r6, #1
+ 694 001c 10FB03F0 		smulbb	r0, r0, r3
+ 695 0020 80B2     		uxth	r0, r0
+ 696              	.LVL91:
+ 136:Core/Src/text.c **** 	if(strlenth>len)Show_Str(x,y,lcddev.width,lcddev.height,str,size,1);
+ 697              		.loc 1 136 2 is_stmt 1 view .LVU206
+ 698              		.loc 1 136 13 is_stmt 0 view .LVU207
+ 699 0022 A3B2     		uxth	r3, r4
+ 700              		.loc 1 136 4 view .LVU208
+ 701 0024 8342     		cmp	r3, r0
+ 702 0026 0DD2     		bcs	.L51
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 17
+
+
+ 703              		.loc 1 136 18 is_stmt 1 discriminator 1 view .LVU209
+ 704 0028 104A     		ldr	r2, .L54
+ 705 002a 0123     		movs	r3, #1
+ 706 002c 0293     		str	r3, [sp, #8]
+ 707 002e 0196     		str	r6, [sp, #4]
+ 708 0030 0095     		str	r5, [sp]
+ 709 0032 D388     		ldrh	r3, [r2, #6]
+ 710 0034 9288     		ldrh	r2, [r2, #4]
+ 711 0036 3946     		mov	r1, r7
+ 712 0038 4046     		mov	r0, r8
+ 713              	.LVL92:
+ 714              		.loc 1 136 18 is_stmt 0 discriminator 1 view .LVU210
+ 715 003a FFF7FEFF 		bl	Show_Str
+ 716              	.LVL93:
+ 717              	.L50:
+ 137:Core/Src/text.c **** 	else
+ 138:Core/Src/text.c **** 	{
+ 139:Core/Src/text.c **** 		strlenth=(len-strlenth)/2;
+ 140:Core/Src/text.c **** 	    Show_Str(strlenth+x,y,lcddev.width,lcddev.height,str,size,1);
+ 141:Core/Src/text.c **** 	}
+ 142:Core/Src/text.c **** }   
+ 718              		.loc 1 142 1 view .LVU211
+ 719 003e 04B0     		add	sp, sp, #16
+ 720              	.LCFI9:
+ 721              		.cfi_remember_state
+ 722              		.cfi_def_cfa_offset 24
+ 723              		@ sp needed
+ 724 0040 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 725              	.LVL94:
+ 726              	.L51:
+ 727              	.LCFI10:
+ 728              		.cfi_restore_state
+ 139:Core/Src/text.c **** 	    Show_Str(strlenth+x,y,lcddev.width,lcddev.height,str,size,1);
+ 729              		.loc 1 139 3 is_stmt 1 view .LVU212
+ 139:Core/Src/text.c **** 	    Show_Str(strlenth+x,y,lcddev.width,lcddev.height,str,size,1);
+ 730              		.loc 1 139 16 is_stmt 0 view .LVU213
+ 731 0044 241A     		subs	r4, r4, r0
+ 139:Core/Src/text.c **** 	    Show_Str(strlenth+x,y,lcddev.width,lcddev.height,str,size,1);
+ 732              		.loc 1 139 26 view .LVU214
+ 733 0046 04EBD474 		add	r4, r4, r4, lsr #31
+ 139:Core/Src/text.c **** 	    Show_Str(strlenth+x,y,lcddev.width,lcddev.height,str,size,1);
+ 734              		.loc 1 139 11 view .LVU215
+ 735 004a C4F34F04 		ubfx	r4, r4, #1, #16
+ 736              	.LVL95:
+ 140:Core/Src/text.c **** 	}
+ 737              		.loc 1 140 6 is_stmt 1 view .LVU216
+ 738 004e 074A     		ldr	r2, .L54
+ 739 0050 04EB0800 		add	r0, r4, r8
+ 740 0054 0123     		movs	r3, #1
+ 741 0056 0293     		str	r3, [sp, #8]
+ 742 0058 0196     		str	r6, [sp, #4]
+ 743 005a 0095     		str	r5, [sp]
+ 744 005c D388     		ldrh	r3, [r2, #6]
+ 745 005e 9288     		ldrh	r2, [r2, #4]
+ 746 0060 3946     		mov	r1, r7
+ 747 0062 80B2     		uxth	r0, r0
+ 748 0064 FFF7FEFF 		bl	Show_Str
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 18
+
+
+ 749              	.LVL96:
+ 750              		.loc 1 142 1 is_stmt 0 view .LVU217
+ 751 0068 E9E7     		b	.L50
+ 752              	.L55:
+ 753 006a 00BF     		.align	2
+ 754              	.L54:
+ 755 006c 00000000 		.word	lcddev
+ 756              		.cfi_endproc
+ 757              	.LFE136:
+ 759              		.text
+ 760              	.Letext0:
+ 761              		.file 2 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 762              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 763              		.file 4 "Core/Inc/stm32f4xx.h"
+ 764              		.file 5 "Core/Inc/fontupd.h"
+ 765              		.file 6 "Core/Inc/lcd.h"
+ 766              		.file 7 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\string
+ 767              		.file 8 "Core/Inc/gui.h"
+ 768              		.file 9 "Core/Inc/w25q64.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 text.c
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:18     .text.Get_HzMat:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:26     .text.Get_HzMat:00000000 Get_HzMat
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:217    .text.Get_HzMat:000000a8 $d
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:222    .text.Show_Font:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:229    .text.Show_Font:00000000 Show_Font
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:414    .text.Show_Font:000000ac $d
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:420    .text.Show_Str:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:427    .text.Show_Str:00000000 Show_Str
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:641    .text.Show_Str:000000cc $d
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:647    .text.Show_Str_Mid:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:654    .text.Show_Str_Mid:00000000 Show_Str_Mid
+C:\Users\ADMIN\AppData\Local\Temp\cc76iyn8.s:755    .text.Show_Str_Mid:0000006c $d
+
+UNDEFINED SYMBOLS
+W25Q64_Read
+ftinfo
+GUI_DrawPoint
+POINT_COLOR
+BACK_COLOR
+LCD_ShowChar
+strlen
+lcddev

@@ -1,0 +1,864 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"mycc936.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.ff_convert,"ax",%progbits
+  18              		.align	1
+  19              		.global	ff_convert
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	ff_convert:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Core/Src/mycc936.c"
+   1:Core/Src/mycc936.c **** #include "ff.h"   
+   2:Core/Src/mycc936.c **** #include "fontupd.h"
+   3:Core/Src/mycc936.c **** #include "w25q64.h"   
+   4:Core/Src/mycc936.c **** 
+   5:Core/Src/mycc936.c **** 
+   6:Core/Src/mycc936.c **** WCHAR ff_convert (	/* Converted code, 0 means conversion error */
+   7:Core/Src/mycc936.c **** 	WCHAR	src,	/* Character code to be converted */
+   8:Core/Src/mycc936.c **** 	UINT	dir		/* 0: Unicode to OEMCP, 1: OEMCP to Unicode */
+   9:Core/Src/mycc936.c **** )
+  10:Core/Src/mycc936.c **** {
+  30              		.loc 1 10 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 10 1 is_stmt 0 view .LVU1
+  35 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 28
+  38              		.cfi_offset 4, -28
+  39              		.cfi_offset 5, -24
+  40              		.cfi_offset 6, -20
+  41              		.cfi_offset 7, -16
+  42              		.cfi_offset 8, -12
+  43              		.cfi_offset 9, -8
+  44              		.cfi_offset 14, -4
+  45 0004 83B0     		sub	sp, sp, #12
+  46              	.LCFI1:
+  47              		.cfi_def_cfa_offset 40
+  48 0006 0646     		mov	r6, r0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 2
+
+
+  11:Core/Src/mycc936.c **** 	WCHAR t[2];
+  49              		.loc 1 11 2 is_stmt 1 view .LVU2
+  12:Core/Src/mycc936.c **** 	WCHAR c;
+  50              		.loc 1 12 2 view .LVU3
+  13:Core/Src/mycc936.c **** 	u32 i, li, hi;
+  51              		.loc 1 13 2 view .LVU4
+  14:Core/Src/mycc936.c **** 	u16 n;			 
+  52              		.loc 1 14 2 view .LVU5
+  15:Core/Src/mycc936.c **** 	u32 gbk2uni_offset=0;		  
+  53              		.loc 1 15 2 view .LVU6
+  54              	.LVL1:
+  16:Core/Src/mycc936.c **** 						  
+  17:Core/Src/mycc936.c **** 	if (src < 0x80)c = src;//ASCII,直接不用转换.
+  55              		.loc 1 17 2 view .LVU7
+  56              		.loc 1 17 5 is_stmt 0 view .LVU8
+  57 0008 7F28     		cmp	r0, #127
+  58 000a 2CD9     		bls	.L2
+  59 000c 8946     		mov	r9, r1
+  18:Core/Src/mycc936.c **** 	else 
+  19:Core/Src/mycc936.c **** 	{
+  20:Core/Src/mycc936.c ****  		if(dir)	//GBK 2 UNICODE
+  60              		.loc 1 20 4 is_stmt 1 view .LVU9
+  61              		.loc 1 20 6 is_stmt 0 view .LVU10
+  62 000e 21B1     		cbz	r1, .L3
+  21:Core/Src/mycc936.c **** 		{
+  22:Core/Src/mycc936.c **** 			gbk2uni_offset=ftinfo.ugbksize/2;	 
+  63              		.loc 1 22 4 is_stmt 1 view .LVU11
+  64              		.loc 1 22 25 is_stmt 0 view .LVU12
+  65 0010 184B     		ldr	r3, .L11
+  66 0012 D3F80890 		ldr	r9, [r3, #8]	@ unaligned
+  67              		.loc 1 22 18 view .LVU13
+  68 0016 4FEA5909 		lsr	r9, r9, #1
+  69              	.LVL2:
+  70              	.L3:
+  23:Core/Src/mycc936.c **** 		}else	//UNICODE 2 GBK  
+  24:Core/Src/mycc936.c **** 		{   
+  25:Core/Src/mycc936.c **** 			gbk2uni_offset=0;	
+  26:Core/Src/mycc936.c **** 		}    
+  27:Core/Src/mycc936.c **** 		/* Unicode to OEMCP */
+  28:Core/Src/mycc936.c **** 		hi=ftinfo.ugbksize/2;//对半开.
+  71              		.loc 1 28 3 is_stmt 1 view .LVU14
+  72              		.loc 1 28 12 is_stmt 0 view .LVU15
+  73 001a 164B     		ldr	r3, .L11
+  74 001c D3F80880 		ldr	r8, [r3, #8]	@ unaligned
+  75              	.LVL3:
+  29:Core/Src/mycc936.c **** 		hi =hi / 4 - 1;
+  76              		.loc 1 29 3 is_stmt 1 view .LVU16
+  77              		.loc 1 29 10 is_stmt 0 view .LVU17
+  78 0020 4FEAD808 		lsr	r8, r8, #3
+  79              	.LVL4:
+  80              		.loc 1 29 6 view .LVU18
+  81 0024 08F1FF38 		add	r8, r8, #-1
+  82              	.LVL5:
+  30:Core/Src/mycc936.c **** 		li = 0;
+  83              		.loc 1 30 3 is_stmt 1 view .LVU19
+  31:Core/Src/mycc936.c **** 		for (n = 16; n; n--)
+  84              		.loc 1 31 3 view .LVU20
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 3
+
+
+  85              		.loc 1 31 10 is_stmt 0 view .LVU21
+  86 0028 1024     		movs	r4, #16
+  30:Core/Src/mycc936.c **** 		li = 0;
+  87              		.loc 1 30 6 view .LVU22
+  88 002a 0027     		movs	r7, #0
+  89              		.loc 1 31 3 view .LVU23
+  90 002c 02E0     		b	.L4
+  91              	.LVL6:
+  92              	.L8:
+  32:Core/Src/mycc936.c **** 		{
+  33:Core/Src/mycc936.c **** 			i = li + (hi - li) / 2;	
+  34:Core/Src/mycc936.c **** 			W25Q64_Read((u8*)&t,ftinfo.ugbkaddr+i*4+gbk2uni_offset,4);//读出4个字节  
+  35:Core/Src/mycc936.c **** 			if (src == t[0]) break;
+  36:Core/Src/mycc936.c **** 			if (src > t[0])li = i;  
+  37:Core/Src/mycc936.c **** 			else hi = i;    
+  93              		.loc 1 37 12 view .LVU24
+  94 002e A846     		mov	r8, r5
+  95              	.LVL7:
+  96              	.L6:
+  31:Core/Src/mycc936.c **** 		for (n = 16; n; n--)
+  97              		.loc 1 31 19 is_stmt 1 discriminator 2 view .LVU25
+  31:Core/Src/mycc936.c **** 		for (n = 16; n; n--)
+  98              		.loc 1 31 20 is_stmt 0 discriminator 2 view .LVU26
+  99 0030 013C     		subs	r4, r4, #1
+ 100              	.LVL8:
+  31:Core/Src/mycc936.c **** 		for (n = 16; n; n--)
+ 101              		.loc 1 31 20 discriminator 2 view .LVU27
+ 102 0032 A4B2     		uxth	r4, r4
+ 103              	.LVL9:
+ 104              	.L4:
+  31:Core/Src/mycc936.c **** 		for (n = 16; n; n--)
+ 105              		.loc 1 31 16 is_stmt 1 discriminator 1 view .LVU28
+  31:Core/Src/mycc936.c **** 		for (n = 16; n; n--)
+ 106              		.loc 1 31 3 is_stmt 0 discriminator 1 view .LVU29
+ 107 0034 A4B1     		cbz	r4, .L5
+  33:Core/Src/mycc936.c **** 			W25Q64_Read((u8*)&t,ftinfo.ugbkaddr+i*4+gbk2uni_offset,4);//读出4个字节  
+ 108              		.loc 1 33 4 is_stmt 1 view .LVU30
+  33:Core/Src/mycc936.c **** 			W25Q64_Read((u8*)&t,ftinfo.ugbkaddr+i*4+gbk2uni_offset,4);//读出4个字节  
+ 109              		.loc 1 33 17 is_stmt 0 view .LVU31
+ 110 0036 A8EB0705 		sub	r5, r8, r7
+  33:Core/Src/mycc936.c **** 			W25Q64_Read((u8*)&t,ftinfo.ugbkaddr+i*4+gbk2uni_offset,4);//读出4个字节  
+ 111              		.loc 1 33 6 view .LVU32
+ 112 003a 07EB5505 		add	r5, r7, r5, lsr #1
+ 113              	.LVL10:
+  34:Core/Src/mycc936.c **** 			if (src == t[0]) break;
+ 114              		.loc 1 34 4 is_stmt 1 view .LVU33
+  34:Core/Src/mycc936.c **** 			if (src == t[0]) break;
+ 115              		.loc 1 34 30 is_stmt 0 view .LVU34
+ 116 003e 0D4B     		ldr	r3, .L11
+ 117 0040 5968     		ldr	r1, [r3, #4]	@ unaligned
+  34:Core/Src/mycc936.c **** 			if (src == t[0]) break;
+ 118              		.loc 1 34 39 view .LVU35
+ 119 0042 01EB8501 		add	r1, r1, r5, lsl #2
+  34:Core/Src/mycc936.c **** 			if (src == t[0]) break;
+ 120              		.loc 1 34 4 view .LVU36
+ 121 0046 0422     		movs	r2, #4
+ 122 0048 4944     		add	r1, r1, r9
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 4
+
+
+ 123 004a 0DEB0200 		add	r0, sp, r2
+ 124 004e FFF7FEFF 		bl	W25Q64_Read
+ 125              	.LVL11:
+  35:Core/Src/mycc936.c **** 			if (src > t[0])li = i;  
+ 126              		.loc 1 35 4 is_stmt 1 view .LVU37
+  35:Core/Src/mycc936.c **** 			if (src > t[0])li = i;  
+ 127              		.loc 1 35 16 is_stmt 0 view .LVU38
+ 128 0052 BDF80430 		ldrh	r3, [sp, #4]
+  35:Core/Src/mycc936.c **** 			if (src > t[0])li = i;  
+ 129              		.loc 1 35 7 view .LVU39
+ 130 0056 B342     		cmp	r3, r6
+ 131 0058 02D0     		beq	.L5
+  36:Core/Src/mycc936.c **** 			else hi = i;    
+ 132              		.loc 1 36 4 is_stmt 1 view .LVU40
+  36:Core/Src/mycc936.c **** 			else hi = i;    
+ 133              		.loc 1 36 7 is_stmt 0 view .LVU41
+ 134 005a E8D2     		bcs	.L8
+  36:Core/Src/mycc936.c **** 			else hi = i;    
+ 135              		.loc 1 36 22 view .LVU42
+ 136 005c 2F46     		mov	r7, r5
+ 137              	.LVL12:
+  36:Core/Src/mycc936.c **** 			else hi = i;    
+ 138              		.loc 1 36 22 view .LVU43
+ 139 005e E7E7     		b	.L6
+ 140              	.LVL13:
+ 141              	.L5:
+  38:Core/Src/mycc936.c **** 		}
+  39:Core/Src/mycc936.c **** 		c = n ? t[1] : 0;  	    
+ 142              		.loc 1 39 3 is_stmt 1 view .LVU44
+ 143              		.loc 1 39 5 is_stmt 0 view .LVU45
+ 144 0060 2CB1     		cbz	r4, .L9
+ 145              		.loc 1 39 5 discriminator 1 view .LVU46
+ 146 0062 BDF80660 		ldrh	r6, [sp, #6]
+ 147              	.LVL14:
+ 148              	.L2:
+  40:Core/Src/mycc936.c **** 	}
+  41:Core/Src/mycc936.c **** 	return c;
+ 149              		.loc 1 41 2 is_stmt 1 view .LVU47
+  42:Core/Src/mycc936.c **** }		   
+ 150              		.loc 1 42 1 is_stmt 0 view .LVU48
+ 151 0066 3046     		mov	r0, r6
+ 152 0068 03B0     		add	sp, sp, #12
+ 153              	.LCFI2:
+ 154              		.cfi_remember_state
+ 155              		.cfi_def_cfa_offset 28
+ 156              		@ sp needed
+ 157 006a BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 158              	.LVL15:
+ 159              	.L9:
+ 160              	.LCFI3:
+ 161              		.cfi_restore_state
+  39:Core/Src/mycc936.c **** 	}
+ 162              		.loc 1 39 5 view .LVU49
+ 163 006e 2646     		mov	r6, r4
+ 164 0070 F9E7     		b	.L2
+ 165              	.L12:
+ 166 0072 00BF     		.align	2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 5
+
+
+ 167              	.L11:
+ 168 0074 00000000 		.word	ftinfo
+ 169              		.cfi_endproc
+ 170              	.LFE130:
+ 172              		.section	.text.ff_wtoupper,"ax",%progbits
+ 173              		.align	1
+ 174              		.global	ff_wtoupper
+ 175              		.syntax unified
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.fpu fpv4-sp-d16
+ 180              	ff_wtoupper:
+ 181              	.LVL16:
+ 182              	.LFB131:
+  43:Core/Src/mycc936.c **** 
+  44:Core/Src/mycc936.c **** WCHAR ff_wtoupper (	/* Upper converted character */
+  45:Core/Src/mycc936.c **** 	WCHAR chr		/* Input character */
+  46:Core/Src/mycc936.c **** )
+  47:Core/Src/mycc936.c **** {
+ 183              		.loc 1 47 1 is_stmt 1 view -0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187              		@ link register save eliminated.
+  48:Core/Src/mycc936.c **** 	static const WCHAR tbl_lower[] = { 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6
+ 188              		.loc 1 48 2 view .LVU51
+  49:Core/Src/mycc936.c **** 	static const WCHAR tbl_upper[] = { 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4
+ 189              		.loc 1 49 2 view .LVU52
+  50:Core/Src/mycc936.c **** 	int i;
+ 190              		.loc 1 50 2 view .LVU53
+  51:Core/Src/mycc936.c **** 
+  52:Core/Src/mycc936.c **** 
+  53:Core/Src/mycc936.c **** 	for (i = 0; tbl_lower[i] && chr != tbl_lower[i]; i++) ;
+ 191              		.loc 1 53 2 view .LVU54
+ 192              		.loc 1 53 9 is_stmt 0 view .LVU55
+ 193 0000 0022     		movs	r2, #0
+ 194              		.loc 1 53 2 view .LVU56
+ 195 0002 00E0     		b	.L14
+ 196              	.LVL17:
+ 197              	.L16:
+ 198              		.loc 1 53 56 is_stmt 1 discriminator 4 view .LVU57
+ 199              		.loc 1 53 51 discriminator 4 view .LVU58
+ 200              		.loc 1 53 52 is_stmt 0 discriminator 4 view .LVU59
+ 201 0004 0132     		adds	r2, r2, #1
+ 202              	.LVL18:
+ 203              	.L14:
+ 204              		.loc 1 53 14 is_stmt 1 discriminator 1 view .LVU60
+ 205              		.loc 1 53 23 is_stmt 0 discriminator 1 view .LVU61
+ 206 0006 054B     		ldr	r3, .L18
+ 207 0008 33F81230 		ldrh	r3, [r3, r2, lsl #1]
+ 208              		.loc 1 53 2 discriminator 1 view .LVU62
+ 209 000c 0BB1     		cbz	r3, .L15
+ 210              		.loc 1 53 27 discriminator 3 view .LVU63
+ 211 000e 8342     		cmp	r3, r0
+ 212 0010 F8D1     		bne	.L16
+ 213              	.L15:
+  54:Core/Src/mycc936.c **** 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 6
+
+
+  55:Core/Src/mycc936.c **** 	return tbl_lower[i] ? tbl_upper[i] : chr;
+ 214              		.loc 1 55 2 is_stmt 1 view .LVU64
+ 215              		.loc 1 55 37 is_stmt 0 view .LVU65
+ 216 0012 13B1     		cbz	r3, .L17
+ 217              		.loc 1 55 37 discriminator 1 view .LVU66
+ 218 0014 024B     		ldr	r3, .L18+4
+ 219 0016 33F81200 		ldrh	r0, [r3, r2, lsl #1]
+ 220              	.LVL19:
+ 221              	.L17:
+  56:Core/Src/mycc936.c **** }
+ 222              		.loc 1 56 1 discriminator 4 view .LVU67
+ 223 001a 7047     		bx	lr
+ 224              	.L19:
+ 225              		.align	2
+ 226              	.L18:
+ 227 001c 00000000 		.word	.LANCHOR0
+ 228 0020 00000000 		.word	.LANCHOR1
+ 229              		.cfi_endproc
+ 230              	.LFE131:
+ 232              		.section	.rodata.tbl_lower.1,"a"
+ 233              		.align	2
+ 234              		.set	.LANCHOR0,. + 0
+ 237              	tbl_lower.1:
+ 238 0000 6100     		.short	97
+ 239 0002 6200     		.short	98
+ 240 0004 6300     		.short	99
+ 241 0006 6400     		.short	100
+ 242 0008 6500     		.short	101
+ 243 000a 6600     		.short	102
+ 244 000c 6700     		.short	103
+ 245 000e 6800     		.short	104
+ 246 0010 6900     		.short	105
+ 247 0012 6A00     		.short	106
+ 248 0014 6B00     		.short	107
+ 249 0016 6C00     		.short	108
+ 250 0018 6D00     		.short	109
+ 251 001a 6E00     		.short	110
+ 252 001c 6F00     		.short	111
+ 253 001e 7000     		.short	112
+ 254 0020 7100     		.short	113
+ 255 0022 7200     		.short	114
+ 256 0024 7300     		.short	115
+ 257 0026 7400     		.short	116
+ 258 0028 7500     		.short	117
+ 259 002a 7600     		.short	118
+ 260 002c 7700     		.short	119
+ 261 002e 7800     		.short	120
+ 262 0030 7900     		.short	121
+ 263 0032 7A00     		.short	122
+ 264 0034 A100     		.short	161
+ 265 0036 A200     		.short	162
+ 266 0038 A300     		.short	163
+ 267 003a A500     		.short	165
+ 268 003c AC00     		.short	172
+ 269 003e AF00     		.short	175
+ 270 0040 E000     		.short	224
+ 271 0042 E100     		.short	225
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 7
+
+
+ 272 0044 E200     		.short	226
+ 273 0046 E300     		.short	227
+ 274 0048 E400     		.short	228
+ 275 004a E500     		.short	229
+ 276 004c E600     		.short	230
+ 277 004e E700     		.short	231
+ 278 0050 E800     		.short	232
+ 279 0052 E900     		.short	233
+ 280 0054 EA00     		.short	234
+ 281 0056 EB00     		.short	235
+ 282 0058 EC00     		.short	236
+ 283 005a ED00     		.short	237
+ 284 005c EE00     		.short	238
+ 285 005e EF00     		.short	239
+ 286 0060 F000     		.short	240
+ 287 0062 F100     		.short	241
+ 288 0064 F200     		.short	242
+ 289 0066 F300     		.short	243
+ 290 0068 F400     		.short	244
+ 291 006a F500     		.short	245
+ 292 006c F600     		.short	246
+ 293 006e F800     		.short	248
+ 294 0070 F900     		.short	249
+ 295 0072 FA00     		.short	250
+ 296 0074 FB00     		.short	251
+ 297 0076 FC00     		.short	252
+ 298 0078 FD00     		.short	253
+ 299 007a FE00     		.short	254
+ 300 007c FF00     		.short	255
+ 301 007e 0101     		.short	257
+ 302 0080 0301     		.short	259
+ 303 0082 0501     		.short	261
+ 304 0084 0701     		.short	263
+ 305 0086 0901     		.short	265
+ 306 0088 0B01     		.short	267
+ 307 008a 0D01     		.short	269
+ 308 008c 0F01     		.short	271
+ 309 008e 1101     		.short	273
+ 310 0090 1301     		.short	275
+ 311 0092 1501     		.short	277
+ 312 0094 1701     		.short	279
+ 313 0096 1901     		.short	281
+ 314 0098 1B01     		.short	283
+ 315 009a 1D01     		.short	285
+ 316 009c 1F01     		.short	287
+ 317 009e 2101     		.short	289
+ 318 00a0 2301     		.short	291
+ 319 00a2 2501     		.short	293
+ 320 00a4 2701     		.short	295
+ 321 00a6 2901     		.short	297
+ 322 00a8 2B01     		.short	299
+ 323 00aa 2D01     		.short	301
+ 324 00ac 2F01     		.short	303
+ 325 00ae 3101     		.short	305
+ 326 00b0 3301     		.short	307
+ 327 00b2 3501     		.short	309
+ 328 00b4 3701     		.short	311
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 8
+
+
+ 329 00b6 3A01     		.short	314
+ 330 00b8 3C01     		.short	316
+ 331 00ba 3E01     		.short	318
+ 332 00bc 4001     		.short	320
+ 333 00be 4201     		.short	322
+ 334 00c0 4401     		.short	324
+ 335 00c2 4601     		.short	326
+ 336 00c4 4801     		.short	328
+ 337 00c6 4B01     		.short	331
+ 338 00c8 4D01     		.short	333
+ 339 00ca 4F01     		.short	335
+ 340 00cc 5101     		.short	337
+ 341 00ce 5301     		.short	339
+ 342 00d0 5501     		.short	341
+ 343 00d2 5701     		.short	343
+ 344 00d4 5901     		.short	345
+ 345 00d6 5B01     		.short	347
+ 346 00d8 5D01     		.short	349
+ 347 00da 5F01     		.short	351
+ 348 00dc 6101     		.short	353
+ 349 00de 6301     		.short	355
+ 350 00e0 6501     		.short	357
+ 351 00e2 6701     		.short	359
+ 352 00e4 6901     		.short	361
+ 353 00e6 6B01     		.short	363
+ 354 00e8 6D01     		.short	365
+ 355 00ea 6F01     		.short	367
+ 356 00ec 7101     		.short	369
+ 357 00ee 7301     		.short	371
+ 358 00f0 7501     		.short	373
+ 359 00f2 7701     		.short	375
+ 360 00f4 7A01     		.short	378
+ 361 00f6 7C01     		.short	380
+ 362 00f8 7E01     		.short	382
+ 363 00fa 9201     		.short	402
+ 364 00fc B103     		.short	945
+ 365 00fe B203     		.short	946
+ 366 0100 B303     		.short	947
+ 367 0102 B403     		.short	948
+ 368 0104 B503     		.short	949
+ 369 0106 B603     		.short	950
+ 370 0108 B703     		.short	951
+ 371 010a B803     		.short	952
+ 372 010c B903     		.short	953
+ 373 010e BA03     		.short	954
+ 374 0110 BB03     		.short	955
+ 375 0112 BC03     		.short	956
+ 376 0114 BD03     		.short	957
+ 377 0116 BE03     		.short	958
+ 378 0118 BF03     		.short	959
+ 379 011a C003     		.short	960
+ 380 011c C103     		.short	961
+ 381 011e C303     		.short	963
+ 382 0120 C403     		.short	964
+ 383 0122 C503     		.short	965
+ 384 0124 C603     		.short	966
+ 385 0126 C703     		.short	967
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 9
+
+
+ 386 0128 C803     		.short	968
+ 387 012a C903     		.short	969
+ 388 012c CA03     		.short	970
+ 389 012e 3004     		.short	1072
+ 390 0130 3104     		.short	1073
+ 391 0132 3204     		.short	1074
+ 392 0134 3304     		.short	1075
+ 393 0136 3404     		.short	1076
+ 394 0138 3504     		.short	1077
+ 395 013a 3604     		.short	1078
+ 396 013c 3704     		.short	1079
+ 397 013e 3804     		.short	1080
+ 398 0140 3904     		.short	1081
+ 399 0142 3A04     		.short	1082
+ 400 0144 3B04     		.short	1083
+ 401 0146 3C04     		.short	1084
+ 402 0148 3D04     		.short	1085
+ 403 014a 3E04     		.short	1086
+ 404 014c 3F04     		.short	1087
+ 405 014e 4004     		.short	1088
+ 406 0150 4104     		.short	1089
+ 407 0152 4204     		.short	1090
+ 408 0154 4304     		.short	1091
+ 409 0156 4404     		.short	1092
+ 410 0158 4504     		.short	1093
+ 411 015a 4604     		.short	1094
+ 412 015c 4704     		.short	1095
+ 413 015e 4804     		.short	1096
+ 414 0160 4904     		.short	1097
+ 415 0162 4A04     		.short	1098
+ 416 0164 4B04     		.short	1099
+ 417 0166 4C04     		.short	1100
+ 418 0168 4D04     		.short	1101
+ 419 016a 4E04     		.short	1102
+ 420 016c 4F04     		.short	1103
+ 421 016e 5104     		.short	1105
+ 422 0170 5204     		.short	1106
+ 423 0172 5304     		.short	1107
+ 424 0174 5404     		.short	1108
+ 425 0176 5504     		.short	1109
+ 426 0178 5604     		.short	1110
+ 427 017a 5704     		.short	1111
+ 428 017c 5804     		.short	1112
+ 429 017e 5904     		.short	1113
+ 430 0180 5A04     		.short	1114
+ 431 0182 5B04     		.short	1115
+ 432 0184 5C04     		.short	1116
+ 433 0186 5E04     		.short	1118
+ 434 0188 5F04     		.short	1119
+ 435 018a 7021     		.short	8560
+ 436 018c 7121     		.short	8561
+ 437 018e 7221     		.short	8562
+ 438 0190 7321     		.short	8563
+ 439 0192 7421     		.short	8564
+ 440 0194 7521     		.short	8565
+ 441 0196 7621     		.short	8566
+ 442 0198 7721     		.short	8567
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 10
+
+
+ 443 019a 7821     		.short	8568
+ 444 019c 7921     		.short	8569
+ 445 019e 7A21     		.short	8570
+ 446 01a0 7B21     		.short	8571
+ 447 01a2 7C21     		.short	8572
+ 448 01a4 7D21     		.short	8573
+ 449 01a6 7E21     		.short	8574
+ 450 01a8 7F21     		.short	8575
+ 451 01aa 41FF     		.short	-191
+ 452 01ac 42FF     		.short	-190
+ 453 01ae 43FF     		.short	-189
+ 454 01b0 44FF     		.short	-188
+ 455 01b2 45FF     		.short	-187
+ 456 01b4 46FF     		.short	-186
+ 457 01b6 47FF     		.short	-185
+ 458 01b8 48FF     		.short	-184
+ 459 01ba 49FF     		.short	-183
+ 460 01bc 4AFF     		.short	-182
+ 461 01be 4BFF     		.short	-181
+ 462 01c0 4CFF     		.short	-180
+ 463 01c2 4DFF     		.short	-179
+ 464 01c4 4EFF     		.short	-178
+ 465 01c6 4FFF     		.short	-177
+ 466 01c8 50FF     		.short	-176
+ 467 01ca 51FF     		.short	-175
+ 468 01cc 52FF     		.short	-174
+ 469 01ce 53FF     		.short	-173
+ 470 01d0 54FF     		.short	-172
+ 471 01d2 55FF     		.short	-171
+ 472 01d4 56FF     		.short	-170
+ 473 01d6 57FF     		.short	-169
+ 474 01d8 58FF     		.short	-168
+ 475 01da 59FF     		.short	-167
+ 476 01dc 5AFF     		.short	-166
+ 477 01de 0000     		.short	0
+ 478              		.section	.rodata.tbl_upper.0,"a"
+ 479              		.align	2
+ 480              		.set	.LANCHOR1,. + 0
+ 483              	tbl_upper.0:
+ 484 0000 4100     		.short	65
+ 485 0002 4200     		.short	66
+ 486 0004 4300     		.short	67
+ 487 0006 4400     		.short	68
+ 488 0008 4500     		.short	69
+ 489 000a 4600     		.short	70
+ 490 000c 4700     		.short	71
+ 491 000e 4800     		.short	72
+ 492 0010 4900     		.short	73
+ 493 0012 4A00     		.short	74
+ 494 0014 4B00     		.short	75
+ 495 0016 4C00     		.short	76
+ 496 0018 4D00     		.short	77
+ 497 001a 4E00     		.short	78
+ 498 001c 4F00     		.short	79
+ 499 001e 5000     		.short	80
+ 500 0020 5100     		.short	81
+ 501 0022 5200     		.short	82
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 11
+
+
+ 502 0024 5300     		.short	83
+ 503 0026 5400     		.short	84
+ 504 0028 5500     		.short	85
+ 505 002a 5600     		.short	86
+ 506 002c 5700     		.short	87
+ 507 002e 5800     		.short	88
+ 508 0030 5900     		.short	89
+ 509 0032 5A00     		.short	90
+ 510 0034 2100     		.short	33
+ 511 0036 E0FF     		.short	-32
+ 512 0038 E1FF     		.short	-31
+ 513 003a E5FF     		.short	-27
+ 514 003c E2FF     		.short	-30
+ 515 003e E3FF     		.short	-29
+ 516 0040 C000     		.short	192
+ 517 0042 C100     		.short	193
+ 518 0044 C200     		.short	194
+ 519 0046 C300     		.short	195
+ 520 0048 C400     		.short	196
+ 521 004a C500     		.short	197
+ 522 004c C600     		.short	198
+ 523 004e C700     		.short	199
+ 524 0050 C800     		.short	200
+ 525 0052 C900     		.short	201
+ 526 0054 CA00     		.short	202
+ 527 0056 CB00     		.short	203
+ 528 0058 CC00     		.short	204
+ 529 005a CD00     		.short	205
+ 530 005c CE00     		.short	206
+ 531 005e CF00     		.short	207
+ 532 0060 D000     		.short	208
+ 533 0062 D100     		.short	209
+ 534 0064 D200     		.short	210
+ 535 0066 D300     		.short	211
+ 536 0068 D400     		.short	212
+ 537 006a D500     		.short	213
+ 538 006c D600     		.short	214
+ 539 006e D800     		.short	216
+ 540 0070 D900     		.short	217
+ 541 0072 DA00     		.short	218
+ 542 0074 DB00     		.short	219
+ 543 0076 DC00     		.short	220
+ 544 0078 DD00     		.short	221
+ 545 007a DE00     		.short	222
+ 546 007c 7801     		.short	376
+ 547 007e 0001     		.short	256
+ 548 0080 0201     		.short	258
+ 549 0082 0401     		.short	260
+ 550 0084 0601     		.short	262
+ 551 0086 0801     		.short	264
+ 552 0088 0A01     		.short	266
+ 553 008a 0C01     		.short	268
+ 554 008c 0E01     		.short	270
+ 555 008e 1001     		.short	272
+ 556 0090 1201     		.short	274
+ 557 0092 1401     		.short	276
+ 558 0094 1601     		.short	278
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 12
+
+
+ 559 0096 1801     		.short	280
+ 560 0098 1A01     		.short	282
+ 561 009a 1C01     		.short	284
+ 562 009c 1E01     		.short	286
+ 563 009e 2001     		.short	288
+ 564 00a0 2201     		.short	290
+ 565 00a2 2401     		.short	292
+ 566 00a4 2601     		.short	294
+ 567 00a6 2801     		.short	296
+ 568 00a8 2A01     		.short	298
+ 569 00aa 2C01     		.short	300
+ 570 00ac 2E01     		.short	302
+ 571 00ae 3001     		.short	304
+ 572 00b0 3201     		.short	306
+ 573 00b2 3401     		.short	308
+ 574 00b4 3601     		.short	310
+ 575 00b6 3901     		.short	313
+ 576 00b8 3B01     		.short	315
+ 577 00ba 3D01     		.short	317
+ 578 00bc 3F01     		.short	319
+ 579 00be 4101     		.short	321
+ 580 00c0 4301     		.short	323
+ 581 00c2 4501     		.short	325
+ 582 00c4 4701     		.short	327
+ 583 00c6 4A01     		.short	330
+ 584 00c8 4C01     		.short	332
+ 585 00ca 4E01     		.short	334
+ 586 00cc 5001     		.short	336
+ 587 00ce 5201     		.short	338
+ 588 00d0 5401     		.short	340
+ 589 00d2 5601     		.short	342
+ 590 00d4 5801     		.short	344
+ 591 00d6 5A01     		.short	346
+ 592 00d8 5C01     		.short	348
+ 593 00da 5E01     		.short	350
+ 594 00dc 6001     		.short	352
+ 595 00de 6201     		.short	354
+ 596 00e0 6401     		.short	356
+ 597 00e2 6601     		.short	358
+ 598 00e4 6801     		.short	360
+ 599 00e6 6A01     		.short	362
+ 600 00e8 6C01     		.short	364
+ 601 00ea 6E01     		.short	366
+ 602 00ec 7001     		.short	368
+ 603 00ee 7201     		.short	370
+ 604 00f0 7401     		.short	372
+ 605 00f2 7601     		.short	374
+ 606 00f4 7901     		.short	377
+ 607 00f6 7B01     		.short	379
+ 608 00f8 7D01     		.short	381
+ 609 00fa 9101     		.short	401
+ 610 00fc 9103     		.short	913
+ 611 00fe 9203     		.short	914
+ 612 0100 9303     		.short	915
+ 613 0102 9403     		.short	916
+ 614 0104 9503     		.short	917
+ 615 0106 9603     		.short	918
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 13
+
+
+ 616 0108 9703     		.short	919
+ 617 010a 9803     		.short	920
+ 618 010c 9903     		.short	921
+ 619 010e 9A03     		.short	922
+ 620 0110 9B03     		.short	923
+ 621 0112 9C03     		.short	924
+ 622 0114 9D03     		.short	925
+ 623 0116 9E03     		.short	926
+ 624 0118 9F03     		.short	927
+ 625 011a A003     		.short	928
+ 626 011c A103     		.short	929
+ 627 011e A303     		.short	931
+ 628 0120 A403     		.short	932
+ 629 0122 A503     		.short	933
+ 630 0124 A603     		.short	934
+ 631 0126 A703     		.short	935
+ 632 0128 A803     		.short	936
+ 633 012a A903     		.short	937
+ 634 012c AA03     		.short	938
+ 635 012e 1004     		.short	1040
+ 636 0130 1104     		.short	1041
+ 637 0132 1204     		.short	1042
+ 638 0134 1304     		.short	1043
+ 639 0136 1404     		.short	1044
+ 640 0138 1504     		.short	1045
+ 641 013a 1604     		.short	1046
+ 642 013c 1704     		.short	1047
+ 643 013e 1804     		.short	1048
+ 644 0140 1904     		.short	1049
+ 645 0142 1A04     		.short	1050
+ 646 0144 1B04     		.short	1051
+ 647 0146 1C04     		.short	1052
+ 648 0148 1D04     		.short	1053
+ 649 014a 1E04     		.short	1054
+ 650 014c 1F04     		.short	1055
+ 651 014e 2004     		.short	1056
+ 652 0150 2104     		.short	1057
+ 653 0152 2204     		.short	1058
+ 654 0154 2304     		.short	1059
+ 655 0156 2404     		.short	1060
+ 656 0158 2504     		.short	1061
+ 657 015a 2604     		.short	1062
+ 658 015c 2704     		.short	1063
+ 659 015e 2804     		.short	1064
+ 660 0160 2904     		.short	1065
+ 661 0162 2A04     		.short	1066
+ 662 0164 2B04     		.short	1067
+ 663 0166 2C04     		.short	1068
+ 664 0168 2D04     		.short	1069
+ 665 016a 2E04     		.short	1070
+ 666 016c 2F04     		.short	1071
+ 667 016e 0104     		.short	1025
+ 668 0170 0204     		.short	1026
+ 669 0172 0304     		.short	1027
+ 670 0174 0404     		.short	1028
+ 671 0176 0504     		.short	1029
+ 672 0178 0604     		.short	1030
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 14
+
+
+ 673 017a 0704     		.short	1031
+ 674 017c 0804     		.short	1032
+ 675 017e 0904     		.short	1033
+ 676 0180 0A04     		.short	1034
+ 677 0182 0B04     		.short	1035
+ 678 0184 0C04     		.short	1036
+ 679 0186 0E04     		.short	1038
+ 680 0188 0F04     		.short	1039
+ 681 018a 6021     		.short	8544
+ 682 018c 6121     		.short	8545
+ 683 018e 6221     		.short	8546
+ 684 0190 6321     		.short	8547
+ 685 0192 6421     		.short	8548
+ 686 0194 6521     		.short	8549
+ 687 0196 6621     		.short	8550
+ 688 0198 6721     		.short	8551
+ 689 019a 6821     		.short	8552
+ 690 019c 6921     		.short	8553
+ 691 019e 6A21     		.short	8554
+ 692 01a0 6B21     		.short	8555
+ 693 01a2 6C21     		.short	8556
+ 694 01a4 6D21     		.short	8557
+ 695 01a6 6E21     		.short	8558
+ 696 01a8 6F21     		.short	8559
+ 697 01aa 21FF     		.short	-223
+ 698 01ac 22FF     		.short	-222
+ 699 01ae 23FF     		.short	-221
+ 700 01b0 24FF     		.short	-220
+ 701 01b2 25FF     		.short	-219
+ 702 01b4 26FF     		.short	-218
+ 703 01b6 27FF     		.short	-217
+ 704 01b8 28FF     		.short	-216
+ 705 01ba 29FF     		.short	-215
+ 706 01bc 2AFF     		.short	-214
+ 707 01be 2BFF     		.short	-213
+ 708 01c0 2CFF     		.short	-212
+ 709 01c2 2DFF     		.short	-211
+ 710 01c4 2EFF     		.short	-210
+ 711 01c6 2FFF     		.short	-209
+ 712 01c8 30FF     		.short	-208
+ 713 01ca 31FF     		.short	-207
+ 714 01cc 32FF     		.short	-206
+ 715 01ce 33FF     		.short	-205
+ 716 01d0 34FF     		.short	-204
+ 717 01d2 35FF     		.short	-203
+ 718 01d4 36FF     		.short	-202
+ 719 01d6 37FF     		.short	-201
+ 720 01d8 38FF     		.short	-200
+ 721 01da 39FF     		.short	-199
+ 722 01dc 3AFF     		.short	-198
+ 723 01de 0000     		.short	0
+ 724              		.text
+ 725              	.Letext0:
+ 726              		.file 2 "Core/Inc/integer.h"
+ 727              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 728              		.file 4 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 729              		.file 5 "Core/Inc/stm32f4xx.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 15
+
+
+ 730              		.file 6 "Core/Inc/fontupd.h"
+ 731              		.file 7 "Core/Inc/w25q64.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 mycc936.c
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:18     .text.ff_convert:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:26     .text.ff_convert:00000000 ff_convert
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:168    .text.ff_convert:00000074 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:173    .text.ff_wtoupper:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:180    .text.ff_wtoupper:00000000 ff_wtoupper
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:227    .text.ff_wtoupper:0000001c $d
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:233    .rodata.tbl_lower.1:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:237    .rodata.tbl_lower.1:00000000 tbl_lower.1
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:479    .rodata.tbl_upper.0:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccWezsz1.s:483    .rodata.tbl_upper.0:00000000 tbl_upper.0
+
+UNDEFINED SYMBOLS
+W25Q64_Read
+ftinfo

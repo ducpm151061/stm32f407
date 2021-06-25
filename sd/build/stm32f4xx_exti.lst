@@ -1,0 +1,805 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"stm32f4xx_exti.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.EXTI_DeInit,"ax",%progbits
+  18              		.align	1
+  19              		.global	EXTI_DeInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	EXTI_DeInit:
+  27              	.LFB130:
+  28              		.file 1 "Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c"
+   1:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+   2:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   ******************************************************************************
+   3:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @file    stm32f4xx_exti.c
+   4:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @author  MCD Application Team
+   5:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @version V1.4.0
+   6:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @date    04-August-2014
+   7:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief   This file provides firmware functions to manage the following 
+   8:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *          functionalities of the EXTI peripheral:           
+   9:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *           + Initialization and Configuration
+  10:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *           + Interrupts and flags management
+  11:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *
+  12:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** @verbatim  
+  13:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  14:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  ===============================================================================
+  15:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****                               ##### EXTI features #####
+  16:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  ===============================================================================
+  17:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  18:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  [..] External interrupt/event lines are mapped as following:
+  19:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) All available GPIO pins are connected to the 16 external 
+  20:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****        interrupt/event lines from EXTI0 to EXTI15.
+  21:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) EXTI line 16 is connected to the PVD Output
+  22:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) EXTI line 17 is connected to the RTC Alarm event
+  23:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) EXTI line 18 is connected to the USB OTG FS Wakeup from suspend event
+  24:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) EXTI line 19 is connected to the Ethernet Wakeup event
+  25:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) EXTI line 20 is connected to the USB OTG HS (configured in FS) Wakeup event 
+  26:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) EXTI line 21 is connected to the RTC Tamper and Time Stamp events
+  27:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) EXTI line 22 is connected to the RTC Wakeup event
+  28:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  29:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****                        ##### How to use this driver #####
+  30:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  ===============================================================================
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 2
+
+
+  31:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  
+  32:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  [..] In order to use an I/O pin as an external interrupt source, follow steps 
+  33:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       below:
+  34:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) Configure the I/O in input mode using GPIO_Init()
+  35:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) Select the input source pin for the EXTI line using SYSCFG_EXTILineConfig()
+  36:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) Select the mode(interrupt, event) and configure the trigger 
+  37:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****        selection (Rising, falling or both) using EXTI_Init()
+  38:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (#) Configure NVIC IRQ channel mapped to the EXTI line using NVIC_Init()
+  39:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  40:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  [..]     
+  41:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****    (@) SYSCFG APB clock must be enabled to get write access to SYSCFG_EXTICRx
+  42:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****        registers using RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+  43:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  44:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** @endverbatim
+  45:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *
+  46:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   ******************************************************************************
+  47:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @attention
+  48:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *
+  49:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+  50:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *
+  51:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  52:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * You may not use this file except in compliance with the License.
+  53:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * You may obtain a copy of the License at:
+  54:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *
+  55:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
+  56:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *
+  57:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * Unless required by applicable law or agreed to in writing, software 
+  58:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
+  59:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  60:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * See the License for the specific language governing permissions and
+  61:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * limitations under the License.
+  62:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *
+  63:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   ******************************************************************************
+  64:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+  65:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  66:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /* Includes ------------------------------------------------------------------*/
+  67:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** #include "stm32f4xx_exti.h"
+  68:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  69:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+  70:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @{
+  71:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+  72:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  73:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /** @defgroup EXTI 
+  74:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief EXTI driver modules
+  75:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @{
+  76:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+  77:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  78:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /* Private typedef -----------------------------------------------------------*/
+  79:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /* Private define ------------------------------------------------------------*/
+  80:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  81:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** #define EXTI_LINENONE    ((uint32_t)0x00000)  /* No interrupt selected */
+  82:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  83:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /* Private macro -------------------------------------------------------------*/
+  84:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /* Private variables ---------------------------------------------------------*/
+  85:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /* Private function prototypes -----------------------------------------------*/
+  86:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /* Private functions ---------------------------------------------------------*/
+  87:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 3
+
+
+  88:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /** @defgroup EXTI_Private_Functions
+  89:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @{
+  90:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+  91:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+  92:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /** @defgroup EXTI_Group1 Initialization and Configuration functions
+  93:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  *  @brief   Initialization and Configuration functions 
+  94:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  *
+  95:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** @verbatim   
+  96:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  ===============================================================================
+  97:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****              ##### Initialization and Configuration functions #####
+  98:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  ===============================================================================
+  99:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 100:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** @endverbatim
+ 101:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @{
+ 102:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 103:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 104:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 105:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Deinitializes the EXTI peripheral registers to their default reset values.
+ 106:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  None
+ 107:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval None
+ 108:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 109:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** void EXTI_DeInit(void)
+ 110:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+  29              		.loc 1 110 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 111:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->IMR = 0x00000000;
+  34              		.loc 1 111 3 view .LVU1
+  35              		.loc 1 111 13 is_stmt 0 view .LVU2
+  36 0000 044B     		ldr	r3, .L2
+  37 0002 0022     		movs	r2, #0
+  38 0004 1A60     		str	r2, [r3]
+ 112:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->EMR = 0x00000000;
+  39              		.loc 1 112 3 is_stmt 1 view .LVU3
+  40              		.loc 1 112 13 is_stmt 0 view .LVU4
+  41 0006 5A60     		str	r2, [r3, #4]
+ 113:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->RTSR = 0x00000000;
+  42              		.loc 1 113 3 is_stmt 1 view .LVU5
+  43              		.loc 1 113 14 is_stmt 0 view .LVU6
+  44 0008 9A60     		str	r2, [r3, #8]
+ 114:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->FTSR = 0x00000000;
+  45              		.loc 1 114 3 is_stmt 1 view .LVU7
+  46              		.loc 1 114 14 is_stmt 0 view .LVU8
+  47 000a DA60     		str	r2, [r3, #12]
+ 115:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->PR = 0x007FFFFF;
+  48              		.loc 1 115 3 is_stmt 1 view .LVU9
+  49              		.loc 1 115 12 is_stmt 0 view .LVU10
+  50 000c 024A     		ldr	r2, .L2+4
+  51 000e 5A61     		str	r2, [r3, #20]
+ 116:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+  52              		.loc 1 116 1 view .LVU11
+  53 0010 7047     		bx	lr
+  54              	.L3:
+  55 0012 00BF     		.align	2
+  56              	.L2:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 4
+
+
+  57 0014 003C0140 		.word	1073822720
+  58 0018 FFFF7F00 		.word	8388607
+  59              		.cfi_endproc
+  60              	.LFE130:
+  62              		.section	.text.EXTI_Init,"ax",%progbits
+  63              		.align	1
+  64              		.global	EXTI_Init
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv4-sp-d16
+  70              	EXTI_Init:
+  71              	.LVL0:
+  72              	.LFB131:
+ 117:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 118:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 119:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Initializes the EXTI peripheral according to the specified
+ 120:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *         parameters in the EXTI_InitStruct.
+ 121:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  EXTI_InitStruct: pointer to a EXTI_InitTypeDef structure
+ 122:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *         that contains the configuration information for the EXTI peripheral.
+ 123:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval None
+ 124:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 125:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** void EXTI_Init(EXTI_InitTypeDef* EXTI_InitStruct)
+ 126:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+  73              		.loc 1 126 1 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              		@ link register save eliminated.
+ 127:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   uint32_t tmp = 0;
+  78              		.loc 1 127 3 view .LVU13
+ 128:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 129:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   /* Check the parameters */
+ 130:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_EXTI_MODE(EXTI_InitStruct->EXTI_Mode));
+  79              		.loc 1 130 3 view .LVU14
+ 131:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_EXTI_TRIGGER(EXTI_InitStruct->EXTI_Trigger));
+  80              		.loc 1 131 3 view .LVU15
+ 132:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_EXTI_LINE(EXTI_InitStruct->EXTI_Line));  
+  81              		.loc 1 132 3 view .LVU16
+ 133:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_FUNCTIONAL_STATE(EXTI_InitStruct->EXTI_LineCmd));
+  82              		.loc 1 133 3 view .LVU17
+ 134:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 135:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   tmp = (uint32_t)EXTI_BASE;
+  83              		.loc 1 135 3 view .LVU18
+ 136:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****      
+ 137:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   if (EXTI_InitStruct->EXTI_LineCmd != DISABLE)
+  84              		.loc 1 137 3 view .LVU19
+  85              		.loc 1 137 22 is_stmt 0 view .LVU20
+  86 0000 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+  87              		.loc 1 137 6 view .LVU21
+  88 0002 002B     		cmp	r3, #0
+  89 0004 36D0     		beq	.L5
+ 126:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   uint32_t tmp = 0;
+  90              		.loc 1 126 1 view .LVU22
+  91 0006 10B4     		push	{r4}
+  92              	.LCFI0:
+  93              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 5
+
+
+  94              		.cfi_offset 4, -4
+ 138:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   {
+ 139:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     /* Clear EXTI line configuration */
+ 140:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     EXTI->IMR &= ~EXTI_InitStruct->EXTI_Line;
+  95              		.loc 1 140 5 is_stmt 1 view .LVU23
+  96              		.loc 1 140 15 is_stmt 0 view .LVU24
+  97 0008 204B     		ldr	r3, .L13
+  98 000a 1A68     		ldr	r2, [r3]
+  99              		.loc 1 140 34 view .LVU25
+ 100 000c 0168     		ldr	r1, [r0]
+ 101              		.loc 1 140 15 view .LVU26
+ 102 000e 22EA0102 		bic	r2, r2, r1
+ 103 0012 1A60     		str	r2, [r3]
+ 141:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     EXTI->EMR &= ~EXTI_InitStruct->EXTI_Line;
+ 104              		.loc 1 141 5 is_stmt 1 view .LVU27
+ 105              		.loc 1 141 15 is_stmt 0 view .LVU28
+ 106 0014 5A68     		ldr	r2, [r3, #4]
+ 107              		.loc 1 141 34 view .LVU29
+ 108 0016 0168     		ldr	r1, [r0]
+ 109              		.loc 1 141 15 view .LVU30
+ 110 0018 22EA0102 		bic	r2, r2, r1
+ 111 001c 5A60     		str	r2, [r3, #4]
+ 142:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     
+ 143:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     tmp += EXTI_InitStruct->EXTI_Mode;
+ 112              		.loc 1 143 5 is_stmt 1 view .LVU31
+ 113              		.loc 1 143 27 is_stmt 0 view .LVU32
+ 114 001e 0279     		ldrb	r2, [r0, #4]	@ zero_extendqisi2
+ 115              		.loc 1 143 9 view .LVU33
+ 116 0020 02F18042 		add	r2, r2, #1073741824
+ 117 0024 02F59E32 		add	r2, r2, #80896
+ 118              	.LVL1:
+ 144:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 145:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     *(__IO uint32_t *) tmp |= EXTI_InitStruct->EXTI_Line;
+ 119              		.loc 1 145 5 is_stmt 1 view .LVU34
+ 120              		.loc 1 145 28 is_stmt 0 view .LVU35
+ 121 0028 1168     		ldr	r1, [r2]
+ 122 002a 0468     		ldr	r4, [r0]
+ 123 002c 2143     		orrs	r1, r1, r4
+ 124 002e 1160     		str	r1, [r2]
+ 146:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 147:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     /* Clear Rising Falling edge configuration */
+ 148:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     EXTI->RTSR &= ~EXTI_InitStruct->EXTI_Line;
+ 125              		.loc 1 148 5 is_stmt 1 view .LVU36
+ 126              		.loc 1 148 16 is_stmt 0 view .LVU37
+ 127 0030 9A68     		ldr	r2, [r3, #8]
+ 128              	.LVL2:
+ 129              		.loc 1 148 35 view .LVU38
+ 130 0032 0168     		ldr	r1, [r0]
+ 131              		.loc 1 148 16 view .LVU39
+ 132 0034 22EA0102 		bic	r2, r2, r1
+ 133 0038 9A60     		str	r2, [r3, #8]
+ 149:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     EXTI->FTSR &= ~EXTI_InitStruct->EXTI_Line;
+ 134              		.loc 1 149 5 is_stmt 1 view .LVU40
+ 135              		.loc 1 149 16 is_stmt 0 view .LVU41
+ 136 003a DA68     		ldr	r2, [r3, #12]
+ 137              		.loc 1 149 35 view .LVU42
+ 138 003c 0168     		ldr	r1, [r0]
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 6
+
+
+ 139              		.loc 1 149 16 view .LVU43
+ 140 003e 22EA0102 		bic	r2, r2, r1
+ 141 0042 DA60     		str	r2, [r3, #12]
+ 150:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     
+ 151:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     /* Select the trigger for the selected external interrupts */
+ 152:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     if (EXTI_InitStruct->EXTI_Trigger == EXTI_Trigger_Rising_Falling)
+ 142              		.loc 1 152 5 is_stmt 1 view .LVU44
+ 143              		.loc 1 152 24 is_stmt 0 view .LVU45
+ 144 0044 4379     		ldrb	r3, [r0, #5]	@ zero_extendqisi2
+ 145              		.loc 1 152 8 view .LVU46
+ 146 0046 102B     		cmp	r3, #16
+ 147 0048 0AD0     		beq	.L12
+ 153:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     {
+ 154:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       /* Rising Falling edge */
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       EXTI->RTSR |= EXTI_InitStruct->EXTI_Line;
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       EXTI->FTSR |= EXTI_InitStruct->EXTI_Line;
+ 157:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     }
+ 158:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     else
+ 159:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     {
+ 160:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       tmp = (uint32_t)EXTI_BASE;
+ 148              		.loc 1 160 7 is_stmt 1 view .LVU47
+ 149              	.LVL3:
+ 161:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       tmp += EXTI_InitStruct->EXTI_Trigger;
+ 150              		.loc 1 161 7 view .LVU48
+ 151              		.loc 1 161 11 is_stmt 0 view .LVU49
+ 152 004a 03F18043 		add	r3, r3, #1073741824
+ 153 004e 03F59E33 		add	r3, r3, #80896
+ 154              	.LVL4:
+ 162:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 163:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       *(__IO uint32_t *) tmp |= EXTI_InitStruct->EXTI_Line;
+ 155              		.loc 1 163 7 is_stmt 1 view .LVU50
+ 156              		.loc 1 163 30 is_stmt 0 view .LVU51
+ 157 0052 1A68     		ldr	r2, [r3]
+ 158              		.loc 1 163 48 view .LVU52
+ 159 0054 0168     		ldr	r1, [r0]
+ 160              		.loc 1 163 30 view .LVU53
+ 161 0056 0A43     		orrs	r2, r2, r1
+ 162 0058 1A60     		str	r2, [r3]
+ 163              	.LVL5:
+ 164              	.L4:
+ 164:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     }
+ 165:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 166:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   else
+ 167:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   {
+ 168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     tmp += EXTI_InitStruct->EXTI_Mode;
+ 169:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 170:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     /* Disable the selected external lines */
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     *(__IO uint32_t *) tmp &= ~EXTI_InitStruct->EXTI_Line;
+ 172:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 173:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+ 165              		.loc 1 173 1 view .LVU54
+ 166 005a 5DF8044B 		ldr	r4, [sp], #4
+ 167              	.LCFI1:
+ 168              		.cfi_remember_state
+ 169              		.cfi_restore 4
+ 170              		.cfi_def_cfa_offset 0
+ 171 005e 7047     		bx	lr
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 7
+
+
+ 172              	.L12:
+ 173              	.LCFI2:
+ 174              		.cfi_restore_state
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       EXTI->FTSR |= EXTI_InitStruct->EXTI_Line;
+ 175              		.loc 1 155 7 is_stmt 1 view .LVU55
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       EXTI->FTSR |= EXTI_InitStruct->EXTI_Line;
+ 176              		.loc 1 155 18 is_stmt 0 view .LVU56
+ 177 0060 0A4B     		ldr	r3, .L13
+ 178 0062 9A68     		ldr	r2, [r3, #8]
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       EXTI->FTSR |= EXTI_InitStruct->EXTI_Line;
+ 179              		.loc 1 155 36 view .LVU57
+ 180 0064 0168     		ldr	r1, [r0]
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****       EXTI->FTSR |= EXTI_InitStruct->EXTI_Line;
+ 181              		.loc 1 155 18 view .LVU58
+ 182 0066 0A43     		orrs	r2, r2, r1
+ 183 0068 9A60     		str	r2, [r3, #8]
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     }
+ 184              		.loc 1 156 7 is_stmt 1 view .LVU59
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     }
+ 185              		.loc 1 156 18 is_stmt 0 view .LVU60
+ 186 006a DA68     		ldr	r2, [r3, #12]
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     }
+ 187              		.loc 1 156 36 view .LVU61
+ 188 006c 0168     		ldr	r1, [r0]
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     }
+ 189              		.loc 1 156 18 view .LVU62
+ 190 006e 0A43     		orrs	r2, r2, r1
+ 191 0070 DA60     		str	r2, [r3, #12]
+ 192 0072 F2E7     		b	.L4
+ 193              	.LVL6:
+ 194              	.L5:
+ 195              	.LCFI3:
+ 196              		.cfi_def_cfa_offset 0
+ 197              		.cfi_restore 4
+ 168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 198              		.loc 1 168 5 is_stmt 1 view .LVU63
+ 168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 199              		.loc 1 168 27 is_stmt 0 view .LVU64
+ 200 0074 0379     		ldrb	r3, [r0, #4]	@ zero_extendqisi2
+ 168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 201              		.loc 1 168 9 view .LVU65
+ 202 0076 03F18043 		add	r3, r3, #1073741824
+ 203 007a 03F59E33 		add	r3, r3, #80896
+ 204              	.LVL7:
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 205              		.loc 1 171 5 is_stmt 1 view .LVU66
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 206              		.loc 1 171 28 is_stmt 0 view .LVU67
+ 207 007e 1A68     		ldr	r2, [r3]
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 208              		.loc 1 171 47 view .LVU68
+ 209 0080 0168     		ldr	r1, [r0]
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 210              		.loc 1 171 28 view .LVU69
+ 211 0082 22EA0102 		bic	r2, r2, r1
+ 212 0086 1A60     		str	r2, [r3]
+ 213 0088 7047     		bx	lr
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 8
+
+
+ 214              	.L14:
+ 215 008a 00BF     		.align	2
+ 216              	.L13:
+ 217 008c 003C0140 		.word	1073822720
+ 218              		.cfi_endproc
+ 219              	.LFE131:
+ 221              		.section	.text.EXTI_StructInit,"ax",%progbits
+ 222              		.align	1
+ 223              		.global	EXTI_StructInit
+ 224              		.syntax unified
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.fpu fpv4-sp-d16
+ 229              	EXTI_StructInit:
+ 230              	.LVL8:
+ 231              	.LFB132:
+ 174:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 175:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 176:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Fills each EXTI_InitStruct member with its reset value.
+ 177:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  EXTI_InitStruct: pointer to a EXTI_InitTypeDef structure which will
+ 178:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *         be initialized.
+ 179:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval None
+ 180:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 181:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** void EXTI_StructInit(EXTI_InitTypeDef* EXTI_InitStruct)
+ 182:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+ 232              		.loc 1 182 1 is_stmt 1 view -0
+ 233              		.cfi_startproc
+ 234              		@ args = 0, pretend = 0, frame = 0
+ 235              		@ frame_needed = 0, uses_anonymous_args = 0
+ 236              		@ link register save eliminated.
+ 183:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI_InitStruct->EXTI_Line = EXTI_LINENONE;
+ 237              		.loc 1 183 3 view .LVU71
+ 238              		.loc 1 183 30 is_stmt 0 view .LVU72
+ 239 0000 0023     		movs	r3, #0
+ 240 0002 0360     		str	r3, [r0]
+ 184:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI_InitStruct->EXTI_Mode = EXTI_Mode_Interrupt;
+ 241              		.loc 1 184 3 is_stmt 1 view .LVU73
+ 242              		.loc 1 184 30 is_stmt 0 view .LVU74
+ 243 0004 0371     		strb	r3, [r0, #4]
+ 185:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI_InitStruct->EXTI_Trigger = EXTI_Trigger_Falling;
+ 244              		.loc 1 185 3 is_stmt 1 view .LVU75
+ 245              		.loc 1 185 33 is_stmt 0 view .LVU76
+ 246 0006 0C22     		movs	r2, #12
+ 247 0008 4271     		strb	r2, [r0, #5]
+ 186:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI_InitStruct->EXTI_LineCmd = DISABLE;
+ 248              		.loc 1 186 3 is_stmt 1 view .LVU77
+ 249              		.loc 1 186 33 is_stmt 0 view .LVU78
+ 250 000a 8371     		strb	r3, [r0, #6]
+ 187:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+ 251              		.loc 1 187 1 view .LVU79
+ 252 000c 7047     		bx	lr
+ 253              		.cfi_endproc
+ 254              	.LFE132:
+ 256              		.section	.text.EXTI_GenerateSWInterrupt,"ax",%progbits
+ 257              		.align	1
+ 258              		.global	EXTI_GenerateSWInterrupt
+ 259              		.syntax unified
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 9
+
+
+ 260              		.thumb
+ 261              		.thumb_func
+ 262              		.fpu fpv4-sp-d16
+ 264              	EXTI_GenerateSWInterrupt:
+ 265              	.LVL9:
+ 266              	.LFB133:
+ 188:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 189:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 190:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Generates a Software interrupt on selected EXTI line.
+ 191:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  EXTI_Line: specifies the EXTI line on which the software interrupt
+ 192:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *         will be generated.
+ 193:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *         This parameter can be any combination of EXTI_Linex where x can be (0..22)
+ 194:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval None
+ 195:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 196:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** void EXTI_GenerateSWInterrupt(uint32_t EXTI_Line)
+ 197:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+ 267              		.loc 1 197 1 is_stmt 1 view -0
+ 268              		.cfi_startproc
+ 269              		@ args = 0, pretend = 0, frame = 0
+ 270              		@ frame_needed = 0, uses_anonymous_args = 0
+ 271              		@ link register save eliminated.
+ 198:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   /* Check the parameters */
+ 199:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_EXTI_LINE(EXTI_Line));
+ 272              		.loc 1 199 3 view .LVU81
+ 200:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   
+ 201:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->SWIER |= EXTI_Line;
+ 273              		.loc 1 201 3 view .LVU82
+ 274              		.loc 1 201 15 is_stmt 0 view .LVU83
+ 275 0000 024A     		ldr	r2, .L17
+ 276 0002 1369     		ldr	r3, [r2, #16]
+ 277 0004 0343     		orrs	r3, r3, r0
+ 278 0006 1361     		str	r3, [r2, #16]
+ 202:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+ 279              		.loc 1 202 1 view .LVU84
+ 280 0008 7047     		bx	lr
+ 281              	.L18:
+ 282 000a 00BF     		.align	2
+ 283              	.L17:
+ 284 000c 003C0140 		.word	1073822720
+ 285              		.cfi_endproc
+ 286              	.LFE133:
+ 288              		.section	.text.EXTI_GetFlagStatus,"ax",%progbits
+ 289              		.align	1
+ 290              		.global	EXTI_GetFlagStatus
+ 291              		.syntax unified
+ 292              		.thumb
+ 293              		.thumb_func
+ 294              		.fpu fpv4-sp-d16
+ 296              	EXTI_GetFlagStatus:
+ 297              	.LVL10:
+ 298              	.LFB134:
+ 203:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 204:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 205:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @}
+ 206:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 207:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 208:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /** @defgroup EXTI_Group2 Interrupts and flags management functions
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 10
+
+
+ 209:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  *  @brief   Interrupts and flags management functions 
+ 210:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  *
+ 211:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** @verbatim   
+ 212:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  ===============================================================================
+ 213:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****              ##### Interrupts and flags management functions #####
+ 214:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****  ===============================================================================
+ 215:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 216:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** @endverbatim
+ 217:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @{
+ 218:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 219:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 220:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 221:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Checks whether the specified EXTI line flag is set or not.
+ 222:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  EXTI_Line: specifies the EXTI line flag to check.
+ 223:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *          This parameter can be EXTI_Linex where x can be(0..22)
+ 224:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval The new state of EXTI_Line (SET or RESET).
+ 225:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 226:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** FlagStatus EXTI_GetFlagStatus(uint32_t EXTI_Line)
+ 227:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+ 299              		.loc 1 227 1 is_stmt 1 view -0
+ 300              		.cfi_startproc
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303              		@ link register save eliminated.
+ 228:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   FlagStatus bitstatus = RESET;
+ 304              		.loc 1 228 3 view .LVU86
+ 229:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   /* Check the parameters */
+ 230:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_GET_EXTI_LINE(EXTI_Line));
+ 305              		.loc 1 230 3 view .LVU87
+ 231:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   
+ 232:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   if ((EXTI->PR & EXTI_Line) != (uint32_t)RESET)
+ 306              		.loc 1 232 3 view .LVU88
+ 307              		.loc 1 232 12 is_stmt 0 view .LVU89
+ 308 0000 034B     		ldr	r3, .L22
+ 309 0002 5B69     		ldr	r3, [r3, #20]
+ 310              		.loc 1 232 6 view .LVU90
+ 311 0004 0342     		tst	r3, r0
+ 312 0006 01D0     		beq	.L21
+ 233:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   {
+ 234:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     bitstatus = SET;
+ 313              		.loc 1 234 15 view .LVU91
+ 314 0008 0120     		movs	r0, #1
+ 315              	.LVL11:
+ 316              		.loc 1 234 15 view .LVU92
+ 317 000a 7047     		bx	lr
+ 318              	.LVL12:
+ 319              	.L21:
+ 235:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 236:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   else
+ 237:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   {
+ 238:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     bitstatus = RESET;
+ 320              		.loc 1 238 15 view .LVU93
+ 321 000c 0020     		movs	r0, #0
+ 322              	.LVL13:
+ 239:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 240:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   return bitstatus;
+ 323              		.loc 1 240 3 is_stmt 1 view .LVU94
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 11
+
+
+ 241:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+ 324              		.loc 1 241 1 is_stmt 0 view .LVU95
+ 325 000e 7047     		bx	lr
+ 326              	.L23:
+ 327              		.align	2
+ 328              	.L22:
+ 329 0010 003C0140 		.word	1073822720
+ 330              		.cfi_endproc
+ 331              	.LFE134:
+ 333              		.section	.text.EXTI_ClearFlag,"ax",%progbits
+ 334              		.align	1
+ 335              		.global	EXTI_ClearFlag
+ 336              		.syntax unified
+ 337              		.thumb
+ 338              		.thumb_func
+ 339              		.fpu fpv4-sp-d16
+ 341              	EXTI_ClearFlag:
+ 342              	.LVL14:
+ 343              	.LFB135:
+ 242:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 243:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 244:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Clears the EXTI's line pending flags.
+ 245:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  EXTI_Line: specifies the EXTI lines flags to clear.
+ 246:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *          This parameter can be any combination of EXTI_Linex where x can be (0..22)
+ 247:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval None
+ 248:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 249:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** void EXTI_ClearFlag(uint32_t EXTI_Line)
+ 250:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+ 344              		.loc 1 250 1 is_stmt 1 view -0
+ 345              		.cfi_startproc
+ 346              		@ args = 0, pretend = 0, frame = 0
+ 347              		@ frame_needed = 0, uses_anonymous_args = 0
+ 348              		@ link register save eliminated.
+ 251:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   /* Check the parameters */
+ 252:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_EXTI_LINE(EXTI_Line));
+ 349              		.loc 1 252 3 view .LVU97
+ 253:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   
+ 254:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->PR = EXTI_Line;
+ 350              		.loc 1 254 3 view .LVU98
+ 351              		.loc 1 254 12 is_stmt 0 view .LVU99
+ 352 0000 014B     		ldr	r3, .L25
+ 353 0002 5861     		str	r0, [r3, #20]
+ 255:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+ 354              		.loc 1 255 1 view .LVU100
+ 355 0004 7047     		bx	lr
+ 356              	.L26:
+ 357 0006 00BF     		.align	2
+ 358              	.L25:
+ 359 0008 003C0140 		.word	1073822720
+ 360              		.cfi_endproc
+ 361              	.LFE135:
+ 363              		.section	.text.EXTI_GetITStatus,"ax",%progbits
+ 364              		.align	1
+ 365              		.global	EXTI_GetITStatus
+ 366              		.syntax unified
+ 367              		.thumb
+ 368              		.thumb_func
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 12
+
+
+ 369              		.fpu fpv4-sp-d16
+ 371              	EXTI_GetITStatus:
+ 372              	.LVL15:
+ 373              	.LFB136:
+ 256:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 257:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 258:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Checks whether the specified EXTI line is asserted or not.
+ 259:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  EXTI_Line: specifies the EXTI line to check.
+ 260:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *          This parameter can be EXTI_Linex where x can be(0..22)
+ 261:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval The new state of EXTI_Line (SET or RESET).
+ 262:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 263:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** ITStatus EXTI_GetITStatus(uint32_t EXTI_Line)
+ 264:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+ 374              		.loc 1 264 1 is_stmt 1 view -0
+ 375              		.cfi_startproc
+ 376              		@ args = 0, pretend = 0, frame = 0
+ 377              		@ frame_needed = 0, uses_anonymous_args = 0
+ 378              		@ link register save eliminated.
+ 265:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   FlagStatus bitstatus = RESET;
+ 379              		.loc 1 265 3 view .LVU102
+ 266:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   /* Check the parameters */
+ 267:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_GET_EXTI_LINE(EXTI_Line));
+ 380              		.loc 1 267 3 view .LVU103
+ 268:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   
+ 269:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   if ((EXTI->PR & EXTI_Line) != (uint32_t)RESET)
+ 381              		.loc 1 269 3 view .LVU104
+ 382              		.loc 1 269 12 is_stmt 0 view .LVU105
+ 383 0000 034B     		ldr	r3, .L30
+ 384 0002 5B69     		ldr	r3, [r3, #20]
+ 385              		.loc 1 269 6 view .LVU106
+ 386 0004 0342     		tst	r3, r0
+ 387 0006 01D0     		beq	.L29
+ 270:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   {
+ 271:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     bitstatus = SET;
+ 388              		.loc 1 271 15 view .LVU107
+ 389 0008 0120     		movs	r0, #1
+ 390              	.LVL16:
+ 391              		.loc 1 271 15 view .LVU108
+ 392 000a 7047     		bx	lr
+ 393              	.LVL17:
+ 394              	.L29:
+ 272:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 273:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   else
+ 274:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   {
+ 275:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****     bitstatus = RESET;
+ 395              		.loc 1 275 15 view .LVU109
+ 396 000c 0020     		movs	r0, #0
+ 397              	.LVL18:
+ 276:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   }
+ 277:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   return bitstatus;
+ 398              		.loc 1 277 3 is_stmt 1 view .LVU110
+ 278:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   
+ 279:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+ 399              		.loc 1 279 1 is_stmt 0 view .LVU111
+ 400 000e 7047     		bx	lr
+ 401              	.L31:
+ 402              		.align	2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 13
+
+
+ 403              	.L30:
+ 404 0010 003C0140 		.word	1073822720
+ 405              		.cfi_endproc
+ 406              	.LFE136:
+ 408              		.section	.text.EXTI_ClearITPendingBit,"ax",%progbits
+ 409              		.align	1
+ 410              		.global	EXTI_ClearITPendingBit
+ 411              		.syntax unified
+ 412              		.thumb
+ 413              		.thumb_func
+ 414              		.fpu fpv4-sp-d16
+ 416              	EXTI_ClearITPendingBit:
+ 417              	.LVL19:
+ 418              	.LFB137:
+ 280:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** 
+ 281:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** /**
+ 282:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @brief  Clears the EXTI's line pending bits.
+ 283:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @param  EXTI_Line: specifies the EXTI lines to clear.
+ 284:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   *          This parameter can be any combination of EXTI_Linex where x can be (0..22)
+ 285:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   * @retval None
+ 286:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   */
+ 287:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** void EXTI_ClearITPendingBit(uint32_t EXTI_Line)
+ 288:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** {
+ 419              		.loc 1 288 1 is_stmt 1 view -0
+ 420              		.cfi_startproc
+ 421              		@ args = 0, pretend = 0, frame = 0
+ 422              		@ frame_needed = 0, uses_anonymous_args = 0
+ 423              		@ link register save eliminated.
+ 289:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   /* Check the parameters */
+ 290:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   assert_param(IS_EXTI_LINE(EXTI_Line));
+ 424              		.loc 1 290 3 view .LVU113
+ 291:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   
+ 292:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c ****   EXTI->PR = EXTI_Line;
+ 425              		.loc 1 292 3 view .LVU114
+ 426              		.loc 1 292 12 is_stmt 0 view .LVU115
+ 427 0000 014B     		ldr	r3, .L33
+ 428 0002 5861     		str	r0, [r3, #20]
+ 293:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_exti.c **** }
+ 429              		.loc 1 293 1 view .LVU116
+ 430 0004 7047     		bx	lr
+ 431              	.L34:
+ 432 0006 00BF     		.align	2
+ 433              	.L33:
+ 434 0008 003C0140 		.word	1073822720
+ 435              		.cfi_endproc
+ 436              	.LFE137:
+ 438              		.text
+ 439              	.Letext0:
+ 440              		.file 2 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 441              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 442              		.file 4 "Core/Inc/stm32f4xx.h"
+ 443              		.file 5 "Drivers/STM32F4xx_FWLIB/inc/stm32f4xx_exti.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_exti.c
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:18     .text.EXTI_DeInit:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:26     .text.EXTI_DeInit:00000000 EXTI_DeInit
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:57     .text.EXTI_DeInit:00000014 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:63     .text.EXTI_Init:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:70     .text.EXTI_Init:00000000 EXTI_Init
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:217    .text.EXTI_Init:0000008c $d
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:222    .text.EXTI_StructInit:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:229    .text.EXTI_StructInit:00000000 EXTI_StructInit
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:257    .text.EXTI_GenerateSWInterrupt:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:264    .text.EXTI_GenerateSWInterrupt:00000000 EXTI_GenerateSWInterrupt
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:284    .text.EXTI_GenerateSWInterrupt:0000000c $d
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:289    .text.EXTI_GetFlagStatus:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:296    .text.EXTI_GetFlagStatus:00000000 EXTI_GetFlagStatus
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:329    .text.EXTI_GetFlagStatus:00000010 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:334    .text.EXTI_ClearFlag:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:341    .text.EXTI_ClearFlag:00000000 EXTI_ClearFlag
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:359    .text.EXTI_ClearFlag:00000008 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:364    .text.EXTI_GetITStatus:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:371    .text.EXTI_GetITStatus:00000000 EXTI_GetITStatus
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:404    .text.EXTI_GetITStatus:00000010 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:409    .text.EXTI_ClearITPendingBit:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:416    .text.EXTI_ClearITPendingBit:00000000 EXTI_ClearITPendingBit
+C:\Users\ADMIN\AppData\Local\Temp\ccMaOYfP.s:434    .text.EXTI_ClearITPendingBit:00000008 $d
+
+NO UNDEFINED SYMBOLS

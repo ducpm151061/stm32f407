@@ -59,6 +59,7 @@ C_SOURCES +=Core/Src/text.c
 C_SOURCES +=Core/Src/tjpgd.c 
 C_SOURCES +=Core/Src/usart.c 
 C_SOURCES +=Core/Src/w25q64.c 
+C_SOURCES +=Core/Src/sys.c 
 C_SOURCES +=Core/Src/stm32f4xx_it.c 
 C_SOURCES +=Drivers/STM32F4xx_FWLIB/src/misc.c 
 # C_SOURCES +=Drivers/STM32F4xx_FWLIB/src/stm32f4xx_adc.c 

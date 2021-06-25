@@ -1,0 +1,501 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"stm32f4xx_iwdg.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.IWDG_WriteAccessCmd,"ax",%progbits
+  18              		.align	1
+  19              		.global	IWDG_WriteAccessCmd
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	IWDG_WriteAccessCmd:
+  27              	.LVL0:
+  28              	.LFB130:
+  29              		.file 1 "Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c"
+   1:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+   2:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   ******************************************************************************
+   3:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @file    stm32f4xx_iwdg.c
+   4:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @author  MCD Application Team
+   5:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @version V1.4.0
+   6:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @date    04-August-2014
+   7:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief   This file provides firmware functions to manage the following 
+   8:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *          functionalities of the Independent watchdog (IWDG) peripheral:           
+   9:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *           + Prescaler and Counter configuration
+  10:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *           + IWDG activation
+  11:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *           + Flag management
+  12:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *
+  13:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****     @verbatim    
+  14:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================
+  15:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****                           ##### IWDG features #####
+  16:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================
+  17:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****     [..]  
+  18:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       The IWDG can be started by either software or hardware (configurable
+  19:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       through option byte).
+  20:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****               
+  21:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       The IWDG is clocked by its own dedicated low-speed clock (LSI) and
+  22:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       thus stays active even if the main clock fails.
+  23:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       Once the IWDG is started, the LSI is forced ON and cannot be disabled
+  24:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       (LSI cannot be disabled too), and the counter starts counting down from 
+  25:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       the reset value of 0xFFF. When it reaches the end of count value (0x000)
+  26:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       a system reset is generated.
+  27:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       The IWDG counter should be reloaded at regular intervals to prevent
+  28:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       an MCU reset.
+  29:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****                              
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 2
+
+
+  30:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       The IWDG is implemented in the VDD voltage domain that is still functional
+  31:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       in STOP and STANDBY mode (IWDG reset can wake-up from STANDBY).          
+  32:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****               
+  33:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       IWDGRST flag in RCC_CSR register can be used to inform when a IWDG
+  34:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       reset occurs.
+  35:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****               
+  36:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       Min-max timeout value @32KHz (LSI): ~125us / ~32.7s
+  37:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       The IWDG timeout may vary due to LSI frequency dispersion. STM32F4xx
+  38:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       devices provide the capability to measure the LSI frequency (LSI clock
+  39:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       connected internally to TIM5 CH4 input capture). The measured value
+  40:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       can be used to have an IWDG timeout with an acceptable accuracy. 
+  41:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       For more information, please refer to the STM32F4xx Reference manual
+  42:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****             
+  43:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****                      ##### How to use this driver #####
+  44:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================
+  45:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****     [..]
+  46:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       (#) Enable write access to IWDG_PR and IWDG_RLR registers using
+  47:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****           IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable) function
+  48:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****                  
+  49:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       (#) Configure the IWDG prescaler using IWDG_SetPrescaler() function
+  50:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****               
+  51:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       (#) Configure the IWDG counter value using IWDG_SetReload() function.
+  52:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****           This value will be loaded in the IWDG counter each time the counter
+  53:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****           is reloaded, then the IWDG will start counting down from this value.
+  54:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****               
+  55:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       (#) Start the IWDG using IWDG_Enable() function, when the IWDG is used
+  56:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****           in software mode (no need to enable the LSI, it will be enabled
+  57:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****           by hardware)
+  58:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****                
+  59:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****       (#) Then the application program must reload the IWDG counter at regular
+  60:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****           intervals during normal operation to prevent an MCU reset, using
+  61:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****           IWDG_ReloadCounter() function.      
+  62:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****             
+  63:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****     @endverbatim    
+  64:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   ******************************************************************************
+  65:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @attention
+  66:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *
+  67:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+  68:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *
+  69:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  70:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * You may not use this file except in compliance with the License.
+  71:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * You may obtain a copy of the License at:
+  72:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *
+  73:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
+  74:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *
+  75:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * Unless required by applicable law or agreed to in writing, software 
+  76:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
+  77:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  78:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * See the License for the specific language governing permissions and
+  79:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * limitations under the License.
+  80:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *
+  81:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   ******************************************************************************
+  82:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+  83:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+  84:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* Includes ------------------------------------------------------------------*/
+  85:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** #include "stm32f4xx_iwdg.h"
+  86:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 3
+
+
+  87:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+  88:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @{
+  89:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+  90:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+  91:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /** @defgroup IWDG 
+  92:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief IWDG driver modules
+  93:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @{
+  94:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */ 
+  95:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+  96:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* Private typedef -----------------------------------------------------------*/
+  97:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* Private define ------------------------------------------------------------*/
+  98:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+  99:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* KR register bit mask */
+ 100:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** #define KR_KEY_RELOAD    ((uint16_t)0xAAAA)
+ 101:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** #define KR_KEY_ENABLE    ((uint16_t)0xCCCC)
+ 102:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 103:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* Private macro -------------------------------------------------------------*/
+ 104:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* Private variables ---------------------------------------------------------*/
+ 105:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* Private function prototypes -----------------------------------------------*/
+ 106:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /* Private functions ---------------------------------------------------------*/
+ 107:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 108:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /** @defgroup IWDG_Private_Functions
+ 109:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @{
+ 110:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 111:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 112:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /** @defgroup IWDG_Group1 Prescaler and Counter configuration functions
+ 113:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  *  @brief   Prescaler and Counter configuration functions
+ 114:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  *
+ 115:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** @verbatim   
+ 116:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================
+ 117:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****               ##### Prescaler and Counter configuration functions #####
+ 118:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================  
+ 119:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 120:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** @endverbatim
+ 121:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @{
+ 122:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 123:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 124:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 125:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief  Enables or disables write access to IWDG_PR and IWDG_RLR registers.
+ 126:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @param  IWDG_WriteAccess: new state of write access to IWDG_PR and IWDG_RLR registers.
+ 127:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *          This parameter can be one of the following values:
+ 128:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_WriteAccess_Enable: Enable write access to IWDG_PR and IWDG_RLR registers
+ 129:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_WriteAccess_Disable: Disable write access to IWDG_PR and IWDG_RLR register
+ 130:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @retval None
+ 131:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 132:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** void IWDG_WriteAccessCmd(uint16_t IWDG_WriteAccess)
+ 133:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** {
+  30              		.loc 1 133 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+ 134:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   /* Check the parameters */
+ 135:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   assert_param(IS_IWDG_WRITE_ACCESS(IWDG_WriteAccess));
+  35              		.loc 1 135 3 view .LVU1
+ 136:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   IWDG->KR = IWDG_WriteAccess;
+  36              		.loc 1 136 3 view .LVU2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 4
+
+
+  37              		.loc 1 136 12 is_stmt 0 view .LVU3
+  38 0000 014B     		ldr	r3, .L2
+  39 0002 1860     		str	r0, [r3]
+ 137:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** }
+  40              		.loc 1 137 1 view .LVU4
+  41 0004 7047     		bx	lr
+  42              	.L3:
+  43 0006 00BF     		.align	2
+  44              	.L2:
+  45 0008 00300040 		.word	1073754112
+  46              		.cfi_endproc
+  47              	.LFE130:
+  49              		.section	.text.IWDG_SetPrescaler,"ax",%progbits
+  50              		.align	1
+  51              		.global	IWDG_SetPrescaler
+  52              		.syntax unified
+  53              		.thumb
+  54              		.thumb_func
+  55              		.fpu fpv4-sp-d16
+  57              	IWDG_SetPrescaler:
+  58              	.LVL1:
+  59              	.LFB131:
+ 138:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 139:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 140:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief  Sets IWDG Prescaler value.
+ 141:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @param  IWDG_Prescaler: specifies the IWDG Prescaler value.
+ 142:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *          This parameter can be one of the following values:
+ 143:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_Prescaler_4: IWDG prescaler set to 4
+ 144:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_Prescaler_8: IWDG prescaler set to 8
+ 145:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_Prescaler_16: IWDG prescaler set to 16
+ 146:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_Prescaler_32: IWDG prescaler set to 32
+ 147:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_Prescaler_64: IWDG prescaler set to 64
+ 148:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_Prescaler_128: IWDG prescaler set to 128
+ 149:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_Prescaler_256: IWDG prescaler set to 256
+ 150:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @retval None
+ 151:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 152:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** void IWDG_SetPrescaler(uint8_t IWDG_Prescaler)
+ 153:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** {
+  60              		.loc 1 153 1 is_stmt 1 view -0
+  61              		.cfi_startproc
+  62              		@ args = 0, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64              		@ link register save eliminated.
+ 154:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   /* Check the parameters */
+ 155:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   assert_param(IS_IWDG_PRESCALER(IWDG_Prescaler));
+  65              		.loc 1 155 3 view .LVU6
+ 156:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   IWDG->PR = IWDG_Prescaler;
+  66              		.loc 1 156 3 view .LVU7
+  67              		.loc 1 156 12 is_stmt 0 view .LVU8
+  68 0000 014B     		ldr	r3, .L5
+  69 0002 5860     		str	r0, [r3, #4]
+ 157:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** }
+  70              		.loc 1 157 1 view .LVU9
+  71 0004 7047     		bx	lr
+  72              	.L6:
+  73 0006 00BF     		.align	2
+  74              	.L5:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 5
+
+
+  75 0008 00300040 		.word	1073754112
+  76              		.cfi_endproc
+  77              	.LFE131:
+  79              		.section	.text.IWDG_SetReload,"ax",%progbits
+  80              		.align	1
+  81              		.global	IWDG_SetReload
+  82              		.syntax unified
+  83              		.thumb
+  84              		.thumb_func
+  85              		.fpu fpv4-sp-d16
+  87              	IWDG_SetReload:
+  88              	.LVL2:
+  89              	.LFB132:
+ 158:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 159:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 160:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief  Sets IWDG Reload value.
+ 161:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @param  Reload: specifies the IWDG Reload value.
+ 162:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *          This parameter must be a number between 0 and 0x0FFF.
+ 163:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @retval None
+ 164:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 165:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** void IWDG_SetReload(uint16_t Reload)
+ 166:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** {
+  90              		.loc 1 166 1 is_stmt 1 view -0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+ 167:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   /* Check the parameters */
+ 168:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   assert_param(IS_IWDG_RELOAD(Reload));
+  95              		.loc 1 168 3 view .LVU11
+ 169:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   IWDG->RLR = Reload;
+  96              		.loc 1 169 3 view .LVU12
+  97              		.loc 1 169 13 is_stmt 0 view .LVU13
+  98 0000 014B     		ldr	r3, .L8
+  99 0002 9860     		str	r0, [r3, #8]
+ 170:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** }
+ 100              		.loc 1 170 1 view .LVU14
+ 101 0004 7047     		bx	lr
+ 102              	.L9:
+ 103 0006 00BF     		.align	2
+ 104              	.L8:
+ 105 0008 00300040 		.word	1073754112
+ 106              		.cfi_endproc
+ 107              	.LFE132:
+ 109              		.section	.text.IWDG_ReloadCounter,"ax",%progbits
+ 110              		.align	1
+ 111              		.global	IWDG_ReloadCounter
+ 112              		.syntax unified
+ 113              		.thumb
+ 114              		.thumb_func
+ 115              		.fpu fpv4-sp-d16
+ 117              	IWDG_ReloadCounter:
+ 118              	.LFB133:
+ 171:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 172:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 173:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief  Reloads IWDG counter with value defined in the reload register
+ 174:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *         (write access to IWDG_PR and IWDG_RLR registers disabled).
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 6
+
+
+ 175:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @param  None
+ 176:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @retval None
+ 177:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 178:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** void IWDG_ReloadCounter(void)
+ 179:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** {
+ 119              		.loc 1 179 1 is_stmt 1 view -0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+ 180:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   IWDG->KR = KR_KEY_RELOAD;
+ 124              		.loc 1 180 3 view .LVU16
+ 125              		.loc 1 180 12 is_stmt 0 view .LVU17
+ 126 0000 024B     		ldr	r3, .L11
+ 127 0002 4AF6AA22 		movw	r2, #43690
+ 128 0006 1A60     		str	r2, [r3]
+ 181:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** }
+ 129              		.loc 1 181 1 view .LVU18
+ 130 0008 7047     		bx	lr
+ 131              	.L12:
+ 132 000a 00BF     		.align	2
+ 133              	.L11:
+ 134 000c 00300040 		.word	1073754112
+ 135              		.cfi_endproc
+ 136              	.LFE133:
+ 138              		.section	.text.IWDG_Enable,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	IWDG_Enable
+ 141              		.syntax unified
+ 142              		.thumb
+ 143              		.thumb_func
+ 144              		.fpu fpv4-sp-d16
+ 146              	IWDG_Enable:
+ 147              	.LFB134:
+ 182:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 183:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 184:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @}
+ 185:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 186:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 187:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /** @defgroup IWDG_Group2 IWDG activation function
+ 188:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  *  @brief   IWDG activation function 
+ 189:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  *
+ 190:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** @verbatim   
+ 191:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================
+ 192:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****                     ##### IWDG activation function #####
+ 193:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================  
+ 194:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 195:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** @endverbatim
+ 196:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @{
+ 197:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 198:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 199:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 200:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief  Enables IWDG (write access to IWDG_PR and IWDG_RLR registers disabled).
+ 201:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @param  None
+ 202:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @retval None
+ 203:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 204:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** void IWDG_Enable(void)
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 7
+
+
+ 205:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** {
+ 148              		.loc 1 205 1 is_stmt 1 view -0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152              		@ link register save eliminated.
+ 206:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   IWDG->KR = KR_KEY_ENABLE;
+ 153              		.loc 1 206 3 view .LVU20
+ 154              		.loc 1 206 12 is_stmt 0 view .LVU21
+ 155 0000 024B     		ldr	r3, .L14
+ 156 0002 4CF6CC42 		movw	r2, #52428
+ 157 0006 1A60     		str	r2, [r3]
+ 207:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** }
+ 158              		.loc 1 207 1 view .LVU22
+ 159 0008 7047     		bx	lr
+ 160              	.L15:
+ 161 000a 00BF     		.align	2
+ 162              	.L14:
+ 163 000c 00300040 		.word	1073754112
+ 164              		.cfi_endproc
+ 165              	.LFE134:
+ 167              		.section	.text.IWDG_GetFlagStatus,"ax",%progbits
+ 168              		.align	1
+ 169              		.global	IWDG_GetFlagStatus
+ 170              		.syntax unified
+ 171              		.thumb
+ 172              		.thumb_func
+ 173              		.fpu fpv4-sp-d16
+ 175              	IWDG_GetFlagStatus:
+ 176              	.LVL3:
+ 177              	.LFB135:
+ 208:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 209:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 210:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @}
+ 211:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 212:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 213:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /** @defgroup IWDG_Group3 Flag management function 
+ 214:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  *  @brief  Flag management function  
+ 215:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  *
+ 216:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** @verbatim   
+ 217:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================
+ 218:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****                     ##### Flag management function #####
+ 219:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****  ===============================================================================  
+ 220:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 221:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** @endverbatim
+ 222:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @{
+ 223:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 224:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** 
+ 225:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** /**
+ 226:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @brief  Checks whether the specified IWDG flag is set or not.
+ 227:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @param  IWDG_FLAG: specifies the flag to check.
+ 228:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *          This parameter can be one of the following values:
+ 229:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_FLAG_PVU: Prescaler Value Update on going
+ 230:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   *            @arg IWDG_FLAG_RVU: Reload Value Update on going
+ 231:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   * @retval The new state of IWDG_FLAG (SET or RESET).
+ 232:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   */
+ 233:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** FlagStatus IWDG_GetFlagStatus(uint16_t IWDG_FLAG)
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 8
+
+
+ 234:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** {
+ 178              		.loc 1 234 1 is_stmt 1 view -0
+ 179              		.cfi_startproc
+ 180              		@ args = 0, pretend = 0, frame = 0
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182              		@ link register save eliminated.
+ 235:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   FlagStatus bitstatus = RESET;
+ 183              		.loc 1 235 3 view .LVU24
+ 236:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   /* Check the parameters */
+ 237:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   assert_param(IS_IWDG_FLAG(IWDG_FLAG));
+ 184              		.loc 1 237 3 view .LVU25
+ 238:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   if ((IWDG->SR & IWDG_FLAG) != (uint32_t)RESET)
+ 185              		.loc 1 238 3 view .LVU26
+ 186              		.loc 1 238 12 is_stmt 0 view .LVU27
+ 187 0000 034B     		ldr	r3, .L19
+ 188 0002 DB68     		ldr	r3, [r3, #12]
+ 189              		.loc 1 238 6 view .LVU28
+ 190 0004 1842     		tst	r0, r3
+ 191 0006 01D0     		beq	.L18
+ 239:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   {
+ 240:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****     bitstatus = SET;
+ 192              		.loc 1 240 15 view .LVU29
+ 193 0008 0120     		movs	r0, #1
+ 194              	.LVL4:
+ 195              		.loc 1 240 15 view .LVU30
+ 196 000a 7047     		bx	lr
+ 197              	.LVL5:
+ 198              	.L18:
+ 241:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   }
+ 242:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   else
+ 243:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   {
+ 244:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****     bitstatus = RESET;
+ 199              		.loc 1 244 15 view .LVU31
+ 200 000c 0020     		movs	r0, #0
+ 201              	.LVL6:
+ 245:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   }
+ 246:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   /* Return the flag status */
+ 247:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c ****   return bitstatus;
+ 202              		.loc 1 247 3 is_stmt 1 view .LVU32
+ 248:Drivers/STM32F4xx_FWLIB/src/stm32f4xx_iwdg.c **** }
+ 203              		.loc 1 248 1 is_stmt 0 view .LVU33
+ 204 000e 7047     		bx	lr
+ 205              	.L20:
+ 206              		.align	2
+ 207              	.L19:
+ 208 0010 00300040 		.word	1073754112
+ 209              		.cfi_endproc
+ 210              	.LFE135:
+ 212              		.text
+ 213              	.Letext0:
+ 214              		.file 2 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 215              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 216              		.file 4 "Core/Inc/stm32f4xx.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_iwdg.c
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:18     .text.IWDG_WriteAccessCmd:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:26     .text.IWDG_WriteAccessCmd:00000000 IWDG_WriteAccessCmd
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:45     .text.IWDG_WriteAccessCmd:00000008 $d
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:50     .text.IWDG_SetPrescaler:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:57     .text.IWDG_SetPrescaler:00000000 IWDG_SetPrescaler
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:75     .text.IWDG_SetPrescaler:00000008 $d
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:80     .text.IWDG_SetReload:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:87     .text.IWDG_SetReload:00000000 IWDG_SetReload
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:105    .text.IWDG_SetReload:00000008 $d
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:110    .text.IWDG_ReloadCounter:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:117    .text.IWDG_ReloadCounter:00000000 IWDG_ReloadCounter
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:134    .text.IWDG_ReloadCounter:0000000c $d
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:139    .text.IWDG_Enable:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:146    .text.IWDG_Enable:00000000 IWDG_Enable
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:163    .text.IWDG_Enable:0000000c $d
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:168    .text.IWDG_GetFlagStatus:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:175    .text.IWDG_GetFlagStatus:00000000 IWDG_GetFlagStatus
+C:\Users\ADMIN\AppData\Local\Temp\cciiRwgF.s:208    .text.IWDG_GetFlagStatus:00000010 $d
+
+NO UNDEFINED SYMBOLS

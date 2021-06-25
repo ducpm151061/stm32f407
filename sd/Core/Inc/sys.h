@@ -1,39 +1,9 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//本程序只供学习使用，未经作者许可，不得用于其它商业用途
-//测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
-//QDtech-TFT液晶驱动 for STM32 FSMC
-//Chan@ShenZhen QDtech co.,LTD
-//公司网站:www.qdtft.com
-//wiki技术资料网站：http://www.lcdwiki.com
-//我司提供技术支持，任何技术问题欢迎随时交流学习
-//固话(传真) :+86 0755-21077707 
-//手机: (销售)18823372746 （技术)15989313508
-//邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
-//QQ:(售前咨询)3002706772 (技术支持)3002778157
-//技术交流QQ群:778679828
-//创建日期:2020/06/29
-//版本：V1.0
-//版权所有，盗版必究。
-//Copyright(C) 深圳市全动电子技术有限公司 2018-2028
-//All rights reserved
-/************************************************************************************
-//STM32F407VxT6最小系统开发板LED灯示例
-//LED0   --->   PA1
-//LED1   --->   PC5
-*************************************************************************************/	
- /* @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/
 #ifndef __SYS_H
 #define __SYS_H	 
 #include "stm32f4xx.h" 
-																	   	 
+
+
+																	    
 //位带操作,实现51类似的GPIO控制功能
 //具体实现思想,参考<<CM3权威指南>>第五章(87页~92页).M4同M3类似,只是寄存器地址变了.
 //IO口操作宏定义
@@ -90,6 +60,11 @@
 #define PIout(n)   BIT_ADDR(GPIOI_ODR_Addr,n)  //输出 
 #define PIin(n)    BIT_ADDR(GPIOI_IDR_Addr,n)  //输入
 
+//以下为汇编函数
+void WFI_SET(void);		//执行WFI指令
+void INTX_DISABLE(void);//关闭所有中断
+void INTX_ENABLE(void);	//开启所有中断
+void MSR_MSP(u32 addr);	//设置堆栈地址 
 #endif
 
 

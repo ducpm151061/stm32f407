@@ -1,0 +1,193 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"sys.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.WFI_SET,"ax",%progbits
+  18              		.align	1
+  19              		.global	WFI_SET
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	WFI_SET:
+  27              	.LFB130:
+  28              		.file 1 "Core/Src/sys.c"
+   1:Core/Src/sys.c **** #include "sys.h"  
+   2:Core/Src/sys.c **** 
+   3:Core/Src/sys.c **** 
+   4:Core/Src/sys.c **** 
+   5:Core/Src/sys.c **** //THUMBָ�֧�ֻ������
+   6:Core/Src/sys.c **** //�������·���ʵ��ִ�л��ָ��WFI  
+   7:Core/Src/sys.c **** void WFI_SET(void)
+   8:Core/Src/sys.c **** {
+  29              		.loc 1 8 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+   9:Core/Src/sys.c **** 	__ASM volatile("WFI");		  
+  34              		.loc 1 9 2 view .LVU1
+  35              		.syntax unified
+  36              	@ 9 "Core/Src/sys.c" 1
+  37 0000 30BF     		WFI
+  38              	@ 0 "" 2
+  10:Core/Src/sys.c **** }
+  39              		.loc 1 10 1 is_stmt 0 view .LVU2
+  40              		.thumb
+  41              		.syntax unified
+  42 0002 7047     		bx	lr
+  43              		.cfi_endproc
+  44              	.LFE130:
+  46              		.section	.text.INTX_DISABLE,"ax",%progbits
+  47              		.align	1
+  48              		.global	INTX_DISABLE
+  49              		.syntax unified
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s 			page 2
+
+
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv4-sp-d16
+  54              	INTX_DISABLE:
+  55              	.LFB131:
+  11:Core/Src/sys.c **** //�ر������ж�(���ǲ�����fault��NMI�ж�)
+  12:Core/Src/sys.c **** void INTX_DISABLE(void)
+  13:Core/Src/sys.c **** {
+  56              		.loc 1 13 1 is_stmt 1 view -0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  14:Core/Src/sys.c **** 	// CPSID   I
+  15:Core/Src/sys.c **** 	// BX      LR	  
+  16:Core/Src/sys.c **** 	 __ASM volatile("CPSID I");
+  61              		.loc 1 16 3 view .LVU4
+  62              		.syntax unified
+  63              	@ 16 "Core/Src/sys.c" 1
+  64 0000 72B6     		CPSID I
+  65              	@ 0 "" 2
+  17:Core/Src/sys.c **** 	 __ASM volatile("BX LR");
+  66              		.loc 1 17 3 view .LVU5
+  67              	@ 17 "Core/Src/sys.c" 1
+  68 0002 7047     		BX LR
+  69              	@ 0 "" 2
+  18:Core/Src/sys.c **** }
+  70              		.loc 1 18 1 is_stmt 0 view .LVU6
+  71              		.thumb
+  72              		.syntax unified
+  73 0004 7047     		bx	lr
+  74              		.cfi_endproc
+  75              	.LFE131:
+  77              		.section	.text.INTX_ENABLE,"ax",%progbits
+  78              		.align	1
+  79              		.global	INTX_ENABLE
+  80              		.syntax unified
+  81              		.thumb
+  82              		.thumb_func
+  83              		.fpu fpv4-sp-d16
+  85              	INTX_ENABLE:
+  86              	.LFB132:
+  19:Core/Src/sys.c **** //���������ж�
+  20:Core/Src/sys.c **** void INTX_ENABLE(void)
+  21:Core/Src/sys.c **** {
+  87              		.loc 1 21 1 is_stmt 1 view -0
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  22:Core/Src/sys.c **** 	// CPSIE   I
+  23:Core/Src/sys.c **** 	// BX      LR  
+  24:Core/Src/sys.c **** 	__ASM volatile("CPSIE I");
+  92              		.loc 1 24 2 view .LVU8
+  93              		.syntax unified
+  94              	@ 24 "Core/Src/sys.c" 1
+  95 0000 62B6     		CPSIE I
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s 			page 3
+
+
+  96              	@ 0 "" 2
+  25:Core/Src/sys.c **** 	__ASM volatile("BX LR");
+  97              		.loc 1 25 2 view .LVU9
+  98              	@ 25 "Core/Src/sys.c" 1
+  99 0002 7047     		BX LR
+ 100              	@ 0 "" 2
+  26:Core/Src/sys.c **** }
+ 101              		.loc 1 26 1 is_stmt 0 view .LVU10
+ 102              		.thumb
+ 103              		.syntax unified
+ 104 0004 7047     		bx	lr
+ 105              		.cfi_endproc
+ 106              	.LFE132:
+ 108              		.section	.text.MSR_MSP,"ax",%progbits
+ 109              		.align	1
+ 110              		.global	MSR_MSP
+ 111              		.syntax unified
+ 112              		.thumb
+ 113              		.thumb_func
+ 114              		.fpu fpv4-sp-d16
+ 116              	MSR_MSP:
+ 117              	.LVL0:
+ 118              	.LFB133:
+  27:Core/Src/sys.c **** //����ջ����ַ
+  28:Core/Src/sys.c **** //addr:ջ����ַ
+  29:Core/Src/sys.c **** void MSR_MSP(u32 addr) 
+  30:Core/Src/sys.c **** {
+ 119              		.loc 1 30 1 is_stmt 1 view -0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+  31:Core/Src/sys.c **** 	__ASM volatile("MSR MSP, r0"); 
+ 124              		.loc 1 31 2 view .LVU12
+ 125              		.syntax unified
+ 126              	@ 31 "Core/Src/sys.c" 1
+ 127 0000 80F30888 		MSR MSP, r0
+ 128              	@ 0 "" 2
+  32:Core/Src/sys.c **** 	__ASM volatile("BX r14");
+ 129              		.loc 1 32 2 view .LVU13
+ 130              	@ 32 "Core/Src/sys.c" 1
+ 131 0004 7047     		BX r14
+ 132              	@ 0 "" 2
+  33:Core/Src/sys.c **** }
+ 133              		.loc 1 33 1 is_stmt 0 view .LVU14
+ 134              		.thumb
+ 135              		.syntax unified
+ 136 0006 7047     		bx	lr
+ 137              		.cfi_endproc
+ 138              	.LFE133:
+ 140              		.text
+ 141              	.Letext0:
+ 142              		.file 2 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machin
+ 143              		.file 3 "d:\\install\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_
+ 144              		.file 4 "Core/Inc/stm32f4xx.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 sys.c
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:18     .text.WFI_SET:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:26     .text.WFI_SET:00000000 WFI_SET
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:47     .text.INTX_DISABLE:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:54     .text.INTX_DISABLE:00000000 INTX_DISABLE
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:78     .text.INTX_ENABLE:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:85     .text.INTX_ENABLE:00000000 INTX_ENABLE
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:109    .text.MSR_MSP:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccHuQg5J.s:116    .text.MSR_MSP:00000000 MSR_MSP
+
+NO UNDEFINED SYMBOLS

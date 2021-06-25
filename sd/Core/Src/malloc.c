@@ -2,12 +2,12 @@
 	 
 
 // //�ڴ��(32�ֽڶ���)
-__align(32) u8 mem1base[MEM1_MAX_SIZE];													//�ڲ�SRAM�ڴ��												//�ڲ�SRAM�ڴ��
-__align(32) u8 mem2base[MEM2_MAX_SIZE] __attribute__((at(0X68000000)));					//�ⲿSRAM�ڴ��
-__align(32) u8 mem3base[MEM3_MAX_SIZE] __attribute__((at(0X10000000)));					//�ڲ�CCM�ڴ��
-// u8 mem1base[MEM1_MAX_SIZE] __attribute__ ((aligned (32)));													//�ڲ�SRAM�ڴ��
-// u8 mem2base[MEM2_MAX_SIZE] __attribute__((section(".extsram"))) ;					//�ⲿSRAM�ڴ��
-// u8 mem3base[MEM3_MAX_SIZE] __attribute__((section(".ccmsram")));					//�ڲ�CCM�ڴ��
+// __align(32) u8 mem1base[MEM1_MAX_SIZE];													//�ڲ�SRAM�ڴ��												//�ڲ�SRAM�ڴ��
+// __align(32) u8 mem2base[MEM2_MAX_SIZE] __attribute__((at(0X68000000)));					//�ⲿSRAM�ڴ��
+// __align(32) u8 mem3base[MEM3_MAX_SIZE] __attribute__((at(0X10000000)));					//�ڲ�CCM�ڴ��
+u8 mem1base[MEM1_MAX_SIZE] __attribute__ ((aligned (32)));;													//�ڲ�SRAM�ڴ��
+u8 mem2base[MEM2_MAX_SIZE] __attribute__((at(0X68000000)));; __attribute__((aligned (32)));;					//�ⲿSRAM�ڴ��
+u8 mem3base[MEM3_MAX_SIZE] __attribute__((at(0X10000000)));; __attribute__((aligned (32)));;				//�ڲ�CCM�ڴ��
 //�ڴ������
 u16 mem1mapbase[MEM1_ALLOC_TABLE_SIZE];													//�ڲ�SRAM�ڴ��MAP
 u16 mem2mapbase[MEM2_ALLOC_TABLE_SIZE] __attribute__((at(0X68000000+MEM2_MAX_SIZE)));	//�ⲿSRAM�ڴ��MAP
