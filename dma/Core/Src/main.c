@@ -1,69 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
-//Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
-//All rights reserved
-/************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åDACÊ¾Àý
-//     LED0           --->            PA1
-//     KEY0           --->            PE4
- 
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      DB0           --->            PD14        -|   
-//      DB1           --->            PD15         |  
-//      DB2           --->            PD0          | 
-//      DB3           --->            PD1          | 
-//      DB4           --->            PE7          |
-//      DB5           --->            PE8          |
-//      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
-//      DB8           --->            PE11         |
-//      DB9           --->            PE12         |
-//      DB10          --->            PE13         |
-//      DB11          --->            PE14         |
-//      DB12          --->            PE15         |
-//      DB13          --->            PD8          |
-//      DB14          --->            PD9          |
-//      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/		
 #include "delay.h"
 #include "sys.h"
 #include "lcd.h"
@@ -80,16 +14,16 @@ int main(void)
 {
 	u8 i;
 	u8 key_value;	
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//ÉèÖÃÏµÍ³ÖÐ¶ÏÓÅÏÈ¼¶·Ö×é2
-	delay_init(168);             //³õÊ¼»¯ÑÓÊ±º¯Êý
-	USART1_Init(115200);         //´®¿Ú1³õÊ¼»¯
-	LED_Init();                  //³õÊ¼»¯LED
-	LCD_Init();	                 //Òº¾§ÆÁ³õÊ¼»¯
-	KEY_Init();                  //°´¼ü³õÊ¼»¯	
-	DMA_Config(DMA2_Stream7,DMA_Channel_4,(u32)&USART1->DR,(u32)sbuf,SEND_SIZE);//DMA2,STEAM7,CH4,ÍâÉèÎª´®¿Ú1,´æ´¢Æ÷Îªsbuf,³¤¶ÈÎª:SEND_SIZE.                
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½2
+	delay_init(168);             //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	USART1_Init(115200);         //ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ê¼ï¿½ï¿½
+	LED_Init();                  //ï¿½ï¿½Ê¼ï¿½ï¿½LED
+	LCD_Init();	                 //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+	KEY_Init();                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½	
+	DMA_Config(DMA2_Stream7,DMA_Channel_4,(u32)&USART1->DR,(u32)sbuf,SEND_SIZE);//DMA2,STEAM7,CH4,ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½1,ï¿½æ´¢ï¿½ï¿½Îªsbuf,ï¿½ï¿½ï¿½ï¿½Îª:SEND_SIZE.                
 	DMA_test();                  //DMA test
-	fill_sbuf();                 //Ìî³ä·¢ËÍ»º³åÇø
-  //Ñ­»·²âÊÔ
+	fill_sbuf();                 //ï¿½ï¿½ä·¢ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½
+  //Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	while(1)
 	{
 		key_value=KEY_Scan(0);
@@ -103,7 +37,7 @@ int main(void)
 			i=0;
 		}
 		i++;
-		delay_ms(10);//ÑÓÊ±100ms
+		delay_ms(10);//ï¿½ï¿½Ê±100ms
 	}
 }
 

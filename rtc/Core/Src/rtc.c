@@ -148,8 +148,8 @@ u8 RTC_Set_Init(void)
 		{
 			return 2; //�����ʼ��ģʽʧ��
 		}
-		RTC_Set_Time(9, 30, 00, RTC_H12_AM);		  //����ʱ��
-		RTC_Set_Date(20, 7, 3, 5);					  //��������
+		RTC_Set_Time(11, 00, 00, RTC_H12_AM);		  //����ʱ��
+		RTC_Set_Date(21, 6, 25, 5);					  //��������
 		RTC_WriteBackupRegister(RTC_BKP_DR0, 0x5050); //����Ѿ���ʼ������
 	}
 	return 0;

@@ -1,35 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
-//Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
-//All rights reserved
-/************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åPWMÊ¾Àý
-//LED0   --->   PA1
-//LED1   --->   PC5
-*************************************************************************************/	
- /* @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/		
 #include "delay.h"
 #include "sys.h"
 #include "led.h"
@@ -39,32 +7,32 @@ int main(void)
 {
 	u8 dir=1;
 	u16 PWM_Value=0;
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//ÉèÖÃÏµÍ³ÖÐ¶ÏÓÅÏÈ¼¶·Ö×é2
-	delay_init(168);     //³õÊ¼»¯ÑÓÊ±º¯Êý
-	LED_Init();          //³õÊ¼»¯LEDµÆGPIO
-	//tout=((499+1)*(83+1))/84(us)=500us,PWMÆµÂÊÎª2KHz
-	TIM5_PWM_Init(499,83);	//¶¨Ê±Æ÷5 PWM³õÊ¼»¯£¬Ê±ÖÓ84M£¬·ÖÆµÏµÊý84£¬ËùÒÔ84M/84=1MhzµÄ¼ÆÊýÆµÂÊ£¬¼ÆÊý500´ÎÎª500us
-	LED1=0;              //µãÁÁLED1
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½2
+	delay_init(168);     //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	LED_Init();          //ï¿½ï¿½Ê¼ï¿½ï¿½LEDï¿½ï¿½GPIO
+	//tout=((499+1)*(83+1))/84(us)=500us,PWMÆµï¿½ï¿½Îª2KHz
+	TIM5_PWM_Init(499,83);	//ï¿½ï¿½Ê±ï¿½ï¿½5 PWMï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½84Mï¿½ï¿½ï¿½ï¿½ÆµÏµï¿½ï¿½84ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½84M/84=1Mhzï¿½Ä¼ï¿½ï¿½ï¿½Æµï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½500ï¿½ï¿½Îª500us
+	LED1=0;              //ï¿½ï¿½ï¿½ï¿½LED1
 	while(1)
 	{
 		delay_ms(10);	 
 		if(dir)
 		{
-			PWM_Value++;   //dir==1 led0pwmvalµÝÔö
+			PWM_Value++;   //dir==1 led0pwmvalï¿½ï¿½ï¿½ï¿½
 		}
 		else 
 		{
-			PWM_Value--;	//dir==0 led0pwmvalµÝ¼õ 
+			PWM_Value--;	//dir==0 led0pwmvalï¿½Ý¼ï¿½ 
  		}
 		if(PWM_Value>300)
 		{
-			dir=0;        //led0pwmvalµ½´ï300ºó£¬·½ÏòÎªµÝ¼õ
+			dir=0;        //led0pwmvalï¿½ï¿½ï¿½ï¿½300ï¿½ó£¬·ï¿½ï¿½ï¿½Îªï¿½Ý¼ï¿½
 		}
 		if(PWM_Value==0)
 		{
-			dir=1;	      //led0pwmvalµÝ¼õµ½0ºó£¬·½Ïò¸ÄÎªµÝÔö
+			dir=1;	      //led0pwmvalï¿½Ý¼ï¿½ï¿½ï¿½0ï¿½ó£¬·ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 		}
-		TIM_SetCompare2(TIM5,PWM_Value);	//ÐÞ¸Ä±È½ÏÖµ£¬ÐÞ¸ÄÕ¼¿Õ±È
+		TIM_SetCompare2(TIM5,PWM_Value);	//ï¿½Þ¸Ä±È½ï¿½Öµï¿½ï¿½ï¿½Þ¸ï¿½Õ¼ï¿½Õ±ï¿½
 	}
 }
 

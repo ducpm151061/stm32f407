@@ -697,7 +697,7 @@ void Test_Dynamic_Num(void)
 #endif
 
 u8 sbuf[SEND_SIZE] = {0};										//���ͻ�����
-const u8 send_test[] = "STM32F407VxT6��Сϵͳ�����崮��DMA�������"; //��������
+const u8 send_test[] = "STM32F407VxT6"; //��������
 
 /*****************************************************************************
  * @name       :void fill_sbuf(void)
@@ -775,9 +775,10 @@ void fill_sbuf(void)
 ******************************************************************************/
 void DMA_test(void)
 {
+	USART1_printf(USART1,"dma test\r\n");
 	printf("dma test\r\n");
-	Gui_StrCenter(0, 40, RED, BLUE, "STM32F407VxT6��Сϵͳ������", 16, 1);	 //������ʾ
-	Gui_StrCenter(0, 65, RED, BLUE, "DMA ���Գ���", 16, 1);				 //������ʾ
+	Gui_StrCenter(0, 40, RED, BLUE, "STM32F407VxT6", 16, 1);	 //������ʾ
+	Gui_StrCenter(0, 65, RED, BLUE, "DMA", 16, 1);				 //������ʾ
 	Gui_StrCenter(0, 90, BLUE, BLUE, "KEY0:start test", 16, 1);			 //������ʾ
 	Gui_StrCenter(0, 160, BLUE, BLUE, "2020-06-05", 16, 1);				 //������ʾ
 	Gui_StrCenter(0, 185, GREEN, BLUE, "http://www.lcdwiki.com", 16, 1); //������ʾ
@@ -794,8 +795,9 @@ void Show_DMA_Trans(void)
 {
 	float pro = 0; //����
 				   //		Show_Str(lcddev.width/2-76,115,RED,WHITE,"Start Transimit....",16,1);
+	USART1_printf(USART1,"\r\nDMA TRANSMIT DATA:\r\n");
 	printf("\r\nDMA TRANSIMIT DATA:\r\n");
-	Show_Str(lcddev.width / 2 - 76, 115, RED, WHITE, "Start Transimit....", 16, 0);
+	Show_Str(lcddev.width / 2 - 76, 115, RED, WHITE, "Start Transmit....", 16, 0);
 	Show_Str(lcddev.width / 2 - 76, 135, RED, WHITE, "   %", 16, 1);
 	DMA_Enable(DMA2_Stream7, SEND_SIZE); //��ʼһ��DMA���䣡
 	while (1)
@@ -811,5 +813,5 @@ void Show_DMA_Trans(void)
 		LCD_ShowNum(lcddev.width / 2 - 76, 135, pro, 3, 16, 0);
 	}
 	LCD_ShowNum(lcddev.width / 2 - 76, 135, 100, 3, 16, 0);							//��ʾ100%
-	Show_Str(lcddev.width / 2 - 76, 115, RED, WHITE, "Transimit Finished!", 16, 0); //��ʾ�������
+	Show_Str(lcddev.width / 2 - 76, 115, RED, WHITE, "Transmit Finished!", 16, 0); //��ʾ�������
 }

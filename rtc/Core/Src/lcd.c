@@ -1,32 +1,32 @@
 //////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Í¾
+//ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½STM32F407VGT6,STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æµ168MHZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8MHZ
+//QDtech-TFTÒºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for STM32 FSMC
 //Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+//ï¿½ï¿½Ë¾ï¿½ï¿½Õ¾:www.qdtft.com
+//wikiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½http://www.lcdwiki.com
+//ï¿½ï¿½Ë¾ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ÎºÎ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â»¶Ó­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ñ§Ï°
+//ï¿½Ì»ï¿½(ï¿½ï¿½ï¿½ï¿½) :+86 0755-21077707 
+//ï¿½Ö»ï¿½: (ï¿½ï¿½ï¿½ï¿½)18823372746 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)15989313508
+//ï¿½ï¿½ï¿½ï¿½:(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½) sales@qdtft.com  (ï¿½Ûºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)service@qdtft.com
+//QQ:(ï¿½ï¿½Ç°ï¿½ï¿½Ñ¯)3002706772 (ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½)3002778157
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQÈº:778679828
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2020/06/29
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2018-2028
 //All rights reserved
 /************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åRTCÊ¾Àý
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
+//STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RTCÊ¾ï¿½ï¿½
+//Ö§ï¿½ï¿½ILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
+//TFT LCDï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½Û»ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½TFTLCDï¿½ï¿½ï¿½ï¿½
+//STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸TFTLCDï¿½ï¿½Û»ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Óµï¿½STM32ï¿½ï¿½ï¿½ï¿½
+//=================================ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½=======================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//      VDD           --->           DC5V/3.3V          //ï¿½ï¿½Ô´
+//      GND           --->             GND              //ï¿½ï¿½Ô´ï¿½ï¿½
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½                    STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //      DB0           --->            PD14        -|   
 //      DB1           --->            PD15         |  
 //      DB2           --->            PD0          | 
@@ -34,7 +34,7 @@
 //      DB4           --->            PE7          |
 //      DB5           --->            PE8          |
 //      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
+//      DB7           --->            PE10         |===>Òºï¿½ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 //      DB8           --->            PE11         |
 //      DB9           --->            PE12         |
 //      DB10          --->            PE13         |
@@ -43,14 +43,14 @@
 //      DB13          --->            PD8          |
 //      DB14          --->            PD9          |
 //      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
+//=============================Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½===================================//
+//     LCDÄ£ï¿½ï¿½ 				            STM32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//      WR            --->            PD5             //Òºï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RD            --->            PD4             //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RS            --->            PD11            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      RST           --->          ï¿½ï¿½Î»ï¿½ï¿½ï¿½Å£ï¿½Ä¬ï¿½Ï£ï¿½  //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½Ò²ï¿½ï¿½Ñ¡ï¿½ï¿½PD13ï¿½ï¿½
+//      CS            --->            PD7             //Òºï¿½ï¿½ï¿½ï¿½Æ¬Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+//      BL            --->            PB15            //Òºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 *************************************************************************************/	
  /* @attention
   *
@@ -66,11 +66,11 @@
 #include "delay.h"	 
 #include "usart.h"
 	   
-//¹ÜÀíLCDÖØÒª²ÎÊý
-//Ä¬ÈÏÎªÊúÆÁ
+//ï¿½ï¿½ï¿½ï¿½LCDï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+//Ä¬ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 _lcd_dev lcddev;
 
-//»­±ÊÑÕÉ«,±³¾°ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 u16 POINT_COLOR = 0x0000,BACK_COLOR = 0xFFFF;  
 u16 DeviceCode;	 
 
@@ -83,8 +83,8 @@ u16 DeviceCode;
 ******************************************************************************/
 void LCD_WR_REG(vu16 data)
 { 
-	data=data;  //Ê¹ÓÃ-O2ÓÅ»¯µÄÊ±ºò,±ØÐë²åÈëµÄÑÓÊ±
-	LCD->LCD_REG=data; //Ð´ÈëÒªÐ´µÄ¼Ä´æÆ÷ÐòºÅ	
+	data=data;  //Ê¹ï¿½ï¿½-O2ï¿½Å»ï¿½ï¿½ï¿½Ê±ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
+	LCD->LCD_REG=data; //Ð´ï¿½ï¿½ÒªÐ´ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 }
 
 /*****************************************************************************
@@ -96,8 +96,8 @@ void LCD_WR_REG(vu16 data)
 ******************************************************************************/
 void LCD_WR_DATA(vu16 data)
 {
-	data=data;			//Ê¹ÓÃ-O2ÓÅ»¯µÄÊ±ºò,±ØÐë²åÈëµÄÑÓÊ±
-	LCD->LCD_RAM=data; //Ð´ÈëÒªÐ´µÄÊý¾Ý
+	data=data;			//Ê¹ï¿½ï¿½-O2ï¿½Å»ï¿½ï¿½ï¿½Ê±ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
+	LCD->LCD_RAM=data; //Ð´ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 /*****************************************************************************
@@ -109,7 +109,7 @@ void LCD_WR_DATA(vu16 data)
 ******************************************************************************/
 u16 LCD_RD_DATA(void)
 {
-	vu16 data;  //·ÀÖ¹±»ÓÅ»¯
+	vu16 data;  //ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Å»ï¿½
 	data=LCD->LCD_RAM;
 	return data;
 }
@@ -124,8 +124,8 @@ u16 LCD_RD_DATA(void)
 ******************************************************************************/
 void LCD_WriteReg(u16 LCD_Reg, u16 LCD_RegValue)
 {
-	LCD->LCD_REG = LCD_Reg;		//Ð´ÈëÒªÐ´µÄ¼Ä´æÆ÷ÐòºÅ	 
-	LCD->LCD_RAM = LCD_RegValue;//Ð´ÈëÊý¾Ý		    		 
+	LCD->LCD_REG = LCD_Reg;		//Ð´ï¿½ï¿½ÒªÐ´ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	 
+	LCD->LCD_RAM = LCD_RegValue;//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½		    		 
 }	   
 
 /*****************************************************************************
@@ -141,7 +141,7 @@ void LCD_ReadReg(u16 LCD_Reg,u16 *Rval,int n)
 	while(n--)
 	{		
 		*(Rval++) = LCD_RD_DATA();
-		delay_us(300); //±ØÐë¼ÓÑÓÊ±
+		delay_us(300); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
 	}
 }
 
@@ -202,14 +202,14 @@ u16 Lcd_ReadData_16Bit(void)
 	{
 		return r;
 	}
-	delay_us(1);//ÑÓÊ±1us	
+	delay_us(1);//ï¿½ï¿½Ê±1us	
 	//real color
 	r = LCD_RD_DATA();
 	if((lcddev.id==0xB509)||(lcddev.id==0x7793)||(lcddev.id==0x9486)||(lcddev.id==0x7796))
 	{
 		return r;
 	}
-	delay_us(1);//ÑÓÊ±1us
+	delay_us(1);//ï¿½ï¿½Ê±1us
 	g = LCD_RD_DATA();
 	if((lcddev.id==0x9341)||(lcddev.id==0x9488)||(lcddev.id==0x5310)||(lcddev.id==0x5510))
 	{
@@ -228,7 +228,7 @@ u16 Lcd_ReadData_16Bit(void)
 ******************************************************************************/	
 void LCD_DrawPoint(u16 x,u16 y)
 {
-	LCD_SetCursor(x,y);//ÉèÖÃ¹â±êÎ»ÖÃ 
+	LCD_SetCursor(x,y);//ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½Î»ï¿½ï¿½ 
 	Lcd_WriteData_16Bit(POINT_COLOR); 
 }
 
@@ -245,9 +245,9 @@ u16 LCD_ReadPoint(u16 x,u16 y)
 	u16 color;
 	if(x>=lcddev.width||y>=lcddev.height)
 	{
-		return 0;	//³¬¹ýÁË·¶Î§,Ö±½Ó·µ»Ø	
+		return 0;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½Î§,Ö±ï¿½Ó·ï¿½ï¿½ï¿½	
 	}
-	LCD_SetCursor(x,y);//ÉèÖÃ¹â±êÎ»ÖÃ 
+	LCD_SetCursor(x,y);//ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½Î»ï¿½ï¿½ 
 	LCD_ReadRAM_Prepare();
 	color = Lcd_ReadData_16Bit();
 	return color;
@@ -280,13 +280,13 @@ void LCD_Clear(u16 Color)
 ******************************************************************************/
 void LCD_PWM_BackLightSet(u8 pwm)
 {	
-	LCD_WR_REG(0xBE);	//ÅäÖÃPWMÊä³ö
-	LCD_WR_DATA(0x05);	//1ÉèÖÃPWMÆµÂÊ
-	LCD_WR_DATA(pwm*2.55);//2ÉèÖÃPWMÕ¼¿Õ±È
-	LCD_WR_DATA(0x01);	//3ÉèÖÃC
-	LCD_WR_DATA(0xFF);	//4ÉèÖÃD
-	LCD_WR_DATA(0x00);	//5ÉèÖÃE
-	LCD_WR_DATA(0x00);	//6ÉèÖÃF
+	LCD_WR_REG(0xBE);	//ï¿½ï¿½ï¿½ï¿½PWMï¿½ï¿½ï¿½
+	LCD_WR_DATA(0x05);	//1ï¿½ï¿½ï¿½ï¿½PWMÆµï¿½ï¿½
+	LCD_WR_DATA(pwm*2.55);//2ï¿½ï¿½ï¿½ï¿½PWMÕ¼ï¿½Õ±ï¿½
+	LCD_WR_DATA(0x01);	//3ï¿½ï¿½ï¿½ï¿½C
+	LCD_WR_DATA(0xFF);	//4ï¿½ï¿½ï¿½ï¿½D
+	LCD_WR_DATA(0x00);	//5ï¿½ï¿½ï¿½ï¿½E
+	LCD_WR_DATA(0x00);	//6ï¿½ï¿½ï¿½ï¿½F
 }
 
 /*****************************************************************************
@@ -303,43 +303,43 @@ void LCD_GPIOInit(void)
   FSMC_NORSRAMTimingInitTypeDef  readWriteTiming; 
 	FSMC_NORSRAMTimingInitTypeDef  writeTiming;
 	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_GPIOE, ENABLE);//Ê¹ÄÜPB,PD,PEÊ±ÖÓ  
-  RCC_AHB3PeriphClockCmd(RCC_AHB3Periph_FSMC,ENABLE);//Ê¹ÄÜFSMCÊ±ÖÓ  
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_GPIOE, ENABLE);//Ê¹ï¿½ï¿½PB,PD,PEÊ±ï¿½ï¿½  
+  RCC_AHB3PeriphClockCmd(RCC_AHB3Periph_FSMC,ENABLE);//Ê¹ï¿½ï¿½FSMCÊ±ï¿½ï¿½  
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;//PB15 ÍÆÍìÊä³ö,¿ØÖÆ±³¹â
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//ÆÕÍ¨Êä³öÄ£Ê½
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;//PB15 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//ï¿½ï¿½Í¨ï¿½ï¿½ï¿½Ä£Ê½
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//100MHz
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-  GPIO_Init(GPIOB, &GPIO_InitStructure);//³õÊ¼»¯ //PB15 ÍÆÍìÊä³ö,¿ØÖÆ±³¹â
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ï¿½ï¿½ï¿½ï¿½
+  GPIO_Init(GPIOB, &GPIO_InitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½ //PB15 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;//PD13 ÍÆÍìÊä³ö,¿ØÖÆ¸´Î»
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//ÆÕÍ¨Êä³öÄ£Ê½
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;//PD13 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Æ¸ï¿½Î»
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//ï¿½ï¿½Í¨ï¿½ï¿½ï¿½Ä£Ê½
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-  GPIO_Init(GPIOD, &GPIO_InitStructure);//³õÊ¼»¯ //PB15 ÍÆÍìÊä³ö,¿ØÖÆ±³¹â
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ï¿½ï¿½ï¿½ï¿½
+  GPIO_Init(GPIOD, &GPIO_InitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½ //PB15 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½
 	
   GPIO_InitStructure.GPIO_Pin = (3<<0)|(3<<4)|(7<<8)|(3<<14);//PD0,1,4,5,8,9,10,14,15 AF OUT
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//¸´ÓÃÊä³ö
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-  GPIO_Init(GPIOD, &GPIO_InitStructure);//³õÊ¼»¯  
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ï¿½ï¿½ï¿½ï¿½
+  GPIO_Init(GPIOD, &GPIO_InitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½  
 	
   GPIO_InitStructure.GPIO_Pin = (0X1FF<<7);//PE7~15,AF OUT
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//¸´ÓÃÊä³ö
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-  GPIO_Init(GPIOE, &GPIO_InitStructure);//³õÊ¼»¯  
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ï¿½ï¿½ï¿½ï¿½
+  GPIO_Init(GPIOE, &GPIO_InitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½  
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7|GPIO_Pin_11;//PD11,FSMC_A16
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//¸´ÓÃÊä³ö
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ÍÆÍìÊä³ö
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ÉÏÀ­
-  GPIO_Init(GPIOD, &GPIO_InitStructure);//³õÊ¼»¯  
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//ï¿½ï¿½ï¿½ï¿½
+  GPIO_Init(GPIOD, &GPIO_InitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½  
 
   GPIO_PinAFConfig(GPIOD,GPIO_PinSource0,GPIO_AF_FSMC);
   GPIO_PinAFConfig(GPIOD,GPIO_PinSource1,GPIO_AF_FSMC);
@@ -364,65 +364,65 @@ void LCD_GPIOInit(void)
   GPIO_PinAFConfig(GPIOD,GPIO_PinSource7,GPIO_AF_FSMC);  //PD7 NE1
 	GPIO_PinAFConfig(GPIOD,GPIO_PinSource11,GPIO_AF_FSMC);
 
-  readWriteTiming.FSMC_AddressSetupTime = 0XF;	 //µØÖ·½¨Á¢Ê±¼ä£¨ADDSET£©Îª16¸öHCLK 1/168M=6ns*16=96ns	
-  readWriteTiming.FSMC_AddressHoldTime = 0x00;	 //µØÖ·±£³ÖÊ±¼ä£¨ADDHLD£©Ä£Ê½AÎ´ÓÃµ½	
-  readWriteTiming.FSMC_DataSetupTime = 60;			//Êý¾Ý±£´æÊ±¼äÎª60¸öHCLK	=6*60=360ns
+  readWriteTiming.FSMC_AddressSetupTime = 0XF;	 //ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¨ADDSETï¿½ï¿½Îª16ï¿½ï¿½HCLK 1/168M=6ns*16=96ns	
+  readWriteTiming.FSMC_AddressHoldTime = 0x00;	 //ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¨ADDHLDï¿½ï¿½Ä£Ê½AÎ´ï¿½Ãµï¿½	
+  readWriteTiming.FSMC_DataSetupTime = 60;			//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Îª60ï¿½ï¿½HCLK	=6*60=360ns
   readWriteTiming.FSMC_BusTurnAroundDuration = 0x00;
   readWriteTiming.FSMC_CLKDivision = 0x00;
   readWriteTiming.FSMC_DataLatency = 0x00;
   readWriteTiming.FSMC_AccessMode = FSMC_AccessMode_A;	 //Ä£Ê½A 
     
-	writeTiming.FSMC_AddressSetupTime =9;	      //µØÖ·½¨Á¢Ê±¼ä£¨ADDSET£©Îª9¸öHCLK =54ns 
-  writeTiming.FSMC_AddressHoldTime = 0x00;	 //µØÖ·±£³ÖÊ±¼ä£¨A		
-  writeTiming.FSMC_DataSetupTime = 8;		 //Êý¾Ý±£´æÊ±¼äÎª6ns*9¸öHCLK=54ns
+	writeTiming.FSMC_AddressSetupTime =9;	      //ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¨ADDSETï¿½ï¿½Îª9ï¿½ï¿½HCLK =54ns 
+  writeTiming.FSMC_AddressHoldTime = 0x00;	 //ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¨A		
+  writeTiming.FSMC_DataSetupTime = 8;		 //ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Îª6ns*9ï¿½ï¿½HCLK=54ns
   writeTiming.FSMC_BusTurnAroundDuration = 0x00;
   writeTiming.FSMC_CLKDivision = 0x00;
   writeTiming.FSMC_DataLatency = 0x00;
   writeTiming.FSMC_AccessMode = FSMC_AccessMode_A;	 //Ä£Ê½A 
 
-  FSMC_NORSRAMInitStructure.FSMC_Bank = FSMC_Bank1_NORSRAM1;//  ÕâÀïÎÒÃÇÊ¹ÓÃNE1 £¬Ò²¾Í¶ÔÓ¦BTCR[6],[7]¡£
-  FSMC_NORSRAMInitStructure.FSMC_DataAddressMux = FSMC_DataAddressMux_Disable; // ²»¸´ÓÃÊý¾ÝµØÖ·
+  FSMC_NORSRAMInitStructure.FSMC_Bank = FSMC_Bank1_NORSRAM1;//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½NE1 ï¿½ï¿½Ò²ï¿½Í¶ï¿½Ó¦BTCR[6],[7]ï¿½ï¿½
+  FSMC_NORSRAMInitStructure.FSMC_DataAddressMux = FSMC_DataAddressMux_Disable; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ö·
   FSMC_NORSRAMInitStructure.FSMC_MemoryType =FSMC_MemoryType_SRAM;// FSMC_MemoryType_SRAM;  //SRAM   
-  FSMC_NORSRAMInitStructure.FSMC_MemoryDataWidth = FSMC_MemoryDataWidth_16b;//´æ´¢Æ÷Êý¾Ý¿í¶ÈÎª16bit   
+  FSMC_NORSRAMInitStructure.FSMC_MemoryDataWidth = FSMC_MemoryDataWidth_16b;//ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Îª16bit   
   FSMC_NORSRAMInitStructure.FSMC_BurstAccessMode =FSMC_BurstAccessMode_Disable;// FSMC_BurstAccessMode_Disable; 
   FSMC_NORSRAMInitStructure.FSMC_WaitSignalPolarity = FSMC_WaitSignalPolarity_Low;
 	FSMC_NORSRAMInitStructure.FSMC_AsynchronousWait=FSMC_AsynchronousWait_Disable; 
   FSMC_NORSRAMInitStructure.FSMC_WrapMode = FSMC_WrapMode_Disable;   
   FSMC_NORSRAMInitStructure.FSMC_WaitSignalActive = FSMC_WaitSignalActive_BeforeWaitState;  
-  FSMC_NORSRAMInitStructure.FSMC_WriteOperation = FSMC_WriteOperation_Enable;	//  ´æ´¢Æ÷Ð´Ê¹ÄÜ
+  FSMC_NORSRAMInitStructure.FSMC_WriteOperation = FSMC_WriteOperation_Enable;	//  ï¿½æ´¢ï¿½ï¿½Ð´Ê¹ï¿½ï¿½
   FSMC_NORSRAMInitStructure.FSMC_WaitSignal = FSMC_WaitSignal_Disable;   
-  FSMC_NORSRAMInitStructure.FSMC_ExtendedMode = FSMC_ExtendedMode_Enable; // ¶ÁÐ´Ê¹ÓÃ²»Í¬µÄÊ±Ðò
+  FSMC_NORSRAMInitStructure.FSMC_ExtendedMode = FSMC_ExtendedMode_Enable; // ï¿½ï¿½Ð´Ê¹ï¿½Ã²ï¿½Í¬ï¿½ï¿½Ê±ï¿½ï¿½
   FSMC_NORSRAMInitStructure.FSMC_WriteBurst = FSMC_WriteBurst_Disable; 
-  FSMC_NORSRAMInitStructure.FSMC_ReadWriteTimingStruct = &readWriteTiming; //¶ÁÐ´Ê±Ðò
-  FSMC_NORSRAMInitStructure.FSMC_WriteTimingStruct = &writeTiming;  //Ð´Ê±Ðò
+  FSMC_NORSRAMInitStructure.FSMC_ReadWriteTimingStruct = &readWriteTiming; //ï¿½ï¿½Ð´Ê±ï¿½ï¿½
+  FSMC_NORSRAMInitStructure.FSMC_WriteTimingStruct = &writeTiming;  //Ð´Ê±ï¿½ï¿½
 
-  FSMC_NORSRAMInit(&FSMC_NORSRAMInitStructure);  //³õÊ¼»¯FSMCÅäÖÃ
-  FSMC_NORSRAMCmd(FSMC_Bank1_NORSRAM1, ENABLE);  // Ê¹ÄÜBANK1 	   	 							    
+  FSMC_NORSRAMInit(&FSMC_NORSRAMInitStructure);  //ï¿½ï¿½Ê¼ï¿½ï¿½FSMCï¿½ï¿½ï¿½ï¿½
+  FSMC_NORSRAMCmd(FSMC_Bank1_NORSRAM1, ENABLE);  // Ê¹ï¿½ï¿½BANK1 	   	 							    
 }
 
 void LCD_Set_BWTR(void)
 {
-	FSMC_Bank1E->BWTR[0]&=~(0XF<<0);//µØÖ·½¨Á¢Ê±¼ä(ADDSET)ÇåÁã 	 
-	FSMC_Bank1E->BWTR[0]&=~(0XF<<8);//Êý¾Ý±£´æÊ±¼äÇåÁã
+	FSMC_Bank1E->BWTR[0]&=~(0XF<<0);//ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(ADDSET)ï¿½ï¿½ï¿½ï¿½ 	 
+	FSMC_Bank1E->BWTR[0]&=~(0XF<<8);//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(lcddev.id==0x9341)
 	{
-		FSMC_Bank1E->BWTR[0]|=4<<0;		//µØÖ·½¨Á¢Ê±¼ä(ADDSET)Îª4¸öHCLK =24ns  	 
-		FSMC_Bank1E->BWTR[0]|=3<<8; 	//Êý¾Ý±£´æÊ±¼ä(DATAST)Îª6ns*3¸öHCLK=18ns
+		FSMC_Bank1E->BWTR[0]|=4<<0;		//ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(ADDSET)Îª4ï¿½ï¿½HCLK =24ns  	 
+		FSMC_Bank1E->BWTR[0]|=3<<8; 	//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(DATAST)Îª6ns*3ï¿½ï¿½HCLK=18ns
 	}
 	else if((lcddev.id==0x9486)||(lcddev.id==0x9488)||(lcddev.id==0x5310)||(lcddev.id==0x7796)||(lcddev.id==0x1963))
 	{
-		FSMC_Bank1E->BWTR[0]|=4<<0;		//µØÖ·½¨Á¢Ê±¼ä(ADDSET)Îª4¸öHCLK =24ns  	 
-		FSMC_Bank1E->BWTR[0]|=4<<8; 	//Êý¾Ý±£´æÊ±¼ä(DATAST)Îª6ns*4¸öHCLK=24ns
+		FSMC_Bank1E->BWTR[0]|=4<<0;		//ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(ADDSET)Îª4ï¿½ï¿½HCLK =24ns  	 
+		FSMC_Bank1E->BWTR[0]|=4<<8; 	//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(DATAST)Îª6ns*4ï¿½ï¿½HCLK=24ns
 	}
 	else if((lcddev.id==0xB509)||(lcddev.id==0x7793))
 	{
-		FSMC_Bank1E->BWTR[0]|=5<<0;		//µØÖ·½¨Á¢Ê±¼ä(ADDSET)Îª5¸öHCLK =30ns  	 
-		FSMC_Bank1E->BWTR[0]|=4<<8; 	//Êý¾Ý±£´æÊ±¼ä(DATAST)Îª6ns*4¸öHCLK=24ns
+		FSMC_Bank1E->BWTR[0]|=5<<0;		//ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(ADDSET)Îª5ï¿½ï¿½HCLK =30ns  	 
+		FSMC_Bank1E->BWTR[0]|=4<<8; 	//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(DATAST)Îª6ns*4ï¿½ï¿½HCLK=24ns
 	}
 	else if(lcddev.id==0x5510)
 	{
-		FSMC_Bank1E->BWTR[0]|=3<<0;		//µØÖ·½¨Á¢Ê±¼ä(ADDSET)Îª3¸öHCLK =18ns  	 
-		FSMC_Bank1E->BWTR[0]|=2<<8; 	//Êý¾Ý±£´æÊ±¼ä(DATAST)Îª6ns*2¸öHCLK=12ns		
+		FSMC_Bank1E->BWTR[0]|=3<<0;		//ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(ADDSET)Îª3ï¿½ï¿½HCLK =18ns  	 
+		FSMC_Bank1E->BWTR[0]|=2<<8; 	//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(DATAST)Îª6ns*2ï¿½ï¿½HCLK=12ns		
 	}
 }
 
@@ -435,17 +435,20 @@ void LCD_Set_BWTR(void)
 ******************************************************************************/	 	 
 void LCD_Init(void)
 {  
-	LCD_GPIOInit();//LCD GPIO³õÊ¼»¯	
+	char temp[50];
+	LCD_GPIOInit();//LCD GPIOï¿½ï¿½Ê¼ï¿½ï¿½	
 	lcddev.id=LCD_Read_ID();
+	sprintf(temp,"LCD ID:0x%X\r\n",lcddev.id);
+	USART1_printf(USART1,temp);
 	printf("LCD ID:0x%X\r\n",lcddev.id);
-	LCD_Set_BWTR(); 	//ÖØÐÂÅäÖÃÐ´Ê±Ðò¿ØÖÆ¼Ä´æÆ÷µÄÊ±ÐòÊ¹WRÊ±ÐòÎª×î¿ì
+	LCD_Set_BWTR(); 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´Ê±ï¿½ï¿½ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹WRÊ±ï¿½ï¿½Îªï¿½ï¿½ï¿½
 	delay_ms(100);
-	//LCD_RESET();    //Èç¹û²»Ê¹ÓÃ¿ª·¢°å¸´Î»Òý½Å£¬Ôòµ÷ÓÃ´Ë¸´Î»º¯Êý
+	//LCD_RESET();    //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½å¸´Î»ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½Ã´Ë¸ï¿½Î»ï¿½ï¿½ï¿½ï¿½
 	switch(lcddev.id)
 	{
 		case 0x9341:
 		{
-//*************ILI9341³õÊ¼»¯**********//	
+//*************ILI9341ï¿½ï¿½Ê¼ï¿½ï¿½**********//	
 			LCD_WR_REG(0xCF);  
 			LCD_WR_DATA(0x00); 
 			LCD_WR_DATA(0xC9); //C1 
@@ -544,7 +547,7 @@ void LCD_Init(void)
 		}
 		case 0x9486:
 		{
-//*************ILI9486³õÊ¼»¯**********//	
+//*************ILI9486ï¿½ï¿½Ê¼ï¿½ï¿½**********//	
 			LCD_WR_REG(0XF1);
 			LCD_WR_DATA(0x36);
 			LCD_WR_DATA(0x04);
@@ -624,7 +627,7 @@ void LCD_Init(void)
 		}
 		case 0x9488:
 		{
-//************* ILI9488³õÊ¼»¯**********//	
+//************* ILI9488ï¿½ï¿½Ê¼ï¿½ï¿½**********//	
 			LCD_WR_REG(0XF7);
 			LCD_WR_DATA(0xA9);
 			LCD_WR_DATA(0x51);
@@ -699,7 +702,7 @@ void LCD_Init(void)
 		}
 		case 0x7796:
 		{
-//************* ST7796S³õÊ¼»¯**********//	
+//************* ST7796Sï¿½ï¿½Ê¼ï¿½ï¿½**********//	
 			LCD_WR_REG(0xF0);
 			LCD_WR_DATA(0xC3);
 			LCD_WR_REG(0xF0);
@@ -786,7 +789,7 @@ void LCD_Init(void)
 		case 0x7793:
 		case 0xB509:
 		{
-		//************* R61509V»ò7793³õÊ¼»¯**********//	
+		//************* R61509Vï¿½ï¿½7793ï¿½ï¿½Ê¼ï¿½ï¿½**********//	
 			LCD_WriteReg(0x0000, 0x0000);
 			LCD_WriteReg(0x0000, 0x0000);
 			LCD_WriteReg(0x0000, 0x0000);
@@ -829,7 +832,7 @@ void LCD_Init(void)
 			LCD_WriteReg(0x0500, 0x0000);
 			LCD_WriteReg(0x0501, 0x0000);
 			LCD_WriteReg(0x0502, 0x005F);
-			LCD_WriteReg(0x0401, 0x0001);	 //R401H Bit0 REVÎ»ÊÇÊý¾ÝÈ¡·´ÉèÖÃ
+			LCD_WriteReg(0x0401, 0x0001);	 //R401H Bit0 REVÎ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			LCD_WriteReg(0x0404, 0x0000);
 			delay_ms(50); 
 			LCD_WriteReg(0x0007, 0x0100);         //BASEE
@@ -843,7 +846,7 @@ void LCD_Init(void)
 		}
 		case 0x5310:
 		{
-//************* NT35310³õÊ¼»¯ **********//	
+//************* NT35310ï¿½ï¿½Ê¼ï¿½ï¿½ **********//	
 			LCD_WR_REG(0xED);
 			LCD_WR_DATA(0x01);
 			LCD_WR_DATA(0xFE);
@@ -1488,7 +1491,7 @@ void LCD_Init(void)
 		}
 		case 0x5510:
 		{
-//************* NT35510³õÊ¼»¯**********//	
+//************* NT35510ï¿½ï¿½Ê¼ï¿½ï¿½**********//	
 			LCD_WR_REG(0xF000); LCD_WR_DATA(0x55);
 			LCD_WR_REG(0xF001); LCD_WR_DATA(0xAA);
 			LCD_WR_REG(0xF002); LCD_WR_DATA(0x52);
@@ -1915,11 +1918,11 @@ void LCD_Init(void)
 		}
 		case 0x1963:
 		{
-//************* SSD1963³õÊ¼»¯**********//	
+//************* SSD1963ï¿½ï¿½Ê¼ï¿½ï¿½**********//	
 			LCD_WR_REG(0xE2);		//Set PLL with OSC = 10MHz (hardware),	Multiplier N = 35, 250MHz < VCO < 800MHz = OSC*(N+1), VCO = 300MHz
-			LCD_WR_DATA(0x1D);		//²ÎÊý1 
-			LCD_WR_DATA(0x02);		//²ÎÊý2 Divider M = 2, PLL = 300/(M+1) = 100MHz
-			LCD_WR_DATA(0x04);		//²ÎÊý3 Validate M and N values   
+			LCD_WR_DATA(0x1D);		//ï¿½ï¿½ï¿½ï¿½1 
+			LCD_WR_DATA(0x02);		//ï¿½ï¿½ï¿½ï¿½2 Divider M = 2, PLL = 300/(M+1) = 100MHz
+			LCD_WR_DATA(0x04);		//ï¿½ï¿½ï¿½ï¿½3 Validate M and N values   
 			delay_us(100);
 			LCD_WR_REG(0xE0);		// Start PLL command
 			LCD_WR_DATA(0x01);		// enable PLL
@@ -1927,20 +1930,20 @@ void LCD_Init(void)
 			LCD_WR_REG(0xE0);		// Start PLL command again
 			LCD_WR_DATA(0x03);		// now, use PLL output as system clock	
 			delay_ms(12);  
-			LCD_WR_REG(0x01);		//Èí¸´Î»
+			LCD_WR_REG(0x01);		//ï¿½ï¿½ï¿½ï¿½Î»
 			delay_ms(10);				
-			LCD_WR_REG(0xE6);		//ÉèÖÃÏñËØÆµÂÊ,33Mhz
+			LCD_WR_REG(0xE6);		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½,33Mhz
 			LCD_WR_DATA(0x2F);
 			LCD_WR_DATA(0xFF);
 			LCD_WR_DATA(0xFF);				
-			LCD_WR_REG(0xB0);		//ÉèÖÃLCDÄ£Ê½
+			LCD_WR_REG(0xB0);		//ï¿½ï¿½ï¿½ï¿½LCDÄ£Ê½
 			LCD_WR_DATA(0x20);		//24Î»Ä£Ê½
 			LCD_WR_DATA(0x00);		//TFT Ä£Ê½ 			
-			LCD_WR_DATA((SSD_HOR_RESOLUTION-1)>>8);//ÉèÖÃLCDË®Æ½ÏñËØ
+			LCD_WR_DATA((SSD_HOR_RESOLUTION-1)>>8);//ï¿½ï¿½ï¿½ï¿½LCDË®Æ½ï¿½ï¿½ï¿½ï¿½
 			LCD_WR_DATA(SSD_HOR_RESOLUTION-1);		 
-			LCD_WR_DATA((SSD_VER_RESOLUTION-1)>>8);//ÉèÖÃLCD´¹Ö±ÏñËØ
+			LCD_WR_DATA((SSD_VER_RESOLUTION-1)>>8);//ï¿½ï¿½ï¿½ï¿½LCDï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½
 			LCD_WR_DATA(SSD_VER_RESOLUTION-1);		 
-			LCD_WR_DATA(0x00);		//RGBÐòÁÐ 				
+			LCD_WR_DATA(0x00);		//RGBï¿½ï¿½ï¿½ï¿½ 				
 			LCD_WR_REG(0xB4);		//Set horizontal period
 			LCD_WR_DATA((SSD_HT-1)>>8);
 			LCD_WR_DATA(SSD_HT-1);
@@ -1958,38 +1961,39 @@ void LCD_Init(void)
 			LCD_WR_DATA(SSD_VER_FRONT_PORCH-1);
 			LCD_WR_DATA(0x00);
 			LCD_WR_DATA(0x00);				
-			LCD_WR_REG(0xF0);	//ÉèÖÃSSD1963ÓëCPU½Ó¿ÚÎª16bit  
+			LCD_WR_REG(0xF0);	//ï¿½ï¿½ï¿½ï¿½SSD1963ï¿½ï¿½CPUï¿½Ó¿ï¿½Îª16bit  
 			LCD_WR_DATA(0x03);	//16-bit(565 format) data for 16bpp 
-			LCD_WR_REG(0x29);	//¿ªÆôÏÔÊ¾
-			//ÉèÖÃPWMÊä³ö  ±³¹âÍ¨¹ýÕ¼¿Õ±È¿Éµ÷ 
-			LCD_WR_REG(0xD0);	//ÉèÖÃ×Ô¶¯°×Æ½ºâDBC
+			LCD_WR_REG(0x29);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+			//ï¿½ï¿½ï¿½ï¿½PWMï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Õ¼ï¿½Õ±È¿Éµï¿½ 
+			LCD_WR_REG(0xD0);	//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Æ½ï¿½ï¿½DBC
 			LCD_WR_DATA(0x00);	//disable			
-			LCD_WR_REG(0xBE);	//ÅäÖÃPWMÊä³ö
-			LCD_WR_DATA(0x05);	//1ÉèÖÃPWMÆµÂÊ
-			LCD_WR_DATA(0xFE);	//2ÉèÖÃPWMÕ¼¿Õ±È
-			LCD_WR_DATA(0x01);	//3ÉèÖÃC
-			LCD_WR_DATA(0x00);	//4ÉèÖÃD
-			LCD_WR_DATA(0x00);	//5ÉèÖÃE 
-			LCD_WR_DATA(0x00);	//6ÉèÖÃF 				
-			LCD_WR_REG(0xB8);	//ÉèÖÃGPIOÅäÖÃ
-			LCD_WR_DATA(0x03);	//2¸öIO¿ÚÉèÖÃ³ÉÊä³ö
-			LCD_WR_DATA(0x01);	//GPIOÊ¹ÓÃÕý³£µÄIO¹¦ÄÜ 
+			LCD_WR_REG(0xBE);	//ï¿½ï¿½ï¿½ï¿½PWMï¿½ï¿½ï¿½
+			LCD_WR_DATA(0x05);	//1ï¿½ï¿½ï¿½ï¿½PWMÆµï¿½ï¿½
+			LCD_WR_DATA(0xFE);	//2ï¿½ï¿½ï¿½ï¿½PWMÕ¼ï¿½Õ±ï¿½
+			LCD_WR_DATA(0x01);	//3ï¿½ï¿½ï¿½ï¿½C
+			LCD_WR_DATA(0x00);	//4ï¿½ï¿½ï¿½ï¿½D
+			LCD_WR_DATA(0x00);	//5ï¿½ï¿½ï¿½ï¿½E 
+			LCD_WR_DATA(0x00);	//6ï¿½ï¿½ï¿½ï¿½F 				
+			LCD_WR_REG(0xB8);	//ï¿½ï¿½ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½
+			LCD_WR_DATA(0x03);	//2ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½
+			LCD_WR_DATA(0x01);	//GPIOÊ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ 
 			LCD_WR_REG(0xBA);
-			LCD_WR_DATA(0X01);	//GPIO[1:0]=01,¿ØÖÆLCD·½Ïò
-			LCD_PWM_BackLightSet(100); //PWMÉèÖÃ±³¹âÎª×îÁÁ
+			LCD_WR_DATA(0X01);	//GPIO[1:0]=01,ï¿½ï¿½ï¿½ï¿½LCDï¿½ï¿½ï¿½ï¿½
+			LCD_PWM_BackLightSet(100); //PWMï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 			lcddev.LCD_W=480;
 			lcddev.LCD_H=800;
 			break;
 		}
 		default:
 		{
+			USART1_printf(USART1,"unknown LCD ID\r\n");
 			printf("unknow LCD ID\r\n");
 			break;
 		}
 	}
-  LCD_direction(USE_HORIZONTAL);//ÉèÖÃLCDÏÔÊ¾·½Ïò
-	LCD_LED=1;//µãÁÁ±³¹â	 
-	LCD_Clear(WHITE);//ÇåÈ«ÆÁ°×É«
+  LCD_direction(USE_HORIZONTAL);//ï¿½ï¿½ï¿½ï¿½LCDï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+	LCD_LED=1;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	 
+	LCD_Clear(WHITE);//ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½É«
 }
  
 /*****************************************************************************
@@ -2050,7 +2054,7 @@ void LCD_SetWindows(u16 xStar, u16 yStar,u16 xEnd,u16 yEnd)
 		LCD_WriteReg(0x213, yEnd);
 		LCD_WriteReg(lcddev.setxcmd, x);
 		LCD_WriteReg(lcddev.setycmd, y);	
-		LCD_WriteRAM_Prepare();	//¿ªÊ¼Ð´ÈëGRAM	
+		LCD_WriteRAM_Prepare();	//ï¿½ï¿½Ê¼Ð´ï¿½ï¿½GRAM	
 		return;
 	}
 	else if(lcddev.id==0x5510)
@@ -2071,7 +2075,7 @@ void LCD_SetWindows(u16 xStar, u16 yStar,u16 xEnd,u16 yEnd)
 		LCD_WR_DATA(yEnd>>8);   
 		LCD_WR_REG(lcddev.setycmd+3);
 		LCD_WR_DATA(yEnd&0XFF); 
-		LCD_WriteRAM_Prepare();	//¿ªÊ¼Ð´ÈëGRAM	
+		LCD_WriteRAM_Prepare();	//ï¿½ï¿½Ê¼Ð´ï¿½ï¿½GRAM	
 		return;
 	}
 	else if(lcddev.id==0x1963)
@@ -2120,7 +2124,7 @@ void LCD_SetWindows(u16 xStar, u16 yStar,u16 xEnd,u16 yEnd)
 	LCD_WR_DATA(yEnd>>8);
 	LCD_WR_DATA(0x00FF&yEnd);
 	
-	LCD_WriteRAM_Prepare();	//¿ªÊ¼Ð´ÈëGRAM			
+	LCD_WriteRAM_Prepare();	//ï¿½ï¿½Ê¼Ð´ï¿½ï¿½GRAM			
 }   
 
 /*****************************************************************************
@@ -2150,7 +2154,7 @@ void LCD_direction(u8 direction)
 { 
 	u16 dir_value[4]={0};
 	lcddev.dir = direction%4;
-	if(lcddev.dir%2)//ºáÆÁ¿í¶ÈºÍ¸ß¶È»¥»»
+	if(lcddev.dir%2)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÈºÍ¸ß¶È»ï¿½ï¿½ï¿½
 	{
 		lcddev.width=lcddev.LCD_H;
 		lcddev.height=lcddev.LCD_W;
@@ -2308,8 +2312,8 @@ u16 LCD_Read_ID(void)
 	LCD_WR_REG(0xF004);
 	LCD_WR_DATA(0x01);
 
-  LCD_ReadReg(0xC500,&val[1],1);//¶Á»Ø0X55
-	LCD_ReadReg(0xC501,&val[2],1);//¶Á»Ø0X10	
+  LCD_ReadReg(0xC500,&val[1],1);//ï¿½ï¿½ï¿½ï¿½0X55
+	LCD_ReadReg(0xC501,&val[2],1);//ï¿½ï¿½ï¿½ï¿½0X10	
 	val[0]=(val[1]<<8)|val[2];
 	if(val[0]==0x5510)
 	{

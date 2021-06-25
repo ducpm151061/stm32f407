@@ -701,10 +701,11 @@ void Test_Dynamic_Num(void)
 ******************************************************************************/
 void RTC_test(void)
 {
+	USART1_printf(USART1,"rtc test \r\n");
 	printf("rtc test\r\n");
-	Gui_StrCenter(0, 40, RED, BLUE, "STM32F407VxT6��Сϵͳ������", 16, 1);	 //������ʾ
-	Gui_StrCenter(0, 65, RED, BLUE, "RTC���Գ���", 16, 1);				 //������ʾ
-	Gui_StrCenter(0, 90, BLUE, BLUE, "2020-06-05", 16, 1);				 //������ʾ
+	Gui_StrCenter(0, 40, RED, BLUE, "STM32F407VxT6", 16, 1);	 //������ʾ
+	Gui_StrCenter(0, 65, RED, BLUE, "RTC", 16, 1);				 //������ʾ
+	Gui_StrCenter(0, 90, BLUE, BLUE, "2021-06-25", 16, 1);				 //������ʾ
 	Gui_StrCenter(0, 115, GREEN, BLUE, "http://www.lcdwiki.com", 16, 1); //������ʾ
 }
 
@@ -747,5 +748,6 @@ void RTC_Show_AlarmA_time(void)
 			RTC_AlarmTypeInitStructure.RTC_AlarmTime.RTC_Minutes,
 			RTC_AlarmTypeInitStructure.RTC_AlarmTime.RTC_Seconds,
 			RTC_AlarmTypeInitStructure.RTC_AlarmDateWeekDay);
+	USART1_printf(USART1,rtc_alarm_buf);
 	Show_Str(lcddev.width / 2 - 108, 200, BLUE, WHITE, rtc_alarm_buf, 16, 0);
 }

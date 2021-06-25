@@ -1,23 +1,23 @@
 //////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñ§Ï°Ê¹ï¿½Ã£ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Í¾
+//ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½STM32F407VGT6,STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æµ168MHZï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8MHZ
+//QDtech-TFTÒºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for STM32 FSMC
 //Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
+//ï¿½ï¿½Ë¾ï¿½ï¿½Õ¾:www.qdtft.com
+//wikiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½http://www.lcdwiki.com
+//ï¿½ï¿½Ë¾ï¿½á¹©ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ÎºÎ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â»¶Ó­ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ñ§Ï°
+//ï¿½Ì»ï¿½(ï¿½ï¿½ï¿½ï¿½) :+86 0755-21077707 
+//ï¿½Ö»ï¿½: (ï¿½ï¿½ï¿½ï¿½)18823372746 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)15989313508
+//ï¿½ï¿½ï¿½ï¿½:(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½) sales@qdtft.com  (ï¿½Ûºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)service@qdtft.com
+//QQ:(ï¿½ï¿½Ç°ï¿½ï¿½Ñ¯)3002706772 (ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½)3002778157
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQÈº:778679828
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2020/06/29
+//ï¿½æ±¾ï¿½ï¿½V1.0
+//ï¿½ï¿½È¨ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+//Copyright(C) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2018-2028
 //All rights reserved
 /************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åPWMÊ¾Àý
+//STM32F407VxT6ï¿½ï¿½Ð¡ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PWMÊ¾ï¿½ï¿½
 //LED0   --->   PA1
 //LED1   --->   PC5
 *************************************************************************************/	
@@ -46,33 +46,33 @@
 ******************************************************************************/	
 void TIM5_PWM_Init(u32 arr,u32 psc)
 {		 					 
-	//´Ë²¿·ÖÐèÊÖ¶¯ÐÞ¸ÄIO¿ÚÉèÖÃ	
+	//ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½Þ¸ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	GPIO_InitTypeDef GPIO_InitStructure;
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5,ENABLE);  	//TIM5Ê±ÖÓÊ¹ÄÜ    
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 	//Ê¹ÄÜPORTAÊ±ÖÓ	
-	GPIO_PinAFConfig(GPIOA,GPIO_PinSource1,GPIO_AF_TIM5); //GPIOA1¸´ÓÃÎª¶¨Ê±Æ÷5
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5,ENABLE);  	//TIM5Ê±ï¿½ï¿½Ê¹ï¿½ï¿½    
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 	//Ê¹ï¿½ï¿½PORTAÊ±ï¿½ï¿½	
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource1,GPIO_AF_TIM5); //GPIOA1ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ê±ï¿½ï¿½5
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;           //GPIOA1
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //¸´ÓÃ¹¦ÄÜ
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//ËÙ¶È100MHz
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;      //ÍÆÍì¸´ÓÃÊä³ö
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;        //ÉÏÀ­
-	GPIO_Init(GPIOA,&GPIO_InitStructure);              //³õÊ¼»¯PA1	  
-	TIM_TimeBaseStructure.TIM_Prescaler=psc;  //¶¨Ê±Æ÷·ÖÆµ
-	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; //ÏòÉÏ¼ÆÊýÄ£Ê½
-	TIM_TimeBaseStructure.TIM_Period=arr;   //×Ô¶¯ÖØ×°ÔØÖµ
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//ï¿½Ù¶ï¿½100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;      //ï¿½ï¿½ï¿½ì¸´ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;        //ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOA,&GPIO_InitStructure);              //ï¿½ï¿½Ê¼ï¿½ï¿½PA1	  
+	TIM_TimeBaseStructure.TIM_Prescaler=psc;  //ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Æµ
+	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; //ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½Ä£Ê½
+	TIM_TimeBaseStructure.TIM_Period=arr;   //ï¿½Ô¶ï¿½ï¿½ï¿½×°ï¿½ï¿½Öµ
 	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1; 	
-	TIM_TimeBaseInit(TIM5,&TIM_TimeBaseStructure);//³õÊ¼»¯¶¨Ê±Æ÷5
+	TIM_TimeBaseInit(TIM5,&TIM_TimeBaseStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½5
 	
-	//³õÊ¼»¯TIM5 Channel2 PWMÄ£Ê½	 
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //Ñ¡Ôñ¶¨Ê±Æ÷Ä£Ê½:TIMÂö³å¿í¶Èµ÷ÖÆÄ£Ê½2
- 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //±È½ÏÊä³öÊ¹ÄÜ
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low; //Êä³ö¼«ÐÔ:TIMÊä³ö±È½Ï¼«ÐÔµÍ
-	TIM_OC2Init(TIM5, &TIM_OCInitStructure);  //¸ù¾ÝTÖ¸¶¨µÄ²ÎÊý³õÊ¼»¯ÍâÉèTIM5
-	TIM_OC2PreloadConfig(TIM5, TIM_OCPreload_Enable);  //Ê¹ÄÜTIM5ÔÚCCR1ÉÏµÄÔ¤×°ÔØ¼Ä´æÆ÷
-  TIM_ARRPreloadConfig(TIM5,ENABLE);//ARPEÊ¹ÄÜ 
-	TIM_Cmd(TIM5, ENABLE);  //Ê¹ÄÜTIM5								  
+	//ï¿½ï¿½Ê¼ï¿½ï¿½TIM5 Channel2 PWMÄ£Ê½	 
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //Ñ¡ï¿½ï¿½Ê±ï¿½ï¿½Ä£Ê½:TIMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½Ä£Ê½2
+ 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //ï¿½È½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:TIMï¿½ï¿½ï¿½ï¿½È½Ï¼ï¿½ï¿½Ôµï¿½
+	TIM_OC2Init(TIM5, &TIM_OCInitStructure);  //ï¿½ï¿½ï¿½ï¿½TÖ¸ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TIM5
+	TIM_OC2PreloadConfig(TIM5, TIM_OCPreload_Enable);  //Ê¹ï¿½ï¿½TIM5ï¿½ï¿½CCR1ï¿½Ïµï¿½Ô¤×°ï¿½Ø¼Ä´ï¿½ï¿½ï¿½
+  	TIM_ARRPreloadConfig(TIM5,ENABLE);//ARPEÊ¹ï¿½ï¿½ 
+	TIM_Cmd(TIM5, ENABLE);  //Ê¹ï¿½ï¿½TIM5								  
 }  
 
 

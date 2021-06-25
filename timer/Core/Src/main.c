@@ -1,35 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//本程序只供学习使用，未经作者许可，不得用于其它商业用途
-//测试硬件：单片机STM32F407VGT6,STM32F407VxT6最小系统开发板,主频168MHZ，晶振8MHZ
-//QDtech-TFT液晶驱动 for STM32 FSMC
-//Chan@ShenZhen QDtech co.,LTD
-//公司网站:www.qdtft.com
-//wiki技术资料网站：http://www.lcdwiki.com
-//我司提供技术支持，任何技术问题欢迎随时交流学习
-//固话(传真) :+86 0755-21077707 
-//手机: (销售)18823372746 （技术)15989313508
-//邮箱:(销售/订单) sales@qdtft.com  (售后/技术服务)service@qdtft.com
-//QQ:(售前咨询)3002706772 (技术支持)3002778157
-//技术交流QQ群:778679828
-//创建日期:2020/06/29
-//版本：V1.0
-//版权所有，盗版必究。
-//Copyright(C) 深圳市全动电子技术有限公司 2018-2028
-//All rights reserved
-/************************************************************************************
-//STM32F407VxT6最小系统开发板定时器中断示例
-//LED0   --->   PA1
-//LED1   --->   PC5
-*************************************************************************************/	
- /* @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/		
 #include "delay.h"
 #include "sys.h"
 #include "led.h"
@@ -37,15 +5,15 @@
 
 int main(void)
 {
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
-	delay_init(168);     //初始化延时函数
-	LED_Init();          //初始化LED灯GPIO
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//锟斤拷锟斤拷系统锟叫讹拷锟斤拷锟饺硷拷锟斤拷锟斤拷2
+	delay_init(168);     //锟斤拷始锟斤拷锟斤拷时锟斤拷锟斤拷
+	LED_Init();          //锟斤拷始锟斤拷LED锟斤拷GPIO
 	//tout=((9999+1)*(8399+1))/84(us)=1s
-	TIM3_Int_Init(9999,8399);	//定时器3初始化，时钟84M，分频系数8400，所以84M/8400=10Khz的计数频率，计数10000次为1s
+	TIM3_Int_Init(9999,8399);	//锟斤拷时锟斤拷3锟斤拷始锟斤拷锟斤拷时锟斤拷84M锟斤拷锟斤拷频系锟斤拷8400锟斤拷锟斤拷锟斤拷84M/8400=10Khz锟侥硷拷锟斤拷频锟绞ｏ拷锟斤拷锟斤拷10000锟斤拷为1s
 	while(1)
 	{
-		LED0=!LED0;       //LED0翻转
-		delay_ms(200);	  //200ms延时
+		LED0=!LED0;       //LED0锟斤拷转
+		delay_ms(200);	  //200ms锟斤拷时
 	}
 }
 

@@ -1,83 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÉÌÒµÓÃÍ¾
-//²âÊÔÓ²¼þ£ºµ¥Æ¬»úSTM32F407VGT6,STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°å,Ö÷Æµ168MHZ£¬¾§Õñ8MHZ
-//QDtech-TFTÒº¾§Çý¶¯ for STM32 FSMC
-//Chan@ShenZhen QDtech co.,LTD
-//¹«Ë¾ÍøÕ¾:www.qdtft.com
-//wiki¼¼Êõ×ÊÁÏÍøÕ¾£ºhttp://www.lcdwiki.com
-//ÎÒË¾Ìá¹©¼¼ÊõÖ§³Ö£¬ÈÎºÎ¼¼ÊõÎÊÌâ»¶Ó­ËæÊ±½»Á÷Ñ§Ï°
-//¹Ì»°(´«Õæ) :+86 0755-21077707 
-//ÊÖ»ú: (ÏúÊÛ)18823372746 £¨¼¼Êõ)15989313508
-//ÓÊÏä:(ÏúÊÛ/¶©µ¥) sales@qdtft.com  (ÊÛºó/¼¼Êõ·þÎñ)service@qdtft.com
-//QQ:(ÊÛÇ°×ÉÑ¯)3002706772 (¼¼ÊõÖ§³Ö)3002778157
-//¼¼Êõ½»Á÷QQÈº:778679828
-//´´½¨ÈÕÆÚ:2020/06/29
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ÉîÛÚÊÐÈ«¶¯µç×Ó¼¼ÊõÓÐÏÞ¹«Ë¾ 2018-2028
-//All rights reserved
-/************************************************************************************
-//STM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åDACÊ¾Àý
-//     LED0           --->            PA1
-//     KEY0           --->            PE4
- 
-//Ö§³ÖILI9341/ILI9486/ILI9488/ST7793/ST7796S/R61509/NT35310/NT35510/SSD1963
-//TFT LCD¿ÉÒÔÖ±½Ó²åÈëSTM32F407VxT6×îÐ¡ÏµÍ³¿ª·¢°åTFTLCD²å²Û»òÕßÍ¨¹ýÅÅÏß½ÓÈëTFTLCD²å×ù
-//STM32Á¬½ÓÒý½ÅÊÇÖ¸TFTLCD²å²Û»òÕß²å×ùÒý½ÅÄÚ²¿Á¬½ÓµÄSTM32Òý½Å
-//=================================µçÔ´½ÓÏß=======================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      VDD           --->           DC5V/3.3V          //µçÔ´
-//      GND           --->             GND              //µçÔ´µØ
-//=============================Òº¾§ÆÁÊý¾ÝÏß½ÓÏß===================================//
-//     LCDÄ£¿é                    STM32Á¬½ÓÒý½Å
-//      DB0           --->            PD14        -|   
-//      DB1           --->            PD15         |  
-//      DB2           --->            PD0          | 
-//      DB3           --->            PD1          | 
-//      DB4           --->            PE7          |
-//      DB5           --->            PE8          |
-//      DB6           --->            PE9          |
-//      DB7           --->            PE10         |===>Òº¾§ÆÁ16Î»²¢¿ÚÊý¾ÝÐÅºÅ
-//      DB8           --->            PE11         |
-//      DB9           --->            PE12         |
-//      DB10          --->            PE13         |
-//      DB11          --->            PE14         |
-//      DB12          --->            PE15         |
-//      DB13          --->            PD8          |
-//      DB14          --->            PD9          |
-//      DB15          --->            PD10        -|
-//=============================Òº¾§ÆÁ¿ØÖÆÏß½ÓÏß===================================//
-//     LCDÄ£¿é 				            STM32Á¬½ÓÒý½Å 
-//      WR            --->            PD5             //Òº¾§ÆÁÐ´Êý¾Ý¿ØÖÆÐÅºÅ
-//      RD            --->            PD4             //Òº¾§ÆÁ¶ÁÊý¾Ý¿ØÖÆÐÅºÅ
-//      RS            --->            PD11            //Òº¾§ÆÁÊý¾Ý/ÃüÁî¿ØÖÆÐÅºÅ
-//      RST           --->          ¸´Î»Òý½Å£¨Ä¬ÈÏ£©  //Òº¾§ÆÁ¸´Î»¿ØÖÆÐÅºÅ£¨Ò²¿ÉÑ¡ÔñPD13£©
-//      CS            --->            PD7             //Òº¾§ÆÁÆ¬Ñ¡¿ØÖÆÐÅºÅ
-//      BL            --->            PB15            //Òº¾§ÆÁ±³¹â¿ØÖÆÐÅºÅ
-*************************************************************************************/	
- /* @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, QD electronic SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*************************************************************************************/
+
 #ifndef __USART_H
 #define __USART_H
-#include "stdio.h"	
+#include "stdio.h"
 #include "stm32f4xx_conf.h"
-#include "sys.h" 
-//ÊÇ·ñÊ¹ÓÃÎ¢¿â
-#define USE_MICROLIB 0    //0-²»Ê¹ÓÃ£¬1-Ê¹ÓÃ
+#include "sys.h"
+//ï¿½Ç·ï¿½Ê¹ï¿½ï¿½Î¢ï¿½ï¿½
+#define USE_MICROLIB 0 //0-ï¿½ï¿½Ê¹ï¿½Ã£ï¿½1-Ê¹ï¿½ï¿½
 
-#define USART_REC_LEN  	256  	//¶¨Òå×î´ó½ÓÊÕ×Ö½ÚÊý 256
-	  	
-extern u8  USART_RX_BUF[USART_REC_LEN]; //½ÓÊÕ»º³å,×î´óUSART_REC_LEN¸ö×Ö½Ú.Ä©×Ö½ÚÎª»»ÐÐ·û 
-extern u16 USART_RX_STA;         		//½ÓÊÕ×´Ì¬±ê¼Ç	
+#define USART_REC_LEN 256 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ 256
+
+extern u8 USART_RX_BUF[USART_REC_LEN]; //ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½USART_REC_LENï¿½ï¿½ï¿½Ö½ï¿½.Ä©ï¿½Ö½ï¿½Îªï¿½ï¿½ï¿½Ð·ï¿½
+extern u16 USART_RX_STA;               //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½
 
 void USART1_Init(u32 bound);
+void USART1_Send(const char *str);
+void USART1_printf(USART_TypeDef *USARTx, char *Data, ...);
 #endif
-
-

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "delay.h": "c",
+        "lcd.h": "c",
+        "usart.h": "c",
+        "stm32f4xx_conf.h": "c"
+    }
+}
